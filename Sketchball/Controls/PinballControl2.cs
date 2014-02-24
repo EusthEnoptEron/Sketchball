@@ -98,7 +98,14 @@ namespace Sketchball.Controls
             {
                 ArrowTo = (e.Location);
 
-                ball.V0 = ball.Velocity + new Vector2(ArrowTo.X - ArrowFrom.X, (ArrowTo.Y - ArrowFrom.Y) * 2);
+                foreach (PinballElement el in Elements)
+                {
+                    if (el is Ball)
+                    {
+                        Ball b = (Ball)el;
+                        b.V0 = b.Velocity + new Vector2(ArrowTo.X - ArrowFrom.X, (ArrowTo.Y - ArrowFrom.Y) * 2);
+                    }
+                } 
                 
                 ArrowTo = Point.Empty;
 
@@ -118,6 +125,10 @@ namespace Sketchball.Controls
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 ArrowFrom = (e.Location);
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                Elements.Add(new Ball() { Location = new Vector2(e.X, e.Y) });
             }
         }
 

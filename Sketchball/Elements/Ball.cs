@@ -11,14 +11,15 @@ namespace Sketchball.Elements
     {
         public Ball()
         {
-            Width = 30;
-            Height = 30;
+            Width = 60;
+            Height = 60;
             AffectedByGravity = true;
         }
 
         public override void Draw(System.Drawing.Graphics g)
         {
-            g.FillEllipse(Brushes.Peru, 0, 0, Width, Height);
+            //g.FillEllipse(Brushes.Peru, 0, 0, Width, Height);
+            g.DrawImage(Properties.Resources.BallWithAlpha, 0, 0, Width, Height);
         }
     }
 }
