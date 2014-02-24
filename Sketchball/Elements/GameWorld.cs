@@ -13,15 +13,15 @@ namespace Sketchball.Elements
     {
         private List<PinballElement> Elements = new List<PinballElement>();
         public Vector2 Gravity { get; set; }
-        private Size Boundaries;
+        private Size Bounds;
 
-        public int Width { get { return Boundaries.Width; } }
-        public int Height { get { return Boundaries.Height; } }
+        public int Width { get { return Bounds.Width; } }
+        public int Height { get { return Bounds.Height; } }
 
 
-        public GameWorld(Size boundaries)
+        public GameWorld(Size bounds)
         {
-            Boundaries = boundaries;
+            Bounds = bounds;
             Gravity = new Vector2(0, 1f);
         }
 

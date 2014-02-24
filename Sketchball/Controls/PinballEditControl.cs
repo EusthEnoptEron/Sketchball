@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,13 @@ namespace Sketchball.Controls
         public PinballElement SelectedElement { get; set; }
 
         private bool dragging = false;
-        private Change translation;
 
         private Vector2 startVector;
         private Point startPoint;
+
+        public Vector2 ScaleFactor = new Vector2(1,1);
+
+
 
         public PinballEditControl()
             : base()
@@ -39,8 +43,10 @@ namespace Sketchball.Controls
         {
             if (dragging && e.Button == MouseButtons.Left)
             {
+
+                Point loc = PointToPinball(e.Location);
                 dragging = false;
-                SelectedElement.Location = startVector + new Vector2(e.X - startPoint.X, e.Y - startPoint.Y);
+                SelectedElement.Location = startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor;
 
                 History.Add(new TranslationChange(SelectedElement, SelectedElement.Location - startVector));
             }
@@ -50,7 +56,8 @@ namespace Sketchball.Controls
         {
             if (dragging)
             {
-                SelectedElement.Location = startVector + new Vector2(e.X - startPoint.X, e.Y - startPoint.Y);
+                Point loc = PointToPinball(e.Location);
+                SelectedElement.Location = startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor;
                 Invalidate();
             }
         }
@@ -59,13 +66,15 @@ namespace Sketchball.Controls
         {
             if (e.Button == MouseButtons.Left)
             {
-                PinballElement element = FindElement(e.Location);
+                Point loc = PointToPinball(e.Location);
+
+                PinballElement element = FindElement(loc);
                 if (element != null)
                 {
                     // Select
                     SelectedElement = element;
                     dragging = true;
-                    startPoint = e.Location;
+                    startPoint = loc;
                     startVector = element.Location;
                 }
             }            
@@ -84,5 +93,75 @@ namespace Sketchball.Controls
             return null;
         }
 
+        protected override void ConfigureGDI(Graphics g)
+        {
+            base.ConfigureGDI(g);
+        }
+
+        protected override void Draw(Graphics g)
+        {
+            //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
+            Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
+            g.FillRectangle(brush, 0, 0, base.Width, base.Height);
+            g.Transform = Transform;
+
+            base.Draw(g);
+        }
+
+        private Matrix Transform
+        {
+            get
+            {
+                Matrix m  = new Matrix();
+                m.Translate(15, 15);
+                m.Scale(ScaleFactor.X, ScaleFactor.Y);
+                //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
+
+                return m;
+            }
+        }
+        private Matrix Transform2
+        {
+            get
+            {
+                Matrix m = new Matrix();
+                m.Translate(-15, -15);                
+                m.Scale(1/ScaleFactor.X, 1/ScaleFactor.Y);
+                //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
+
+                return m;
+            }
+        }
+
+        /// <summary>
+        /// Computes the location of the specified client point into pinball coordinates. 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private Point PointToPinball(Point p)
+        {
+            Point[] pArray = new Point[] { p };
+
+            Matrix m = Transform;
+            m.Invert();
+ 
+            m.TransformPoints(pArray);
+            
+            return pArray[0];
+        }
+
+        /// <summary>
+        /// Computes the location of the specified pinball point into editor coordinates. 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private Point PointToEditor(Point p)
+        {
+            Point[] pArray = new Point[] { p };
+            Matrix m = Transform;
+            m.TransformPoints(pArray);
+
+            return pArray[0];
+        }
     }
 }

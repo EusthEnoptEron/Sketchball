@@ -14,9 +14,9 @@ namespace Sketchball.Controls
     {
         protected GameWorld World;
 
-        private Bitmap BackgroundBitmap = null;
-        private Graphics BackgroundBuffer = null;
-        private Graphics ForegroundBuffer = null;
+        //private Bitmap BackgroundBitmap = null;
+        //private Graphics BackgroundBuffer = null;
+        //private Graphics ForegroundBuffer = null;
 
         protected PinballControl() : base()
         {
@@ -33,34 +33,17 @@ namespace Sketchball.Controls
         /// Draws the pinball control.
         /// </summary>
         /// <param name="g"></param>
-        protected void Draw(Graphics g)
+        protected virtual void Draw(Graphics g)
         {
-
-            //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
-            Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
-            g.FillRectangle(brush, 0, 0, base.Width, base.Height);
-
+            ConfigureGDI(g);
             World.Draw(g);
         }
 
-
-        private void PrepareBuffers()
-        {
-            if (BackgroundBitmap != null) BackgroundBitmap.Dispose();
-
-            BackgroundBitmap = new Bitmap(Width, Height);
-            BackgroundBuffer = Graphics.FromImage(BackgroundBitmap);
-            ForegroundBuffer = CreateGraphics();
-
-
-            ConfigureBuffers(BackgroundBuffer, ForegroundBuffer);
-        }
-
-        protected virtual void ConfigureBuffers(Graphics bg, Graphics fg)
+        protected virtual void ConfigureGDI(Graphics g)
         {
             // Go for quality in BG buffer and for performance in FG buffer.
-            bg.CompositingQuality = CompositingQuality.HighQuality;
-            bg.SmoothingMode = SmoothingMode.AntiAlias;
+            g.CompositingQuality = CompositingQuality.HighQuality;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
         }
 
 

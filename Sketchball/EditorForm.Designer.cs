@@ -30,14 +30,14 @@
         {
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openStageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveStageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pinballEditControl1 = new Sketchball.Controls.PinballEditControl();
-            this.playgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -50,7 +50,7 @@
             this.fileToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(777, 26);
+            this.mainMenuStrip.Size = new System.Drawing.Size(777, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -64,52 +64,59 @@
             this.playToolStripMenuItem,
             this.playgroundToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.newToolStripMenuItem.Text = "New";
             // 
             // openStageToolStripMenuItem
             // 
             this.openStageToolStripMenuItem.Name = "openStageToolStripMenuItem";
             this.openStageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
-            this.openStageToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.openStageToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.openStageToolStripMenuItem.Text = "Open Stage...";
             // 
             // saveStageToolStripMenuItem
             // 
             this.saveStageToolStripMenuItem.Name = "saveStageToolStripMenuItem";
             this.saveStageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
-            this.saveStageToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.saveStageToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.saveStageToolStripMenuItem.Text = "Save Stage";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
             // 
             // playToolStripMenuItem
             // 
             this.playToolStripMenuItem.Enabled = false;
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.playToolStripMenuItem.Text = "Play...";
             // 
-            // newToolStripMenuItem
+            // playgroundToolStripMenuItem
             // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.newToolStripMenuItem.Text = "New";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
+            this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
+            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.playgroundToolStripMenuItem.Text = "Playground";
+            this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 26);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pinballEditControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(777, 626);
+            this.splitContainer1.Size = new System.Drawing.Size(777, 628);
             this.splitContainer1.SplitterDistance = 210;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -119,16 +126,9 @@
             this.pinballEditControl1.Location = new System.Drawing.Point(0, 0);
             this.pinballEditControl1.Name = "pinballEditControl1";
             this.pinballEditControl1.SelectedElement = null;
-            this.pinballEditControl1.Size = new System.Drawing.Size(563, 626);
+            this.pinballEditControl1.Size = new System.Drawing.Size(563, 628);
             this.pinballEditControl1.TabIndex = 0;
             this.pinballEditControl1.Text = "pinballEditControl1";
-            // 
-            // playgroundToolStripMenuItem
-            // 
-            this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
-            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.playgroundToolStripMenuItem.Text = "Playground";
-            this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
             // EditorForm
             // 
@@ -140,6 +140,7 @@
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "EditorForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.EditorForm_Load);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

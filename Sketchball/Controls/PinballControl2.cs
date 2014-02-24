@@ -24,7 +24,6 @@ namespace Sketchball.Controls
         Point ArrowFrom = Point.Empty;
         Point ArrowTo = Point.Empty;
         Ball ball = null;
-        Brush textureBrush;
         int bufferReloads = 0;
 
         private void LoadBuffers()
