@@ -45,6 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Change.cs" />
+    <Compile Include="Collision\BoundingBox.cs" />
+    <Compile Include="Collision\BoundingRectangle.cs" />
+    <Compile Include="Collision\BoundingSphere.cs" />
+    <Compile Include="Collision\BoundingTriangle.cs" />
+    <Compile Include="Collision\IBoundingBox.cs" />
     <Compile Include="Controls\PinballControl.cs">
       <SubType>Component</SubType>
     </Compile>
