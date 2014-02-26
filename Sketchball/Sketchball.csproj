@@ -46,9 +46,11 @@
   <ItemGroup>
     <Compile Include="Change.cs" />
     <Compile Include="Collision\BoundingBox.cs" />
-    <Compile Include="Collision\BoundingRectangle.cs" />
-    <Compile Include="Collision\BoundingSphere.cs" />
-    <Compile Include="Collision\BoundingTriangle.cs" />
+    <Compile Include="Collision\BoundingCircle.cs" />
+    <Compile Include="Collision\BoundingContainer.cs" />
+    <Compile Include="Collision\BoundingField.cs" />
+    <Compile Include="Collision\BoundingLine.cs" />
+    <Compile Include="Collision\BoundingRaster.cs" />
     <Compile Include="Collision\IBoundingBox.cs" />
     <Compile Include="Controls\PinballControl.cs">
       <SubType>Component</SubType>
