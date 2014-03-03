@@ -55,8 +55,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Elements\Ball.cs" />
+    <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
-    <Compile Include="Elements\GameWorld.cs" />
+    <Compile Include="Elements\PinballMachine.cs" />
     <Compile Include="EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>

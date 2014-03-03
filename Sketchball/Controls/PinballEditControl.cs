@@ -82,7 +82,7 @@ namespace Sketchball.Controls
 
         private PinballElement FindElement(Point location)
         {
-            foreach (PinballElement element in World)
+            foreach (PinballElement element in World.Elements)
             {
                 if (element.Contains(location))
                 {

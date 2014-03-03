@@ -1,70 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
-    [Serializable]
-    public class GameWorld : IList<PinballElement>
+    public class ElementCollection : ICollection<PinballElement>
     {
+        public PinballMachine Owner { get; private set;}
         private List<PinballElement> Elements = new List<PinballElement>();
-        public Vector2 Gravity { get; set; }
-        private Size Bounds;
 
-        public int Width { get { return Bounds.Width; } }
-        public int Height { get { return Bounds.Height; } }
-
-
-        public GameWorld(Size bounds)
+        public ElementCollection(PinballMachine parent)
         {
-            Bounds = bounds;
-            Gravity = new Vector2(0, 1f);
-        }
-
-        internal void Update(long elapsed)
-        {
-            foreach(PinballElement element in Elements) {
-                element.Update(elapsed);
-            }
-
-            // Find collisions
-            // ...
+            Owner = parent;
         }
 
         private void ClaimElement(PinballElement element)
         {
-            if (element.World != null && element.World != this)
+            if (element.World != null && element.World != Owner)
             {
-                element.World.Remove(element);
+                element.World.Elements.Remove(element);
             }
-            element.World = this;
+            element.World = Owner;
         }
 
 
         private void ReleaseElement(PinballElement element)
         {
-            if(element.World == this)
+            if (element.World == Owner)
                 element.World = null;
         }
 
-
-        public void Draw(Graphics g)
-        {
-            g.DrawRectangle(Pens.Black, 0, 0, Width, Height);
-            foreach (PinballElement element in Elements)
-            {
-                GraphicsState gstate = g.Save();
-
-                g.TranslateTransform(element.X, element.Y);
-                element.Draw(g);
-
-                g.Restore(gstate);
-            }
-        }
 
 #region LIST IMPLEMENTATION
         public int IndexOf(PinballElement item)
@@ -155,8 +122,6 @@ namespace Sketchball.Elements
         {
             return Elements.GetEnumerator();
         }
-
-
     }
 
 #endregion

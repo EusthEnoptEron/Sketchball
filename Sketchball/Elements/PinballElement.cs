@@ -17,7 +17,7 @@ namespace Sketchball.Elements
 
         public static Vector2 G = new Vector2(0, 0.8f);
 
-        public GameWorld World { get; internal set; }
+        public PinballMachine World { get; internal set; }
 
         private Vector2 PrivateAcceleration = new Vector2();
         public Vector2 Acceleration
