@@ -18,6 +18,9 @@ namespace Sketchball.Collision
         private LinkedList<IBoundingBox> animatedObjects;
         private BoundingField[,] fields;
 
+        private int fieldWidth;
+        private int fieldHeight;
+
         public BoundingRaster(int rows, int cols, int width, int height)
         {
             this.animatedObjects = new LinkedList<IBoundingBox>();
@@ -28,12 +31,14 @@ namespace Sketchball.Collision
 
             this.width = width;
             this.height = height;
+
+            this.fieldWidth = this.width / this.cols;
+            this.fieldHeight =  this.height / this.rows;
         }
 
         public void takeOverBoundingBoxes(LinkedList<PinballElement> eles)
         {
-            int fieldWidth = this.width / this.cols;
-            int fieldHeight = this.height / this.rows;
+            //TODO special cases: unitX  = 0, unitY = 0, horizontal line, vertical line
 
             foreach (PinballElement pE in eles)
             {
@@ -50,7 +55,7 @@ namespace Sketchball.Collision
                         BoundingCircle bCir = (BoundingCircle)b;
 
                         //position of the circle self (which field)
-                        x = ((int)bCir.position.X / fieldWidth);
+                        x = ((int)bCir.position.X / fieldWidth);        //TODO check if this is rounded down
                         y = ((int)bCir.position.Y / fieldHeight);
 
                         
@@ -80,13 +85,14 @@ namespace Sketchball.Collision
                             }
                         }
                     }
-                    else
+                    else        //if(b.GetType() == typeof(BoundingCircle))
                     {
                         //line
                         BoundingLine bL = (BoundingLine)b;
 
                         float posX = bL.position.X;
                         float posY = bL.position.Y;
+
                         //position of the line base (which field)
                         x = ((int)posX / fieldWidth);
                         y = ((int)posY / fieldHeight);
@@ -94,92 +100,154 @@ namespace Sketchball.Collision
                         //add the start
                         this.fields[x, y].addReference(bL);     //duplicate entries will be neglected
 
+                        //define unitvector from position to target
                         Vector2 unitV = bL.target - bL.position;
                         unitV.Normalize();
 
 
                         if (unitV.X > 0)
                         {
-                            float deltaRight = fieldWidth - (posX - fieldWidth * x);     //distance from right end of field to the position
-                            float factorToNextXCross = deltaRight / unitV.X;
-
-                            while (posX < bL.target.X)
-                            {
-                                //direction left to right
-                                float nextXCross = posX + deltaRight;
-                                float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
-
-                                //float newFieldXIdx = ((int)nextXCross / fieldWidth);
-                                int newFieldYIdx = ((int)nextXCrossY / fieldHeight);
-
-                                if (unitV.Y > 0)        //heading down
-                                {
-                                    if (newFieldYIdx > y)
-                                    {
-                                        //we entered new y field(s)
-                                        for (int i = y; i < newFieldYIdx; y++)
-                                        {
-                                            this.fields[x, i].addReference(b);      //this is a field that the line goes through
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    //heading up
-                                    if (newFieldYIdx < y)
-                                    {
-                                        //we entered new y field(s)
-                                        for (int i = y; i > newFieldYIdx; y--)
-                                        {
-                                            this.fields[x, i].addReference(b);      //this is a field that the line goes through
-                                        }
-                                    }
-                                }
-
-                                //update field index
-                                x++;
-                                y = newFieldYIdx;
-
-                                //update position
-                                posX += nextXCross;
-                                posY += nextXCrossY;
-
-                                //since we are at the border of a field the deltaRight will allways be the full field width
-                                deltaRight = fieldWidth;
-
-                                this.fields[x, newFieldYIdx].addReference(b);       //add the next x field (since the line just gets crossed)
-                            }
-
-                            //at this point all x fields have been added but there might be some y fields who get touched but are not referenced yet.
-                            //that are all fields that are above the last x cross (like directly under the target)
-
-
-                            int endField = ((int)bL.target.Y / fieldHeight);
-                            if (unitV.Y > 0)        //heading down
-                            {
-                                for (int i = y + 1; i >= endField; i++)
-                                {
-                                    this.fields[x, i].addReference(bL);
-                                }
-                            }
-                            else   //heading up
-                            {
-                                for (int i = endField; i <= y - 1; i++)
-                                {
-                                    this.fields[x, i].addReference(bL);
-                                }
-                            }
-
+                           
+                            takeOverBoundingLineLeftToRight(unitV,  posX,  posY,  x,  y,  bL);
                         }
                         else
                         {
-                            //direction right to left
-                            float deltaLeft = (bL.position.X - fieldWidth * x);     //distance from left begin of field to the position
+                            takeOverBoundingLineRightToLeft(unitV, posX, posY, x, y, bL);
                         }
 
+                        //at this point all x fields have been added but there might be some y fields who get touched but are not referenced yet.
+                        //that are all fields that are above the last x cross (like directly under the target)
+
+
+                        int endField = ((int)bL.target.Y / fieldHeight);
+
+                        if (unitV.Y > 0)        //heading down
+                        {
+                            for (int i = y + 1; i >= endField; i++)
+                            {
+                                this.fields[x, i].addReference(bL);
+                            }
+                        }
+                        else   //heading up
+                        {
+                            for (int i = endField; i <= y - 1; i++)
+                            {
+                                this.fields[x, i].addReference(bL);
+                            }
+                        }
+                    }       //if(b.GetType() == typeof(BoundingCircle))
+                }       //foreach (IBoundingBox b in bC.boundingBoxes)
+            }       //foreach (PinballElement pE in eles)
+        }
+
+        private void takeOverBoundingLineLeftToRight(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL)
+        {
+            float deltaRight = fieldWidth - (posX - fieldWidth * x);     //distance from right end of field to the position
+            float factorToNextXCross = deltaRight / unitV.X;
+
+            while (posX < bL.target.X)
+            {
+                factorToNextXCross = deltaRight / unitV.X;
+
+                //direction left to right
+                float nextXCross = posX + deltaRight;
+                float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
+
+                //float newFieldXIdx = ((int)nextXCross / fieldWidth);
+                int newFieldYIdx = ((int)nextXCrossY / fieldHeight);
+
+                if (unitV.Y > 0)        //heading down
+                {
+                    if (newFieldYIdx > y)
+                    {
+                        //we entered new y field(s)
+                        for (int i = y; i < newFieldYIdx; y++)
+                        {
+                            this.fields[x, i].addReference(bL);      //this is a field that the line goes through
+                        }
                     }
-                  
                 }
+                else
+                {
+                    //heading up
+                    if (newFieldYIdx < y)
+                    {
+                        //we entered new y field(s)
+                        for (int i = y; i > newFieldYIdx; y--)
+                        {
+                            this.fields[x, i].addReference(bL);      //this is a field that the line goes through
+                        }
+                    }
+                }
+
+                //update field index
+                x++;
+                y = newFieldYIdx;
+
+                //update position
+                posX = nextXCross;
+                posY = nextXCrossY;
+
+                //since we are at the border of a field the deltaRight will allways be the full field width
+                deltaRight = fieldWidth;
+
+                this.fields[x, newFieldYIdx].addReference(bL);       //add the next x field (since the line just gets crossed)
+            }
+
+        }
+
+        private void takeOverBoundingLineRightToLeft(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL)
+        {
+            float deltaLeft =  (posX - fieldWidth * x);     //distance from right end of field to the position
+            float factorToNextXCross = deltaLeft / -unitV.X;
+
+            while (posX > bL.target.X)
+            {
+                factorToNextXCross = deltaLeft / -unitV.X;
+
+                //direction left to right
+                float nextXCross = posX - deltaLeft;
+                float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
+
+                //float newFieldXIdx = ((int)nextXCross / fieldWidth);
+                int newFieldYIdx = ((int)nextXCrossY / fieldHeight);
+
+                if (unitV.Y > 0)        //heading down
+                {
+                    if (newFieldYIdx > y)
+                    {
+                        //we entered new y field(s)
+                        for (int i = y; i < newFieldYIdx; y++)
+                        {
+                            this.fields[x, i].addReference(bL);      //this is a field that the line goes through
+                        }
+                    }
+                }
+                else
+                {
+                    //heading up
+                    if (newFieldYIdx < y)
+                    {
+                        //we entered new y field(s)
+                        for (int i = y; i > newFieldYIdx; y--)
+                        {
+                            this.fields[x, i].addReference(bL);      //this is a field that the line goes through
+                        }
+                    }
+                }
+
+                //update field index
+                x--;
+                y = newFieldYIdx;
+
+                //update position
+                posX = nextXCross;
+                posY = nextXCrossY;
+
+                //since we are at the border of a field the deltaRight will allways be the full field width
+                deltaLeft = fieldWidth;
+
+                this.fields[x, newFieldYIdx].addReference(bL);       //add the next x field (since the line just gets crossed)
             }
         }
 
@@ -192,38 +260,43 @@ namespace Sketchball.Collision
             foreach (IBoundingBox b in this.animatedObjects)
             {
                 //does any animated object intersec?
-                if (b.intersec(ball.getBoundingContainer().))       //specify bounding box of ball
+                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0]))       //specify bounding box of ball
                 {
                     //collision
-                    ball.Acceleration = b.reflect(ball.Acceleration);       //TODO: is acceleration the velocity vector of the ball?
+                    ball.Velocity = b.reflect(ball.Velocity);       //TODO: is acceleration the velocity vector of the ball?
                 }
             }
 
             int fieldWidth = this.width / this.cols;
             int fieldHeight = this.height / this.rows;
 
-            int x = (int)(pos.X / fieldWidth);
-            int y = (int)(pos.Y / fieldHeight);
+            int x = (int)(ball.Location.X / fieldWidth);
+            int y = (int)(ball.Location.Y / fieldHeight);
 
-            HashSet<IBoundingBox> surrounding = new HashSet<IBoundingBox>();
             for (int x1 = x - 1; x1 < x + 1; x1++)
             {
-                for (int y1 = y - 1; y1 < y + 1; y1++)
+                if(x1>0&&x1<this.cols)
                 {
-                    foreach (IBoundingBox b in this.fields[x1, y1].getReferences())
+                    for (int y1 = y - 1; y1 < y + 1; y1++)
                     {
-                        if (b.intersec(ball.getBoundingContainer().))       //specify bounding box of ball
+                        if(y1>0&&y1<this.rows)
                         {
-                            //collision
-                            ball.Acceleration = b.reflect(ball.Acceleration);       //TODO: is acceleration the velocity vector of the ball?
+                            foreach (IBoundingBox b in this.fields[x1, y1].getReferences())
+                            {
+                                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0]))       //specify bounding box of ball
+                                {
+                                    //collision
+                                    ball.Velocity = b.reflect(ball.Velocity);       //TODO: is acceleration the velocity vector of the ball?
+                                }
+                            }
                         }
                     }
                 }
+            
             }
         }
 
-        
-
+       
 
         public void addAnimatedObject(IBoundingBox aO)
         {

@@ -15,7 +15,6 @@ namespace Sketchball.Collision
             this.position += moveVec;
         }
 
-    
         public abstract bool intersec(IBoundingBox bB);
 
         public abstract Vector2 reflect(Vector2 vecIn);
@@ -23,8 +22,6 @@ namespace Sketchball.Collision
         public abstract void rotate(float degree, Vector2 center);
 
         public abstract bool lineIntersec(BoundingLine bL);
-
-        public abstract List<Vector2> getVertices();
 
         public abstract bool circleIntersec(BoundingCircle bC);
     }

@@ -8,9 +8,10 @@ namespace Sketchball.Collision
 {
     public class BoundingField
     {
-        private HashSet<IBoundingBox> bBReferences;
-        public int x { get; private set; }
-        public int y { get; private set; }
+        private HashSet<IBoundingBox> bBReferences;     //ref on BoundingBoxes of all Pinballelements Boundingboxes that intersect this raster
+
+        public int x { get; private set; }      //idx in raster
+        public int y { get; private set; }     //idx in raster
 
         public BoundingField(int x, int y)
         {

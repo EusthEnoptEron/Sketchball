@@ -17,6 +17,5 @@ namespace Sketchball.Collision
         public bool circleIntersec(BoundingCircle bC);
 
 
-        public List<Vector2> getVertices();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,13 +36,6 @@ namespace Sketchball.Collision
             this.target += moveVec;
         }
 
-        public override List<Vector2> getVertices()
-        {
-            List<Vector2> l = new List<Vector2>();
-            l.Add(base.position);
-            l.Add(this.target);
-            return l;
-        }
   
         public override bool lineIntersec(BoundingLine bL)
         {
@@ -97,7 +91,13 @@ namespace Sketchball.Collision
 
         public override void rotate(float degree, Vector2 center)
         {
-            throw new NotImplementedException();
+            Matrix rotation = new Matrix();
+            System.Drawing.PointF ptCenter = new System.Drawing.PointF(center.X, center.Y);
+            rotation.RotateAt(degree, ptCenter);
+
+            rotation.TransformVectors(this.position);       //TODO
+            rotation.TransformVectors(this.target);       //TODO also has to be moved to center, rotate then move back, since based on position
+           
         }
 
         public override bool circleIntersec(BoundingCircle bC)
