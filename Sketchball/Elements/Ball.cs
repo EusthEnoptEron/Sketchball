@@ -31,7 +31,7 @@ namespace Sketchball.Elements
         public Ball()
         {
             Velocity = new Vector2();
-            Mass = 0.1f;
+            Mass = 0.2f;
             Width = 60;
             Height = 60;
         }
@@ -59,8 +59,9 @@ namespace Sketchball.Elements
             {
                 float fg = Mass * World.Gravity;
                 float fnet = (float)(Math.Sin(World.Tilt) * fg);
-
-                return new Vector2(0, fnet * PinballMachine.PIXELS_TO_METERS_RATIO);
+                
+                // f = m * a -> a = f / m
+                return new Vector2(0, (fnet / Mass ) * PinballMachine.PIXELS_TO_METERS_RATIO);
             }
         }
         public float Mass

@@ -11,7 +11,7 @@ namespace Sketchball.Elements
     [Serializable]
     public class PinballMachine
     {
-        public const float PIXELS_TO_METERS_RATIO = 2f;
+        public const float PIXELS_TO_METERS_RATIO = 0.5f;
 
         public ElementCollection Elements {get; private set;}
         public Size Bounds {get; private set;}
