@@ -11,7 +11,8 @@ namespace Sketchball.Elements
     [Serializable]
     public class PinballMachine
     {
-        public const float PIXELS_TO_METERS_RATIO = 0.5f;
+        // 500px = 1m
+        public const float PIXELS_TO_METERS_RATIO = 500f / 1;
 
         public ElementCollection Elements {get; private set;}
         public Size Bounds {get; private set;}
@@ -24,14 +25,21 @@ namespace Sketchball.Elements
         /// <summary>
         /// Tilt of the pinball machine in radians.
         /// </summary>
-        public float Tilt = (float)(Math.PI / 180 * 30);
+        public float Angle = (float)(Math.PI / 180 * 30);
 
         public PinballMachine(Size bounds)
         {
             Elements = new ElementCollection(this);
             Bounds = bounds;
         }
-       
+
+        public Vector2 Acceleration
+        {
+            get
+            {
+                return new Vector2(0, (float)Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
+            }
+        }
 
         public void Draw(Graphics g)
         {

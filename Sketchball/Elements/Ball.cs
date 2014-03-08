@@ -46,24 +46,10 @@ namespace Sketchball.Elements
         {
             t += delta;
             base.Update(delta);
-            v = v0 + t * Acceleration;
+            v = v0 + (t / 1000f) * World.Acceleration;
             Location += v * (delta / 1000f);
         }
 
-        /// <summary>
-        /// Amount of pixels the ball accelerates on the projected coordinate system.
-        /// </summary>
-        public Vector2 Acceleration
-        {
-            get
-            {
-                float fg = Mass * World.Gravity;
-                float fnet = (float)(Math.Sin(World.Tilt) * fg);
-                
-                // f = m * a -> a = f / m
-                return new Vector2(0, (fnet / Mass ) * PinballMachine.PIXELS_TO_METERS_RATIO);
-            }
-        }
         public float Mass
         {
             get;
