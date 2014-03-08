@@ -9,23 +9,10 @@ namespace Sketchball.Elements
 {
     public class Ball : PinballElement, IPhysics
     {
-
-        private Vector2 v;
-        private Vector2 v0;
-        long t = 0;
-
         public Vector2 Velocity
         {
-            get
-            {
-                return v;
-            }
-            set
-            {
-                v0 = value;
-                t = 0;
-                v = v0;
-            }
+            get;
+            set;
         }
 
         public Ball()
@@ -44,10 +31,9 @@ namespace Sketchball.Elements
 
         public override void Update(long delta)
         {
-            t += delta;
             base.Update(delta);
-            v = v0 + (t / 1000f) * World.Acceleration;
-            Location += v * (delta / 1000f);
+            Velocity += World.Acceleration * (delta / 1000f);
+            Location += Velocity * (delta / 1000f);
         }
 
         public float Mass
