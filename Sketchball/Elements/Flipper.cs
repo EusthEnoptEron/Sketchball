@@ -19,7 +19,6 @@ namespace Sketchball.Elements
         {
             Width = 50;
             Height = 50;
-            AffectedByGravity = true;
             GoUp();
         }
 

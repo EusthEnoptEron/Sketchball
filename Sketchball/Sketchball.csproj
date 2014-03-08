@@ -48,6 +48,12 @@
     <Compile Include="Controls\PinballControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\PinballControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PinballControl2.Designer.cs">
+      <DependentUpon>PinballControl2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PinballEditControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -57,6 +63,8 @@
     <Compile Include="Elements\Ball.cs" />
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
+    <Compile Include="Elements\IPhysics.cs" />
+    <Compile Include="Elements\PinballGameMachine.cs" />
     <Compile Include="Elements\PinballMachine.cs" />
     <Compile Include="EditorForm.cs">
       <SubType>Form</SubType>
@@ -67,12 +75,6 @@
     <Compile Include="GlideTween\Ease.cs" />
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />
-    <Compile Include="Controls\PinballControl2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\PinballControl2.Designer.cs">
-      <DependentUpon>PinballControl2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Elements\PinballElement.cs" />
     <Compile Include="History.cs" />
     <Compile Include="PlayForm.cs">
@@ -112,6 +114,7 @@
     <Content Include="Assets\BallWithAlpha.png" />
     <None Include="Resources\PinballImage.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

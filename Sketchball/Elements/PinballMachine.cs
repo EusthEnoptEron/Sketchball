@@ -11,33 +11,26 @@ namespace Sketchball.Elements
     [Serializable]
     public class PinballMachine
     {
+        public const float PIXELS_TO_METERS_RATIO = 2f;
 
         public ElementCollection Elements {get; private set;}
-        public Vector2 Gravity { get; set; }
-        private Size Bounds;
+        public Size Bounds {get; private set;}
 
         public int Width { get { return Bounds.Width; } }
         public int Height { get { return Bounds.Height; } }
 
+        public float Gravity = 9.81f;
+
+        /// <summary>
+        /// Tilt of the pinball machine in radians.
+        /// </summary>
+        public float Tilt = (float)(Math.PI / 180 * 30);
 
         public PinballMachine(Size bounds)
         {
             Elements = new ElementCollection(this);
             Bounds = bounds;
-            Gravity = new Vector2(0, 1f);
         }
-
-        internal void Update(long elapsed)
-        {
-            foreach (PinballElement element in Elements)
-            {
-                element.Update(elapsed);
-            }
-
-            // Find collisions
-            // ...
-        }
-
        
 
         public void Draw(Graphics g)
@@ -53,13 +46,17 @@ namespace Sketchball.Elements
                 g.Restore(gstate);
             }
         }
+        public virtual void Update(long elapsed)
+        {
+        }
+
 
         public void Add(PinballElement element)
         {
             Elements.Add(element);
         }
 
-        public bool Rmeove(PinballElement element)
+        public bool Remove(PinballElement element)
         {
             return Elements.Remove(element);
         }

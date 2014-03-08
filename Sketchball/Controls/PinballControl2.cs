@@ -104,7 +104,7 @@ namespace Sketchball.Controls
                     if (el is Ball)
                     {
                         Ball b = (Ball)el;
-                        b.V0 = b.Velocity + new Vector2(ArrowTo.X - ArrowFrom.X, (ArrowTo.Y - ArrowFrom.Y) * 2);
+                        b.Velocity += new Vector2(ArrowTo.X - ArrowFrom.X, (ArrowTo.Y - ArrowFrom.Y) * 2);
                     }
                 } 
                 
@@ -258,17 +258,23 @@ namespace Sketchball.Controls
             foreach (PinballElement element in Elements)
             {
                 element.Update(delta.Milliseconds);
-                if (element.Y + element.Height > Height)
-                {
-                    element.Y = Height - element.Height;
 
-                    element.V0 = new Vector2(element.Velocity.X * .6f, -element.Velocity.Y * .6f);
-                }
-                if (element.X < 0 || element.X + element.Width > Width)
+                if (element is IPhysics)
                 {
-                    element.X = Math.Max(0, Math.Min(Width - element.Width, element.X));
-                    element.V0 = new Vector2(-element.Velocity.X * .6f, element.Velocity.Y);
+                    IPhysics el = (IPhysics)element;
+                    if (element.Y + element.Height > Height)
+                    {
+                        element.Y = Height - element.Height;
+
+                        el.Velocity = new Vector2(el.Velocity.X * .6f, -el.Velocity.Y * .6f);
+                    }
+                    if (element.X < 0 || element.X + element.Width > Width)
+                    {
+                        element.X = Math.Max(0, Math.Min(Width - element.Width, element.X));
+                        el.Velocity = new Vector2(-el.Velocity.X * .6f, el.Velocity.Y);
+                    }
                 }
+               
 
 
 
