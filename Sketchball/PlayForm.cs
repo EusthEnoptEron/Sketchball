@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace Sketchball
 {
-    public class PlayForm : Form
+    public class PlayForm : PinballForm
     {
-        public PlayForm(PinballMachine world)
+        public PlayForm(PinballMachine world) : base()
         {
             // TODO: Make clone of world (so x, y, and so on are kept intact)
-
+            
         }
     }
 }

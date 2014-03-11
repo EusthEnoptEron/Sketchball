@@ -77,6 +77,9 @@
     <Compile Include="GlideTween\GlideInfo.cs" />
     <Compile Include="Elements\PinballElement.cs" />
     <Compile Include="History.cs" />
+    <Compile Include="PinballForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PlayForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +87,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TranslationChange.cs" />
     <Compile Include="Vector2.cs" />
+    <Compile Include="WelcomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WelcomeForm.Designer.cs">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -97,6 +106,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="WelcomeForm.resx">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

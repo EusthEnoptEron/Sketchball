@@ -12,12 +12,13 @@ using System.Windows.Forms;
 
 namespace Sketchball
 {
-    public partial class EditorForm : Form
+    public partial class EditorForm : PinballForm
     {
-        public EditorForm()
+        public EditorForm() : base()
         {
             InitializeComponent();
             pinballEditControl1.ScaleFactor *= 1.1f;
+            
         }
 
         private void playgroundToolStripMenuItem_Click(object sender, EventArgs e)

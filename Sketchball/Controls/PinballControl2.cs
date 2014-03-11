@@ -274,10 +274,6 @@ namespace Sketchball.Controls
                         el.Velocity = new Vector2(-el.Velocity.X * .6f, el.Velocity.Y);
                     }
                 }
-               
-
-
-
             }
 
         }
