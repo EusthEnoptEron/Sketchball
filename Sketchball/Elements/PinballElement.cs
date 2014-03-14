@@ -1,4 +1,5 @@
 ﻿using GlideTween;
+using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,57 +10,32 @@ using System.Threading.Tasks;
 namespace Sketchball.Elements
 {
     [Serializable]
-    public abstract class PinballElement
+    public abstract class PinballElement : ICloneable
     {
         public int Width = 100;
         public int Height = 100;
         protected Glide Tweener = new Glide();
 
-        public static Vector2 G = new Vector2(0, 0.8f);
+        private float bounceFactor = 1f;
 
-        public GameWorld World { get; internal set; }
+        public PinballMachine World { get; internal set; }
 
-        private Vector2 PrivateAcceleration = new Vector2();
-        public Vector2 Acceleration
-        {
-            get
-            {
-                if (AffectedByGravity)
-                    return PrivateAcceleration + World.Gravity;
-                else
-                    return PrivateAcceleration;
-            }
-            set
-            {
-                if (AffectedByGravity)
-                    PrivateAcceleration = value - World.Gravity;
-                else
-                    PrivateAcceleration = value;
-            }
-        }
+        private Vector2 Location= new Vector2();
 
-        public virtual Boolean AffectedByGravity { get; protected set; }
-
-
-        private Vector2 _v0 = new Vector2();
-        private float t = 0;
-        public Vector2 V0 {
-            get { return _v0;  } 
-            set { _v0 = value; t = 0; }
-        }
-        public Vector2 Velocity { get; private set; }
-
-        public Vector2 Location = new Vector2();
         public float X { get { return Location.X; } set { Location.X = value; } }
         public float Y { get { return Location.Y; } set { Location.Y = value; } }
+
+        //Collision detection stuff
+        public BoundingContainer boundingContainer{get;private set;}
+
+        public PinballElement()
+        {
+            this.boundingContainer =  new BoundingContainer(this);
+        }
        
 
         public virtual void Update(long delta)
-        {  
-            t += delta;
-            Velocity = V0 + t * Acceleration;
-            Location.X += (Velocity.X * delta / 1000f);
-            Location.Y += (Velocity.Y * delta / 1000f);
+        {
         }
 
         public abstract void Draw(Graphics g);
@@ -67,6 +43,34 @@ namespace Sketchball.Elements
         public virtual bool Contains(Point point)
         {
             throw new NotImplementedException();
+        }
+
+        public object Clone()
+        {
+            PinballElement element = (PinballElement)base.MemberwiseClone();
+            return element;
+        }
+
+
+        public BoundingContainer getBoundingContainer()
+        {
+            return this.boundingContainer;
+        }
+
+        public Vector2 getLocation()
+        {
+            return this.Location;
+        }
+
+        public void setLocation(Vector2 newLoc)
+        {
+            this.Location.X = newLoc.X;
+            this.Location.Y = newLoc.Y;
+        }
+
+        public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
+        {
+            return newDirection* bounceFactor;
         }
     }
 }

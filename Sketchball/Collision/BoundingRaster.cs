@@ -12,7 +12,7 @@ namespace Sketchball.Collision
         public int rows { get; private set; }
         public int cols { get; private set; }
 
-        public int width { get; set; }
+        public int width { get; set; }      //TODO has to be updated when window size changes
         public int height { get; set; }
 
         private LinkedList<IBoundingBox> animatedObjects;
@@ -21,10 +21,13 @@ namespace Sketchball.Collision
         private int fieldWidth;
         private int fieldHeight;
 
-        public BoundingRaster(int rows, int cols, int width, int height)
+        public Vector2 hitPointDebug = new Vector2(0, 0);
+
+
+        public BoundingRaster(int cols, int rows, int width, int height)
         {
             this.animatedObjects = new LinkedList<IBoundingBox>();
-            this.fields = new BoundingField[rows, cols];
+            this.fields = new BoundingField[cols, rows];
 
             this.rows = rows;
             this.cols = cols;
@@ -33,47 +36,58 @@ namespace Sketchball.Collision
             this.height = height;
 
             this.fieldWidth = this.width / this.cols;
-            this.fieldHeight =  this.height / this.rows;
+            this.fieldHeight = this.height / this.rows;
+
+            for (int x = 0; x < this.cols; x++)
+            {
+                for (int y = 0; y < this.rows; y++)
+                {
+                    this.fields[x, y] = new BoundingField(x, y);
+                }
+            }
+
         }
 
-        public void takeOverBoundingBoxes(LinkedList<PinballElement> eles)
+        public void takeOverBoundingBoxes(ElementCollection eles)
         {
             //TODO special cases: unitX  = 0, unitY = 0, horizontal line, vertical line
 
             foreach (PinballElement pE in eles)
             {
                 BoundingContainer bC = pE.getBoundingContainer();
+                Vector2 worldTrans = bC.parentElement.getLocation();
 
                 int x;
                 int y;
 
                 foreach (IBoundingBox b in bC.boundingBoxes)
                 {
+                  
                     if(b.GetType() == typeof(BoundingCircle))
                     {
                         //Strategy: Make a box around the circle
                         BoundingCircle bCir = (BoundingCircle)b;
 
                         //position of the circle self (which field)
-                        x = ((int)bCir.position.X / fieldWidth);        //TODO check if this is rounded down
-                        y = ((int)bCir.position.Y / fieldHeight);
+                        x = ((int)(bCir.position.X + worldTrans.X) / fieldWidth);        //TODO check if this is rounded down
+                        y = ((int)(bCir.position.Y+worldTrans.Y) / fieldHeight);
 
                         
                         //amount of fields x and y (rounded up) 
                         //2*cicFieldsX + (1 where the ceneter is) will make the width of the square which includes the circle)
                         //2*cicFieldsY + (1 where the ceneter is) will make the height of the square which includes the circle)
-                        int circFieldsX = (int)Math.Ceiling((double)(bCir.radius / fieldWidth));
-                        int circFieldsy = (int)Math.Ceiling((double)(bCir.radius / fieldHeight));
+                        int circFieldsX = (int)Math.Ceiling((double)(bCir.radius*1f / fieldWidth));
+                        int circFieldsy = (int)Math.Ceiling((double)(bCir.radius*1f / fieldHeight));
 
                         //go from the left to the right of the square
-                        for (int h = x - circFieldsX; h >= x + circFieldsX; h++)
+                        for (int h = x - circFieldsX; h <= x + circFieldsX; h++)
                         {
                             if (h < 0 || h >= this.cols)
                             {
                                 //if h is out of raster skip this
                                 continue;
                             }
-                            for (int ver = y - circFieldsy; ver == y + circFieldsy; ver++)
+                            for (int ver = y - circFieldsy; ver <= y + circFieldsy; ver++)
                             {
                                 if(ver < 0||ver>=this.rows)
                                 {
@@ -90,8 +104,8 @@ namespace Sketchball.Collision
                         //line
                         BoundingLine bL = (BoundingLine)b;
 
-                        float posX = bL.position.X;
-                        float posY = bL.position.Y;
+                        float posX = bL.position.X + worldTrans.X;
+                        float posY = bL.position.Y + worldTrans.Y;
 
                         //position of the line base (which field)
                         x = ((int)posX / fieldWidth);
@@ -107,30 +121,29 @@ namespace Sketchball.Collision
 
                         if (unitV.X > 0)
                         {
-                           
-                            takeOverBoundingLineLeftToRight(unitV,  posX,  posY,  x,  y,  bL);
+                            takeOverBoundingLineLeftToRight(unitV,  posX,  posY,  x,  y,  bL, worldTrans);
                         }
                         else
                         {
-                            takeOverBoundingLineRightToLeft(unitV, posX, posY, x, y, bL);
+                            takeOverBoundingLineRightToLeft(unitV, posX, posY, x, y, bL, worldTrans);
                         }
 
                         //at this point all x fields have been added but there might be some y fields who get touched but are not referenced yet.
                         //that are all fields that are above the last x cross (like directly under the target)
 
 
-                        int endField = ((int)bL.target.Y / fieldHeight);
+                        int endField = ((int)(bL.target.Y+worldTrans.Y) / fieldHeight);
 
                         if (unitV.Y > 0)        //heading down
                         {
-                            for (int i = y + 1; i >= endField; i++)
+                            for (int i = y + 1; i < endField; i++)
                             {
                                 this.fields[x, i].addReference(bL);
                             }
                         }
                         else   //heading up
                         {
-                            for (int i = endField; i <= y - 1; i++)
+                            for (int i = y - 1; i >= endField - 1; i--)
                             {
                                 this.fields[x, i].addReference(bL);
                             }
@@ -140,12 +153,17 @@ namespace Sketchball.Collision
             }       //foreach (PinballElement pE in eles)
         }
 
-        private void takeOverBoundingLineLeftToRight(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL)
+        private void takeOverBoundingLineLeftToRight(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL, Vector2 worldTrans)
         {
+            if (unitV.X == 0)
+            {
+                return;     //just y remains => the whole line is on one column
+            }
+
             float deltaRight = fieldWidth - (posX - fieldWidth * x);     //distance from right end of field to the position
             float factorToNextXCross = deltaRight / unitV.X;
 
-            while (posX < bL.target.X)
+            while (posX < (bL.target.X + worldTrans.X))
             {
                 factorToNextXCross = deltaRight / unitV.X;
 
@@ -154,14 +172,14 @@ namespace Sketchball.Collision
                 float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
-                int newFieldYIdx = ((int)nextXCrossY / fieldHeight);
+                int newFieldYIdx = ((int)(nextXCrossY) / fieldHeight);
 
                 if (unitV.Y > 0)        //heading down
                 {
                     if (newFieldYIdx > y)
                     {
                         //we entered new y field(s)
-                        for (int i = y; i < newFieldYIdx; y++)
+                        for (int i = y; i < newFieldYIdx; i++)
                         {
                             this.fields[x, i].addReference(bL);      //this is a field that the line goes through
                         }
@@ -173,7 +191,7 @@ namespace Sketchball.Collision
                     if (newFieldYIdx < y)
                     {
                         //we entered new y field(s)
-                        for (int i = y; i > newFieldYIdx; y--)
+                        for (int i = y; i > newFieldYIdx; i--)
                         {
                             this.fields[x, i].addReference(bL);      //this is a field that the line goes through
                         }
@@ -191,17 +209,26 @@ namespace Sketchball.Collision
                 //since we are at the border of a field the deltaRight will allways be the full field width
                 deltaRight = fieldWidth;
 
-                this.fields[x, newFieldYIdx].addReference(bL);       //add the next x field (since the line just gets crossed)
+                if (posX <= bL.target.X + worldTrans.X)
+                {
+                    this.fields[x, newFieldYIdx].addReference(bL);       //add the next x field (since the line just gets crossed)
+                }
             }
 
         }
 
-        private void takeOverBoundingLineRightToLeft(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL)
+        private void takeOverBoundingLineRightToLeft(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL,Vector2 worldTrans)
         {
+            if (unitV.X == 0)
+            {
+                return;     //just y remains => the whole line is on one column
+            }
+
             float deltaLeft =  (posX - fieldWidth * x);     //distance from right end of field to the position
             float factorToNextXCross = deltaLeft / -unitV.X;
+          
 
-            while (posX > bL.target.X)
+            while (posX > (bL.target.X+worldTrans.X))
             {
                 factorToNextXCross = deltaLeft / -unitV.X;
 
@@ -210,7 +237,7 @@ namespace Sketchball.Collision
                 float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
-                int newFieldYIdx = ((int)nextXCrossY / fieldHeight);
+                int newFieldYIdx = ((int)(nextXCrossY) / fieldHeight);
 
                 if (unitV.Y > 0)        //heading down
                 {
@@ -246,8 +273,11 @@ namespace Sketchball.Collision
 
                 //since we are at the border of a field the deltaRight will allways be the full field width
                 deltaLeft = fieldWidth;
-
-                this.fields[x, newFieldYIdx].addReference(bL);       //add the next x field (since the line just gets crossed)
+                if (x > 0)
+                {
+                    this.fields[x, newFieldYIdx].addReference(bL);       //add the next x field (since the line just gets crossed)
+                }
+                
             }
         }
 
@@ -260,18 +290,20 @@ namespace Sketchball.Collision
             foreach (IBoundingBox b in this.animatedObjects)
             {
                 //does any animated object intersec?
-                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0]))       //specify bounding box of ball
+                Vector2 hitPoint = new Vector2(0,0);
+                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint))       //specify bounding box of ball
                 {
                     //collision
-                    ball.Velocity = b.reflect(ball.Velocity);       //TODO: is acceleration the velocity vector of the ball?
+                    Vector2 newDirection = b.reflect(ball.Velocity, hitPoint);     
+                    ball.Velocity = b.BoundingContainer.parentElement.reflectManipulation(newDirection);
                 }
             }
 
             int fieldWidth = this.width / this.cols;
             int fieldHeight = this.height / this.rows;
 
-            int x = (int)(ball.Location.X / fieldWidth);
-            int y = (int)(ball.Location.Y / fieldHeight);
+            int x = (int)(ball.X / fieldWidth);
+            int y = (int)(ball.Y / fieldHeight);
 
             for (int x1 = x - 1; x1 < x + 1; x1++)
             {
@@ -283,10 +315,19 @@ namespace Sketchball.Collision
                         {
                             foreach (IBoundingBox b in this.fields[x1, y1].getReferences())
                             {
-                                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0]))       //specify bounding box of ball
+                                Vector2 hitPoint = new Vector2(0, 0);
+                                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0],out hitPoint))       //specify bounding box of ball
                                 {
                                     //collision
-                                    ball.Velocity = b.reflect(ball.Velocity);       //TODO: is acceleration the velocity vector of the ball?
+                                    Vector2 newDirection = b.reflect(ball.Velocity, hitPoint);
+
+                                    ball.setLocation((hitPoint  - new Vector2(ball.Width/2,ball.Height/2))+(ball.Width*2)*Vector2.Normalize(-ball.Velocity));
+                               
+
+                                    ball.boundingContainer.parentElement.World.Gravity = 0;
+                                   
+                                    ball.Velocity = b.BoundingContainer.parentElement.reflectManipulation(newDirection);
+                                    this.hitPointDebug = hitPoint;
                                 }
                             }
                         }

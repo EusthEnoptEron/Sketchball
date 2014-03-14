@@ -44,7 +44,7 @@ namespace Sketchball.Controls
         /// <summary>
         /// Updates positions and checks for collisions, etc.
         /// </summary>
-        private void Update()
+        private new void Update()
         {
             // Update time
             TimeSpan elapsed;
@@ -59,6 +59,7 @@ namespace Sketchball.Controls
             
             // Update elements
             World.Update((long)elapsed.TotalMilliseconds);
+            World.handleCollision();
         }
 
     }

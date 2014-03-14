@@ -7,15 +7,20 @@ using System.Windows;
 
 namespace Sketchball.Collision
 {
-    interface IBoundingBox
+    public interface IBoundingBox
     {
-        public bool intersec(IBoundingBox bB);
-        public Vector2 reflect(Vector2 vecIn);
-        public void rotate(float degree, Vector2 center);
-        public void move(Vector2 moveVec);
-        public bool lineIntersec(BoundingLine bL);
-        public bool circleIntersec(BoundingCircle bC);
+        void assigneToContainer(BoundingContainer bc);
+        BoundingContainer BoundingContainer { get; }
+
+        bool intersec(IBoundingBox bB, out Vector2 hitPoint);
+        Vector2 reflect(Vector2 vecIn, Vector2 hitPoint);
+        void rotate(float degree, Vector2 center);
+        void move(Vector2 moveVec);
+        bool lineIntersec(BoundingLine bL, out Vector2 hitPoint);
+        bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint);
 
 
+
+        void drawDEBUG(System.Drawing.Graphics g, System.Drawing.Pen p);
     }
 }

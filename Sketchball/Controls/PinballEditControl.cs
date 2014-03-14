@@ -46,9 +46,9 @@ namespace Sketchball.Controls
 
                 Point loc = PointToPinball(e.Location);
                 dragging = false;
-                SelectedElement.Location = startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor;
+                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor);
 
-                History.Add(new TranslationChange(SelectedElement, SelectedElement.Location - startVector));
+                History.Add(new TranslationChange(SelectedElement, SelectedElement.getLocation() - startVector));
             }
         }
 
@@ -57,7 +57,7 @@ namespace Sketchball.Controls
             if (dragging)
             {
                 Point loc = PointToPinball(e.Location);
-                SelectedElement.Location = startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor;
+                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor);
                 Invalidate();
             }
         }
@@ -75,14 +75,14 @@ namespace Sketchball.Controls
                     SelectedElement = element;
                     dragging = true;
                     startPoint = loc;
-                    startVector = element.Location;
+                    startVector = element.getLocation();
                 }
             }            
         }
 
         private PinballElement FindElement(Point location)
         {
-            foreach (PinballElement element in World)
+            foreach (PinballElement element in World.Elements)
             {
                 if (element.Contains(location))
                 {

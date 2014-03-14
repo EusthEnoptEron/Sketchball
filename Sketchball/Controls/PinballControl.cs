@@ -12,7 +12,7 @@ namespace Sketchball.Controls
 {
     abstract class PinballControl : Control
     {
-        protected GameWorld World;
+        protected PinballMachine World;
 
         //private Bitmap BackgroundBitmap = null;
         //private Graphics BackgroundBuffer = null;
@@ -20,8 +20,10 @@ namespace Sketchball.Controls
 
         protected PinballControl() : base()
         {
-            World = new GameWorld(new Size(500, 500));
+            World = new PinballMachine(new Size(500, 500));
+   
             Paint += PinballControl_Paint;
+          
         }
 
         private void PinballControl_Paint(object sender, PaintEventArgs e)

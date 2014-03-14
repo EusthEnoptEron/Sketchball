@@ -113,6 +113,10 @@ namespace Sketchball
 
         #endregion Constructors
 
+        public Vector2 Normal()
+        {
+            return new Vector2(Y, -X);
+        }
 
         #region Public Methods
 

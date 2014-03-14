@@ -8,21 +8,35 @@ namespace Sketchball.Collision
 {
     public abstract class BoundingBox : IBoundingBox
     {
+        public BoundingContainer BoundingContainer { get; private set; }
+
+        //position object space: from pinball element pos out
         public Vector2 position{ get; set; }
+
 
         public void move(Vector2 moveVec)
         {
             this.position += moveVec;
         }
 
-        public abstract bool intersec(IBoundingBox bB);
+        public void assigneToContainer(BoundingContainer bc)
+        {
+            this.BoundingContainer = bc;
+        }
 
-        public abstract Vector2 reflect(Vector2 vecIn);
+        public abstract bool intersec(IBoundingBox bB, out Vector2 hitPoint);
+
+        public abstract Vector2 reflect(Vector2 vecIn, Vector2 hitPoint);
 
         public abstract void rotate(float degree, Vector2 center);
 
-        public abstract bool lineIntersec(BoundingLine bL);
+        public abstract bool lineIntersec(BoundingLine bL, out Vector2 hitPoint);
 
-        public abstract bool circleIntersec(BoundingCircle bC);
+        public abstract bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint);
+
+
+
+
+        public abstract void drawDEBUG(System.Drawing.Graphics g,System.Drawing.Pen p);
     }
 }

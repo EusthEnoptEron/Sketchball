@@ -10,7 +10,7 @@ namespace Sketchball
 {
     public class PlayForm : Form
     {
-        public PlayForm(GameWorld world)
+        public PlayForm(PinballMachine world)
         {
             // TODO: Make clone of world (so x, y, and so on are kept intact)
 

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using Sketchball.Collision;
 
 namespace Sketchball.Elements
 {
@@ -19,8 +20,29 @@ namespace Sketchball.Elements
         {
             Width = 50;
             Height = 50;
-            AffectedByGravity = true;
             GoUp();
+            // 0, Height / 10 * 9, Width , Height / 10 * 2 )
+            int y1 = Height / 10 * 9;
+            int recHeight =  Height / 10 * 2 ;
+
+            this.setLocation(new Vector2(0, 0));
+
+            //set up of bounding box
+            BoundingLine bL1 = new BoundingLine(new Vector2(0, y1), new Vector2(Width, y1));
+            BoundingLine bL2 = new BoundingLine(new Vector2(Width, y1), new Vector2(Width, y1+recHeight));
+            BoundingLine bL3 = new BoundingLine(new Vector2(Width, y1 + recHeight), new Vector2(0, y1 + recHeight));
+            BoundingLine bL4 = new BoundingLine(new Vector2(0, y1 + recHeight), new Vector2(0, y1));
+
+            this.boundingContainer.addBoundingBox(bL1);
+            this.boundingContainer.addBoundingBox(bL2);
+            this.boundingContainer.addBoundingBox(bL3);
+            this.boundingContainer.addBoundingBox(bL4);
+
+            bL1.assigneToContainer(this.boundingContainer);
+            bL2.assigneToContainer(this.boundingContainer);
+            bL3.assigneToContainer(this.boundingContainer);
+            bL4.assigneToContainer(this.boundingContainer);
+
         }
 
         private void GoUp()
