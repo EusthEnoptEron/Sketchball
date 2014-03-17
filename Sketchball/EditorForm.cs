@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,19 @@ using System.Windows.Forms;
 
 namespace Sketchball
 {
-    public partial class MainWindow : Form
+    public partial class EditorForm : Form
     {
 
 
         PrivateFontCollection fontCollection = new PrivateFontCollection();
-        public MainWindow()
+        public EditorForm()
         {
             InitializeComponent();
             PlayFieldEditor.ScaleFactor *= 1.1f;
-            fontCollection.AddFontFile(@"D:\Studium\Semester 4\Project 1\Fonts\Courgette\Courgette-Regular.ttf");
+
+            String path = (Path.Combine( Application.ExecutablePath, "..", "Resources", "Courgette-Regular.ttf"));
+
+            fontCollection.AddFontFile( path );
             TitleLabel.Font = new Font(fontCollection.Families[0], 40);
             Font tabFont = new Font(fontCollection.Families[0], 14);
             ToolsTab.Font = tabFont;

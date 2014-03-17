@@ -1,6 +1,6 @@
 ﻿namespace Sketchball
 {
-    partial class MainWindow
+    partial class EditorForm
     {
         /// <summary>
         /// Required designer variable.

@@ -40,7 +40,7 @@ namespace Sketchball.Controls
        public Image GetImage() {
            return null;
            Bitmap bm = new Bitmap(Element.Width, Element.Height);
-           Graphics g = bm.
+         //  Graphics g = bm.
 
 
 
