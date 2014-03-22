@@ -16,7 +16,7 @@ namespace Sketchball.Elements
         public int Height = 100;
         protected Glide Tweener = new Glide();
 
-        private float bounceFactor = 1f;
+        public float bounceFactor { get; set; }
 
         public PinballMachine World { get; internal set; }
 
@@ -31,6 +31,7 @@ namespace Sketchball.Elements
         public PinballElement()
         {
             this.boundingContainer =  new BoundingContainer(this);
+            this.bounceFactor = 0.9f;
         }
        
 

@@ -72,15 +72,20 @@ namespace Sketchball.Controls
             Flipper f = new Flipper();
             f.setLocation(new Vector2(50, Height - 10));
 
-            Bouncer b = new Bouncer();
+            Bumper b = new Bumper();
             b.setLocation(new Vector2(300, 300));
+
+            TriangleTMP tr = new TriangleTMP();
+
 
             Line l = new Line();
             
             Elements.Add(b);
             Elements.Add(l);
+            Elements.Add(tr);
             
             Elements.Add(f);
+            machine.addAnimatedObject(tr);
             machine.addBall(ball);  //Changed
           
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -180,12 +185,12 @@ namespace Sketchball.Controls
         {
             foreach (PinballElement e in this.Elements)
             {
-
                 foreach (IBoundingBox b in e.boundingContainer.boundingBoxes)
                 {
                     b.drawDEBUG(g, Pens.Red);
                 }
             }
+            
 
             foreach (Ball ball in this.machine.Balls)
             {

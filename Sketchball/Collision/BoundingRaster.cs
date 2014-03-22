@@ -50,8 +50,7 @@ namespace Sketchball.Collision
 
         public void takeOverBoundingBoxes(ElementCollection eles)
         {
-            //TODO special cases: unitX  = 0, unitY = 0, horizontal line, vertical line
-
+         
             foreach (PinballElement pE in eles)
             {
                 BoundingContainer bC = pE.getBoundingContainer();
@@ -285,46 +284,69 @@ namespace Sketchball.Collision
         public void handleCollision(Ball ball)
         {
             //Collide first with animated object then with object around ball self
-
+            LinkedList<IBoundingBox> history = new LinkedList<IBoundingBox>();
             //Collision logic
             foreach (IBoundingBox b in this.animatedObjects)
             {
                 //does any animated object intersec?
-                Vector2 hitPoint = new Vector2(0,0);
+                if (history.Contains(b))
+                {
+                    continue;
+                }
+
+                Vector2 hitPoint = new Vector2(0, 0);
                 if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint))       //specify bounding box of ball
                 {
+                    history.AddFirst(b);
                     //collision
-                    Vector2 newDirection = b.reflect(ball.Velocity, hitPoint);     
+                    Vector2 newDirection = b.reflect(ball.Velocity, hitPoint,ball.getLocation() +ball.getBoundingContainer().getBoundingBoxes()[0].position);
+                    Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection,ball.getLocation());
+
+                    ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
+
+                    //ball.boundingContainer.parentElement.World.Gravity = 0;
+
                     ball.Velocity = b.BoundingContainer.parentElement.reflectManipulation(newDirection);
+                    this.hitPointDebug = hitPoint;
                 }
             }
 
             int fieldWidth = this.width / this.cols;
             int fieldHeight = this.height / this.rows;
-
+           
             int x = (int)(ball.X / fieldWidth);
             int y = (int)(ball.Y / fieldHeight);
 
-            for (int x1 = x - 1; x1 < x + 1; x1++)
+            history = new LinkedList<IBoundingBox>();
+
+            for (int x1 = x - 1; x1 <= x + 1; x1++)
             {
                 if(x1>0&&x1<this.cols)
                 {
-                    for (int y1 = y - 1; y1 < y + 1; y1++)
+                    for (int y1 = y - 1; y1 <= y + 1; y1++)
                     {
                         if(y1>0&&y1<this.rows)
                         {
                             foreach (IBoundingBox b in this.fields[x1, y1].getReferences())
                             {
+                                if (history.Contains(b))
+                                {
+                                    continue;
+                                }
+                               
                                 Vector2 hitPoint = new Vector2(0, 0);
                                 if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0],out hitPoint))       //specify bounding box of ball
                                 {
                                     //collision
-                                    Vector2 newDirection = b.reflect(ball.Velocity, hitPoint);
 
-                                    ball.setLocation((hitPoint  - new Vector2(ball.Width/2,ball.Height/2))+(ball.Width*2)*Vector2.Normalize(-ball.Velocity));
-                               
+                                    history.AddFirst(b);
 
-                                    ball.boundingContainer.parentElement.World.Gravity = 0;
+                                    Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.getLocation() + ball.getBoundingContainer().getBoundingBoxes()[0].position);
+                                    Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection, ball.getLocation());
+
+                                    ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
+ 
+                                  //  ball.boundingContainer.parentElement.World.Gravity = 0;
                                    
                                     ball.Velocity = b.BoundingContainer.parentElement.reflectManipulation(newDirection);
                                     this.hitPointDebug = hitPoint;

@@ -13,7 +13,7 @@ namespace Sketchball.Elements
         {
             Width = 100;
             Height = 0;
-
+            
 
             this.setLocation(new Vector2(100, 200));
             

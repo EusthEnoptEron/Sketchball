@@ -23,15 +23,57 @@ namespace Sketchball.Collision
             return bB.lineIntersec(this, out hitPoint);
         }
 
-        public override Vector2 reflect(Vector2 vecIn, Vector2 hitPointP)
+        public override Vector2 reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos)
         {
 
             Vector2 dLine = this.target - this.position;
             Vector2 normal = new Vector2(-dLine.Y,dLine.X);     //TODO build so that allways the right normalvector is chosen
+
+            if (hitPoint == this.position + this.BoundingContainer.parentElement.getLocation())
+            {
+                normal = ballpos - (this.position + this.BoundingContainer.parentElement.getLocation());
+            }
+
+            if (hitPoint == this.target + this.BoundingContainer.parentElement.getLocation())
+            {
+                normal = ballpos - (this.target + this.BoundingContainer.parentElement.getLocation());
+            }
+
             normal.Normalize();
 
             return Vector2.Reflect(vecIn, normal);
         }
+
+        public override Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos)
+        {
+            //check if hit at the end (corner reflection must be handled with less simplification
+            if (hitPoint == this.position + this.BoundingContainer.parentElement.getLocation())
+            {
+                return (diameterBall / 1.7f) * Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.position + this.BoundingContainer.parentElement.getLocation()));
+            }
+
+            if (hitPoint == this.target + this.BoundingContainer.parentElement.getLocation())
+            {
+                return (diameterBall / 1.7f) * Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.target + this.BoundingContainer.parentElement.getLocation()));
+            }
+
+            //now check which normal we have to take (depends on velocity)
+            Vector2 norm = Vector2.Normalize((this.target - this.position).Normal());
+            Vector2 dLine = this.target - this.position;
+
+            float d = Vector2.Dot((velocity), Vector2.Normalize(dLine));    //distance on dLine from pos to the point where the normal from velocity hits
+            Vector2 q = d * Vector2.Normalize(dLine);       //point where normal on dline through Velocity point hits
+            Vector2 h = velocity-q;         //horizontal line through velocitiy point and  normal on dline
+
+            //if h and normal have not same sign => take other normal (so we move in right direction)
+            if (h.X * norm.X < 0 || h.Y * norm.Y < 0)
+            {
+                norm = -norm;
+            }
+        
+            return (diameterBall / 1.9f) * norm;
+        }
+
 
         public new void move(Vector2 moveVec)
         {
@@ -39,7 +81,7 @@ namespace Sketchball.Collision
             this.target += moveVec;
         }
 
-
+        //UNTESTED
         public override bool lineIntersec(BoundingLine bL, out Vector2 hitPoint)
         {
             Vector2 thisWorldTras = this.BoundingContainer.parentElement.getLocation();
@@ -109,6 +151,22 @@ namespace Sketchball.Collision
             System.Drawing.PointF ptCenter = new System.Drawing.PointF(center.X, center.Y);
             rotation.RotateAt(degree, ptCenter);
 
+            System.Drawing.PointF[] pts = new System.Drawing.PointF[2];
+            Vector2 p1 = this.position + this.BoundingContainer.parentElement.getLocation();
+            Vector2 p2 = this.target + this.BoundingContainer.parentElement.getLocation();
+            pts[0].X = p1.X;
+            pts[0].Y = p1.Y;
+            pts[1].X = p2.X;
+            pts[1].Y = p2.Y;
+
+            rotation.TransformPoints(pts);
+            p1.X = pts[0].X - this.BoundingContainer.parentElement.getLocation().X;
+            p1.Y = pts[0].Y - this.BoundingContainer.parentElement.getLocation().Y;
+            p2.X = pts[1].X - this.BoundingContainer.parentElement.getLocation().X;
+            p2.Y = pts[1].Y- this.BoundingContainer.parentElement.getLocation().Y;
+
+            this.position = p1;
+            this.target = p2;
             //rotation.TransformVectors(this.position);       //TODO
             //rotation.TransformVectors(this.target);       //TODO also has to be moved to center, rotate then move back, since based on position
            
@@ -116,51 +174,51 @@ namespace Sketchball.Collision
 
         public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint)
         {
-            //Strategy: determine point of intersection between the directionline
-            //and the line thorugh center of circ. which is normal to the directionline
-            //then determine the distance between that point (T) and center of Circle
-            //if smaller than radius there is an intersection
-            Vector2 thisWorldTras = this.BoundingContainer.parentElement.getLocation();
-            Vector2 bCWorldTrans = bC.BoundingContainer.parentElement.getLocation();
+            //strategy: connect center of ball with start of line. calc where the normal from center of ball on line hits (pointNormalDirectionPice). If len from center of ball to this point
+            //is smaller then radius then it is a hit. Should pointNormalDirectionPice be smaller then start - radius of ball or bigger then end+ radius of ball => ignore
 
-            Vector2 thisWorldTar = this.target + thisWorldTras;
-            Vector2 thisWorldPos = this.position + thisWorldTras;
-            Vector2 bCWorldPos = this.position + thisWorldTras;
+            hitPoint = new Vector2(0, 0);
 
-            Vector2 centerOfCircle = bC.position + bCWorldTrans;
-            Vector2 directionLine = this.target - this.position;
+            Vector2 bLWorldPos = this.position + this.BoundingContainer.parentElement.getLocation();
+            Vector2 bLWorldTar = this.target + this.BoundingContainer.parentElement.getLocation();
+            Vector2 thisWorldPos = bC.position + bC.BoundingContainer.parentElement.getLocation();
+
+            Vector2 centerOfCircle = thisWorldPos;
+            Vector2 directionLine = bLWorldTar - bLWorldPos;
             Vector2 normalLine = new Vector2(-directionLine.Y, directionLine.X);
-            
-            //direction line as infinte line
-            float A1 = thisWorldTar.Y - thisWorldPos.Y;
-            float B1 = thisWorldTar.X - thisWorldPos.X;
-            float C1 = A1 * thisWorldPos.X + B1 * thisWorldPos.Y;
 
-            //line though the center of circle and normal to the direction line
-            float A2 = normalLine.Y - centerOfCircle.Y;
-            float B2 = normalLine.X - centerOfCircle.X;
-            float C2 = A2 * centerOfCircle.X + B2 * centerOfCircle.Y;
+            float lenDirectionPiece = Vector2.Dot((centerOfCircle - bLWorldPos), Vector2.Normalize(directionLine));
 
-            float det = A1 * B1 - A2 * B2;      //determines same delta?
+            if (lenDirectionPiece < -bC.radius || lenDirectionPiece > (directionLine.Length() + bC.radius))
+            {
+                return false;
+            }
 
-            //set equation equal
-            float x = (B2 * C1 - B1 * C2) / det;
-            float y = (A1 * C2 - A2 * C1) / det;
+            Vector2 pointNormalDirectionPice = bLWorldPos + lenDirectionPiece * Vector2.Normalize(directionLine);
+            Vector2 normalFromDirLineToCenter = centerOfCircle - pointNormalDirectionPice;
 
-            Vector2 T = new Vector2(x, y);      //point on direction line where normal from center of cir. hits
+            float diff = normalFromDirLineToCenter.Length();
 
-            float diff = Vector2.Distance(centerOfCircle,T);    
-
-            
             if (diff < bC.radius)
             {
-                //in this case T lies in the circle
+                if (lenDirectionPiece < 0)
+                {
+                    hitPoint = bLWorldPos;
+                    return true;
+                }
 
-                hitPoint = T;
+                if (lenDirectionPiece > (directionLine.Length()))
+                {
+                    hitPoint = bLWorldTar;
+                    return true;
+                }
+                //in this case T lies in the circle
+                hitPoint = pointNormalDirectionPice;
                 return true;
             }
-            hitPoint = new Vector2(0, 0);
+
             return false;
+           
         }
 
         public override void drawDEBUG(System.Drawing.Graphics g, System.Drawing.Pen p)

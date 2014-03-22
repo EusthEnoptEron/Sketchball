@@ -32,7 +32,7 @@ namespace Sketchball.Elements
         /// <summary>
         /// Tilt of the pinball machine in radians.
         /// </summary>
-        public float Angle = (float)(Math.PI / 180 * 0.1f);
+        public float Angle = (float)(Math.PI / 180 * 0.3f);
 
         public PinballMachine(Size bounds)
         {
@@ -89,6 +89,7 @@ namespace Sketchball.Elements
         /// </summary>
         public void prepareForLaunch()
         {
+            this.boundingRaster = new BoundingRaster(Width / 60, Height / 60, Width, Height);
             this.boundingRaster.takeOverBoundingBoxes(this.Elements);
         }
 
@@ -118,6 +119,14 @@ namespace Sketchball.Elements
         public void debugDraw(Graphics g)
         {
             g.DrawEllipse(Pens.Orange, this.boundingRaster.hitPointDebug.X, this.boundingRaster.hitPointDebug.Y, 2, 2);
+        }
+
+        internal void addAnimatedObject(PinballElement tr)
+        {
+            foreach (BoundingBox b in tr.boundingContainer.getBoundingBoxes())
+            {
+                this.boundingRaster.addAnimatedObject(b);
+            }
         }
     }
 }

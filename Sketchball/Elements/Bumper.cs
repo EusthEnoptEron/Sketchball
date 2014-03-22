@@ -7,20 +7,21 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
-    class Bouncer : PinballElement
+    class Bumper : PinballElement
     {
-        public Bouncer():base()
+        public Bumper():base()
         {
-            Width = 100;
-            Height = 100;
+            Width = 50;
+            Height = 50;
             
         
             this.setLocation(new Vector2(300, 300));
             
 
             //set up of bounding box
-            BoundingCircle bC = new BoundingCircle(50, new Vector2(0, 0));
+            BoundingCircle bC = new BoundingCircle(25, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
+            bC.assigneToContainer(this.boundingContainer);
  
         }
 

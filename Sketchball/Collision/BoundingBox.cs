@@ -26,7 +26,9 @@ namespace Sketchball.Collision
 
         public abstract bool intersec(IBoundingBox bB, out Vector2 hitPoint);
 
-        public abstract Vector2 reflect(Vector2 vecIn, Vector2 hitPoint);
+        public abstract Vector2 reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos);
+
+        public abstract Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos);
 
         public abstract void rotate(float degree, Vector2 center);
 
