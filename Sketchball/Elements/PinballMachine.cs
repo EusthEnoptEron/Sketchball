@@ -96,5 +96,16 @@ namespace Sketchball.Elements
 
             return machine;
         }
+
+        internal bool HasBall()
+        {
+            //throw new NotImplementedException();
+            return false;
+        }
+
+        internal void IntroduceBall()
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

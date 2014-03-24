@@ -72,9 +72,7 @@
     <Compile Include="Elements\Ball.cs" />
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
-    <Compile Include="Elements\IInteractable.cs" />
     <Compile Include="Elements\IPhysics.cs" />
-    <Compile Include="Elements\PinballGameMachine.cs" />
     <Compile Include="Elements\PinballMachine.cs" />
     <Compile Include="EditorForm.cs">
       <SubType>Form</SubType>

@@ -37,7 +37,8 @@ namespace Sketchball.Elements
         public Vector2 Location = new Vector2();
         public float X { get { return Location.X; } set { Location.X = value; } }
         public float Y { get { return Location.Y; } set { Location.Y = value; } }
-       
+
+        public int Value { get; protected set; }
 
         public virtual void Update(long delta)
         {
