@@ -24,6 +24,13 @@ namespace Sketchball.Controls
             Paint += PinballControl_Paint;
         }
 
+        protected PinballControl(PinballMachine machine)
+            : base()
+        {
+            World = machine;
+            Paint += PinballControl_Paint;
+        }
+
         private void PinballControl_Paint(object sender, PaintEventArgs e)
         {
             Draw(e.Graphics);

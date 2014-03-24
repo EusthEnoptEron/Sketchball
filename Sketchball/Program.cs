@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Sketchball.Elements;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +18,7 @@ namespace Sketchball
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new EditorForm());
+            Application.Run(new PlayForm(new PinballMachine(new Size(500, 500))));
         }
     }
 }

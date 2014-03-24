@@ -35,7 +35,7 @@ namespace Sketchball.Elements
 
         public object Clone()
         {
-            PinballElement element = (PinballElement)base.MemberwiseClone();
+            PinballElement element = (PinballElement)MemberwiseClone();
             return element;
         }
     }

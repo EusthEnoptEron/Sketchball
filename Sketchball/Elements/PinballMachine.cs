@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Sketchball.Elements
 {
     [Serializable]
-    public class PinballMachine
+    public class PinballMachine : ICloneable
     {
         // 500px = 1m
         public const float PIXELS_TO_METERS_RATIO = 500f / 1;
@@ -27,11 +27,13 @@ namespace Sketchball.Elements
         /// </summary>
         public float Angle = (float)(Math.PI / 180 * 30);
 
+
         public PinballMachine(Size bounds)
         {
             Elements = new ElementCollection(this);
             Bounds = bounds;
         }
+
 
         public Vector2 Acceleration
         {
@@ -69,5 +71,21 @@ namespace Sketchball.Elements
             return Elements.Remove(element);
         }
 
+
+        public object Clone()
+        {
+            PinballMachine machine = (PinballMachine)this.MemberwiseClone();
+
+            machine.Bounds = new Size(Width, Height);
+
+            // Clone elements
+            machine.Elements = new ElementCollection(machine);
+            foreach (PinballElement element in Elements)
+            {
+                machine.Elements.Add((PinballElement)element.Clone());
+            }
+
+            return machine;
+        }
     }
 }

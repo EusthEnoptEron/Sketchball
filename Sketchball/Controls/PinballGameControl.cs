@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sketchball.Elements;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -11,12 +12,28 @@ namespace Sketchball.Controls
 {
     class PinballGameControl : PinballControl
     {
+        public const int TOTAL_LIVES = 3;
+
 
         private DateTime prev = DateTime.MinValue;
 
-        public PinballGameControl()
-            : base()
+        /// <summary>
+        /// Gets the score of the current game.
+        /// </summary>
+        public int Score { get; private set; }
+
+        /// <summary>
+        /// Gets the number of remaining lives of the current game.
+        /// </summary>
+        public int Lives { get; private set; }
+
+        private PinballMachine OriginalMachine;
+
+        public PinballGameControl(PinballMachine machine)
+            : base((PinballMachine)machine.Clone())
         {
+            OriginalMachine = machine;
+
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -29,7 +46,7 @@ namespace Sketchball.Controls
         /// </summary>
         public void Start()
         {
-
+            
         }
 
         /// <summary>
@@ -42,9 +59,27 @@ namespace Sketchball.Controls
 
 
         /// <summary>
+        /// Resumes the game if paused.
+        /// </summary>
+        public void Resume()
+        {
+
+        }
+
+
+        /// <summary>
+        /// Resets the game.
+        /// TODO: Definition of "reset"
+        /// </summary>
+        public void Reset()
+        {
+
+        }
+
+        /// <summary>
         /// Updates positions and checks for collisions, etc.
         /// </summary>
-        private void Update()
+        protected new void Update()
         {
             // Update time
             TimeSpan elapsed;
@@ -61,5 +96,10 @@ namespace Sketchball.Controls
             World.Update((long)elapsed.TotalMilliseconds);
         }
 
+
+        protected override void Draw(Graphics g)
+        {
+            base.Draw(g);
+        }
     }
 }

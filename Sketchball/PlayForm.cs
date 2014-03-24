@@ -1,6 +1,10 @@
-﻿using Sketchball.Elements;
+﻿using Sketchball.Controls;
+using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +12,18 @@ using System.Windows.Forms;
 
 namespace Sketchball
 {
-    public class PlayForm : Form
+    public partial class PlayForm : Form
     {
+        private PinballGameControl Game;
         public PlayForm(PinballMachine world)
         {
-            // TODO: Make clone of world (so x, y, and so on are kept intact)
+            InitializeComponent();
 
+            // Initialize game
+            Game = new PinballGameControl(world);
+            Game.Dock = DockStyle.Fill;
+
+            Controls.Add(Game);
         }
     }
 }
