@@ -10,7 +10,7 @@ using System.Drawing.Drawing2D;
 namespace Sketchball.Elements
 {
 
-    class Flipper : PinballElement, IInteractable
+    class Flipper : PinballElement
     {
 
         private int Rotation = 0;
@@ -85,12 +85,13 @@ namespace Sketchball.Elements
             return rect.Contains(point);
         }
 
-        public void OnKeyDown(KeyEventArgs e)
+        protected override void EnterMachine(PinballMachine machine)
         {
         }
 
-        public void OnKeyUp(KeyEventArgs e)
+        protected override void LeaveMachine(PinballMachine machine)
         {
         }
+
     }
 }

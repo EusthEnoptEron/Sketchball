@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MouseKeyboardActivityMonitor">
+      <HintPath>..\packages\MouseKeyboardActivityMonitor.4.0.5150.10665\lib\net20\MouseKeyboardActivityMonitor.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,6 +72,7 @@
     <Compile Include="Elements\Ball.cs" />
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
+    <Compile Include="Elements\IInteractable.cs" />
     <Compile Include="Elements\IPhysics.cs" />
     <Compile Include="Elements\PinballGameMachine.cs" />
     <Compile Include="Elements\PinballMachine.cs" />
@@ -83,6 +87,7 @@
     <Compile Include="GlideTween\GlideInfo.cs" />
     <Compile Include="Elements\PinballElement.cs" />
     <Compile Include="History.cs" />
+    <Compile Include="InputManager.cs" />
     <Compile Include="PlayForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +111,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

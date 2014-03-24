@@ -15,7 +15,24 @@ namespace Sketchball.Elements
         public int Height = 100;
         protected Glide Tweener = new Glide();
 
-        public PinballMachine World { get; internal set; }
+
+        private PinballMachine _machine = null;
+        public PinballMachine World { 
+            get {
+                return _machine;
+            }
+
+            internal set
+            {
+                if (_machine != null)
+                {
+                    LeaveMachine(_machine);
+                }
+                _machine = value;
+
+                EnterMachine(_machine);
+            }
+        }
 
         public Vector2 Location = new Vector2();
         public float X { get { return Location.X; } set { Location.X = value; } }
@@ -37,6 +54,14 @@ namespace Sketchball.Elements
         {
             PinballElement element = (PinballElement)MemberwiseClone();
             return element;
+        }
+
+        protected virtual void EnterMachine(PinballMachine machine)
+        {
+        }
+
+        protected virtual void LeaveMachine(PinballMachine machine)
+        {
         }
     }
 }

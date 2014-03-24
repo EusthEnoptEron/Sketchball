@@ -27,11 +27,14 @@ namespace Sketchball.Elements
         /// </summary>
         public float Angle = (float)(Math.PI / 180 * 30);
 
+        internal InputManager Input { get; private set; }
 
         public PinballMachine(Size bounds)
         {
             Elements = new ElementCollection(this);
             Bounds = bounds;
+
+            Input = new InputManager();
         }
 
 
