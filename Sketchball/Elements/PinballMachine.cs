@@ -11,6 +11,12 @@ namespace Sketchball.Elements
     [Serializable]
     public class PinballMachine : ICloneable
     {
+        public delegate void CollisionEventHandler(PinballElement sender);
+        public delegate void GameOverEventHandler();
+
+        public event CollisionEventHandler Collision;
+        public event GameOverEventHandler GameOver;
+
         // 500px = 1m
         public const float PIXELS_TO_METERS_RATIO = 500f / 1;
 
