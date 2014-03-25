@@ -25,7 +25,6 @@ namespace Sketchball.Controls
 
         private GameStatus Status = GameStatus.Setup;
 
-        private DateTime prev = DateTime.MinValue;
 
         /// <summary>
         /// Gets the score of the current game.
@@ -64,8 +63,13 @@ namespace Sketchball.Controls
 
         void DrawCycle(object sender, DoWorkEventArgs e)
         {
+            DateTime prev = DateTime.Now;
+            DateTime now;
+
             while (true)
             {
+                now = DateTime.Now;
+                Update( (long)(now - prev).TotalMilliseconds );
                 IAsyncResult result = BeginInvoke(new Action(
                     () =>
                     {
@@ -75,6 +79,7 @@ namespace Sketchball.Controls
                 EndInvoke(result);
 
                 Thread.Sleep(10);
+                prev = now;
             }
         }
         
@@ -144,21 +149,10 @@ namespace Sketchball.Controls
         /// <summary>
         /// Updates positions and checks for collisions, etc.
         /// </summary>
-        protected new void Update()
-        {
-            // Update time
-            TimeSpan elapsed;
-            DateTime now = DateTime.Now;
-
-            if (prev != DateTime.MinValue)
-                elapsed = now - prev;
-            else 
-                elapsed = new TimeSpan();
-
-            prev = now;
-            
+        protected new void Update(long elapsed)
+        {            
             // Update elements
-            World.Update((long)elapsed.TotalMilliseconds);
+            World.Update(elapsed);
         }
 
 

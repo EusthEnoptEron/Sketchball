@@ -21,6 +21,11 @@ namespace Sketchball.Elements
         public const float PIXELS_TO_METERS_RATIO = 500f / 1;
 
         public ElementCollection Elements {get; private set;}
+        public ElementCollection Balls { get; private set; }
+        private List<PinballElement> FallenBalls = new List<PinballElement>();
+
+
+
         public Size Bounds {get; private set;}
 
         public int Width { get { return Bounds.Width; } }
@@ -28,6 +33,7 @@ namespace Sketchball.Elements
 
         public float Gravity = 9.81f;
 
+           
         /// <summary>
         /// Tilt of the pinball machine in radians.
         /// </summary>
@@ -38,12 +44,17 @@ namespace Sketchball.Elements
         public PinballMachine(Size bounds)
         {
             Elements = new ElementCollection(this);
+            Balls = new ElementCollection(this);
+
             Bounds = bounds;
 
             Input = new InputManager();
         }
 
 
+        /// <summary>
+        /// Gets the calculated acceleration based on the gravity and the angle.
+        /// </summary>
         public Vector2 Acceleration
         {
             get
@@ -52,6 +63,10 @@ namespace Sketchball.Elements
             }
         }
 
+        /// <summary>
+        /// Draws the pinball elements and all its components.
+        /// </summary>
+        /// <param name="g"></param>
         public void Draw(Graphics g)
         {
             g.DrawRectangle(Pens.Black, 0, 0, Width, Height);
@@ -65,8 +80,52 @@ namespace Sketchball.Elements
                 g.Restore(gstate);
             }
         }
+
+
+        /// <summary>
+        /// Updates the internal physical environment.
+        /// </summary>
+        /// <param name="elapsed"></param>
         public virtual void Update(long elapsed)
         {
+            foreach (PinballElement element in Elements)
+            {
+                element.Update(elapsed);
+
+                if(element is Ball)
+                    KeepContained((Ball)element);
+            }
+
+
+            if (FallenBalls.Count > 0)
+            {
+                foreach (PinballElement element in FallenBalls)
+                {
+                    Remove(element);
+                }
+                FallenBalls.Clear();
+
+                GameOver();
+            }
+           
+        }
+
+        private void KeepContained(Ball element)
+        {
+            Ball el = element;
+
+            if (element.Y > Height)
+            {
+                //element.Y = Height - element.Height;
+
+                // el.Velocity = new Vector2(el.Velocity.X * .6f, -el.Velocity.Y * .6f);
+                FallenBalls.Add(element);
+            }
+            if (element.X < 0 || element.X + element.Width > Width)
+            {
+                element.X = Math.Max(0, Math.Min(Width - element.Width, element.X));
+                el.Velocity = new Vector2(-el.Velocity.X * .6f, el.Velocity.Y);
+            }
         }
 
 
@@ -105,7 +164,7 @@ namespace Sketchball.Elements
 
         internal void IntroduceBall()
         {
-            //throw new NotImplementedException();
+            Elements.Add(new Ball());
         }
     }
 }
