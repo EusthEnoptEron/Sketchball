@@ -323,41 +323,22 @@ namespace Sketchball.Controls
             foreach (PinballElement element in Elements)
             {
                 element.Update(delta.Milliseconds);
-
-                if (element is IPhysics)
-                {
-                    IPhysics el = (IPhysics)element;
-                    if (element.Y + element.Height > Height)
-                    {
-                        element.Y = Height - element.Height;
-
-                        el.Velocity = new Vector2(el.Velocity.X * .6f, -el.Velocity.Y * .6f);
-                    }
-                    if (element.X < 0 || element.X + element.Width > Width)
-                    {
-                        element.X = Math.Max(0, Math.Min(Width - element.Width, element.X));
-                        el.Velocity = new Vector2(-el.Velocity.X * .6f, el.Velocity.Y);
-                    }
-                }
             }
 
             foreach (Ball b in this.machine.Balls)
             {
                 b.Update(delta.Milliseconds);
 
-                IPhysics el = (IPhysics)b;
                 if (b.Y + b.Height > Height)
                 {
                     b.Y = Height - b.Height;
-
-                    el.Velocity = new Vector2(el.Velocity.X * .6f, -el.Velocity.Y * .6f);
+                    b.Velocity = new Vector2(b.Velocity.X * .6f, -b.Velocity.Y * .6f);
                 }
                 if (b.X < 0 || b.X + b.Width > Width)
                 {
                     b.X = Math.Max(0, Math.Min(Width - b.Width, b.X));
-                    el.Velocity = new Vector2(-el.Velocity.X * .6f, el.Velocity.Y);
+                    b.Velocity = new Vector2(-b.Velocity.X * .6f, b.Velocity.Y);
                 }
-                
             }
 
             this.machine.handleCollision();

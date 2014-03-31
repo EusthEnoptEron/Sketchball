@@ -32,7 +32,7 @@ namespace Sketchball.Elements
         /// <summary>
         /// Tilt of the pinball machine in radians.
         /// </summary>
-        public float Angle = (float)(Math.PI / 180 * 0.3f);
+        public float Angle = (float)(Math.PI / 180 * 3f);
 
         public PinballMachine(Size bounds)
         {

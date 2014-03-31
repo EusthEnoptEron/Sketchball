@@ -16,7 +16,7 @@ namespace Sketchball.Elements
 
 
             this.setLocation(new Vector2(0, 100));
-            this.bounceFactor = 1f;
+            this.bounceFactor = 0.9f;
 
             //set up of bounding box
             BoundingLine bL1 = new BoundingLine(new Vector2(0, 200), new Vector2(100, 0));
@@ -39,7 +39,7 @@ namespace Sketchball.Elements
 
         public override void Update(long delta)
         {
-            this.boundingContainer.rotate(0.5f, new Vector2(100, 100));
+           // this.boundingContainer.rotate(0.5f, new Vector2(100, 100));
         }
     }
 }

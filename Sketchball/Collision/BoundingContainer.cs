@@ -10,7 +10,7 @@ namespace Sketchball.Collision
 {
     public class BoundingContainer
     {
-
+        public float Rotation { get; set; }
         public List<IBoundingBox> boundingBoxes { get; private set; }
         public PinballElement parentElement { get; private set; }
 
@@ -18,6 +18,7 @@ namespace Sketchball.Collision
         {
             this.boundingBoxes = new List<IBoundingBox>();
             this.parentElement = parent;
+            this.Rotation = 0;
         }
 
         public List<IBoundingBox> getBoundingBoxes()
@@ -26,12 +27,13 @@ namespace Sketchball.Collision
         }
 
         //center must be object space orientated!
-        public void rotate(float degree, Vector2 center)
+        public void rotate(float rad, Vector2 center)
         {
             foreach (IBoundingBox b in this.boundingBoxes)
             {
-                b.rotate(degree, center);
+                b.rotate(rad - Rotation, center+this.parentElement.getLocation());
             }
+            this.Rotation = rad;
 
         }
 

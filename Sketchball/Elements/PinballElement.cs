@@ -14,7 +14,6 @@ namespace Sketchball.Elements
     {
         public int Width = 100;
         public int Height = 100;
-        protected Glide Tweener = new Glide();
 
         public float bounceFactor { get; set; }
 

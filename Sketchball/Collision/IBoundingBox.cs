@@ -15,13 +15,11 @@ namespace Sketchball.Collision
         bool intersec(IBoundingBox bB, out Vector2 hitPoint);
         Vector2 reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos);
         Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity,Vector2 ballPos);
-        void rotate(float degree, Vector2 center);
+        void rotate(float rad, Vector2 center);
         void move(Vector2 moveVec);
         bool lineIntersec(BoundingLine bL, out Vector2 hitPoint);
         bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint);
-      
-
-
+    
         void drawDEBUG(System.Drawing.Graphics g, System.Drawing.Pen p);
     }
 }
