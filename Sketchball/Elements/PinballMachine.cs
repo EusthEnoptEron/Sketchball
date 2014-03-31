@@ -24,6 +24,7 @@ namespace Sketchball.Elements
         public ElementCollection Balls { get; private set; }
         private List<PinballElement> FallenBalls = new List<PinballElement>();
 
+        private StartingRamp Ramp;
 
 
         public Size Bounds {get; private set;}
@@ -41,14 +42,25 @@ namespace Sketchball.Elements
 
         internal InputManager Input { get; private set; }
 
-        public PinballMachine(Size bounds)
+        public PinballMachine(Size bounds) : this(bounds.Width, bounds.Height)
         {
+        }
+
+        public PinballMachine(int width, int height)
+        {
+            Input = new InputManager();
             Elements = new ElementCollection(this);
             Balls = new ElementCollection(this);
 
-            Bounds = bounds;
+            Bounds = new Size(width, height);
 
-            Input = new InputManager();
+            // Set starting ramp
+            Ramp = new StartingRamp();
+            Ramp.World = this;
+            Elements.Add(Ramp);
+            
+            Ramp.X = Width - Ramp.Width;
+            Ramp.Y = Height - Ramp.Height;
         }
 
 
@@ -69,15 +81,26 @@ namespace Sketchball.Elements
         /// <param name="g"></param>
         public void Draw(Graphics g)
         {
-            g.DrawRectangle(Pens.Black, 0, 0, Width, Height);
-            foreach (PinballElement element in Elements)
+            GraphicsState gsave = g.Save();
+            try
             {
-                GraphicsState gstate = g.Save();
+                g.IntersectClip(new Rectangle(0, 0, Width, Height));
 
-                g.TranslateTransform(element.X, element.Y);
-                element.Draw(g);
+                g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
 
-                g.Restore(gstate);
+                foreach (PinballElement element in Elements)
+                {
+                    GraphicsState gstate = g.Save();
+
+                    g.TranslateTransform(element.X, element.Y);
+                    element.Draw(g);
+
+                    g.Restore(gstate);
+                }
+            }
+            finally
+            {
+                g.Restore(gsave);
             }
         }
 
@@ -159,12 +182,15 @@ namespace Sketchball.Elements
         internal bool HasBall()
         {
             //throw new NotImplementedException();
-            return false;
+            return Elements.FirstOrDefault((el) => { return el is Ball; }) != null;
         }
 
         internal void IntroduceBall()
         {
-            Elements.Add(new Ball());
+            Ball ball = new Ball();
+
+            Ramp.IntroduceBall(ball);
+            Elements.Add(ball);
         }
     }
 }

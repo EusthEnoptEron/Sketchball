@@ -1,4 +1,5 @@
-﻿using Sketchball.Elements;
+﻿using Sketchball.Controls;
+using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,7 +19,19 @@ namespace Sketchball
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PlayForm(new PinballMachine(new Size(500, 500))));
+           
+            Form f = new Form();
+            PinballControl2 pinball = new PinballControl2();
+
+            f.Controls.Add(pinball);
+            pinball.Dock = DockStyle.Fill;
+            f.Width = 500;
+            f.Height = 500;
+
+
+           // Application.Run(f);
+           Application.Run(new PlayForm(new PinballMachine(new Size(500, 500))));
+
         }
     }
 }

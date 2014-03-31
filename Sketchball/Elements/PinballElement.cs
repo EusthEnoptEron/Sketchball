@@ -30,7 +30,10 @@ namespace Sketchball.Elements
                 }
                 _machine = value;
 
-                EnterMachine(_machine);
+                if (_machine != null)
+                {
+                    EnterMachine(_machine);
+                }
             }
         }
 

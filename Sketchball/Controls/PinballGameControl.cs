@@ -50,8 +50,20 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.UserPaint, true);
 
             HandleCreated += PinballGameControl_HandleCreated;
+            KeyUp += HandleKeyUp;
 
             Start();
+        }
+
+        void HandleKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                if (!World.HasBall())
+                {
+                    Start();
+                }
+            }
         }
 
         void PinballGameControl_HandleCreated(object sender, EventArgs e)
@@ -74,6 +86,7 @@ namespace Sketchball.Controls
                     () =>
                     {
                         Invalidate();
+                        base.Update();
                     }
                 ));
                 EndInvoke(result);
@@ -189,6 +202,11 @@ namespace Sketchball.Controls
             SizeF size = g.MeasureString(str, SystemFonts.DefaultFont);
             g.DrawString(str, SystemFonts.DefaultFont, Brushes.Black, Width - 200, 50);
             g.DrawString(Score.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50);
+
+            str = "Lives: ";
+            size = g.MeasureString(str, SystemFonts.DefaultFont);
+            g.DrawString(str, SystemFonts.DefaultFont, Brushes.Black, Width - 200, 50 + size.Height);
+            g.DrawString(Lives.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50 + size.Height);
 
         }
     }
