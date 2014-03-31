@@ -17,6 +17,8 @@ namespace Sketchball.Elements
         protected Glide Tweener = new Glide();
 
         public float bounceFactor { get; set; }
+        public float X { get { return Location.X; } set { Location.X = value; } }
+        public float Y { get { return Location.Y; } set { Location.Y = value; } }
 
         private PinballMachine _machine = null;
         public PinballMachine World { 
@@ -38,7 +40,7 @@ namespace Sketchball.Elements
             }
         }
 
-        private Vector2 Location= new Vector2();
+        public Vector2 Location= new Vector2();
 
 
         //Collision detection stuff
@@ -52,7 +54,7 @@ namespace Sketchball.Elements
 
         public int Value { get; protected set; }
 
-        public virtual void Update(long delta)
+        public virtual void Update(long delta) {
         
         }
 

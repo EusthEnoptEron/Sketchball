@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sketchball.Collision;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -25,7 +26,7 @@ namespace Sketchball.Elements
         private List<PinballElement> FallenBalls = new List<PinballElement>();
 
         private StartingRamp Ramp;
-
+        private BoundingRaster boundingRaster;
 
         public Size Bounds {get; private set;}
 

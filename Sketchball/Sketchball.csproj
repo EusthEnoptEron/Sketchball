@@ -83,7 +83,6 @@
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
     <Compile Include="Elements\IPhysics.cs" />
-    <Compile Include="Elements\PinballMachine.cs" />
     <Compile Include="EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +91,7 @@
     </Compile>
     <Compile Include="Elements\Line.cs" />
     <Compile Include="Elements\PinballMachine.cs" />
+    <Compile Include="Elements\StartingRamp.cs" />
     <Compile Include="Elements\TriangleTMP.cs" />
     <Compile Include="GlideTween\Ease.cs" />
     <Compile Include="GlideTween\Glide.cs" />
