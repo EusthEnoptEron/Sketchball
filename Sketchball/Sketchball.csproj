@@ -50,6 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Change.cs" />
+    <Compile Include="Collision\BoundingBox.cs" />
+    <Compile Include="Collision\BoundingCircle.cs" />
+    <Compile Include="Collision\BoundingContainer.cs" />
+    <Compile Include="Collision\BoundingField.cs" />
+    <Compile Include="Collision\BoundingLine.cs" />
+    <Compile Include="Collision\BoundingRaster.cs" />
+    <Compile Include="Collision\IBoundingBox.cs" />
     <Compile Include="Controls\PinballControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -72,6 +79,7 @@
       <DependentUpon>ElementControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Elements\Ball.cs" />
+    <Compile Include="Elements\Bumper.cs" />
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
     <Compile Include="Elements\IPhysics.cs" />
@@ -82,7 +90,9 @@
     <Compile Include="EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\StartingRamp.cs" />
+    <Compile Include="Elements\Line.cs" />
+    <Compile Include="Elements\PinballMachine.cs" />
+    <Compile Include="Elements\TriangleTMP.cs" />
     <Compile Include="GlideTween\Ease.cs" />
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />
@@ -101,6 +111,7 @@
     <Compile Include="Vector2.cs" />
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayForm.resx">
       <DependentUpon>PlayForm.cs</DependentUpon>

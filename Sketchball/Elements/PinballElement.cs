@@ -1,4 +1,5 @@
 ﻿using GlideTween;
+using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,14 +16,14 @@ namespace Sketchball.Elements
         public int Height = 100;
         protected Glide Tweener = new Glide();
 
+        public float bounceFactor { get; set; }
 
         private PinballMachine _machine = null;
         public PinballMachine World { 
             get {
                 return _machine;
             }
-
-            internal set
+ 			internal set
             {
                 if (_machine != null)
                 {
@@ -37,14 +38,22 @@ namespace Sketchball.Elements
             }
         }
 
-        public Vector2 Location = new Vector2();
-        public float X { get { return Location.X; } set { Location.X = value; } }
-        public float Y { get { return Location.Y; } set { Location.Y = value; } }
+        private Vector2 Location= new Vector2();
+
+
+        //Collision detection stuff
+        public BoundingContainer boundingContainer{get;private set;}
+
+        public PinballElement()
+        {
+            this.boundingContainer =  new BoundingContainer(this);
+            this.bounceFactor = 0.9f;
+        }
 
         public int Value { get; protected set; }
 
         public virtual void Update(long delta)
-        {
+        
         }
 
         public abstract void Draw(Graphics g);
@@ -60,12 +69,33 @@ namespace Sketchball.Elements
             return element;
         }
 
-        protected virtual void EnterMachine(PinballMachine machine)
+  		 protected virtual void EnterMachine(PinballMachine machine)
         {
         }
 
         protected virtual void LeaveMachine(PinballMachine machine)
         {
+        }
+
+        public BoundingContainer getBoundingContainer()
+        {
+            return this.boundingContainer;
+        }
+
+        public Vector2 getLocation()
+        {
+            return this.Location;
+        }
+
+        public void setLocation(Vector2 newLoc)
+        {
+            this.Location.X = newLoc.X;
+            this.Location.Y = newLoc.Y;
+        }
+
+        public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
+        {
+            return newDirection* bounceFactor;
         }
     }
 }

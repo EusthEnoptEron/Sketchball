@@ -54,6 +54,8 @@ namespace Sketchball.Elements
 
             Bounds = new Size(width, height);
 
+			 this.boundingRaster = new BoundingRaster(Width / 60, Height / 60,Width,Height);
+
             // Set starting ramp
             Ramp = new StartingRamp();
             Ramp.World = this;
@@ -97,6 +99,16 @@ namespace Sketchball.Elements
 
                     g.Restore(gstate);
                 }
+				
+ 				foreach(Ball b in this.Balls)
+            	{
+                GraphicsState gstate = g.Save();
+
+                g.TranslateTransform(b.X, b.Y);
+                b.Draw(g);
+
+                g.Restore(gstate);
+            }
             }
             finally
             {
@@ -104,6 +116,14 @@ namespace Sketchball.Elements
             }
         }
 
+
+public void handleCollision()
+        {
+            foreach (Ball b in this.Balls)
+            {
+                this.boundingRaster.handleCollision(b);
+            }
+        }
 
         /// <summary>
         /// Updates the internal physical environment.
@@ -177,6 +197,24 @@ namespace Sketchball.Elements
             }
 
             return machine;
+        }
+
+        public void addBall(Ball b)
+        {
+            this.Balls.Add(b);
+        }
+
+        public void debugDraw(Graphics g)
+        {
+            g.DrawEllipse(Pens.Orange, this.boundingRaster.hitPointDebug.X, this.boundingRaster.hitPointDebug.Y, 2, 2);
+        }
+
+        internal void addAnimatedObject(PinballElement tr)
+        {
+            foreach (BoundingBox b in tr.boundingContainer.getBoundingBoxes())
+            {
+                this.boundingRaster.addAnimatedObject(b);
+            }
         }
 
         internal bool HasBall()

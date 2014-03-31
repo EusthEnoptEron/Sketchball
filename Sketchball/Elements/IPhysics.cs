@@ -13,6 +13,8 @@ namespace Sketchball.Elements
         /// </summary>
         Vector2 Velocity { get; set; }
 
+        // Vector2 acceleration { get; set; }     
+
         /// <summary>
         /// Mass of the object.
         /// </summary>
