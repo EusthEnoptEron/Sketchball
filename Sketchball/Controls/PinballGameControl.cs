@@ -22,6 +22,7 @@ namespace Sketchball.Controls
         }
 
         public const int TOTAL_LIVES = 3;
+        private const int MIN_FPS = 10;
 
         private GameStatus Status = GameStatus.Setup;
         private PinballGameMachine Game;
@@ -83,7 +84,9 @@ namespace Sketchball.Controls
             while (true)
             {
                 now = DateTime.Now;
-                Update( (long)(now - prev).TotalMilliseconds );
+                long delta = Math.Min(1000 / MIN_FPS, (long)(now - prev).TotalMilliseconds);
+
+                Update(delta);
                 IAsyncResult result = BeginInvoke(new Action(
                     () =>
                     {
