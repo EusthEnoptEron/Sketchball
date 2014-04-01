@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sketchball.Collision;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -12,40 +13,62 @@ namespace Sketchball.Elements
     {
         private Keys Trigger = Keys.Space;
         private float Power = 0;
-        private Vector2 MaxVelocity = new Vector2(0, 100f);
+        private Vector2 MaxVelocity = new Vector2(0, -1500f);
 
         private bool Charging = false;
         private Ball Ball = null;
 
         public StartingRamp() : base()
         {
-            Width = 100;
+
+            bounceFactor = 0.2f;
+
+            Width = 50;
             Height = 300;
+
+            // Vertical line left
+            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(0, 0), new Vector2(0, Height)));
+            
+            // Horizontal line
+            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(0, Height ), new Vector2(Width, Height)));
+            
+            // Vertical line right
+            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(Width, 0), new Vector2(Width, Height)));
+
         }
 
-        protected override void EnterMachine(PinballMachine machine)
+        protected override void EnterMachine(PinballGameMachine machine)
         {
             // Bind event
             machine.Input.KeyDown += Charge;
-            machine.Input.KeyUp += Uncharge;
+            machine.Input.KeyUp += Discharge;
         }
 
-        protected override void LeaveMachine(PinballMachine machine)
+        protected override void LeaveMachine(PinballGameMachine machine)
         {
             // Unbind event
             machine.Input.KeyDown -= Charge;
-            machine.Input.KeyUp -= Uncharge;
+            machine.Input.KeyUp -= Discharge;
         }
 
         public override void Draw(System.Drawing.Graphics g)
         {
+            g.TranslateTransform(-X, -Y);
+            boundingContainer.boundingBoxes.ForEach((el) =>
+            {
+                el.drawDEBUG(g, Pens.Orange);
+            });
+            g.TranslateTransform(X, Y);
+
+            g.DrawString(Power + "", new Font("Arial", 12, FontStyle.Regular), Brushes.Red, 0f, 0f);
+
             g.DrawRectangle(Pens.Red, 0, 0, Width, Height);
         }
 
         public void IntroduceBall(Ball ball) {
             Ball = ball;
 
-            Ball.X = X;
+            Ball.X = X + Ball.Width / 4;
             Ball.Y = Y;
         }
 
@@ -76,11 +99,11 @@ namespace Sketchball.Elements
             if (e.KeyCode == Trigger && Active)
             {
                 Charging = true;
-                Tweener.Tween(this, new { Power = 1 }, 2f);
+                Tweener.Tween(this, new { Power = 1 }, 1f);
             }
         }
 
-        private void Uncharge(object sender, KeyEventArgs e)
+        private void Discharge(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Trigger && Active)
             {

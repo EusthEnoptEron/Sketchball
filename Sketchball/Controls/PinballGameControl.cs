@@ -24,6 +24,7 @@ namespace Sketchball.Controls
         public const int TOTAL_LIVES = 3;
 
         private GameStatus Status = GameStatus.Setup;
+        private PinballGameMachine Game;
 
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace Sketchball.Controls
         {
             if (e.KeyCode == Keys.Space)
             {
-                if (!World.HasBall())
+                if (!Game.HasBall())
                 {
                     Start();
                 }
@@ -69,6 +70,7 @@ namespace Sketchball.Controls
         void PinballGameControl_HandleCreated(object sender, EventArgs e)
         {
             BackgroundWorker worker = new BackgroundWorker();
+            
             worker.DoWork += DrawCycle;
             worker.RunWorkerAsync();
         }
@@ -103,16 +105,17 @@ namespace Sketchball.Controls
         {
             Status = GameStatus.Playing;
 
-            World = (PinballMachine)OriginalMachine.Clone();
+            Game = new PinballGameMachine(OriginalMachine);
+            Game.prepareForLaunch();
 
             Score = 0;
             Lives = TOTAL_LIVES;
 
             // Wire up event handlers
-            World.Collision += OnScore;
-            World.GameOver += OnGameOver;
+            Game.Collision += OnScore;
+            Game.GameOver += OnGameOver;
 
-            World.IntroduceBall();
+            Game.IntroduceBall();
         }
 
         /// <summary>
@@ -128,7 +131,7 @@ namespace Sketchball.Controls
             else
             {
                 Lives--;
-                World.IntroduceBall();
+                Game.IntroduceBall();
             }
         }
 
@@ -162,17 +165,17 @@ namespace Sketchball.Controls
         /// <summary>
         /// Updates positions and checks for collisions, etc.
         /// </summary>
-        protected new void Update(long elapsed)
+        public void Update(long elapsed)
         {            
             // Update elements
-            World.Update(elapsed);
+            Game.Update(elapsed);
         }
 
 
         protected override void Draw(Graphics g)
         {
             // Draw pinball machine
-            base.Draw(g);
+            Game.Draw(g);
 
             // Draw HUD
             DrawHUD(g);

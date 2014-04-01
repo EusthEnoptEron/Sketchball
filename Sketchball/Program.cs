@@ -30,7 +30,7 @@ namespace Sketchball
 
 
            // Application.Run(f);
-           Application.Run(new PlayForm(new PinballMachine(new Size(500, 500))));
+            Application.Run(new PlayForm(new PinballMachine(new Size(500, 500))) { Height = 600 });
 
         }
     }

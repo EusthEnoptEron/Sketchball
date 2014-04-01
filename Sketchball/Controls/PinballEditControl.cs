@@ -22,11 +22,13 @@ namespace Sketchball.Controls
 
         public Vector2 ScaleFactor = new Vector2(1,1);
 
-
+        PinballMachine World;
 
         public PinballEditControl()
             : base()
         {
+            World = new PinballMachine(500, 500);
+
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -105,7 +107,7 @@ namespace Sketchball.Controls
             g.FillRectangle(brush, 0, 0, base.Width, base.Height);
             g.Transform = Transform;
 
-            base.Draw(g);
+            World.Draw(g);
         }
 
         private Matrix Transform

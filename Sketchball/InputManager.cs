@@ -1,4 +1,5 @@
 ﻿using MouseKeyboardActivityMonitor;
+using MouseKeyboardActivityMonitor.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,32 +9,44 @@ using System.Windows.Forms;
 
 namespace Sketchball
 {
-    class InputManager : IDisposable
+    class InputManager
     {
-        private KeyboardHookListener keyboardListener;
-
-        public event KeyEventHandler KeyDown;
-        public event KeyEventHandler KeyUp;
-        public event KeyPressEventHandler KeyPress;
-
-
         /// <summary>
         /// Initializes a new InputManager with a given control to listen to.
         /// </summary>
         /// <param name="control"></param>
-        public InputManager()
+        private InputManager()
         {
+
             keyboardListener = new KeyboardHookListener(new MouseKeyboardActivityMonitor.WinApi.AppHooker());
             keyboardListener.Enabled = true;
-
-            keyboardListener.KeyDown += KeyDown;
-            keyboardListener.KeyUp += KeyUp;
-            keyboardListener.KeyPress += KeyPress;
         }
 
-        public void Dispose()
+        private static InputManager instance = null;
+        public static InputManager Instance()
         {
-            keyboardListener.Dispose();
+            if (instance == null) instance = new InputManager();
+            return instance;
         }
+
+        private KeyboardHookListener keyboardListener;
+
+        public event KeyEventHandler KeyDown {
+            add    { keyboardListener.KeyDown += value; }
+            remove { keyboardListener.KeyDown -= value; }
+        }
+
+        public event KeyEventHandler KeyUp
+        {
+            add { keyboardListener.KeyUp += value; }
+            remove { keyboardListener.KeyUp -= value; }
+        }
+
+        public event KeyPressEventHandler KeyPress
+        {
+            add { keyboardListener.KeyPress += value; }
+            remove { keyboardListener.KeyPress -= value; }
+        }
+
     }
 }

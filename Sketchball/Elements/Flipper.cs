@@ -108,11 +108,11 @@ namespace Sketchball.Elements
             return rect.Contains(point);
         }
 
-        protected override void EnterMachine(PinballMachine machine)
+        protected override void EnterMachine(PinballGameMachine machine)
         {
         }
 
-        protected override void LeaveMachine(PinballMachine machine)
+        protected override void LeaveMachine(PinballGameMachine machine)
         {
         }
 

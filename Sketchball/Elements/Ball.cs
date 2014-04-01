@@ -36,7 +36,9 @@ namespace Sketchball.Elements
         {
             base.Update(delta);
             Velocity += World.Acceleration * (delta / 1000f);
+            float prev = Location.Y;
             Location += Velocity * (delta / 1000f);
+          
         }
 
         public float Mass

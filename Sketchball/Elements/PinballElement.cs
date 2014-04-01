@@ -27,15 +27,15 @@ namespace Sketchball.Elements
             }
  			internal set
             {
-                if (_machine != null)
+                if (_machine != null && _machine is PinballGameMachine)
                 {
-                    LeaveMachine(_machine);
+                    LeaveMachine((PinballGameMachine)_machine);
                 }
                 _machine = value;
 
-                if (_machine != null)
+                if (_machine != null && _machine is PinballGameMachine)
                 {
-                    EnterMachine(_machine);
+                    EnterMachine((PinballGameMachine)_machine);
                 }
             }
         }
@@ -71,11 +71,11 @@ namespace Sketchball.Elements
             return element;
         }
 
-  		 protected virtual void EnterMachine(PinballMachine machine)
+  		 protected virtual void EnterMachine(PinballGameMachine machine)
         {
         }
 
-        protected virtual void LeaveMachine(PinballMachine machine)
+         protected virtual void LeaveMachine(PinballGameMachine machine)
         {
         }
 
