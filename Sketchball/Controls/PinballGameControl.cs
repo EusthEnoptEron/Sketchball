@@ -40,6 +40,11 @@ namespace Sketchball.Controls
 
         private PinballMachine OriginalMachine;
 
+        protected override void ConfigureGDI(Graphics g)
+        {
+            base.ConfigureGDI(g);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        }
 
         public PinballGameControl(PinballMachine machine)
             : base()
@@ -50,6 +55,7 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.UserPaint, true);
+            
 
             HandleCreated += PinballGameControl_HandleCreated;
             KeyUp += HandleKeyUp;
@@ -162,7 +168,6 @@ namespace Sketchball.Controls
         /// </summary>
         public void Resume()
         {
-
         }
 
         /// <summary>

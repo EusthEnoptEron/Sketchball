@@ -44,6 +44,7 @@ namespace Sketchball.Controls
             // Go for quality in BG buffer and for performance in FG buffer.
             g.CompositingQuality = CompositingQuality.HighQuality;
             g.SmoothingMode = SmoothingMode.AntiAlias;
+            
         }
 
 
