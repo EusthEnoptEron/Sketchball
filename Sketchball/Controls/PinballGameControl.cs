@@ -12,8 +12,14 @@ using System.Windows.Forms;
 
 namespace Sketchball.Controls
 {
+    /// <summary>
+    /// Control that houses a game of pinball.
+    /// </summary>
     class PinballGameControl : PinballControl
     {
+        /// <summary>
+        /// Phases the control can assume
+        /// </summary>
         enum GameStatus
         {
             Setup,
@@ -21,11 +27,26 @@ namespace Sketchball.Controls
             GameOver
         }
 
+        /// <summary>
+        /// Total number of lives (<=> balls)
+        /// </summary>
         public const int TOTAL_LIVES = 3;
+
+        /// <summary>
+        /// The absolute minimum of FPS at any point in time.
+        /// </summary>
         private const int MIN_FPS = 10;
 
+        /// <summary>
+        /// Gets or sets the current game status.
+        /// </summary>
         private GameStatus Status = GameStatus.Setup;
-        private PinballGameMachine Game;
+        
+        
+        /// <summary>
+        /// Gets or sets the machine currently displayed.
+        /// </summary>
+        private PinballGameMachine Machine;
 
 
         /// <summary>
@@ -38,6 +59,9 @@ namespace Sketchball.Controls
         /// </summary>
         public int Lives { get; private set; }
 
+        /// <summary>
+        /// Original machine from which the game machines are made.
+        /// </summary>
         private PinballMachine OriginalMachine;
 
         protected override void ConfigureGDI(Graphics g)
@@ -46,6 +70,10 @@ namespace Sketchball.Controls
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
         }
 
+        /// <summary>
+        /// Creates a new PinballGameControl based on a machine template.
+        /// </summary>
+        /// <param name="machine">Template for the game machine.</param>
         public PinballGameControl(PinballMachine machine)
             : base()
         {
@@ -63,18 +91,26 @@ namespace Sketchball.Controls
             Start();
         }
 
-        void HandleKeyUp(object sender, KeyEventArgs e)
+
+        /// <summary>
+        /// Handles key presses (used to initiate a new game)
+        /// </summary>
+        private void HandleKeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
             {
-                if (!Game.HasBall())
+                if (!Machine.HasBall())
                 {
                     Start();
                 }
             }
         }
 
-        void PinballGameControl_HandleCreated(object sender, EventArgs e)
+
+        /// <summary>
+        /// Initializes the game loop.
+        /// </summary>
+        private void PinballGameControl_HandleCreated(object sender, EventArgs e)
         {
             BackgroundWorker worker = new BackgroundWorker();
             
@@ -82,7 +118,13 @@ namespace Sketchball.Controls
             worker.RunWorkerAsync();
         }
 
-        void DrawCycle(object sender, DoWorkEventArgs e)
+
+        /// <summary>
+        /// Method that repeatedly draws and updates the scene.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DrawCycle(object sender, DoWorkEventArgs e)
         {
             DateTime prev = DateTime.Now;
             DateTime now;
@@ -90,9 +132,17 @@ namespace Sketchball.Controls
             while (true)
             {
                 now = DateTime.Now;
-                long delta = Math.Min(1000 / MIN_FPS, (long)(now - prev).TotalMilliseconds);
+                // Calculate delta since last update
+                // (make sure it reaches at least MIN_FPS)
+                long delta = Math.Min(
+                    1000 / MIN_FPS,
+                    (long)(now - prev).TotalMilliseconds
+                );
 
+                // Update scene
                 Update(delta);
+
+                // Redraw scene
                 IAsyncResult result = BeginInvoke(new Action(
                     () =>
                     {
@@ -114,17 +164,18 @@ namespace Sketchball.Controls
         {
             Status = GameStatus.Playing;
 
-            Game = new PinballGameMachine(OriginalMachine);
-            Game.prepareForLaunch();
+            Machine = new PinballGameMachine(OriginalMachine);
+            Machine.prepareForLaunch();
 
             Score = 0;
             Lives = TOTAL_LIVES;
 
             // Wire up event handlers
-            Game.Collision += OnScore;
-            Game.GameOver += OnGameOver;
+            Machine.Collision += OnScore;
+            Machine.GameOver += OnGameOver;
 
-            Game.IntroduceBall();
+            Machine.IntroduceBall();
+            Lives--;
         }
 
         /// <summary>
@@ -140,7 +191,7 @@ namespace Sketchball.Controls
             else
             {
                 Lives--;
-                Game.IntroduceBall();
+                Machine.IntroduceBall();
             }
         }
 
@@ -176,14 +227,14 @@ namespace Sketchball.Controls
         public void Update(long elapsed)
         {            
             // Update elements
-            Game.Update(elapsed);
+            Machine.Update(elapsed);
         }
 
 
         protected override void Draw(Graphics g)
         {
             // Draw pinball machine
-            Game.Draw(g);
+            Machine.Draw(g);
 
             // Draw HUD
             DrawHUD(g);
@@ -203,7 +254,6 @@ namespace Sketchball.Controls
 
                 g.DrawString("YOU LOSE", new Font("Impact", 40, FontStyle.Regular), Brushes.DarkRed, new PointF(Width / 2 - size.Width / 2, Height / 2 - size.Height / 2));
                 g.DrawString("Press [SPACE] to try again.", new Font("Arial", 13, FontStyle.Regular), Brushes.DarkRed, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
-
             }
         }
 
