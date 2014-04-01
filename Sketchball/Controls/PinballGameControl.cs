@@ -48,6 +48,7 @@ namespace Sketchball.Controls
         /// </summary>
         private PinballGameMachine Machine;
 
+        private Camera Camera = null;
 
         /// <summary>
         /// Gets the score of the current game.
@@ -84,7 +85,6 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.UserPaint, true);
             
-
             HandleCreated += PinballGameControl_HandleCreated;
             KeyUp += HandleKeyUp;
 
@@ -166,6 +166,7 @@ namespace Sketchball.Controls
 
             Machine = new PinballGameMachine(OriginalMachine);
             Machine.prepareForLaunch();
+            Camera = new PinballMachineCamera(Machine);
 
             Score = 0;
             Lives = TOTAL_LIVES;
@@ -234,7 +235,7 @@ namespace Sketchball.Controls
         protected override void Draw(Graphics g)
         {
             // Draw pinball machine
-            Machine.Draw(g);
+            Camera.Draw(g);
 
             // Draw HUD
             DrawHUD(g);

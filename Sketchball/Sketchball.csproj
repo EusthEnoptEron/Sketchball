@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
     <Compile Include="Change.cs" />
     <Compile Include="Collision\BoundingBox.cs" />
     <Compile Include="Collision\BoundingCircle.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Elements\PinballElement.cs" />
     <Compile Include="History.cs" />
     <Compile Include="InputManager.cs" />
+    <Compile Include="PinballMachineCamera.cs" />
     <Compile Include="PlayForm.cs">
       <SubType>Form</SubType>
     </Compile>
