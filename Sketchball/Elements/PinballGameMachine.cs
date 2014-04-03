@@ -49,48 +49,28 @@ namespace Sketchball.Elements
        
         public void Update(long elapsed)
         {
+            bool hasGameOver = false;
+
             foreach (PinballElement element in Elements)
             {
                 element.Update(elapsed);
             }
 
-            foreach (Ball element in Balls)
-            {
-                element.Update(elapsed);
-                KeepContained(element);
-            }
 
-            if (FallenBalls.Count > 0)
+            for (int i = Balls.Count - 1; i >= 0; i--)
             {
-                foreach (PinballElement element in FallenBalls)
+                Balls[i].Update(elapsed);
+                if (Balls[i].Y > Height)
                 {
-                    Balls.Remove(element);
+                    Balls.RemoveAt(i);
+                    hasGameOver = true;
                 }
-                FallenBalls.Clear();
-
-                GameOver();
             }
-
 
             handleCollision();
-        }
 
-        private void KeepContained(Ball element)
-        {
-            Ball el = element;
-
-            if (element.Y > Height)
-            {
-                //element.Y = Height - element.Height;
-
-                // el.Velocity = new Vector2(el.Velocity.X * .6f, -el.Velocity.Y * .6f);
-                FallenBalls.Add(element);
-            }
-            if (element.X < 0 || element.X + element.Width > Width)
-            {
-                element.X = Math.Max(0, Math.Min(Width - element.Width, element.X));
-                el.Velocity = new Vector2(-el.Velocity.X * .6f, el.Velocity.Y);
-            }
+            if (hasGameOver)
+                GameOver();
         }
 
         public void handleCollision()

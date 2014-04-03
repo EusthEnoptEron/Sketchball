@@ -24,7 +24,8 @@ namespace Sketchball.Controls
         {
             Setup,
             Playing,
-            GameOver
+            GameOver,
+            Pause
         }
 
         /// <summary>
@@ -132,6 +133,7 @@ namespace Sketchball.Controls
             while (true)
             {
                 now = DateTime.Now;
+
                 // Calculate delta since last update
                 // (make sure it reaches at least MIN_FPS)
                 long delta = Math.Min(
@@ -140,7 +142,8 @@ namespace Sketchball.Controls
                 );
 
                 // Update scene
-                Update(delta);
+                if(Status != GameStatus.Pause)
+                    Update(delta);
 
                 // Redraw scene
                 IAsyncResult result = BeginInvoke(new Action(
@@ -211,7 +214,7 @@ namespace Sketchball.Controls
         /// </summary>
         public void Pause()
         {
-
+            Status = GameStatus.Pause;
         }
 
 
