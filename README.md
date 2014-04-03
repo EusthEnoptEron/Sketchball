@@ -1,5 +1,9 @@
 #Sketchball
 
+## Builds
+
+Automated builds can be found here: http://meersi.ch/sketchball/
+
 ## Raw instruction
 
 The   aim   of   the   project   is   to   implement   the   pin-ball-machine   game   (“flipper”)   on   the 
