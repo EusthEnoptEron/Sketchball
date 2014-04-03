@@ -9,6 +9,6 @@ namespace Sketchball
 {
     interface Camera
     {
-        void Draw(Graphics g);
+        void Draw(Graphics g, Rectangle bounds);
     }
 }

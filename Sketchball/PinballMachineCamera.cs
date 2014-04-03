@@ -18,12 +18,10 @@ namespace Sketchball
             Machine = machine;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Rectangle bounds)
         {
-            RectangleF bounds = g.VisibleClipBounds;
-
-            float widthRatio = bounds.Width / Machine.Width;
-            float heightRatio = bounds.Height / Machine.Height;
+            float widthRatio = (float)bounds.Width / Machine.Width;
+            float heightRatio = (float)bounds.Height / Machine.Height;
 
             float ratio = Math.Min(widthRatio, heightRatio);
 

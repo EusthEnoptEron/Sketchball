@@ -168,8 +168,9 @@ namespace Sketchball.Controls
             Status = GameStatus.Playing;
 
             Machine = new PinballGameMachine(OriginalMachine);
-            Machine.prepareForLaunch();
             Camera = new PinballMachineCamera(Machine);
+
+            Machine.prepareForLaunch();
 
             Score = 0;
             Lives = TOTAL_LIVES;
@@ -238,7 +239,7 @@ namespace Sketchball.Controls
         protected override void Draw(Graphics g)
         {
             // Draw pinball machine
-            Camera.Draw(g);
+            Camera.Draw(g, Bounds);
 
             // Draw HUD
             DrawHUD(g);
