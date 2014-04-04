@@ -43,7 +43,7 @@ namespace Sketchball.Elements
 
         }
 
-        private void GoUp()
+        public void GoUp()
         {
             Vector2 drawCenter = this.getLocation() + new Vector2(0, this.Height);
             Action endRot = new Action(() => { this.rotate((float)(90 / 180f * Math.PI), drawCenter, 1f); });

@@ -82,9 +82,10 @@ namespace Sketchball.Controls
             
             Elements.Add(b);
             Elements.Add(l);
-            Elements.Add(tr);
+
             
-            Elements.Add(f);
+            //machine.addAnimatedObject(f);
+           // Elements.Add(tr);
             machine.addAnimatedObject(tr);
             machine.addBall(ball);  //Changed
           
@@ -151,7 +152,14 @@ namespace Sketchball.Controls
                 Ball b = new Ball();
                 b.setLocation(new Vector2(e.X, e.Y));
                 machine.Balls.Add(b);
-                b.setParent(machine);
+                b.setParent(machine);/*
+                foreach (PinballElement p in this.machine.Elements)
+                {
+                    if(p.GetType() == typeof(Flipper))
+                    {
+                        ((Flipper)p).GoUp();
+                    }
+                }*/
             }
         }
 

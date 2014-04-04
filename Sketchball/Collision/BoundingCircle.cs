@@ -76,7 +76,7 @@ namespace Sketchball.Collision
             Vector2 normalLine = new Vector2(-directionLine.Y, directionLine.X);
 
             float lenDirectionPiece = Vector2.Dot((centerOfCircle - bLWorldPos) , Vector2.Normalize(directionLine));
-
+           // Console.WriteLine(bL.position+" "+bL.target+" "+lenDirectionPiece);
             if (lenDirectionPiece < -this.radius || lenDirectionPiece > (directionLine.Length()+this.radius))
             {
                 return false;

@@ -10,7 +10,10 @@ namespace Sketchball.Elements
     public abstract class AnimatedObject : PinballElement, IAnimatedObject
     {
         public float Rotation { get; set; }
-        private Vector2 currentDrawingCenter;
+        public float angualrVelocityPerFrame { get; private set; }
+        public float angularVelocity { get; private set; }
+
+        public Vector2 currentRotationCenter { get; private set; }
         private Glide Tweener;
 
         public AnimatedObject()
@@ -21,32 +24,42 @@ namespace Sketchball.Elements
         public void rotate(float rad, Vector2 center, float time)
         {
             float degAbs = rad + this.Rotation;
-            this.currentDrawingCenter = center;
+            this.currentRotationCenter = center;
             Tweener.Tween(this, new { Rotation=degAbs }, time).Ease(GlideTween.Ease.QuintInOut);
         }
 
         public void rotate(float rad, Vector2 center, float time, Action endRotation)
         {
             float degAbs = rad + this.Rotation;
-            this.currentDrawingCenter = center;
-            Tweener.Tween(this, new { Rotation = degAbs }, time).Ease(GlideTween.Ease.QuintInOut).OnComplete(endRotation);
+            this.currentRotationCenter = center;
+            this.angularVelocity = rad / time;
+            Tweener.Tween(this, new { Rotation = degAbs }, time).OnComplete(endRotation);
         }
 
         public override void Draw(System.Drawing.Graphics g)
         {
             if (Rotation != 0)
             {
-                g.TranslateTransform(0 + (this.currentDrawingCenter.X ), this.currentDrawingCenter.Y );
-                g.RotateTransform((float)(Rotation/(Math.PI)*180f));
-                g.TranslateTransform(0 - (this.currentDrawingCenter.X ), -( this.currentDrawingCenter.Y ));
+                g.TranslateTransform(0 + (this.currentRotationCenter.X ), this.currentRotationCenter.Y );
+                g.RotateTransform((float)-(Rotation/(Math.PI)*180f));
+                g.TranslateTransform(0 - (this.currentRotationCenter.X ), -( this.currentRotationCenter.Y ));
             }
         }
 
         public override void Update(long delta)
         {
+            if (delta != 0)
+            {
+                this.angualrVelocityPerFrame = this.angularVelocity * (delta / 1000f);
+            }
+            else
+            {
+                this.angualrVelocityPerFrame = 0;
+            }
             base.Update(delta);
             Tweener.Update(delta / 1000f);
-            this.boundingContainer.rotate(this.Rotation, this.currentDrawingCenter);
+           
+            this.boundingContainer.rotate(-this.Rotation, this.currentRotationCenter);
         }
     }
 }
