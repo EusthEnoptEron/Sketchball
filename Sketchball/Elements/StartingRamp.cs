@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GlideTween;
 
 namespace Sketchball.Elements
 {
@@ -17,6 +18,7 @@ namespace Sketchball.Elements
 
         private bool Charging = false;
         private Ball Ball = null;
+        private Glide Tweener = new Glide();
 
         public StartingRamp() : base()
         {

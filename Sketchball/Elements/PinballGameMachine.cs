@@ -26,7 +26,12 @@ namespace Sketchball.Elements
         /// </summary>
         public void prepareForLaunch()
         {
+            LinkedList<IBoundingBox> anis = this.boundingRaster.getAnimatedObjects();
             this.boundingRaster = new BoundingRaster(Width / 60, Height / 60, Width, Height);
+            foreach (IBoundingBox b in anis)
+            {
+                this.boundingRaster.addAnimatedObject(b);
+            }
             this.boundingRaster.takeOverBoundingBoxes(this.Elements);
             this.boundingRaster.takeOverBoundingBoxes(this.Contours);
         }
@@ -93,6 +98,7 @@ namespace Sketchball.Elements
             {
                 this.boundingRaster.addAnimatedObject(b);
             }
+            this.Elements.Add(tr);
         }
 
         internal bool HasBall()

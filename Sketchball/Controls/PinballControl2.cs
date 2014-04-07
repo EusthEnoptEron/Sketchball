@@ -18,7 +18,7 @@ namespace Sketchball.Controls
     [Browsable(false)]
     public partial class PinballControl2 : UserControl
     {
-        private PinballMachine machine = new PinballMachine(new Size(500, 500));
+        private PinballGameMachine machine = new PinballGameMachine(new PinballMachine(new Size(500, 500)));
         public ElementCollection Elements;
         Bitmap B_BUFFER;
         Graphics G_BUFFER;

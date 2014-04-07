@@ -19,18 +19,18 @@ namespace Sketchball
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           
-            Form f = new Form();
-            PinballControl2 pinball = new PinballControl2();
 
-            f.Controls.Add(pinball);
-            pinball.Dock = DockStyle.Fill;
-            f.Width = 500;
-            f.Height = 500;
+            //Form f = new Form();
+            //PinballControl2 pinball = new PinballControl2();
+
+            //f.Controls.Add(pinball);
+            //pinball.Dock = DockStyle.Fill;
+            //f.Width = 500;
+            //f.Height = 500;
 
 
-           // Application.Run(f);
-            Application.Run(new PlayForm(new PinballMachine(new Size(470, 600))) { Width = 800, Height = 700 });
+            Application.Run(new EditorForm());
+            //Application.Run(new PlayForm(new PinballMachine(new Size(470, 600))) { Width = 800, Height = 700 });
 
         }
     }

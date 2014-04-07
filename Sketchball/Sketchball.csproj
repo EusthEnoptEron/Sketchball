@@ -84,7 +84,6 @@
     <Compile Include="Elements\Bumper.cs" />
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
-    <Compile Include="Elements\IPhysics.cs" />
     <Compile Include="EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>

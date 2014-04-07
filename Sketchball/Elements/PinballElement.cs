@@ -67,7 +67,8 @@ namespace Sketchball.Elements
 
         public virtual bool Contains(Point point)
         {
-            throw new NotImplementedException();
+            return false;
+            //throw new NotImplementedException();
         }
 
         public object Clone()

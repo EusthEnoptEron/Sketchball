@@ -12,6 +12,22 @@ namespace Sketchball.Elements
     {
         PointF p1, p2;
 
+
+        public Line()
+            : base()
+        {
+            Width = 100;
+            Height = 0;
+
+
+            this.setLocation(new Vector2(100, 200));
+
+
+            //set up of bounding box
+            BoundingLine bL = new BoundingLine(new Vector2(0, 0), new Vector2(this.Width, this.Height));
+            this.boundingContainer.addBoundingBox(bL);
+
+        }
         public Line(float x0, float y0, float x1, float y1) : base()
         {
             X = Math.Min(x0, x1);
