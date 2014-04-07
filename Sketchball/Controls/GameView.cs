@@ -65,6 +65,7 @@ namespace Sketchball.Controls
         private void ResizeCamera(object sender, EventArgs e)
         {
             Camera.Size = Size;
+            Invalidate();
         }
 
 
@@ -116,19 +117,23 @@ namespace Sketchball.Controls
                     (long)(now - prev).TotalMilliseconds
                 );
 
-                // Update scene
-                if(Game.Status != GameStatus.Pause)
-                    Game.Update(delta);
+                if (Game.Status == GameStatus.Playing)
+                {
+                    // Update scene
+                    if (Game.Status != GameStatus.Pause)
+                        Game.Update(delta);
 
-                // Redraw scene
-                IAsyncResult result = BeginInvoke(new Action(
-                    () =>
-                    {
-                        Invalidate();
-                        base.Update();
-                    }
-                ));
-                EndInvoke(result);
+                    // Redraw scene
+                    IAsyncResult result = BeginInvoke(new Action(
+                        () =>
+                        {
+                            Invalidate();
+                            base.Update();
+                        }
+                    ));
+                    EndInvoke(result);
+
+                }
 
                 Thread.Sleep(10);
                 prev = now;
