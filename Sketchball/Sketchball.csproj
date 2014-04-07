@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Elements\Ball.cs" />
     <Compile Include="Elements\Bumper.cs" />
+    <Compile Include="Elements\DefaultLayout.cs" />
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
     <Compile Include="EditorForm.cs">
@@ -91,6 +92,7 @@
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Elements\IAnimatedObject.cs" />
+    <Compile Include="Elements\IMachineLayout.cs" />
     <Compile Include="Elements\Line.cs" />
     <Compile Include="Elements\PinballGameMachine.cs" />
     <Compile Include="Elements\PinballMachine.cs" />

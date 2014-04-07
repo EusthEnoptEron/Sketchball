@@ -51,7 +51,28 @@ namespace Sketchball.Collision
             bL.assigneToContainer(this);
         }
 
+        public void AddPolygon(params float[] coords)
+        {
+            Vector2 prev = new Vector2();
 
+            for (int i = 0; i+1 < coords.Length; i += 2)
+            {
+                var x = coords[i];
+                var y = coords[i + 1];
+
+                var v = new Vector2(x, y);
+
+                if (i > 0)
+                {
+                    addBoundingBox(new BoundingLine(
+                        prev,
+                        v
+                    ));
+                }
+
+                prev = v;
+            }
+        }
 
     }
 }

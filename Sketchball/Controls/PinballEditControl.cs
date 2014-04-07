@@ -27,7 +27,7 @@ namespace Sketchball.Controls
         public PinballEditControl()
             : base()
         {
-            World = new PinballMachine(500, 500);
+            World = new PinballMachine();
 
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
