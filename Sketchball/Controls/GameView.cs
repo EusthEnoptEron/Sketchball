@@ -128,9 +128,6 @@ namespace Sketchball.Controls
             // Draw pinball machine
             Camera.Draw(g, Bounds);
 
-            // Draw HUD
-            DrawHUD(g);
-
             if (Game.Status == GameStatus.GameOver)
             {
                 DrawOverlay(g);
@@ -147,20 +144,6 @@ namespace Sketchball.Controls
                 g.DrawString("YOU LOSE", new Font("Impact", 40, FontStyle.Regular), Brushes.DarkRed, new PointF(Width / 2 - size.Width / 2, Height / 2 - size.Height / 2));
                 g.DrawString("Press [SPACE] to try again.", new Font("Arial", 13, FontStyle.Regular), Brushes.DarkRed, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
             }
-        }
-
-        private void DrawHUD(Graphics g)
-        {
-            string str = "Score: ";
-            SizeF size = g.MeasureString(str, SystemFonts.DefaultFont);
-            g.DrawString(str, SystemFonts.DefaultFont, Brushes.Black, Width - 200, 50);
-            g.DrawString(Game.Score.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50);
-
-            str = "Lives: ";
-            size = g.MeasureString(str, SystemFonts.DefaultFont);
-            g.DrawString(str, SystemFonts.DefaultFont, Brushes.Black, Width - 200, 50 + size.Height);
-            g.DrawString(Game.Lives.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50 + size.Height);
-
         }
     }
 }

@@ -26,9 +26,13 @@ namespace Sketchball
             // Initialize game
             game = new Game(world);
             gameView = new GameView(game);
+            HUD = new GameHUD(game);
 
             gameView.Dock = DockStyle.Fill;
+            HUD.Anchor = AnchorStyles.Right | AnchorStyles.Top;
+            HUD.Location = new Point(Width - HUD.Width, 0);
 
+            Controls.Add(HUD);
             Controls.Add(gameView);
         }
 
