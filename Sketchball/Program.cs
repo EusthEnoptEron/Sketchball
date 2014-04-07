@@ -29,7 +29,7 @@ namespace Sketchball
             //f.Height = 500;
 
 
-            Application.Run(new EditorForm());
+            Application.Run(new SelectionForm());
             //Application.Run(new PlayForm(new PinballMachine(new Size(470, 600))) { Width = 800, Height = 700 });
 
         }

@@ -19,6 +19,7 @@ namespace Sketchball
 
 
         PrivateFontCollection fontCollection = new PrivateFontCollection();
+        private SelectionForm selectionForm;
         public EditorForm()
         {
             InitializeComponent();
@@ -36,8 +37,12 @@ namespace Sketchball
             flowLayoutPanel1.Controls.Add(element);
 
             element.MouseDown += element_MouseDown;
-            
-            
+                     
+        }
+
+        public EditorForm(SelectionForm selectionForm) : this()
+        {
+            this.selectionForm = selectionForm;
         }
 
         void element_MouseDown(object sender, MouseEventArgs e)
@@ -86,6 +91,11 @@ namespace Sketchball
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void EditorForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.selectionForm.Visible = true;
         }
       
     }

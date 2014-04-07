@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Text;
 using System.IO;
+using Sketchball.Controls;
 
 
 namespace Sketchball
@@ -38,6 +39,14 @@ namespace Sketchball
         {
             this.picBGame.Image = global::Sketchball.Properties.Resources.btnup;
             this.Visible = false;
+
+            Form f = new Form();
+            PinballControl2 pinball = new PinballControl2();
+            f.Controls.Add(pinball);
+            pinball.Dock = DockStyle.Fill;
+            f.Width = 500;
+            f.Height = 500;
+            f.ShowDialog();
         }
 
 
@@ -50,6 +59,9 @@ namespace Sketchball
         {
             this.picBEditor.Image = global::Sketchball.Properties.Resources.btnup;
             this.Visible = false;
+
+            Form f = new EditorForm(this); 
+            f.ShowDialog();
         }
         
 
