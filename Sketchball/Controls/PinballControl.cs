@@ -12,20 +12,24 @@ namespace Sketchball.Controls
 {
     abstract class PinballControl : Control
     {
-        protected PinballMachine World;
-
         //private Bitmap BackgroundBitmap = null;
         //private Graphics BackgroundBuffer = null;
         //private Graphics ForegroundBuffer = null;
 
         protected PinballControl() : base()
         {
-            World = new PinballMachine(new Size(500, 500));
+            Paint += PinballControl_Paint;
+        }
+
+        protected PinballControl(PinballMachine machine)
+            : base()
+        {
             Paint += PinballControl_Paint;
         }
 
         private void PinballControl_Paint(object sender, PaintEventArgs e)
         {
+            ConfigureGDI(e.Graphics);
             Draw(e.Graphics);
         }
 
@@ -33,17 +37,14 @@ namespace Sketchball.Controls
         /// Draws the pinball control.
         /// </summary>
         /// <param name="g"></param>
-        protected virtual void Draw(Graphics g)
-        {
-            ConfigureGDI(g);
-            World.Draw(g);
-        }
+        protected abstract void Draw(Graphics g);
 
         protected virtual void ConfigureGDI(Graphics g)
         {
             // Go for quality in BG buffer and for performance in FG buffer.
             g.CompositingQuality = CompositingQuality.HighQuality;
             g.SmoothingMode = SmoothingMode.AntiAlias;
+            
         }
 
 
