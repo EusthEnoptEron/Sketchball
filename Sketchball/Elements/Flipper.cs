@@ -11,14 +11,17 @@ using Sketchball.Collision;
 namespace Sketchball.Elements
 {
 
-    class Flipper : AnimatedObject
+    public class Flipper : AnimatedObject
     {
+
+        public Keys Trigger;
+        public float RotationRange = (float)(Math.PI / 180 * 60);
         
         public Flipper()  : base()
         {
             Width = 50;
             Height = 50;
-            GoUp();
+
             // 0, Height / 10 * 9, Width , Height / 10 * 2 )
             int y1 = Height / 10 * 9;
             int recHeight =  Height / 10 * 2 ;
@@ -35,19 +38,6 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bL2);
             this.boundingContainer.addBoundingBox(bL3);
             this.boundingContainer.addBoundingBox(bL4);
-
-            bL1.assigneToContainer(this.boundingContainer);
-            bL2.assigneToContainer(this.boundingContainer);
-            bL3.assigneToContainer(this.boundingContainer);
-            bL4.assigneToContainer(this.boundingContainer);
-
-        }
-
-        public void GoUp()
-        {
-            Vector2 drawCenter = this.getLocation() + new Vector2(0, this.Height);
-            Action endRot = new Action(() => { this.rotate((float)(90 / 180f * Math.PI), drawCenter, 1f); });
-            this.rotate((-(float)(90 / 180f * Math.PI)), drawCenter, 1f, endRot);
         }
 
  
@@ -70,11 +60,42 @@ namespace Sketchball.Elements
 
         protected override void EnterMachine(PinballGameMachine machine)
         {
+            machine.Input.KeyDown += OnKeyDown;
         }
+
 
         protected override void LeaveMachine(PinballGameMachine machine)
         {
+            machine.Input.KeyDown -= OnKeyDown;
         }
 
+
+        void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Trigger)
+            {
+                Vector2 drawCenter = this.getLocation() + new Vector2(0, this.Height);
+                Action endRot = new Action(() => { this.rotate((float)(90 / 180f * Math.PI), drawCenter, 1f); });
+                this.rotate((-(float)(90 / 180f * Math.PI)), drawCenter, 1f, endRot);
+            }
+        }
+
+    }
+
+    public class LeftFlipper : Flipper
+    {
+        public LeftFlipper()
+        {
+            Trigger = Keys.A;
+        }
+    }
+
+    public class RightFlipper : Flipper
+    {
+        public RightFlipper()
+        {
+            Trigger = Keys.D;
+           
+        }
     }
 }
