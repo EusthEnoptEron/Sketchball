@@ -70,7 +70,7 @@
     <Compile Include="Controls\PinballEditControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\PinballGameControl.cs">
+    <Compile Include="Controls\GameView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Elements\AnimatedObject.cs" />
@@ -97,7 +97,9 @@
     <Compile Include="Elements\StartingRamp.cs" />
     <Compile Include="Elements\TriangleTMP.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameHUD.cs" />
+    <Compile Include="Controls\GameHUD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="GlideTween\Ease.cs" />
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />

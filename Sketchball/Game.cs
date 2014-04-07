@@ -23,7 +23,14 @@ namespace Sketchball
     /// </summary>
     public class Game
     {
+        public delegate void ScoreChangedHandler(Game sender, int score);
+        public delegate void LivesChangedHandler(Game sender, int lives);
        
+
+        public event ScoreChangedHandler ScoreChanged;
+        public event LivesChangedHandler LivesChanged;
+        //public event GameoverHandler Gameover;
+
 
 
         /// <summary>
@@ -43,17 +50,38 @@ namespace Sketchball
         /// </summary>
         public PinballGameMachine Machine { get; private set;}
 
-        
+
+        private int _score = 0;
         /// <summary>
         /// Gets the score of the current game.
         /// </summary>
-        public int Score { get; private set; }
+        public int Score { 
+            get {
+                return _score;
+            }
+            private set
+            {
+                _score = value;
+                RaiseScoreChanged();
+            }
+        }
 
-        
+
+        private int _lives = 0;
         /// <summary>
         /// Gets the number of remaining lives of the current game.
         /// </summary>
-        public int Lives { get; private set; }
+        public int Lives {
+            get
+            {
+                return _lives;
+            }
+            private set
+            {
+                _lives = value;
+                RaiseLivesChanged();
+            }
+        }
 
         
         /// <summary>
@@ -155,5 +183,19 @@ namespace Sketchball
             }
         }
 
+
+        private void RaiseScoreChanged()
+        {
+            var handlers = ScoreChanged;
+            if (handlers != null)
+                handlers(this, Score);
+        }
+
+        private void RaiseLivesChanged()
+        {
+            var handlers = LivesChanged;
+            if (handlers != null)
+                handlers(this, Lives);
+        }
     }
 }
