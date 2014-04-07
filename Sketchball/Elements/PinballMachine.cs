@@ -16,6 +16,7 @@ namespace Sketchball.Elements
         // 500px = 1m
         public const float PIXELS_TO_METERS_RATIO = 500f / 1;
 
+        public ElementCollection Contours { get; private set; }
         public ElementCollection Elements {get; private set;}
         public ElementCollection Balls { get; private set; }
 
@@ -41,10 +42,13 @@ namespace Sketchball.Elements
 
         public PinballMachine(int width, int height)
         {
+            Contours = new ElementCollection(this);
             Elements = new ElementCollection(this);
             Balls = new ElementCollection(this);
 
             Bounds = new Size(width, height);
+
+            BuildContours();
 
             // Set starting ramp
             Ramp = new StartingRamp();
@@ -55,6 +59,24 @@ namespace Sketchball.Elements
             Ramp.Y = Height - Ramp.Height - 5;
         }
 
+
+        private void BuildContours()
+        {
+            // Left border
+            Contours.Add(new Line(0, 545, 75, 145));
+            Contours.Add(new Line(75, 145, 137, 52));
+
+            // Teppen
+            Contours.Add(new Line(137, 52, 194, 21));
+            Contours.Add(new Line(194, 21, 235, 7.5f));
+
+            var totalWidth = 235 * 2;
+
+            Contours.Add(new Line(235, 7.5f, totalWidth - 194, 21));
+            Contours.Add(new Line(totalWidth - 194, 21, totalWidth - 137, 52));
+            Contours.Add(new Line(totalWidth - 137, 52, totalWidth - 75, 145));
+            Contours.Add(new Line(totalWidth - 75, 145, totalWidth, 545));
+        }
 
         /// <summary>
         /// Gets the calculated acceleration based on the gravity and the angle.
@@ -79,6 +101,18 @@ namespace Sketchball.Elements
                 g.IntersectClip(new Rectangle(0, 0, Width, Height));
 
                 g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
+
+                // Draw contours
+                foreach (PinballElement element in Contours)
+                {
+                    GraphicsState gstate = g.Save();
+
+                    g.TranslateTransform(element.X, element.Y);
+                    element.Draw(g);
+
+                    g.Restore(gstate);
+                }
+
 
                 foreach (PinballElement element in Elements)
                 {

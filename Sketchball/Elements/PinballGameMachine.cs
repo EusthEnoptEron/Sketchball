@@ -28,6 +28,7 @@ namespace Sketchball.Elements
         {
             this.boundingRaster = new BoundingRaster(Width / 60, Height / 60, Width, Height);
             this.boundingRaster.takeOverBoundingBoxes(this.Elements);
+            this.boundingRaster.takeOverBoundingBoxes(this.Contours);
         }
 
         internal readonly InputManager Input = InputManager.Instance();

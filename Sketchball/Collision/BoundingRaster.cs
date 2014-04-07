@@ -110,7 +110,7 @@ namespace Sketchball.Collision
                         x = ((int)posX / fieldWidth);
                         y = ((int)posY / fieldHeight);
 
-                        //add the start
+                        if(x < this.fields.Rank)
                         this.fields[x, y].addReference(bL);     //duplicate entries will be neglected
 
                         //define unitvector from position to target
@@ -144,6 +144,7 @@ namespace Sketchball.Collision
                         {
                             for (int i = y - 1; i >= endField - 1; i--)
                             {
+                                if(i >= 0 && x < cols)
                                 this.fields[x, i].addReference(bL);
                             }
                         }
@@ -180,6 +181,7 @@ namespace Sketchball.Collision
                         //we entered new y field(s)
                         for (int i = y; i < newFieldYIdx; i++)
                         {
+                            if (x <= fields.Rank)
                             this.fields[x, i].addReference(bL);      //this is a field that the line goes through
                         }
                     }
@@ -192,6 +194,7 @@ namespace Sketchball.Collision
                         //we entered new y field(s)
                         for (int i = y; i > newFieldYIdx; i--)
                         {
+                            if(i >= 0)
                             this.fields[x, i].addReference(bL);      //this is a field that the line goes through
                         }
                     }
@@ -210,6 +213,7 @@ namespace Sketchball.Collision
 
                 if (posX <= bL.target.X + worldTrans.X)
                 {
+                    if(x < fields.Rank)
                     this.fields[x, newFieldYIdx].addReference(bL);       //add the next x field (since the line just gets crossed)
                 }
             }

@@ -13,7 +13,7 @@ namespace Sketchball.Elements
     {
         private Keys Trigger = Keys.Space;
         private float Power = 0;
-        private Vector2 MaxVelocity = new Vector2(0, -1500f);
+        private Vector2 MaxVelocity = new Vector2(-200f, -1500f);
 
         private bool Charging = false;
         private Ball Ball = null;
@@ -21,19 +21,19 @@ namespace Sketchball.Elements
         public StartingRamp() : base()
         {
 
-            bounceFactor = 0.2f;
+            bounceFactor = 0.5f;
 
-            Width = 50;
-            Height = 300;
+            Width = 585 - 520 + 50;
+            Height = 590 - 210;
 
             // Vertical line left
-            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(0, 0), new Vector2(0, Height)));
+            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210)));
             
             // Horizontal line
-            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(0, Height ), new Vector2(Width, Height)));
+            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(478 - 405, 590 - 210), new Vector2(520 - 405, 585 - 210)));
             
             // Vertical line right
-            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(Width, 0), new Vector2(Width, Height)));
+            //boundingContainer.addBoundingBox(new BoundingLine(new Vector2(Width, 0), new Vector2(Width, Height)));
 
         }
 

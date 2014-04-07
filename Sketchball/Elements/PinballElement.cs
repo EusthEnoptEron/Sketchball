@@ -52,6 +52,12 @@ namespace Sketchball.Elements
             this.bounceFactor = 0.9f;
         }
 
+        public PinballElement(float X, float Y) : this()
+        {
+            this.X = X;
+            this.Y = Y;
+        }
+
         public int Value { get; protected set; }
 
         public virtual void Update(long delta) {

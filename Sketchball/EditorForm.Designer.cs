@@ -84,7 +84,7 @@
             this.playToolStripMenuItem,
             this.playgroundToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 23);
             this.fileToolStripMenuItem.Text = "File";
             this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
@@ -92,39 +92,39 @@
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openStageToolStripMenuItem
             // 
             this.openStageToolStripMenuItem.Name = "openStageToolStripMenuItem";
             this.openStageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
-            this.openStageToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.openStageToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.openStageToolStripMenuItem.Text = "Open Stage...";
             // 
             // saveStageToolStripMenuItem
             // 
             this.saveStageToolStripMenuItem.Name = "saveStageToolStripMenuItem";
             this.saveStageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
-            this.saveStageToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.saveStageToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.saveStageToolStripMenuItem.Text = "Save Stage";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
             // 
             // playToolStripMenuItem
             // 
             this.playToolStripMenuItem.Enabled = false;
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.playToolStripMenuItem.Text = "Play...";
             // 
             // playgroundToolStripMenuItem
             // 
             this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
-            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.playgroundToolStripMenuItem.Text = "Playground";
             this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
