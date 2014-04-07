@@ -40,13 +40,29 @@ namespace Sketchball
             this.picBGame.Image = global::Sketchball.Properties.Resources.btnup;
             this.Visible = false;
 
-            Form f = new PlayForm();
-            PinballControl2 pinball = new PinballControl2();
-            f.Controls.Add(pinball);
-            pinball.Dock = DockStyle.Fill;
-            f.Width = 500;
-            f.Height = 500;
-            f.ShowDialog();
+            OpenFileDialog fDialog = new OpenFileDialog();
+            fDialog.Title = "Select Pinball machine";
+            fDialog.Filter = "Pinball machine files|*.pmf";
+            fDialog.CheckFileExists = true;
+            fDialog.CheckPathExists = true;
+
+            DialogResult result = fDialog.ShowDialog();
+
+            if (result == DialogResult.OK) // Test result.
+            {
+                //TODO
+                MessageBox.Show("machine load not implemented\n I want a cookie!");
+                PinballControl2 b = new PinballControl2();
+               
+                Sketchball.Elements.PinballMachine pbm = b.getMachine();
+                Form f = new PlayForm(pbm,this);                
+                f.ShowDialog();
+            }
+            else
+            {
+                this.Visible = true;
+            }
+           
         }
 
 

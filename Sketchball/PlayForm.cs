@@ -17,6 +17,7 @@ namespace Sketchball
         private Game game;
         private GameView gameView;
         private GameHUD HUD;
+        private SelectionForm selectionForm;
 
         public PlayForm(PinballMachine world)
         {
@@ -29,6 +30,16 @@ namespace Sketchball
             gameView.Dock = DockStyle.Fill;
 
             Controls.Add(gameView);
+        }
+
+        public PlayForm(PinballMachine pbm, SelectionForm selectionForm) : this(pbm)
+        {
+            this.selectionForm = selectionForm;
+        }
+
+        private void PlayForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.selectionForm.Visible = true;
         }
     }
 }

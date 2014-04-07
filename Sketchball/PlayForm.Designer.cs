@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(644, 435);
             this.Name = "PlayForm";
             this.Text = "PlayForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayForm_FormClosed);
             this.ResumeLayout(false);
 
         }

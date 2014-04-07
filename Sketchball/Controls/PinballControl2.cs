@@ -355,5 +355,10 @@ namespace Sketchball.Controls
 
         }
 
+        public PinballMachine getMachine()
+        {
+            return this.machine;
+        }
+
     }
 }
