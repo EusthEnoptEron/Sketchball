@@ -40,7 +40,7 @@ namespace Sketchball
             this.picBGame.Image = global::Sketchball.Properties.Resources.btnup;
             this.Visible = false;
 
-            Form f = new Form();
+            Form f = new PlayForm();
             PinballControl2 pinball = new PinballControl2();
             f.Controls.Add(pinball);
             pinball.Dock = DockStyle.Fill;
