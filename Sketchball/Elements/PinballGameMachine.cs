@@ -32,7 +32,7 @@ namespace Sketchball.Elements
             {
                 this.boundingRaster.addAnimatedObject(b);
             }
-            this.boundingRaster.takeOverBoundingBoxes(this.Elements);
+            this.boundingRaster.takeOverBoundingBoxes(Elements);
         }
 
         internal readonly InputManager Input = InputManager.Instance();
@@ -42,10 +42,9 @@ namespace Sketchball.Elements
             this.boundingRaster = new BoundingRaster(Width / 60, Height / 60, Width, Height);
 
             // Copy constructor
-            foreach (PinballElement element in machine.Elements)
+            foreach (PinballElement element in machine.DynamicElements)
             {
-                if(!(element is StartingRamp))
-                    Elements.Add((PinballElement)element.Clone());
+                DynamicElements.Add((PinballElement)element.Clone());
             }
             Angle = machine.Angle;
             Gravity = machine.Gravity;
@@ -63,7 +62,6 @@ namespace Sketchball.Elements
 
             for (int i = Balls.Count - 1; i >= 0; i--)
             {
-                Balls[i].Update(elapsed);
                 if (Balls[i].Y > Height)
                 {
                     Balls.RemoveAt(i);
@@ -100,7 +98,7 @@ namespace Sketchball.Elements
             {
                 this.boundingRaster.addAnimatedObject(b);
             }
-            this.Elements.Add(tr);
+            this.DynamicElements.Add(tr);
         }
 
         internal bool HasBall()

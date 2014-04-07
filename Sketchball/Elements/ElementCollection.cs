@@ -20,7 +20,7 @@ namespace Sketchball.Elements
         {
             if (element.World != null && element.World != Owner)
             {
-                element.World.Elements.Remove(element);
+                element.World.DynamicElements.Remove(element);
             }
             element.World = Owner;
         }

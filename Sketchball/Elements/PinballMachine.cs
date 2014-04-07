@@ -12,15 +12,28 @@ namespace Sketchball.Elements
     [Serializable]
     public class PinballMachine : ICloneable, IDisposable
     {
-
         // 500px = 1m
         public const float PIXELS_TO_METERS_RATIO = 500f / 1;
 
-        public ElementCollection Elements {get; private set;}
+        public ElementCollection DynamicElements { get; private set; }
+        public ElementCollection StaticElements { get; private set; }
+
         public ElementCollection Balls { get; private set; }
 
-        public IMachineLayout Layout { get; private set; }
+        public IEnumerable<PinballElement> Elements
+        {
+            get
+            {
+                foreach (PinballElement el in StaticElements)
+                    yield return el;
+                foreach (PinballElement el in DynamicElements)
+                    yield return el;
+                foreach (PinballElement el in Balls)
+                    yield return el;
+            }
+        }
 
+        public IMachineLayout Layout { get; private set; }
 
         protected StartingRamp Ramp;
 
@@ -43,12 +56,14 @@ namespace Sketchball.Elements
         public PinballMachine(IMachineLayout layout)
         {
             Layout = layout;
-            Elements = new ElementCollection(this);
+
+            StaticElements = new ElementCollection(this);
+            DynamicElements = new ElementCollection(this);
             Balls = new ElementCollection(this);
 
             Layout.Apply(this);
 
-            Ramp = (StartingRamp)Elements.FirstOrDefault((e) => { return e is StartingRamp; });
+            Ramp = (StartingRamp)StaticElements.FirstOrDefault((e) => { return e is StartingRamp; });
         }
 
 
@@ -88,16 +103,6 @@ namespace Sketchball.Elements
 
                     g.Restore(gstate);
                 }
-				
- 				foreach(Ball b in this.Balls)
-            	{
-                    GraphicsState gstate = g.Save();
-
-                    g.TranslateTransform(b.X, b.Y);
-                    b.Draw(g);
-
-                    g.Restore(gstate);
-                }
 
             }
             finally
@@ -109,24 +114,27 @@ namespace Sketchball.Elements
 
         public void Add(PinballElement element)
         {
-            Elements.Add(element);
+            DynamicElements.Add(element);
         }
 
         public bool Remove(PinballElement element)
         {
-            return Elements.Remove(element);
+            return DynamicElements.Remove(element);
         }
 
 
         public object Clone()
         {
-            PinballMachine machine = (PinballMachine)this.MemberwiseClone();
-            
+            PinballMachine machine = new PinballMachine(Layout);
+
+            machine.Angle = Angle;
+            machine.Gravity = Gravity;
+
             // Clone elements
-            machine.Elements = new ElementCollection(machine);
-            foreach (PinballElement element in Elements)
+            machine.DynamicElements = new ElementCollection(machine);
+            foreach (PinballElement element in DynamicElements)
             {
-                machine.Elements.Add((PinballElement)element.Clone());
+                machine.DynamicElements.Add((PinballElement)element.Clone());
             }
 
             return machine;
@@ -143,7 +151,7 @@ namespace Sketchball.Elements
         /// </summary>
         public void Dispose()
         {
-            Elements.Clear();
+            DynamicElements.Clear();
             Balls.Clear();
         }
        

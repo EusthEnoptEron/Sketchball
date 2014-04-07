@@ -74,9 +74,14 @@ namespace Sketchball.Elements
         {
             if (e.KeyCode == Trigger)
             {
-                Vector2 drawCenter = this.getLocation() + new Vector2(0, this.Height);
-                Action endRot = new Action(() => { this.rotate((float)(90 / 180f * Math.PI), drawCenter, 1f); });
-                this.rotate((-(float)(90 / 180f * Math.PI)), drawCenter, 1f, endRot);
+                var rad = RotationRange - Rotation;
+                Vector2 origin = Location + new Vector2(0, this.Height);
+                
+                Action endRot = new Action(() => { 
+                    this.rotate(-Rotation, origin, 0.1f); 
+                });
+
+                this.rotate(rad, origin, 0.2f, endRot);
             }
         }
 

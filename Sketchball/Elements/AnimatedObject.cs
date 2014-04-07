@@ -14,26 +14,26 @@ namespace Sketchball.Elements
         public float angularVelocity { get; private set; }
 
         public Vector2 currentRotationCenter { get; private set; }
-        private Glide Tweener;
+        protected Glide Tweener;
 
         public AnimatedObject()
         {
             this.Tweener = new Glide();
         }
 
-        public void rotate(float rad, Vector2 center, float time)
+        public GlideTween.Glide rotate(float rad, Vector2 center, float time)
         {
-            float degAbs = rad + this.Rotation;
-            this.currentRotationCenter = center;
-            Tweener.Tween(this, new { Rotation=degAbs }, time).Ease(GlideTween.Ease.QuintInOut);
+            return rotate(rad, center, time, null);
         }
 
-        public void rotate(float rad, Vector2 center, float time, Action endRotation)
+        public GlideTween.Glide rotate(float rad, Vector2 center, float time, Action endRotation)
         {
             float degAbs = rad + this.Rotation;
             this.currentRotationCenter = center;
             this.angularVelocity = rad / time;
-            Tweener.Tween(this, new { Rotation = degAbs }, time).OnComplete(endRotation);
+            
+            Tweener.Cancel();
+            return Tweener.Tween(this, new { Rotation = degAbs }, time).OnComplete(endRotation);
         }
 
         public override void Draw(System.Drawing.Graphics g)

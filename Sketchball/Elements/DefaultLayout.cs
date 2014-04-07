@@ -53,14 +53,18 @@ namespace Sketchball.Elements
         /// <param name="machine"></param>
         public void Apply(PinballMachine machine)
         {
-            machine.Elements.Add(new Frame());
+            machine.StaticElements.Add(new Frame());
 
             // Add ramp
             StartingRamp ramp = new StartingRamp();
-            machine.Elements.Add(ramp);
+            machine.StaticElements.Add(ramp);
 
             ramp.X = Width - ramp.Width - 5;
             ramp.Y = Height - ramp.Height - 5;
+
+            // Add flippers
+            LeftFlipper lflipper = new LeftFlipper();
+            machine.StaticElements.Add(lflipper);
 
         }
     }
