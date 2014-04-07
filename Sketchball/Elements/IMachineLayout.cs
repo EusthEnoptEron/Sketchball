@@ -12,8 +12,7 @@ namespace Sketchball.Elements
     {
         int Width { get; }
         int Height { get; }
-        BoundingContainer Bounds { get; }
-        
-        void DrawBackground(Graphics g);
+
+        void Apply(PinballMachine machine);
     }
 }

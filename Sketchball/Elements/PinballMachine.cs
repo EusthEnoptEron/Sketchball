@@ -46,13 +46,9 @@ namespace Sketchball.Elements
             Elements = new ElementCollection(this);
             Balls = new ElementCollection(this);
 
-            // Set starting ramp
-            Ramp = new StartingRamp();
-            Ramp.World = this;
-            Elements.Add(Ramp);
-            
-            Ramp.X = Width - Ramp.Width - 5;
-            Ramp.Y = Height - Ramp.Height - 5;
+            Layout.Apply(this);
+
+            Ramp = (StartingRamp)Elements.FirstOrDefault((e) => { return e is StartingRamp; });
         }
 
 
@@ -81,7 +77,6 @@ namespace Sketchball.Elements
                 g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
 
                 // Draw contours
-                Layout.DrawBackground(g);
 
 
                 foreach (PinballElement element in Elements)
