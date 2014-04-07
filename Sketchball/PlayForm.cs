@@ -14,16 +14,21 @@ namespace Sketchball
 {
     public partial class PlayForm : Form
     {
-        private PinballGameControl Game;
+        private Game game;
+        private GameView gameView;
+        private GameHUD HUD;
+
         public PlayForm(PinballMachine world)
         {
             InitializeComponent();
 
             // Initialize game
-            Game = new PinballGameControl(world);
-            Game.Dock = DockStyle.Fill;
+            game = new Game(world);
+            gameView = new GameView(game);
 
-            Controls.Add(Game);
+            gameView.Dock = DockStyle.Fill;
+
+            Controls.Add(gameView);
         }
     }
 }

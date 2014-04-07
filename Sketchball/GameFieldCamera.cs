@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace Sketchball
 {
-    public class PinballMachineCamera : Camera
+    public class GameFieldCamera : Camera
     {
-        internal PinballMachine Machine { get; set; }
+        internal Game Game { get; set; }
 
-        public PinballMachineCamera(PinballMachine machine)
+        public GameFieldCamera(Game game)
         {
-            Machine = machine;
+            Game = game;
         }
 
         public void Draw(Graphics g, Rectangle bounds)
         {
-            float widthRatio = (float)bounds.Width / Machine.Width;
-            float heightRatio = (float)bounds.Height / Machine.Height;
+            float widthRatio = (float)bounds.Width / Game.Machine.Width;
+            float heightRatio = (float)bounds.Height / Game.Machine.Height;
 
             float ratio = Math.Min(widthRatio, heightRatio);
 
@@ -29,7 +29,7 @@ namespace Sketchball
             try
             {
                 g.ScaleTransform(ratio, ratio);
-                Machine.Draw(g);
+                Game.Machine.Draw(g);
             }
             finally
             {

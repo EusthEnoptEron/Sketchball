@@ -96,13 +96,15 @@
     <Compile Include="Elements\PinballMachine.cs" />
     <Compile Include="Elements\StartingRamp.cs" />
     <Compile Include="Elements\TriangleTMP.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameHUD.cs" />
     <Compile Include="GlideTween\Ease.cs" />
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />
     <Compile Include="Elements\PinballElement.cs" />
     <Compile Include="History.cs" />
     <Compile Include="InputManager.cs" />
-    <Compile Include="PinballMachineCamera.cs" />
+    <Compile Include="GameFieldCamera.cs" />
     <Compile Include="PlayForm.cs">
       <SubType>Form</SubType>
     </Compile>
