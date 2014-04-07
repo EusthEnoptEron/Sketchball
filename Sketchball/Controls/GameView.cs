@@ -15,56 +15,17 @@ namespace Sketchball.Controls
     /// <summary>
     /// Control that houses a game of pinball.
     /// </summary>
-    class PinballGameControl : PinballControl
+    class GameView : PinballControl
     {
-        /// <summary>
-        /// Phases the control can assume
-        /// </summary>
-        enum GameStatus
-        {
-            Setup,
-            Playing,
-            GameOver,
-            Pause
-        }
-
-        /// <summary>
-        /// Total number of lives (<=> balls)
-        /// </summary>
-        public const int TOTAL_LIVES = 3;
 
         /// <summary>
         /// The absolute minimum of FPS at any point in time.
         /// </summary>
         private const int MIN_FPS = 10;
 
-        /// <summary>
-        /// Gets or sets the current game status.
-        /// </summary>
-        private GameStatus Status = GameStatus.Setup;
-        
-        
-        /// <summary>
-        /// Gets or sets the machine currently displayed.
-        /// </summary>
-        private PinballGameMachine Machine;
 
-        private Camera Camera = null;
+        private Camera Camera;
 
-        /// <summary>
-        /// Gets the score of the current game.
-        /// </summary>
-        public int Score { get; private set; }
-
-        /// <summary>
-        /// Gets the number of remaining lives of the current game.
-        /// </summary>
-        public int Lives { get; private set; }
-
-        /// <summary>
-        /// Original machine from which the game machines are made.
-        /// </summary>
-        private PinballMachine OriginalMachine;
 
         protected override void ConfigureGDI(Graphics g)
         {
@@ -72,14 +33,17 @@ namespace Sketchball.Controls
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
         }
 
+        public Game Game;
+
         /// <summary>
         /// Creates a new PinballGameControl based on a machine template.
         /// </summary>
         /// <param name="machine">Template for the game machine.</param>
-        public PinballGameControl(PinballMachine machine)
+        public GameView(Game game)
             : base()
         {
-            OriginalMachine = machine;
+            Game = game;
+            Camera = new GameFieldCamera(Game);
 
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -88,8 +52,6 @@ namespace Sketchball.Controls
             
             HandleCreated += PinballGameControl_HandleCreated;
             KeyUp += HandleKeyUp;
-
-            Start();
         }
 
 
@@ -100,9 +62,9 @@ namespace Sketchball.Controls
         {
             if (e.KeyCode == Keys.Space)
             {
-                if (!Machine.HasBall())
+                if (!Game.IsRunning)
                 {
-                    Start();
+                    Game.Start();
                 }
             }
         }
@@ -142,8 +104,8 @@ namespace Sketchball.Controls
                 );
 
                 // Update scene
-                if(Status != GameStatus.Pause)
-                    Update(delta);
+                if(Game.Status != GameStatus.Pause)
+                    Game.Update(delta);
 
                 // Redraw scene
                 IAsyncResult result = BeginInvoke(new Action(
@@ -159,82 +121,7 @@ namespace Sketchball.Controls
                 prev = now;
             }
         }
-        
-        /// <summary>
-        /// Starts the game.
-        /// </summary>
-        public void Start()
-        {
-            Status = GameStatus.Playing;
-
-            Machine = new PinballGameMachine(OriginalMachine);
-            Camera = new PinballMachineCamera(Machine);
-
-            Machine.prepareForLaunch();
-
-            Score = 0;
-            Lives = TOTAL_LIVES;
-
-            // Wire up event handlers
-            Machine.Collision += OnScore;
-            Machine.GameOver += OnGameOver;
-
-            Machine.IntroduceBall();
-            Lives--;
-        }
-
-        /// <summary>
-        /// Add a new ball if needed when ball gets lost.
-        /// </summary>
-        private void OnGameOver()
-        {
-            if (Lives == 0)
-            {
-                // GameOver... :(
-                Status = GameStatus.GameOver;
-            }
-            else
-            {
-                Lives--;
-                Machine.IntroduceBall();
-            }
-        }
-
-        /// <summary>
-        /// Increment score when a collision happened.
-        /// </summary>
-        /// <param name="sender"></param>
-        private void OnScore(PinballElement sender)
-        {
-            Score += sender.Value;
-        }
-
-
-        /// <summary>
-        /// Pauses the game.
-        /// </summary>
-        public void Pause()
-        {
-            Status = GameStatus.Pause;
-        }
-
-
-        /// <summary>
-        /// Resumes the game if paused.
-        /// </summary>
-        public void Resume()
-        {
-        }
-
-        /// <summary>
-        /// Updates positions and checks for collisions, etc.
-        /// </summary>
-        public void Update(long elapsed)
-        {            
-            // Update elements
-            Machine.Update(elapsed);
-        }
-
+       
 
         protected override void Draw(Graphics g)
         {
@@ -244,7 +131,7 @@ namespace Sketchball.Controls
             // Draw HUD
             DrawHUD(g);
 
-            if (Status == GameStatus.GameOver)
+            if (Game.Status == GameStatus.GameOver)
             {
                 DrawOverlay(g);
             }
@@ -267,12 +154,12 @@ namespace Sketchball.Controls
             string str = "Score: ";
             SizeF size = g.MeasureString(str, SystemFonts.DefaultFont);
             g.DrawString(str, SystemFonts.DefaultFont, Brushes.Black, Width - 200, 50);
-            g.DrawString(Score.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50);
+            g.DrawString(Game.Score.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50);
 
             str = "Lives: ";
             size = g.MeasureString(str, SystemFonts.DefaultFont);
             g.DrawString(str, SystemFonts.DefaultFont, Brushes.Black, Width - 200, 50 + size.Height);
-            g.DrawString(Lives.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50 + size.Height);
+            g.DrawString(Game.Lives.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50 + size.Height);
 
         }
     }

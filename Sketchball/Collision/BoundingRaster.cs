@@ -48,6 +48,107 @@ namespace Sketchball.Collision
 
         }
 
+        public void TakeOverBoundingContainer(BoundingContainer bC) {
+            Vector2 worldTrans = bC.parentElement.getLocation();
+
+            int x;
+            int y;
+
+            foreach (IBoundingBox b in bC.boundingBoxes)
+            {
+
+                if (b.GetType() == typeof(BoundingCircle))
+                {
+                    //Strategy: Make a box around the circle
+                    BoundingCircle bCir = (BoundingCircle)b;
+
+                    //position of the circle self (which field)
+                    x = ((int)(bCir.position.X + worldTrans.X) / fieldWidth);        //TODO check if this is rounded down
+                    y = ((int)(bCir.position.Y + worldTrans.Y) / fieldHeight);
+
+
+                    //amount of fields x and y (rounded up) 
+                    //2*cicFieldsX + (1 where the ceneter is) will make the width of the square which includes the circle)
+                    //2*cicFieldsY + (1 where the ceneter is) will make the height of the square which includes the circle)
+                    int circFieldsX = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldWidth));
+                    int circFieldsy = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldHeight));
+
+                    //go from the left to the right of the square
+                    for (int h = x - circFieldsX; h <= x + circFieldsX; h++)
+                    {
+                        if (h < 0 || h >= this.cols)
+                        {
+                            //if h is out of raster skip this
+                            continue;
+                        }
+                        for (int ver = y - circFieldsy; ver <= y + circFieldsy; ver++)
+                        {
+                            if (ver < 0 || ver >= this.rows)
+                            {
+                                //if ver is out of raster skip this
+                                continue;
+                            }
+                            //this is a field which should hold a reference to the boundingCircle
+                            this.fields[h, ver].addReference(bCir);     //duplicate entries will be neglected
+                        }
+                    }
+                }
+                else        //if(b.GetType() == typeof(BoundingCircle))
+                {
+                    //line
+                    BoundingLine bL = (BoundingLine)b;
+
+                    float posX = bL.position.X + worldTrans.X;
+                    float posY = bL.position.Y + worldTrans.Y;
+
+                    //position of the line base (which field)
+                    x = ((int)posX / fieldWidth);
+                    y = ((int)posY / fieldHeight);
+
+                    //add the start
+                    if (IsWithinBounds(x, y))
+                        this.fields[x, y].addReference(bL);     //duplicate entries will be neglected
+
+                    //define unitvector from position to target
+                    Vector2 unitV = bL.target - bL.position;
+                    unitV.Normalize();
+
+
+                    if (unitV.X > 0)
+                    {
+                        takeOverBoundingLineLeftToRight(unitV, posX, posY, x, y, bL, worldTrans);
+                    }
+                    else
+                    {
+                        takeOverBoundingLineRightToLeft(unitV, posX, posY, x, y, bL, worldTrans);
+                    }
+
+                    //at this point all x fields have been added but there might be some y fields who get touched but are not referenced yet.
+                    //that are all fields that are above the last x cross (like directly under the target)
+
+
+                    int endField = ((int)(bL.target.Y + worldTrans.Y) / fieldHeight);
+
+                    if (unitV.Y > 0)        //heading down
+                    {
+                        for (int i = y + 1; i < endField; i++)
+                        {
+                            if (IsWithinBounds(x, i))
+                                this.fields[x, i].addReference(bL);
+                        }
+                    }
+                    else   //heading up
+                    {
+                        for (int i = y - 1; i >= endField - 1; i--)
+                        {
+                            if (IsWithinBounds(x, i))
+                                this.fields[x, i].addReference(bL);
+                        }
+                    }
+                }       //if(b.GetType() == typeof(BoundingCircle))
+            }       //foreach (IBoundingBox b in bC.boundingBoxes)
+        }
+
         public void takeOverBoundingBoxes(ElementCollection eles)
         {
 
@@ -67,104 +168,9 @@ namespace Sketchball.Collision
                     continue;
                 }
                 BoundingContainer bC = pE.getBoundingContainer();
-                Vector2 worldTrans = bC.parentElement.getLocation();
 
-                int x;
-                int y;
-
-                foreach (IBoundingBox b in bC.boundingBoxes)
-                {
-
-                    if (b.GetType() == typeof(BoundingCircle))
-                    {
-                        //Strategy: Make a box around the circle
-                        BoundingCircle bCir = (BoundingCircle)b;
-
-                        //position of the circle self (which field)
-                        x = ((int)(bCir.position.X + worldTrans.X) / fieldWidth);        //TODO check if this is rounded down
-                        y = ((int)(bCir.position.Y + worldTrans.Y) / fieldHeight);
-
-
-                        //amount of fields x and y (rounded up) 
-                        //2*cicFieldsX + (1 where the ceneter is) will make the width of the square which includes the circle)
-                        //2*cicFieldsY + (1 where the ceneter is) will make the height of the square which includes the circle)
-                        int circFieldsX = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldWidth));
-                        int circFieldsy = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldHeight));
-
-                        //go from the left to the right of the square
-                        for (int h = x - circFieldsX; h <= x + circFieldsX; h++)
-                        {
-                            if (h < 0 || h >= this.cols)
-                            {
-                                //if h is out of raster skip this
-                                continue;
-                            }
-                            for (int ver = y - circFieldsy; ver <= y + circFieldsy; ver++)
-                            {
-                                if (ver < 0 || ver >= this.rows)
-                                {
-                                    //if ver is out of raster skip this
-                                    continue;
-                                }
-                                //this is a field which should hold a reference to the boundingCircle
-                                this.fields[h, ver].addReference(bCir);     //duplicate entries will be neglected
-                            }
-                        }
-                    }
-                    else        //if(b.GetType() == typeof(BoundingCircle))
-                    {
-                        //line
-                        BoundingLine bL = (BoundingLine)b;
-
-                        float posX = bL.position.X + worldTrans.X;
-                        float posY = bL.position.Y + worldTrans.Y;
-
-                        //position of the line base (which field)
-                        x = ((int)posX / fieldWidth);
-                        y = ((int)posY / fieldHeight);
-
-                        //add the start
-                        if (IsWithinBounds(x, y))
-                            this.fields[x, y].addReference(bL);     //duplicate entries will be neglected
-
-                        //define unitvector from position to target
-                        Vector2 unitV = bL.target - bL.position;
-                        unitV.Normalize();
-
-
-                        if (unitV.X > 0)
-                        {
-                            takeOverBoundingLineLeftToRight(unitV, posX, posY, x, y, bL, worldTrans);
-                        }
-                        else
-                        {
-                            takeOverBoundingLineRightToLeft(unitV, posX, posY, x, y, bL, worldTrans);
-                        }
-
-                        //at this point all x fields have been added but there might be some y fields who get touched but are not referenced yet.
-                        //that are all fields that are above the last x cross (like directly under the target)
-
-
-                        int endField = ((int)(bL.target.Y + worldTrans.Y) / fieldHeight);
-
-                        if (unitV.Y > 0)        //heading down
-                        {
-                            for (int i = y + 1; i < endField; i++)
-                            {
-                                if(IsWithinBounds(x, i))
-                                    this.fields[x, i].addReference(bL);
-                            }
-                        }
-                        else   //heading up
-                        {
-                            for (int i = y - 1; i >= endField - 1; i--)
-                            {
-                                if (IsWithinBounds(x, i))
-                                    this.fields[x, i].addReference(bL);
-                            }
-                        }
-                    }       //if(b.GetType() == typeof(BoundingCircle))
-                }       //foreach (IBoundingBox b in bC.boundingBoxes)
+                TakeOverBoundingContainer(bC);
+            
             }       //foreach (PinballElement pE in eles)
         }
 
