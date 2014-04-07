@@ -237,7 +237,8 @@ namespace Sketchball.Controls
             {
                 g.DrawLine(Pens.LightGray, x, 0, x, Height);
             }
-            
+
+            machine.Layout.DrawBackground(g);
             foreach (PinballElement element in Elements)
             {
                 GraphicsState gstate = g.Save();
