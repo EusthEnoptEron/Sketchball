@@ -11,20 +11,23 @@ using System.Drawing.Drawing2D;
 
 using Sketchball.Elements;
 using System.Drawing.Text;
+using Sketchball.Collision;
 
 namespace Sketchball.Controls
 {
     [Browsable(false)]
     public partial class PinballControl2 : UserControl
     {
-        private PinballMachine machine = new PinballMachine(new Size(500, 500));
+        private PinballGameMachine machine = new PinballGameMachine(new PinballMachine(new Size(500, 500)));
         public ElementCollection Elements;
         Bitmap B_BUFFER;
         Graphics G_BUFFER;
         Graphics G_TARGET;
         Point ArrowFrom = Point.Empty;
         Point ArrowTo = Point.Empty;
-        Ball ball = null;
+
+        private int fps_debug=0;
+       
         int bufferReloads = 0;
 
         private void LoadBuffers()
@@ -59,12 +62,32 @@ namespace Sketchball.Controls
         {
             Elements = machine.Elements;
             InitializeComponent();
-
+   
             LoadBuffers();
 
-            ball = new Ball() { Location = new Vector2(150, 10) };
-            Elements.Add(new Flipper() { Location = new Vector2(50, Height - 10) });
-            Elements.Add(ball);
+            Ball ball = new Ball();
+            ball.setLocation(new Vector2(150, 10));
+            ball.setParent(machine);
+
+            Flipper f = new Flipper();
+            f.setLocation(new Vector2(50, Height - 10));
+
+            Bumper b = new Bumper();
+            b.setLocation(new Vector2(300, 300));
+
+            TriangleTMP tr = new TriangleTMP();
+
+
+            Line l = new Line();
+            
+            Elements.Add(b);
+            Elements.Add(l);
+
+            
+            //machine.addAnimatedObject(f);
+           // Elements.Add(tr);
+            machine.addAnimatedObject(tr);
+            machine.addBall(ball);  //Changed
           
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -90,6 +113,7 @@ namespace Sketchball.Controls
                     Invalidate();
                 }
             };
+            this.machine.prepareForLaunch();
             t.Start();
         }
 
@@ -99,13 +123,9 @@ namespace Sketchball.Controls
             {
                 ArrowTo = (e.Location);
 
-                foreach (PinballElement el in Elements)
-                {
-                    if (el is Ball)
-                    {
-                        Ball b = (Ball)el;
-                        b.Velocity += new Vector2(ArrowTo.X - ArrowFrom.X, (ArrowTo.Y - ArrowFrom.Y) * 2);
-                    }
+                foreach (Ball b in machine.Balls)
+                {                   
+                    b.Velocity += new Vector2(ArrowTo.X - ArrowFrom.X, (ArrowTo.Y - ArrowFrom.Y) * 2);
                 } 
                 
                 ArrowTo = Point.Empty;
@@ -129,7 +149,17 @@ namespace Sketchball.Controls
             }
             else if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                Elements.Add(new Ball() { Location = new Vector2(e.X, e.Y) });
+                Ball b = new Ball();
+                b.setLocation(new Vector2(e.X, e.Y));
+                machine.Balls.Add(b);
+                b.setParent(machine);/*
+                foreach (PinballElement p in this.machine.Elements)
+                {
+                    if(p.GetType() == typeof(Flipper))
+                    {
+                        ((Flipper)p).GoUp();
+                    }
+                }*/
             }
         }
 
@@ -159,6 +189,36 @@ namespace Sketchball.Controls
             }
         }
 
+        private void drawBBTMP(Graphics g)
+        {
+            foreach (PinballElement e in this.Elements)
+            {
+                foreach (IBoundingBox b in e.boundingContainer.boundingBoxes)
+                {
+                    b.drawDEBUG(g, Pens.Red);
+                }
+            }
+            
+
+            foreach (Ball ball in this.machine.Balls)
+            {
+                IBoundingBox b = ball.boundingContainer.boundingBoxes[0];
+                b.drawDEBUG(g, Pens.Red);
+            }
+
+            for (int y = 0; y < Height; y += 62)
+            {
+                g.DrawLine(Pens.LightSteelBlue, 0, y, Width, y);
+            }
+
+            for (int x = 0; x < Width; x += 62)
+            {
+                g.DrawLine(Pens.LightSteelBlue, x, 0, x,Height);
+            }
+
+            g.DrawString("fps"+this.fps_debug.ToString(), new Font("Arial", 12), Brushes.BlueViolet, new PointF(400, 400));
+            this.machine.debugDraw(g);
+        }
 
 
         public void Draw(Graphics g)
@@ -187,7 +247,16 @@ namespace Sketchball.Controls
 
                 g.Restore(gstate);
             }
-            
+
+            foreach (Ball b in machine.Balls)
+            {
+                GraphicsState gstate = g.Save();
+
+                g.TranslateTransform(b.X, b.Y);
+                b.Draw(g);
+
+                g.Restore(gstate);
+            }
             Brush brush = new HatchBrush(HatchStyle.BackwardDiagonal, Color.Gray, Color.Transparent);
             Point[] path = new Point[] { 
                 new Point(30, Height),
@@ -226,7 +295,10 @@ namespace Sketchball.Controls
                  
 
                     GraphicsState gstate = g.Save();
-                    g.TranslateTransform(ball.X + ball.Width / 2, ball.Y + ball.Height / 2);
+                    foreach (Ball ball in this.machine.Balls)
+                    {
+                        g.TranslateTransform(ball.X + ball.Width / 2, ball.Y + ball.Height / 2);
+                    }
                     g.RotateTransform(angle);
 
                     g.DrawLine(pen, 0, 0, len, 0);
@@ -239,6 +311,7 @@ namespace Sketchball.Controls
             }
            
             g.DrawRectangle(Pens.Black, new Rectangle(0, 0, Width - 1, Height - 1));
+            drawBBTMP(g);
 
         }
 
@@ -258,27 +331,27 @@ namespace Sketchball.Controls
             foreach (PinballElement element in Elements)
             {
                 element.Update(delta.Milliseconds);
-
-                if (element is IPhysics)
-                {
-                    IPhysics el = (IPhysics)element;
-                    if (element.Y + element.Height > Height)
-                    {
-                        element.Y = Height - element.Height;
-
-                        el.Velocity = new Vector2(el.Velocity.X * .6f, -el.Velocity.Y * .6f);
-                    }
-                    if (element.X < 0 || element.X + element.Width > Width)
-                    {
-                        element.X = Math.Max(0, Math.Min(Width - element.Width, element.X));
-                        el.Velocity = new Vector2(-el.Velocity.X * .6f, el.Velocity.Y);
-                    }
-                }
-               
-
-
-
             }
+
+            foreach (Ball b in this.machine.Balls)
+            {
+                b.Update(delta.Milliseconds);
+
+                if (b.Y + b.Height > Height)
+                {
+                    b.Y = Height - b.Height;
+                    b.Velocity = new Vector2(b.Velocity.X * .6f, -b.Velocity.Y * .6f);
+                }
+                if (b.X < 0 || b.X + b.Width > Width)
+                {
+                    b.X = Math.Max(0, Math.Min(Width - b.Width, b.X));
+                    b.Velocity = new Vector2(-b.Velocity.X * .6f, b.Velocity.Y);
+                }
+            }
+
+            this.machine.handleCollision();
+
+            this.fps_debug = (int)(1 / delta.TotalSeconds);
 
         }
 

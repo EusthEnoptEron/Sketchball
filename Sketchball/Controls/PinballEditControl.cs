@@ -22,11 +22,13 @@ namespace Sketchball.Controls
 
         public Vector2 ScaleFactor = new Vector2(1,1);
 
-
+        PinballMachine World;
 
         public PinballEditControl()
             : base()
         {
+            World = new PinballMachine(500, 500);
+
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -46,9 +48,9 @@ namespace Sketchball.Controls
 
                 Point loc = PointToPinball(e.Location);
                 dragging = false;
-                SelectedElement.Location = startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor;
+                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor);
 
-                History.Add(new TranslationChange(SelectedElement, SelectedElement.Location - startVector));
+                History.Add(new TranslationChange(SelectedElement, SelectedElement.getLocation() - startVector));
             }
         }
 
@@ -57,7 +59,7 @@ namespace Sketchball.Controls
             if (dragging)
             {
                 Point loc = PointToPinball(e.Location);
-                SelectedElement.Location = startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor;
+                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor);
                 Invalidate();
             }
         }
@@ -75,7 +77,7 @@ namespace Sketchball.Controls
                     SelectedElement = element;
                     dragging = true;
                     startPoint = loc;
-                    startVector = element.Location;
+                    startVector = element.getLocation();
                 }
             }            
         }
@@ -105,7 +107,7 @@ namespace Sketchball.Controls
             g.FillRectangle(brush, 0, 0, base.Width, base.Height);
             g.Transform = Transform;
 
-            base.Draw(g);
+            World.Draw(g);
         }
 
         private Matrix Transform
