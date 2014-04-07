@@ -17,19 +17,15 @@ namespace Sketchball
     public partial class EditorForm : Form
     {
 
-
-        PrivateFontCollection fontCollection = new PrivateFontCollection();
         private SelectionForm selectionForm;
         public EditorForm()
         {
             InitializeComponent();
             PlayFieldEditor.ScaleFactor *= 1.1f;
 
-            String path = (Path.Combine( Application.ExecutablePath, "..", "Resources", "Courgette-Regular.ttf"));
 
-            fontCollection.AddFontFile( path );
-            TitleLabel.Font = new Font(fontCollection.Families[0], 40);
-            Font tabFont = new Font(fontCollection.Families[0], 14);
+            TitleLabel.Font = new Font(FontManager.Courgette, 40);
+            Font tabFont = new Font(FontManager.Courgette, 14);
             ToolsTab.Font = tabFont;
             fileToolStripMenuItem.Font = tabFont;
             ElementControl element = new ElementControl(new Ball(), tabFont);

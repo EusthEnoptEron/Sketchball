@@ -98,6 +98,7 @@
     <Compile Include="Elements\PinballMachine.cs" />
     <Compile Include="Elements\StartingRamp.cs" />
     <Compile Include="Elements\TriangleTMP.cs" />
+    <Compile Include="FontManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Controls\GameHUD.cs">
       <SubType>UserControl</SubType>
