@@ -30,8 +30,12 @@ namespace Sketchball.Controls
         protected override void ConfigureGDI(Graphics g)
         {
             base.ConfigureGDI(g);
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            BackColor = Color.Transparent;
+
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
         }
+
 
         public Game Game;
 
@@ -46,6 +50,8 @@ namespace Sketchball.Controls
             Camera = new GameFieldCamera(Game);
             HUD = new GameHUD(Game);
 
+            Camera.Size = Size;
+
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -53,6 +59,12 @@ namespace Sketchball.Controls
             
             HandleCreated += PinballGameControl_HandleCreated;
             KeyUp += HandleKeyUp;
+            Resize += ResizeCamera;
+        }
+
+        private void ResizeCamera(object sender, EventArgs e)
+        {
+            Camera.Size = Size;
         }
 
 
@@ -127,11 +139,11 @@ namespace Sketchball.Controls
         protected override void Draw(Graphics g)
         {
             // Draw pinball machine
-            Camera.Draw(g, Bounds);
+            Camera.Draw(g);
 
             g.TranslateTransform(Width - HUD.Width, 0);
             HUD.Draw(g);
-            g.TranslateTransform(-(Width + HUD.Width), 0);
+            g.TranslateTransform(-(Width - HUD.Width), 0);
 
             if (Game.Status == GameStatus.GameOver)
             {
