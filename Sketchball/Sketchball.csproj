@@ -91,7 +91,6 @@
     <Compile Include="EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Elements\Frame.cs" />
     <Compile Include="Elements\IAnimatedObject.cs" />
     <Compile Include="Elements\IMachineLayout.cs" />
     <Compile Include="Elements\Line.cs" />
