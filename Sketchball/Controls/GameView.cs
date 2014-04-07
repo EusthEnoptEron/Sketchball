@@ -25,7 +25,7 @@ namespace Sketchball.Controls
 
 
         private Camera Camera;
-
+        private GameHUD HUD;
 
         protected override void ConfigureGDI(Graphics g)
         {
@@ -44,6 +44,7 @@ namespace Sketchball.Controls
         {
             Game = game;
             Camera = new GameFieldCamera(Game);
+            HUD = new GameHUD(Game);
 
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -127,6 +128,10 @@ namespace Sketchball.Controls
         {
             // Draw pinball machine
             Camera.Draw(g, Bounds);
+
+            g.TranslateTransform(Width - HUD.Width, 0);
+            HUD.Draw(g);
+            g.TranslateTransform(-(Width + HUD.Width), 0);
 
             if (Game.Status == GameStatus.GameOver)
             {
