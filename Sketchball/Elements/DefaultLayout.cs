@@ -10,15 +10,29 @@ namespace Sketchball.Elements
 {
     public class DefaultLayout : IMachineLayout
     {
-        private class LayoutElement : PinballElement
+        private class Frame : PinballElement
         {
-            internal LayoutElement()
-            {
-                X = Y = 0;
+            internal Frame() : base(0,0)
+            {   
+                var totalWidth = 235 * 2;
+
+                boundingContainer.AddPolygon(
+                    0, 545,
+                    75, 145,
+                    137, 52,
+                    194, 21,
+                    235, 7.5f,
+
+                    totalWidth - 194, 21,
+                    totalWidth - 137, 52,
+                    totalWidth - 75, 145,
+                    totalWidth, 545
+                );
             }
 
             public override void Draw(Graphics g)
             {
+                boundingContainer.boundingBoxes.ForEach((e) => { e.drawDEBUG(g, Pens.Black); });
             }
         }
 
@@ -32,37 +46,22 @@ namespace Sketchball.Elements
             get { return 545; }
         }
 
-        public BoundingContainer Bounds
+        /// <summary>
+        /// Initializes the machine with a layout.
+        /// !!! Only use once on a machine !!!
+        /// </summary>
+        /// <param name="machine"></param>
+        public void Apply(PinballMachine machine)
         {
-            get;
-            private set;
-        }
+            machine.Elements.Add(new Frame());
 
-        public void DrawBackground(Graphics g)
-        {
-            Bounds.boundingBoxes.ForEach((e) => { e.drawDEBUG(g, Pens.Black); });
-        }
+            // Add ramp
+            StartingRamp ramp = new StartingRamp();
+            machine.Elements.Add(ramp);
 
-        public DefaultLayout()
-        {
-            Bounds = new BoundingContainer(new LayoutElement());
-
-            var totalWidth = 235 * 2;
-
-            Bounds.AddPolygon(
-                0, 545,
-                75, 145,
-                137, 52,
-                194, 21,
-                235, 7.5f,
-
-                totalWidth - 194, 21,
-                totalWidth - 137, 52,
-                totalWidth - 75, 145,
-                totalWidth, 545
-            );
+            ramp.X = Width - ramp.Width - 5;
+            ramp.Y = Height - ramp.Height - 5;
 
         }
-
     }
 }
