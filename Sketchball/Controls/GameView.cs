@@ -25,13 +25,17 @@ namespace Sketchball.Controls
 
 
         private Camera Camera;
-
+        private GameHUD HUD;
 
         protected override void ConfigureGDI(Graphics g)
         {
             base.ConfigureGDI(g);
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            BackColor = Color.Transparent;
+
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
         }
+
 
         public Game Game;
 
@@ -44,6 +48,9 @@ namespace Sketchball.Controls
         {
             Game = game;
             Camera = new GameFieldCamera(Game);
+            HUD = new GameHUD(Game);
+
+            Camera.Size = Size;
 
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -52,6 +59,13 @@ namespace Sketchball.Controls
             
             HandleCreated += PinballGameControl_HandleCreated;
             KeyUp += HandleKeyUp;
+            Resize += ResizeCamera;
+        }
+
+        private void ResizeCamera(object sender, EventArgs e)
+        {
+            Camera.Size = Size;
+            Invalidate();
         }
 
 
@@ -103,19 +117,23 @@ namespace Sketchball.Controls
                     (long)(now - prev).TotalMilliseconds
                 );
 
-                // Update scene
-                if(Game.Status != GameStatus.Pause)
-                    Game.Update(delta);
+                if (Game.Status == GameStatus.Playing)
+                {
+                    // Update scene
+                    if (Game.Status != GameStatus.Pause)
+                        Game.Update(delta);
 
-                // Redraw scene
-                IAsyncResult result = BeginInvoke(new Action(
-                    () =>
-                    {
-                        Invalidate();
-                        base.Update();
-                    }
-                ));
-                EndInvoke(result);
+                    // Redraw scene
+                    IAsyncResult result = BeginInvoke(new Action(
+                        () =>
+                        {
+                            Invalidate();
+                            base.Update();
+                        }
+                    ));
+                    EndInvoke(result);
+
+                }
 
                 Thread.Sleep(10);
                 prev = now;
@@ -126,10 +144,11 @@ namespace Sketchball.Controls
         protected override void Draw(Graphics g)
         {
             // Draw pinball machine
-            Camera.Draw(g, Bounds);
+            Camera.Draw(g);
 
-            // Draw HUD
-            DrawHUD(g);
+            g.TranslateTransform(Width - HUD.Width, 0);
+            HUD.Draw(g);
+            g.TranslateTransform(-(Width - HUD.Width), 0);
 
             if (Game.Status == GameStatus.GameOver)
             {
@@ -147,20 +166,6 @@ namespace Sketchball.Controls
                 g.DrawString("YOU LOSE", new Font("Impact", 40, FontStyle.Regular), Brushes.DarkRed, new PointF(Width / 2 - size.Width / 2, Height / 2 - size.Height / 2));
                 g.DrawString("Press [SPACE] to try again.", new Font("Arial", 13, FontStyle.Regular), Brushes.DarkRed, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
             }
-        }
-
-        private void DrawHUD(Graphics g)
-        {
-            string str = "Score: ";
-            SizeF size = g.MeasureString(str, SystemFonts.DefaultFont);
-            g.DrawString(str, SystemFonts.DefaultFont, Brushes.Black, Width - 200, 50);
-            g.DrawString(Game.Score.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50);
-
-            str = "Lives: ";
-            size = g.MeasureString(str, SystemFonts.DefaultFont);
-            g.DrawString(str, SystemFonts.DefaultFont, Brushes.Black, Width - 200, 50 + size.Height);
-            g.DrawString(Game.Lives.ToString(), SystemFonts.DefaultFont, Brushes.Black, Width - 200 + size.Width, 50 + size.Height);
-
         }
     }
 }

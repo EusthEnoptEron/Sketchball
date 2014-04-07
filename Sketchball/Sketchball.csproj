@@ -98,10 +98,9 @@
     <Compile Include="Elements\PinballMachine.cs" />
     <Compile Include="Elements\StartingRamp.cs" />
     <Compile Include="Elements\TriangleTMP.cs" />
+    <Compile Include="FontManager.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Controls\GameHUD.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Controls\GameHUD.cs" />
     <Compile Include="GlideTween\Ease.cs" />
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />
@@ -161,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\Notebook.png" />
+    <None Include="Resources\WoodPattern.png" />
+    <None Include="Resources\ScoreBG.png" />
     <None Include="Resources\Courgette-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

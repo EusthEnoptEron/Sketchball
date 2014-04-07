@@ -64,7 +64,7 @@ namespace Sketchball.Elements
 
             g.DrawString(Power + "", new Font("Arial", 12, FontStyle.Regular), Brushes.Red, 0f, 0f);
 
-            g.DrawRectangle(Pens.Red, 0, 0, Width, Height);
+            //g.DrawRectangle(Pens.Red, 0, 0, Width, Height);
         }
 
         public void IntroduceBall(Ball ball) {

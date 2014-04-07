@@ -63,8 +63,13 @@ namespace Sketchball.Elements
             ramp.Y = Height - ramp.Height - 5;
 
             // Add flippers
-            LeftFlipper lflipper = new LeftFlipper();
+            Flipper lflipper = new LeftFlipper() { X = 150, Y = Height - 100 };
             machine.StaticElements.Add(lflipper);
+
+            Flipper rflipper = new RightFlipper() { X = 300, Y = Height - 100 };
+            machine.StaticElements.Add(rflipper);
+
+            
 
         }
     }
