@@ -12,7 +12,7 @@ namespace Sketchball.Collision
         public int rows { get; private set; }
         public int cols { get; private set; }
 
-        public int width { get; set; }      //TODO has to be updated when window size changes
+        public int width { get; set; }      
         public int height { get; set; }
 
         private LinkedList<IBoundingBox> animatedObjects;
@@ -46,11 +46,6 @@ namespace Sketchball.Collision
                 }
             }
 
-        }
-
-        public void resize()
-        {
-            //TODO
         }
 
         public void takeOverBoundingBoxes(ElementCollection eles)

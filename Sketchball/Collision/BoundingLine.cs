@@ -84,6 +84,7 @@ namespace Sketchball.Collision
         //TODO: UNTESTED
         public override bool lineIntersec(BoundingLine bL, out Vector2 hitPoint)
         {
+            throw new MissingMethodException();
             Vector2 thisWorldTras = this.BoundingContainer.parentElement.getLocation();
             Vector2 bLWorldTrans = bL.BoundingContainer.parentElement.getLocation();
 
