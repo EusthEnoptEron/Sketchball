@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Sketchball.Elements
 {
     [Serializable]
-    public class PinballMachine : ICloneable
+    public class PinballMachine : ICloneable, IDisposable
     {
 
         // 500px = 1m
@@ -140,8 +140,15 @@ namespace Sketchball.Elements
             this.Balls.Add(b);
         }
 
-       
 
+        /// <summary>
+        /// Disposes the pinball machine and frees all ressources used by it.
+        /// </summary>
+        public void Dispose()
+        {
+            Elements.Clear();
+            Balls.Clear();
+        }
        
     }
 }
