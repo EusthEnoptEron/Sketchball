@@ -41,9 +41,23 @@ namespace Sketchball.Collision
             return (diameterBall / 1.9f) * Vector2.Normalize(hitPoint - (this.BoundingContainer.parentElement.getLocation() + new Vector2(this.radius, this.radius)));
         }
 
-        public override void rotate(float degree, Vector2 center)
+        public override void rotate(float rad, Vector2 center)
         {
-            //ignore (as position is allways 0 in object space and parent position allready rotated         
+            Matrix rotation = new Matrix();
+            System.Drawing.PointF ptCenter = new System.Drawing.PointF(center.X, center.Y);
+            rotation.RotateAt((float)(rad / Math.PI * 180f), ptCenter);
+
+            System.Drawing.PointF[] pts = new System.Drawing.PointF[2];
+            Vector2 p1 = this.position + this.BoundingContainer.parentElement.getLocation();
+            pts[0].X = p1.X;
+            pts[0].Y = p1.Y;
+
+
+            rotation.TransformPoints(pts);
+            p1.X = pts[0].X - this.BoundingContainer.parentElement.getLocation().X;
+            p1.Y = pts[0].Y - this.BoundingContainer.parentElement.getLocation().Y;
+          
+            this.position = p1;
         }
 
         public override bool lineIntersec(BoundingLine bL, out Vector2 hitPoint)
@@ -62,7 +76,7 @@ namespace Sketchball.Collision
             Vector2 normalLine = new Vector2(-directionLine.Y, directionLine.X);
 
             float lenDirectionPiece = Vector2.Dot((centerOfCircle - bLWorldPos) , Vector2.Normalize(directionLine));
-
+           // Console.WriteLine(bL.position+" "+bL.target+" "+lenDirectionPiece);
             if (lenDirectionPiece < -this.radius || lenDirectionPiece > (directionLine.Length()+this.radius))
             {
                 return false;

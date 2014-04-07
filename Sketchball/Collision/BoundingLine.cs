@@ -27,7 +27,7 @@ namespace Sketchball.Collision
         {
 
             Vector2 dLine = this.target - this.position;
-            Vector2 normal = new Vector2(-dLine.Y,dLine.X);     //TODO build so that allways the right normalvector is chosen
+            Vector2 normal = new Vector2(-dLine.Y,dLine.X);     
 
             if (hitPoint == this.position + this.BoundingContainer.parentElement.getLocation())
             {
@@ -81,9 +81,10 @@ namespace Sketchball.Collision
             this.target += moveVec;
         }
 
-        //UNTESTED
+        //TODO: UNTESTED
         public override bool lineIntersec(BoundingLine bL, out Vector2 hitPoint)
         {
+            throw new MissingMethodException();
             Vector2 thisWorldTras = this.BoundingContainer.parentElement.getLocation();
             Vector2 bLWorldTrans = bL.BoundingContainer.parentElement.getLocation();
 
@@ -145,11 +146,11 @@ namespace Sketchball.Collision
             return t2;
         }
 
-        public override void rotate(float degree, Vector2 center)
+        public override void rotate(float rad, Vector2 center)
         {
             Matrix rotation = new Matrix();
             System.Drawing.PointF ptCenter = new System.Drawing.PointF(center.X, center.Y);
-            rotation.RotateAt(degree, ptCenter);
+            rotation.RotateAt((float)(rad/Math.PI*180f), ptCenter);
 
             System.Drawing.PointF[] pts = new System.Drawing.PointF[2];
             Vector2 p1 = this.position + this.BoundingContainer.parentElement.getLocation();
@@ -166,10 +167,7 @@ namespace Sketchball.Collision
             p2.Y = pts[1].Y- this.BoundingContainer.parentElement.getLocation().Y;
 
             this.position = p1;
-            this.target = p2;
-            //rotation.TransformVectors(this.position);       //TODO
-            //rotation.TransformVectors(this.target);       //TODO also has to be moved to center, rotate then move back, since based on position
-           
+            this.target = p2;     
         }
 
         public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint)

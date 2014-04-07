@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
-    public class Ball : PinballElement, IPhysics
+    public class Ball : PinballElement
     {
         public Vector2 Velocity
         {

@@ -73,6 +73,7 @@
     <Compile Include="Controls\PinballGameControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Elements\AnimatedObject.cs" />
     <Compile Include="Controls\ElementControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,6 +91,7 @@
     <Compile Include="EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Elements\IAnimatedObject.cs" />
     <Compile Include="Elements\Line.cs" />
     <Compile Include="Elements\PinballGameMachine.cs" />
     <Compile Include="Elements\PinballMachine.cs" />

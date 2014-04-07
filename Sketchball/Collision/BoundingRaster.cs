@@ -12,7 +12,7 @@ namespace Sketchball.Collision
         public int rows { get; private set; }
         public int cols { get; private set; }
 
-        public int width { get; set; }      //TODO has to be updated when window size changes
+        public int width { get; set; }      
         public int height { get; set; }
 
         private LinkedList<IBoundingBox> animatedObjects;
@@ -53,6 +53,19 @@ namespace Sketchball.Collision
          
             foreach (PinballElement pE in eles)
             {
+                bool skip = false;
+                foreach (IBoundingBox ani in this.animatedObjects)
+                {
+                    if(pE.Equals(ani.BoundingContainer.parentElement))
+                    {
+                        skip = true;
+                        break;
+                    }
+                }
+                if (skip)
+                {
+                    continue;
+                }
                 BoundingContainer bC = pE.getBoundingContainer();
                 Vector2 worldTrans = bC.parentElement.getLocation();
 
@@ -302,13 +315,27 @@ namespace Sketchball.Collision
                 if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint))       //specify bounding box of ball
                 {
                     history.AddFirst(b);
-                    //collision
+                    AnimatedObject aniO = ((AnimatedObject)b.BoundingContainer.parentElement);
+                    Vector2 rotationCenter = aniO.currentRotationCenter+aniO.getLocation();
+                  
+                    Vector2 aniNorm = (hitPoint - rotationCenter).Normal();
+
+                    Vector2 h = -hitPoint + (ball.getLocation() + new Vector2(ball.Width / 2, ball.Height / 2));
+      
+                    Vector2 turnspeed = aniO.angularVelocity * aniNorm;
+                    if (h.X * aniNorm.X < 0 || h.Y * aniNorm.Y < 0)
+                    {
+                        aniNorm = -aniNorm;
+                    }
+                  
+                    ball.Velocity += -turnspeed;   
+
                     Vector2 newDirection = b.reflect(ball.Velocity, hitPoint,ball.getLocation() +ball.getBoundingContainer().getBoundingBoxes()[0].position);
                     Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection,ball.getLocation());
 
-                    ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
+                    outOfAreaPush += (aniO.angualrVelocityPerFrame  ) * aniNorm;        //push with the amout of the turn of animation until next update
 
-                    //ball.boundingContainer.parentElement.World.Gravity = 0;
+                    ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
 
                     ball.Velocity = b.BoundingContainer.parentElement.reflectManipulation(newDirection);
                     this.hitPointDebug = hitPoint;
@@ -321,15 +348,15 @@ namespace Sketchball.Collision
             int x = (int)(ball.X / fieldWidth);
             int y = (int)(ball.Y / fieldHeight);
 
-            history = new LinkedList<IBoundingBox>();
+   
 
             for (int x1 = x - 1; x1 <= x + 1; x1++)
             {
-                if(x1>0&&x1<this.cols)
+                if(x1>=0&&x1<this.cols)
                 {
                     for (int y1 = y - 1; y1 <= y + 1; y1++)
                     {
-                        if(y1>0&&y1<this.rows)
+                        if(y1>=0&&y1<this.rows)
                         {
                             foreach (IBoundingBox b in this.fields[x1, y1].getReferences())
                             {
@@ -344,7 +371,7 @@ namespace Sketchball.Collision
                                     //collision
 
                                     history.AddFirst(b);
-
+                                 
                                     Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.getLocation() + ball.getBoundingContainer().getBoundingBoxes()[0].position);
                                     Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection, ball.getLocation());
 
@@ -368,6 +395,11 @@ namespace Sketchball.Collision
         public void addAnimatedObject(IBoundingBox aO)
         {
             this.animatedObjects.AddLast(aO);
+        }
+
+        public LinkedList<IBoundingBox> getAnimatedObjects()
+        {
+            return this.animatedObjects;
         }
 
         public void removeAnimatedObject(IBoundingBox aO)

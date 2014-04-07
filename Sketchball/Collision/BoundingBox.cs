@@ -30,7 +30,7 @@ namespace Sketchball.Collision
 
         public abstract Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos);
 
-        public abstract void rotate(float degree, Vector2 center);
+        public abstract void rotate(float rad, Vector2 center);
 
         public abstract bool lineIntersec(BoundingLine bL, out Vector2 hitPoint);
 
