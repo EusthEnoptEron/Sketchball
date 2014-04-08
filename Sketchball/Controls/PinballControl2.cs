@@ -199,10 +199,6 @@ namespace Sketchball.Controls
                 }
             }
 
-            foreach (BoundingBox b in this.machine.Layout.Bounds.boundingBoxes)
-            {
-                b.drawDEBUG(g, Pens.Red);
-            }
 
             foreach (Ball ball in this.machine.Balls)
             {
@@ -231,7 +227,7 @@ namespace Sketchball.Controls
 
             g.FillRectangle(Brushes.White, 0, 0, Width, Height);
             //g.DrawRectangle(Pens.Red, 0, 0, Width - 1, Height - 1);
-            machine.Layout.DrawBackground(g);
+           
             for (int y = 0; y < Height; y += 10)
             {
                 g.DrawLine(Pens.LightGray, 0, y, Width, y);
