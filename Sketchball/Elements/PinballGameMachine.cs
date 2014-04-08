@@ -93,15 +93,6 @@ namespace Sketchball.Elements
             g.DrawEllipse(Pens.Orange, this.boundingRaster.hitPointDebug.X, this.boundingRaster.hitPointDebug.Y, 2, 2);
         }
 
-        internal void addAnimatedObject(PinballElement tr)
-        {
-            foreach (BoundingBox b in tr.boundingContainer.getBoundingBoxes())
-            {
-                this.boundingRaster.addAnimatedObject(b);
-            }
-            this.DynamicElements.Add(tr);
-        }
-
         internal bool HasBall()
         {
             //throw new NotImplementedException();

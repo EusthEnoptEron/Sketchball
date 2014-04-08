@@ -149,27 +149,38 @@ namespace Sketchball.Collision
             }       //foreach (IBoundingBox b in bC.boundingBoxes)
         }
 
+        private bool inAnimatedList(PinballElement el)
+        {
+            foreach (BoundingBox box in animatedObjects)
+            {
+                if (box.BoundingContainer.parentElement == el) 
+                    return true;
+            }
+            return false;
+        }
+
         public void takeOverBoundingBoxes(IEnumerable<PinballElement> eles)
         {
 
             foreach (PinballElement pE in eles)
             {
-                bool skip = false;
-                foreach (IBoundingBox ani in this.animatedObjects)
+                if (pE is AnimatedObject)
                 {
-                    if (pE.Equals(ani.BoundingContainer.parentElement))
+                    // Special treatment
+                    if (!inAnimatedList(pE))
                     {
-                        skip = true;
-                        break;
+                        foreach (BoundingBox bb in pE.boundingContainer.boundingBoxes)
+                        {
+                            this.addAnimatedObject(bb);
+                        }
                     }
                 }
-                if (skip)
+                else
                 {
-                    continue;
-                }
-                BoundingContainer bC = pE.getBoundingContainer();
+                    BoundingContainer bC = pE.getBoundingContainer();
 
-                TakeOverBoundingContainer(bC);
+                    TakeOverBoundingContainer(bC);
+                }
             
             }       //foreach (PinballElement pE in eles)
         }
