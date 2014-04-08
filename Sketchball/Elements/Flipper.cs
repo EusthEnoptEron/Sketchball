@@ -15,6 +15,8 @@ namespace Sketchball.Elements
     {
 
         public Keys Trigger;
+        protected Keys DebugTrigger;
+
         public float RotationRange = (float)(Math.PI / 180 * 60);
         
         private bool Animating = false;
@@ -22,7 +24,7 @@ namespace Sketchball.Elements
         public Flipper()  : base()
         {
 
-            Width = 50;
+            Width = 150;
             Height = 50;
 
 
@@ -55,7 +57,9 @@ namespace Sketchball.Elements
         public override void Draw(System.Drawing.Graphics g)
         {
             base.Draw(g);
-            g.DrawRectangle(Pens.Green, 0, Height / 10 * 9, Width , Height / 10 * 2 );
+            
+            g.DrawRectangle(Pens.Green, 0, Height / 10 * 9, Width, Height / 10 * 2);
+
         }
 
         public override bool Contains(Point point)
@@ -86,15 +90,17 @@ namespace Sketchball.Elements
 
         void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Trigger && !Animating)
+            if ( (e.KeyCode == Trigger ||e.KeyCode == DebugTrigger) && !Animating)
             {
+                var speed = e.KeyCode == Trigger ? 0.1f : 4f;
+
                 Animating = true;
 
                 Action endRot = () => {
                     this.rotate(-Rotation, Origin, 0.1f, () => { Animating = false; }); 
                 };
 
-                this.rotate(RotationRange, Origin, 0.2f, endRot);
+                this.rotate(RotationRange, Origin, speed, endRot);
             }
         }
 
@@ -105,6 +111,7 @@ namespace Sketchball.Elements
         public LeftFlipper()
         {
             Trigger = Keys.A;
+            DebugTrigger = Keys.Q;
         }
     }
 
@@ -122,6 +129,7 @@ namespace Sketchball.Elements
         public RightFlipper()
         {
             Trigger = Keys.D;
+            DebugTrigger = Keys.E;
             RotationRange = - RotationRange;
         }
     }
