@@ -32,7 +32,8 @@ namespace Sketchball.Elements
             {
                 this.boundingRaster.addAnimatedObject(b);
             }
-            this.boundingRaster.takeOverBoundingBoxes(Elements);
+            this.boundingRaster.takeOverBoundingBoxes(StaticElements);
+            this.boundingRaster.takeOverBoundingBoxes(DynamicElements);
         }
 
         internal readonly InputManager Input = InputManager.Instance();
