@@ -68,9 +68,18 @@ namespace Sketchball.Elements
 
             Flipper rflipper = new RightFlipper() { X = 300, Y = Height - 100 };
             machine.StaticElements.Add(rflipper);
-
-            
+        }
+        
+        private void AddDynamicObjects(PinballMachine machine) 
+        {
 
         }
+
+        private void AddDynamicObjects(PinballGameMachine machine)
+        {
+
+        }
+
+  
     }
 }

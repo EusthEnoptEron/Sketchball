@@ -104,10 +104,12 @@ namespace Sketchball
         /// </summary>
         public void Start()
         {
-            Status = GameStatus.Playing;
-
             Machine = new PinballGameMachine(OriginalMachine);
             Machine.prepareForLaunch();
+
+
+            Status = GameStatus.Playing;
+            Machine.Input.Enabled = true;
 
             Score = 0;
             Lives = TOTAL_LIVES;
@@ -154,7 +156,11 @@ namespace Sketchball
         /// </summary>
         public void Pause()
         {
-            Status = GameStatus.Pause;
+            if (Status == GameStatus.Playing)
+            {
+                Machine.Input.Enabled = false;
+                Status = GameStatus.Pause;
+            }
         }
 
 
@@ -164,6 +170,11 @@ namespace Sketchball
         /// </summary>
         public void Resume()
         {
+            if (Status == GameStatus.Pause)
+            {
+                Machine.Input.Enabled = true;
+                Status = GameStatus.Playing;
+            }
         }
 
         

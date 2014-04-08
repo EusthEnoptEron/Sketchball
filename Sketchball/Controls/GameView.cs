@@ -50,6 +50,7 @@ namespace Sketchball.Controls
             Camera = new GameFieldCamera(Game);
             HUD = new GameHUD(Game);
 
+            // Init camera
             Camera.Size = Size;
 
             // Optimize control for performance
@@ -58,7 +59,7 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.UserPaint, true);
             
             HandleCreated += PinballGameControl_HandleCreated;
-            KeyUp += HandleKeyUp;
+            KeyDown += HandleKeyDown;
             Resize += ResizeCamera;
         }
 
@@ -72,13 +73,24 @@ namespace Sketchball.Controls
         /// <summary>
         /// Handles key presses (used to initiate a new game)
         /// </summary>
-        private void HandleKeyUp(object sender, KeyEventArgs e)
+        private void HandleKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
             {
                 if (!Game.IsRunning)
                 {
                     Game.Start();
+                }
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                if (Game.Status == GameStatus.Playing)
+                {
+                    Game.Pause();
+                }
+                else if (Game.Status == GameStatus.Pause)
+                {
+                    Game.Resume();
                 }
             }
         }
@@ -106,6 +118,7 @@ namespace Sketchball.Controls
             DateTime prev = DateTime.Now;
             DateTime now;
 
+            int counter = 1;
             while (true)
             {
                 now = DateTime.Now;
@@ -117,11 +130,13 @@ namespace Sketchball.Controls
                     (long)(now - prev).TotalMilliseconds
                 );
 
-                if (Game.Status == GameStatus.Playing)
+                if (Game.Status == GameStatus.Playing || counter-- > 0)
                 {
+                    // Make sure that we draw the scene once more after status change
+                    if (Game.Status == GameStatus.Playing) counter = 1;
+
                     // Update scene
-                    if (Game.Status != GameStatus.Pause)
-                        Game.Update(delta);
+                    Game.Update(delta);
 
                     // Redraw scene
                     IAsyncResult result = BeginInvoke(new Action(
@@ -152,19 +167,26 @@ namespace Sketchball.Controls
 
             if (Game.Status == GameStatus.GameOver)
             {
-                DrawOverlay(g);
+                DrawOverlay(g, Color.DarkRed, "YOU LOSE", "Press [SPACE] to try again.");
+            }
+            else if (Game.Status == GameStatus.Pause)
+            {
+                DrawOverlay(g, Color.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
             }
         }
 
-        private void DrawOverlay(Graphics g)
+        private void DrawOverlay(Graphics g, Color color, string title, string msg)
         {
-            using (Brush brush = new SolidBrush(Color.FromArgb(150, Color.DarkRed)))
+            using (Brush brush = new SolidBrush(Color.FromArgb(150, color)))
             {
-                g.FillRectangle(brush, 0, 0, Width, Height);
-                SizeF size = g.MeasureString("YOU LOSE", new Font("Impact", 40, FontStyle.Regular));
+                using (Brush solidBrush = new SolidBrush(color))
+                {
+                    g.FillRectangle(brush, 0, 0, Width, Height);
+                    SizeF size = g.MeasureString(title, new Font("Impact", 40, FontStyle.Regular));
 
-                g.DrawString("YOU LOSE", new Font("Impact", 40, FontStyle.Regular), Brushes.DarkRed, new PointF(Width / 2 - size.Width / 2, Height / 2 - size.Height / 2));
-                g.DrawString("Press [SPACE] to try again.", new Font("Arial", 13, FontStyle.Regular), Brushes.DarkRed, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
+                    g.DrawString(title, new Font("Impact", 40, FontStyle.Regular), solidBrush, new PointF(Width / 2 - size.Width / 2, Height / 2 - size.Height / 2));
+                    g.DrawString(msg, new Font("Arial", 13, FontStyle.Regular), solidBrush, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
+                }
             }
         }
     }
