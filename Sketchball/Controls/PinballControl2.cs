@@ -80,13 +80,13 @@ namespace Sketchball.Controls
 
             Line l = new Line();
             
-            Elements.Add(b);
-            Elements.Add(l);
+          //  Elements.Add(b);
+          //  Elements.Add(l);
 
             
             //machine.addAnimatedObject(f);
            // Elements.Add(tr);
-            machine.addAnimatedObject(tr);
+          //  machine.addAnimatedObject(tr);
             machine.addBall(ball);  //Changed
           
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);

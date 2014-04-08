@@ -310,7 +310,7 @@ namespace Sketchball.Collision
 
         private bool IsWithinBounds(int x, int y)
         {
-            return x > 0 && x < cols && y > 0 && y < rows;
+            return x >= 0 && x < cols && y >= 0 && y < rows;
         }
 
         public void handleCollision(Ball ball)
