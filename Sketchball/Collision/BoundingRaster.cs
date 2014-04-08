@@ -149,16 +149,6 @@ namespace Sketchball.Collision
             }       //foreach (IBoundingBox b in bC.boundingBoxes)
         }
 
-        private bool inAnimatedList(PinballElement el)
-        {
-            foreach (BoundingBox box in animatedObjects)
-            {
-                if (box.BoundingContainer.parentElement == el) 
-                    return true;
-            }
-            return false;
-        }
-
         public void takeOverBoundingBoxes(IEnumerable<PinballElement> eles)
         {
 
@@ -167,12 +157,9 @@ namespace Sketchball.Collision
                 if (pE is AnimatedObject)
                 {
                     // Special treatment
-                    if (!inAnimatedList(pE))
+                    foreach (BoundingBox bb in pE.boundingContainer.boundingBoxes)
                     {
-                        foreach (BoundingBox bb in pE.boundingContainer.boundingBoxes)
-                        {
-                            this.addAnimatedObject(bb);
-                        }
+                        this.addAnimatedObject(bb);
                     }
                 }
                 else
