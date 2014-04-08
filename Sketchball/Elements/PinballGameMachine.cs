@@ -27,7 +27,7 @@ namespace Sketchball.Elements
         public void prepareForLaunch()
         {
             LinkedList<IBoundingBox> anis = this.boundingRaster.getAnimatedObjects();
-            this.boundingRaster = new BoundingRaster(Width / 60, Height / 60, Width, Height);
+            this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width / 60f), (int)Math.Ceiling(Height / 60f), Width, Height);
             foreach (IBoundingBox b in anis)
             {
                 this.boundingRaster.addAnimatedObject(b);
@@ -40,7 +40,7 @@ namespace Sketchball.Elements
 
         public PinballGameMachine(PinballMachine machine) : base(machine.Layout)
         {
-            this.boundingRaster = new BoundingRaster(Width / 60, Height / 60, Width, Height);
+            this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width / 60f), (int)Math.Ceiling(Height / 60f), Width, Height);
 
             // Copy constructor
             foreach (PinballElement element in machine.DynamicElements)
