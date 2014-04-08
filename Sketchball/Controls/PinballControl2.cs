@@ -238,25 +238,26 @@ namespace Sketchball.Controls
                 g.DrawLine(Pens.LightGray, x, 0, x, Height);
             }
 
-            foreach (PinballElement element in Elements)
-            {
-                GraphicsState gstate = g.Save();
+            machine.Draw(g);
+            //foreach (PinballElement element in Elements)
+            //{
+            //    GraphicsState gstate = g.Save();
 
-                g.TranslateTransform(element.X, element.Y);
-                element.Draw(g);
+            //    g.TranslateTransform(element.X, element.Y);
+            //    element.Draw(g);
 
-                g.Restore(gstate);
-            }
+            //    g.Restore(gstate);
+            //}
 
-            foreach (Ball b in machine.Balls)
-            {
-                GraphicsState gstate = g.Save();
+            //foreach (Ball b in machine.Balls)
+            //{
+            //    GraphicsState gstate = g.Save();
 
-                g.TranslateTransform(b.X, b.Y);
-                b.Draw(g);
+            //    g.TranslateTransform(b.X, b.Y);
+            //    b.Draw(g);
 
-                g.Restore(gstate);
-            }
+            //    g.Restore(gstate);
+            //}
             Brush brush = new HatchBrush(HatchStyle.BackwardDiagonal, Color.Gray, Color.Transparent);
             Point[] path = new Point[] { 
                 new Point(30, Height),
