@@ -34,7 +34,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 435);
+            this.BackgroundImage = global::Sketchball.Properties.Resources.WoodPattern;
+            this.ClientSize = new System.Drawing.Size(785, 634);
             this.Name = "PlayForm";
             this.Text = "PlayForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayForm_FormClosed);

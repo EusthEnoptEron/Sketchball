@@ -17,10 +17,16 @@ namespace Sketchball.Elements
         public Keys Trigger;
         public float RotationRange = (float)(Math.PI / 180 * 60);
         
+        private bool Animating = false;
+
         public Flipper()  : base()
         {
+
             Width = 50;
             Height = 50;
+
+
+  //          this.rotate((float)Math.PI*2, Origin, 0);
 
             // 0, Height / 10 * 9, Width , Height / 10 * 2 )
             int y1 = Height / 10 * 9;
@@ -69,14 +75,26 @@ namespace Sketchball.Elements
             machine.Input.KeyDown -= OnKeyDown;
         }
 
+        protected virtual Vector2 Origin
+        {
+            get
+            {
+                return new Vector2(0, this.Height);
+            }
+        }
+
 
         void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Trigger)
+            if (e.KeyCode == Trigger && !Animating)
             {
-                Vector2 drawCenter = this.getLocation() + new Vector2(0, this.Height);
-                Action endRot = new Action(() => { this.rotate((float)(90 / 180f * Math.PI), drawCenter, 1f); });
-                this.rotate((-(float)(90 / 180f * Math.PI)), drawCenter, 1f, endRot);
+                Animating = true;
+
+                Action endRot = () => {
+                    this.rotate(-Rotation, Origin, 0.1f, () => { Animating = false; }); 
+                };
+
+                this.rotate(RotationRange, Origin, 0.2f, endRot);
             }
         }
 
@@ -92,10 +110,19 @@ namespace Sketchball.Elements
 
     public class RightFlipper : Flipper
     {
+
+        protected override Vector2 Origin
+        {
+            get
+            {
+                return new Vector2(Width, Height);
+            }
+        }
+
         public RightFlipper()
         {
             Trigger = Keys.D;
-           
+            RotationRange = - RotationRange;
         }
     }
 }

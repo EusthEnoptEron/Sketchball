@@ -149,7 +149,7 @@ namespace Sketchball.Collision
             }       //foreach (IBoundingBox b in bC.boundingBoxes)
         }
 
-        public void takeOverBoundingBoxes(ElementCollection eles)
+        public void takeOverBoundingBoxes(IEnumerable<PinballElement> eles)
         {
 
             foreach (PinballElement pE in eles)

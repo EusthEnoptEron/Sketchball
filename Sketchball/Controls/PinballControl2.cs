@@ -60,7 +60,7 @@ namespace Sketchball.Controls
 
         public PinballControl2() : base()
         {
-            Elements = machine.Elements;
+            Elements = machine.DynamicElements;
             InitializeComponent();
    
             LoadBuffers();

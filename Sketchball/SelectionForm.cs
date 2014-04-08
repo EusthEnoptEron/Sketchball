@@ -21,13 +21,12 @@ namespace Sketchball
 
         public SelectionForm()
         {
-            System.String path = (Path.Combine(Application.ExecutablePath, "..", "Resources", "Courgette-Regular.ttf"));
-            this.fontCollection.AddFontFile(path);
 
             InitializeComponent();
 
-            this.btnGameLabel.Font = new System.Drawing.Font(fontCollection.Families[0], 30);
-            this.btnEditorLabel.Font = new System.Drawing.Font(fontCollection.Families[0], 30); 
+            Font font = new Font(FontManager.Courgette, 30);
+            this.btnGameLabel.Font = font;
+            this.btnEditorLabel.Font = font;
         }
 
         void picBGame_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
