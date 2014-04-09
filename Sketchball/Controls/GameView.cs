@@ -63,6 +63,7 @@ namespace Sketchball.Controls
             Resize += ResizeCamera;
         }
 
+
         private void ResizeCamera(object sender, EventArgs e)
         {
             Camera.Size = Size;
@@ -123,20 +124,11 @@ namespace Sketchball.Controls
             {
                 now = DateTime.Now;
 
-                // Calculate delta since last update
-                // (make sure it reaches at least MIN_FPS)
-                long delta = Math.Min(
-                    1000 / MIN_FPS,
-                    (long)(now - prev).TotalMilliseconds
-                );
-
                 if (Game.Status == GameStatus.Playing || counter-- > 0)
                 {
                     // Make sure that we draw the scene once more after status change
                     if (Game.Status == GameStatus.Playing) counter = 1;
 
-                    // Update scene
-                    Game.Update(delta);
 
                     // Redraw scene
                     IAsyncResult result = BeginInvoke(new Action(
@@ -146,11 +138,14 @@ namespace Sketchball.Controls
                             base.Update();
                         }
                     ));
-                    EndInvoke(result);
 
+                    EndInvoke(result);
+                }
+                else
+                {
+                    Thread.Sleep(10);
                 }
 
-                Thread.Sleep(10);
                 prev = now;
             }
         }

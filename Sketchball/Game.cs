@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sketchball
@@ -21,7 +22,7 @@ namespace Sketchball
     /// <summary>
     /// Control that houses a game of pinball.
     /// </summary>
-    public class Game
+    public class Game : IDisposable
     {
         public delegate void ScoreChangedHandler(Game sender, int score);
         public delegate void LivesChangedHandler(Game sender, int lives);
@@ -32,17 +33,32 @@ namespace Sketchball
         //public event GameoverHandler Gameover;
 
 
-
         /// <summary>
         /// Total number of lives (<=> balls)
         /// </summary>
         public const int TOTAL_LIVES = 3;
 
 
+        private GameStatus _status = GameStatus.Setup;
+
         /// <summary>
         /// Gets the current game status.
         /// </summary>
-        public GameStatus Status { get; private set; }
+        public GameStatus Status
+        {
+            get
+            {
+                return _status;
+            }
+            private set
+            {
+                _status = value;
+                lock (this)
+                {
+                    Monitor.PulseAll(this);
+                }
+            }
+        }
 
 
         /// <summary>
@@ -90,11 +106,21 @@ namespace Sketchball
         private PinballMachine OriginalMachine;
 
 
+
+        private Thread UpdateLoop = null;
+        private bool Disposed;
+        private const int FPS = 80;
+
+
         public Game(PinballMachine machine) {
             Status = GameStatus.Setup;
 
             OriginalMachine = machine;
 
+            UpdateLoop = new Thread(new ThreadStart(BeginUpdate));
+            UpdateLoop.Name = "Updater";
+            UpdateLoop.Start();
+            
             Start();
         }
 
@@ -104,22 +130,25 @@ namespace Sketchball
         /// </summary>
         public void Start()
         {
-            Machine = new PinballGameMachine(OriginalMachine);
-            Machine.prepareForLaunch();
+            lock (this)
+            {
+                Machine = new PinballGameMachine(OriginalMachine);
+                Machine.prepareForLaunch();
 
 
-            Status = GameStatus.Playing;
-            Machine.Input.Enabled = true;
+                Status = GameStatus.Playing;
+                Machine.Input.Enabled = true;
 
-            Score = 0;
-            Lives = TOTAL_LIVES;
+                Score = 0;
+                Lives = TOTAL_LIVES;
 
-            // Wire up event handlers
-            Machine.Collision += OnScore;
-            Machine.GameOver += OnGameOver;
+                // Wire up event handlers
+                Machine.Collision += OnScore;
+                Machine.GameOver += OnGameOver;
 
-            Machine.IntroduceBall();
-            Lives--;
+                Machine.IntroduceBall();
+                Lives--;
+            }
         }
 
         
@@ -181,7 +210,7 @@ namespace Sketchball
         /// <summary>
         /// Updates positions and checks for collisions, etc.
         /// </summary>
-        public void Update(long elapsed)
+        private void Update(long elapsed)
         {            
             // Update elements
             Machine.Update(elapsed);
@@ -207,6 +236,57 @@ namespace Sketchball
             var handlers = LivesChanged;
             if (handlers != null)
                 handlers(this, Lives);
+        }
+
+
+        /// <summary>
+        /// Update-Loop (has its own thread)
+        /// </summary>
+        private void BeginUpdate()
+        {
+            System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+
+            DateTime prev, now;
+            int timePerPass = 1000 / FPS;
+            
+            long i = 0;
+            long sleepTimes = 0;
+            double averageSleepTime = 0;
+
+            while (!Disposed)
+            {
+                
+                
+                lock(this) {
+                    while (Status != GameStatus.Playing)
+                    {
+                        Monitor.Wait(this);
+                        if (Disposed) break;
+                    }
+
+                    stopWatch.Restart();
+                    this.Update(timePerPass);
+                    stopWatch.Stop();
+                }
+
+                int sleepTime = Math.Max(0, timePerPass - (int)stopWatch.ElapsedMilliseconds);
+                sleepTimes += sleepTime;
+                i++;
+                averageSleepTime = (double)sleepTimes / i;
+
+
+                Thread.Sleep(sleepTime);
+            }
+        }
+
+        public void Dispose()
+        {
+            Disposed = true;
+
+            lock (this)
+            {
+                Monitor.PulseAll(this);
+            }
         }
     }
 }

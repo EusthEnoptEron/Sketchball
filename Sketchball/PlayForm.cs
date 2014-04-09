@@ -44,6 +44,7 @@ namespace Sketchball
 
         private void PlayForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            game.Dispose();
             if (selectionForm != null)
             {
                 selectionForm.Show();

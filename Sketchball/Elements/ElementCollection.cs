@@ -62,29 +62,37 @@ namespace Sketchball.Elements
             }
             set
             {
-                if (Elements[index] != null)
+                lock (this)
                 {
-                    ReleaseElement(Elements[index]);
+                    if (Elements[index] != null)
+                    {
+                        ReleaseElement(Elements[index]);
+                    }
+                    ClaimElement(value);
+                    Elements[index] = value;
                 }
-                ClaimElement(value);
-                Elements[index] = value;
             }
         }
 
         public void Add(PinballElement item)
         {
-            ClaimElement(item);
-            Elements.Add(item);
+            lock(this) {
+                ClaimElement(item);
+                Elements.Add(item);
+            }
         }
 
         public void Clear()
         {
-            foreach (PinballElement element in Elements)
+            lock (this)
             {
-                ReleaseElement(element);
-            }
+                foreach (PinballElement element in Elements)
+                {
+                    ReleaseElement(element);
+                }
 
-            Elements.Clear();
+                Elements.Clear();
+            }
         }
 
         public bool Contains(PinballElement item)
@@ -109,8 +117,11 @@ namespace Sketchball.Elements
 
         public bool Remove(PinballElement item)
         {
-            ReleaseElement(item);
-            return Elements.Remove(item);
+            lock (this)
+            {
+                ReleaseElement(item);
+                return Elements.Remove(item);
+            }
         }
 
         public IEnumerator<PinballElement> GetEnumerator()
