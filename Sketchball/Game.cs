@@ -108,7 +108,7 @@ namespace Sketchball
 
 
         private Thread UpdateLoop = null;
-        private bool Disposed;
+        private volatile bool Disposed;
         private const int FPS = 80;
 
 
