@@ -246,7 +246,6 @@ namespace Sketchball
         {
             System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
 
-            DateTime prev, now;
             int timePerPass = 1000 / FPS;
             
             long i = 0;
@@ -255,8 +254,9 @@ namespace Sketchball
 
             while (!Disposed)
             {
-                
-                
+
+                stopWatch.Restart();
+
                 lock(this) {
                     while (Status != GameStatus.Playing)
                     {
@@ -264,16 +264,13 @@ namespace Sketchball
                         if (Disposed) break;
                     }
 
-                    stopWatch.Restart();
+                    
                     this.Update(timePerPass);
-                    stopWatch.Stop();
+                    
                 }
+                stopWatch.Stop();
 
                 int sleepTime = Math.Max(0, timePerPass - (int)stopWatch.ElapsedMilliseconds);
-                sleepTimes += sleepTime;
-                i++;
-                averageSleepTime = (double)sleepTimes / i;
-
 
                 Thread.Sleep(sleepTime);
             }
