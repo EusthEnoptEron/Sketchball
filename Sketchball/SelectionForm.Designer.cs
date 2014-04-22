@@ -31,7 +31,6 @@ namespace Sketchball
         {
             this.picBGame = new System.Windows.Forms.PictureBox();
             this.picBEditor = new System.Windows.Forms.PictureBox();
-            this.btnGameLabel = new System.Windows.Forms.Label();
             this.btnEditorLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picBGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBEditor)).BeginInit();
@@ -63,17 +62,6 @@ namespace Sketchball
             this.picBEditor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBEditor_MouseDown);
             this.picBEditor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBEditor_MouseUp);
             // 
-            // btnGameLabel
-            // 
-            this.btnGameLabel.AutoSize = true;
-            this.btnGameLabel.BackColor = System.Drawing.Color.White;
-            this.btnGameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGameLabel.Location = new System.Drawing.Point(44, 36);
-            this.btnGameLabel.Name = "btnGameLabel";
-            this.btnGameLabel.Size = new System.Drawing.Size(190, 46);
-            this.btnGameLabel.TabIndex = 2;
-            this.btnGameLabel.Text = "Lets play!";
-            // 
             // btnEditorLabel
             // 
             this.btnEditorLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -93,7 +81,6 @@ namespace Sketchball
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 243);
             this.Controls.Add(this.btnEditorLabel);
-            this.Controls.Add(this.btnGameLabel);
             this.Controls.Add(this.picBEditor);
             this.Controls.Add(this.picBGame);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -113,7 +100,6 @@ namespace Sketchball
 
         private System.Windows.Forms.PictureBox picBGame;
         private System.Windows.Forms.PictureBox picBEditor;
-        private System.Windows.Forms.Label btnGameLabel;
         private System.Windows.Forms.Label btnEditorLabel;
     }
 }
