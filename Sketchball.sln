@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{07EDAE
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collisiondetection_Test", "Collisiondetection_Test\Collisiondetection_Test.csproj", "{EB2224F7-013C-4BD9-A207-700898785EE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{22688316-3234-4377-B45D-C7C7714410A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22688316-3234-4377-B45D-C7C7714410A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22688316-3234-4377-B45D-C7C7714410A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB2224F7-013C-4BD9-A207-700898785EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2224F7-013C-4BD9-A207-700898785EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2224F7-013C-4BD9-A207-700898785EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2224F7-013C-4BD9-A207-700898785EE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
-    class Bumper : PinballElement
+    public class Bumper : PinballElement
     {
         public Bumper():base()
         {
