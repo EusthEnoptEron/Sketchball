@@ -9,21 +9,55 @@ namespace Sketchball.Collision
 {
     public class BoundingRaster
     {
+        /// <summary>
+        /// Defines amount of rows (must be in sync with height and fieldHeight)
+        /// </summary>
         public int rows { get; private set; }
+
+        /// <summary>
+        /// Defines amount of cols (must be in sync with width and fieldWidth)
+        /// </summary>
         public int cols { get; private set; }
 
+        /// <summary>
+        /// Defines width of form (must be in sync with cols and fieldWidth)
+        /// </summary>
         public int width { get; set; }
+
+        /// <summary>
+        /// Defines height of form (must be in sync with rows and fieldHeight)
+        /// </summary>
         public int height { get; set; }
 
+        /// <summary>
+        /// List of all animated objects
+        /// </summary>
         private LinkedList<IBoundingBox> animatedObjects;
+
+        /// <summary>
+        /// Fields on the raster that hold reference to bounding boxes
+        /// </summary>
         private BoundingField[,] fields;
 
+        /// <summary>
+        /// Width of one field
+        /// </summary>
         private int fieldWidth;
+
+        /// <summary>
+        /// Height of one field
+        /// </summary>
         private int fieldHeight;
 
         public Vector2 hitPointDebug = new Vector2(0, 0);
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="cols">Amount of columns</param>
+        /// <param name="rows">Amount of rows</param>
+        /// <param name="width">Width of the form</param>
+        /// <param name="height">Height of the form</param>
         public BoundingRaster(int cols, int rows, int width, int height)
         {
             this.animatedObjects = new LinkedList<IBoundingBox>();
@@ -48,6 +82,11 @@ namespace Sketchball.Collision
 
         }
 
+        /// <summary>
+        /// Goes though the bounding container and takes over his bounding boxes.
+        /// Animated Objects do not need to be taken over
+        /// </summary>
+        /// <param name="bC">Container that holds bounding boxes to add</param>
         public void TakeOverBoundingContainer(BoundingContainer bC) {
             Vector2 worldTrans = bC.parentElement.getLocation();
 
@@ -149,6 +188,11 @@ namespace Sketchball.Collision
             }       //foreach (IBoundingBox b in bC.boundingBoxes)
         }
 
+        /// <summary>
+        /// Goes through all elements given and adds their bounding boxes to the raster.
+        /// Animated Objects do not need to be taken over
+        /// </summary>
+        /// <param name="eles">Elements to add</param>
         public void takeOverBoundingBoxes(IEnumerable<PinballElement> eles)
         {
 
@@ -174,6 +218,9 @@ namespace Sketchball.Collision
             }       //foreach (PinballElement pE in eles)
         }
 
+        /// <summary>
+        /// Submethod to TakeOverBoundingContainer - not intended to be called outside of TakeOverBoundingContainer
+        /// </summary>
         private void takeOverBoundingLineLeftToRight(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL, Vector2 worldTrans)
         {
             if (unitV.X == 0)
@@ -241,6 +288,9 @@ namespace Sketchball.Collision
 
         }
 
+        /// <summary>
+        /// Submethod to TakeOverBoundingContainer - not intended to be called outside of TakeOverBoundingContainer
+        /// </summary>
         private void takeOverBoundingLineRightToLeft(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL, Vector2 worldTrans)
         {
             if (unitV.X == 0)
@@ -313,6 +363,10 @@ namespace Sketchball.Collision
             return x >= 0 && x < cols && y >= 0 && y < rows;
         }
 
+        /// <summary>
+        /// This method takes a ball and handles the collision of it with all other bounding boxes in this raster
+        /// </summary>
+        /// <param name="ball">Ball that causes collisions</param>
         public void handleCollision(Ball ball)
         {
             //Collide first with animated object then with object around ball self
@@ -406,17 +460,27 @@ namespace Sketchball.Collision
         }
 
 
-
+        /// <summary>
+        /// Adds an animated object to the raster (no need to call take over bounding boxes on this.
+        /// </summary>
+        /// <param name="aO">Element to add</param>
         public void addAnimatedObject(IBoundingBox aO)
         {
             this.animatedObjects.AddLast(aO);
         }
 
+        /// <summary>
+        /// Returns all animated objects
+        /// </summary>
+        /// <returns>List of animated objects</returns>
         public LinkedList<IBoundingBox> getAnimatedObjects()
         {
             return this.animatedObjects;
         }
-
+        /// <summary>
+        /// Removes an animated object
+        /// </summary>
+        /// <param name="aO">The object to be removed</param>
         public void removeAnimatedObject(IBoundingBox aO)
         {
             this.animatedObjects.Remove(aO);

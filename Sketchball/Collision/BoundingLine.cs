@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Collision
 {
+    /// <summary>
+    /// Line variant of bounding box
+    /// </summary>
     public class BoundingLine : BoundingBox
     {
         //target is object space: based on pinball element position

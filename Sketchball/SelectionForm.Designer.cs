@@ -96,7 +96,7 @@ namespace Sketchball
             this.Controls.Add(this.btnGameLabel);
             this.Controls.Add(this.picBEditor);
             this.Controls.Add(this.picBGame);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "SelectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

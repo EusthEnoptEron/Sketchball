@@ -8,6 +8,9 @@ using Sketchball.Elements;
 
 namespace Sketchball.Collision
 {
+    /// <summary>
+    /// Holds boundingboxes of a pinball element
+    /// </summary>
     public class BoundingContainer
     {
         /// <summary>
