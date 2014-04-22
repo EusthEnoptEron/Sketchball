@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Collision
 {
+    /// <summary>
+    /// Circle variant
+    /// </summary>
     public class BoundingCircle : BoundingBox
     {
         public int radius{get; private set;}
       
         /// <summary>
-        /// creates new Bounding Circle
+        /// Creates new bounding circle
         /// </summary>
-        /// <param name="radius"></param>
+        /// <param name="radius">Radius of the bounding circle</param>
         /// <param name="center">position based on pinballElement</param>
         public BoundingCircle(int radius, Vector2 center)
         {
@@ -109,7 +112,6 @@ namespace Sketchball.Collision
            
         }
 
-
         public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint)
         {
             
@@ -124,7 +126,6 @@ namespace Sketchball.Collision
             hitPoint = new Vector2(0, 0);
             return false;
         }
-
 
         public override void drawDEBUG(System.Drawing.Graphics g, Pen p)
         {
