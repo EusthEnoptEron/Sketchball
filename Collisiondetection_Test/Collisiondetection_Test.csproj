@@ -50,8 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BoundingCircle_intersect.cs" />
+    <Compile Include="BoundingCircle_intersectWithCircle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BoundingCircle_reflect.cs" />
+    <Compile Include="BoundingCircle_intersectWithLine.cs" />
+    <Compile Include="BoundingCircle_pushBack.cs" />
+    <Compile Include="BoundingLine_intersectWithCircle.cs" />
+    <Compile Include="BoundingLine_reflect.cs" />
+    <Compile Include="BoundingLine_pushBack.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sketchball\Sketchball.csproj">

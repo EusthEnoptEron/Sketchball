@@ -35,12 +35,14 @@ namespace Sketchball.Collision
         {
             //circle => position = origin of object space coordinate system
             //=> normal to make reflection is from origin to hitpoint (hitpoint must be conferted to object space first)
+            //TODO take position of bounding box into account
             Vector2 normal = Vector2.Normalize(hitPoint-(this.BoundingContainer.parentElement.getLocation() + new Vector2(this.radius,this.radius)));
             return Vector2.Reflect(vecIn, normal);
         }
 
         public override Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos)
         {
+            //TODO take bounding box position into account
             return (diameterBall / 1.9f) * Vector2.Normalize(hitPoint - (this.BoundingContainer.parentElement.getLocation() + new Vector2(this.radius, this.radius)));
         }
 
@@ -80,7 +82,7 @@ namespace Sketchball.Collision
 
             float lenDirectionPiece = Vector2.Dot((centerOfCircle - bLWorldPos) , Vector2.Normalize(directionLine));
            // Console.WriteLine(bL.position+" "+bL.target+" "+lenDirectionPiece);
-            if (lenDirectionPiece < -this.radius || lenDirectionPiece > (directionLine.Length()+this.radius))
+            if (lenDirectionPiece < -this.radius || lenDirectionPiece >= (directionLine.Length()+this.radius))
             {
                 return false;
             }

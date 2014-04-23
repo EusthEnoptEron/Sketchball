@@ -65,6 +65,7 @@ namespace Sketchball.Collision
             Vector2 dLine = this.target - this.position;
 
             float d = Vector2.Dot((velocity), Vector2.Normalize(dLine));    //distance on dLine from pos to the point where the normal from velocity hits
+          
             Vector2 q = d * Vector2.Normalize(dLine);       //point where normal on dline through Velocity point hits
             Vector2 h = velocity-q;         //horizontal line through velocitiy point and  normal on dline
 
@@ -73,7 +74,13 @@ namespace Sketchball.Collision
             {
                 norm = -norm;
             }
-        
+
+            if (d == 0)
+            {
+                //vertical
+                norm = -velocity;
+                norm.Normalize();
+            }
             return (diameterBall / 1.9f) * norm;
         }
 
@@ -190,7 +197,7 @@ namespace Sketchball.Collision
 
             float lenDirectionPiece = Vector2.Dot((centerOfCircle - bLWorldPos), Vector2.Normalize(directionLine));
 
-            if (lenDirectionPiece < -bC.radius || lenDirectionPiece > (directionLine.Length() + bC.radius))
+            if (lenDirectionPiece <= -bC.radius || lenDirectionPiece >= (directionLine.Length() + bC.radius))
             {
                 return false;
             }

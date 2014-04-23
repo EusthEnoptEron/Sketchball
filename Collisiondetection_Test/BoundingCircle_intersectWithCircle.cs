@@ -27,6 +27,7 @@ namespace Collisiondetection_Test
             Assert.AreEqual(bC.radius, radius);
         }
 
+        //Below here: Intersection tests with circle
         [TestMethod]
         public void TestIntersectNoIntersect()
         {
@@ -45,10 +46,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
+
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
 
             //Operation
@@ -75,10 +78,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
+
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
 
             //Operation
@@ -105,10 +110,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
 
             //Operation
@@ -136,10 +142,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
 
             //Operation
@@ -167,10 +174,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.setLocation(new Vector2(0, 0));
             parent.Width = 2 * radius1;
@@ -202,10 +210,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.setLocation(new Vector2(0, 0));
             parent.Width = 2 * radius1;
@@ -237,10 +246,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.setLocation(new Vector2(0, 0));
             parent.Width = 2 * radius1;
@@ -271,10 +281,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.setLocation(new Vector2(0, 0));
             parent.Width = 2 * radius1;
@@ -305,10 +316,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.setLocation(new Vector2(0, 0));
             parent.Width = 2 * radius1;
@@ -339,10 +351,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.setLocation(new Vector2(0, 0));
             parent.Width = 2 * radius1;
@@ -373,10 +386,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             Ball ball = new Ball();
             BoundingContainer bCont = new BoundingContainer(parent);
+            BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.setLocation(new Vector2(0, 0));
             parent.Width = 2 * radius1;
