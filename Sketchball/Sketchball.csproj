@@ -160,6 +160,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\32217.png" />
+    <None Include="Resources\refresh_icon_scalable_vector_graphics_svg-1969px.png" />
+    <None Include="Resources\editor-eraser.png" />
+    <None Include="Resources\pencil-1979px.png" />
+    <None Include="Resources\BackgroundScharf.png" />
+    <None Include="Resources\PlaySchrift1.png" />
+    <None Include="Resources\Exit.png" />
+    <None Include="Resources\EditorSchrift2.png" />
+    <None Include="Resources\BackgroundextraScharf.png" />
     <None Include="Resources\Notebook.png" />
     <None Include="Resources\WoodPattern.png" />
     <None Include="Resources\ScoreBG.png" />
