@@ -160,6 +160,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\hole.png" />
+    <None Include="Resources\Bumper.png" />
+    <None Include="Resources\Redo-icon.png" />
+    <None Include="Resources\Undo-icon.png" />
+    <None Include="Resources\Very-Basic-Cursor-icon.png" />
+    <None Include="Resources\Windows_Cursor.png" />
+    <None Include="Resources\circle-outline-512.png" />
+    <None Include="Resources\LineTool.png" />
     <None Include="Resources\32217.png" />
     <None Include="Resources\refresh_icon_scalable_vector_graphics_svg-1969px.png" />
     <None Include="Resources\editor-eraser.png" />
