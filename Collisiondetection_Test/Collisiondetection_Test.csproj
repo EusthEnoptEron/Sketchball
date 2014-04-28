@@ -59,6 +59,8 @@
     <Compile Include="BoundingLine_reflect.cs" />
     <Compile Include="BoundingLine_pushBack.cs" />
     <Compile Include="BoundingField_addReference.cs" />
+    <Compile Include="BoundingRaster_CircleTakeOverBoundingBoxes.cs" />
+    <Compile Include="BoundingRaster_LineTakeOverBoundingBoxes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sketchball\Sketchball.csproj">

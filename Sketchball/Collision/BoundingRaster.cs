@@ -60,6 +60,18 @@ namespace Sketchball.Collision
         /// <param name="height">Height of the form</param>
         public BoundingRaster(int cols, int rows, int width, int height)
         {
+            if ((width / cols) % 1 != 0)
+            {
+                //not whole number
+                throw new ArgumentException("width / cols must be whole number");
+            }
+
+            if ((height / rows) % 1 != 0)
+            {
+                //not whole number
+                throw new ArgumentException("width / cols must be whole number");
+            }
+
             this.animatedObjects = new LinkedList<IBoundingBox>();
             this.fields = new BoundingField[cols, rows];
 
@@ -485,6 +497,30 @@ namespace Sketchball.Collision
         {
             this.animatedObjects.Remove(aO);
         }
+
+        /// <summary>
+        /// Returns the fieldWidth // for test purposes
+        /// </summary>
+        /// <returns>fieldWidth</returns>
+        public int getFieldWidth()
+        {
+            return this.fieldWidth;
+        }
+
+        /// <summary>
+        /// Returns the fieldHeight // for test purposes
+        /// </summary>
+        /// <returns>fieldHeight</returns>
+        public int getFieldHeight()
+        {
+            return this.fieldHeight;
+        }
+
+        public BoundingField getBoundingField(int x, int y)
+        {
+            return this.fields[x, y];
+        }
+
 
     }
 }
