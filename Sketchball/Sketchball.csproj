@@ -124,6 +124,9 @@
     </Compile>
     <Compile Include="TranslationChange.cs" />
     <Compile Include="Vector2.cs" />
+    <EmbeddedResource Include="Controls\ElementControl.resx">
+      <DependentUpon>ElementControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>

@@ -59,7 +59,7 @@ namespace Sketchball.Elements
             base.Draw(g);
             
             g.DrawRectangle(Pens.Green, 0, Height / 10 * 8, Width, Height / 10 * 2);
-            g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
+            //g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
         }
 
         public override bool Contains(Point point)

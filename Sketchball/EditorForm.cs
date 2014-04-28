@@ -27,7 +27,7 @@ namespace Sketchball
         public EditorForm()
         {
             InitializeComponent();
-            PlayFieldEditor.ScaleFactor *= 1.6f;
+            PlayFieldEditor.ScaleFactor *= 1f;
 
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
@@ -146,8 +146,9 @@ namespace Sketchball
 
         private void populateElementPanel()
         {
-            Font font = new Font(FontManager.Courgette, 12, FontStyle.Regular);
-            elementPanel.Controls.Add(new ElementControl(new Flipper(), "Flipper", font));
+            Font font = new Font("Arial", 10, FontStyle.Regular);
+            elementPanel.Controls.Add(new ElementControl(new Flipper(), "Flipper (left)", font));
+            elementPanel.Controls.Add(new ElementControl(new Flipper() { Rotation = 0.1f }, "Flipper (right)", font));
 
 
             foreach (Control c in elementPanel.Controls)
@@ -183,7 +184,9 @@ namespace Sketchball
         private void DragOver(object sender, DragEventArgs e)
         {
             dragThumb.Location = PlayFieldEditor.PointToClient(new Point(e.X + 1, e.Y + 1));
-            dragState.Element.Location = new Vector2(dragThumb.Left, dragThumb.Top);
+
+            var pinballPoint = PlayFieldEditor.PointToPinball(dragThumb.Location);
+            dragState.Element.Location = new Vector2(pinballPoint.X, pinballPoint.Y);
             dragThumb.Visible = true;
         }
 

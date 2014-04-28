@@ -28,21 +28,26 @@ namespace Sketchball.Controls
             Element = el;
             Label = label;
             InitializeComponent();
-            Paint += (s, e) => { Draw(e.Graphics); };
 
-            Height = 50;
-            Width = 200;
+
+            Paint += (s, e) => { Draw(e.Graphics); };
+            //MouseDown += (s, e) => { BackColor = SystemColors.Highlight; };
+            MouseEnter += (s, e) => { BackColor = SystemColors.Highlight; ForeColor = Color.White; };
+            MouseLeave += (s, e) => { BackColor = SystemColors.Control; ForeColor = Color.Black; };
+
+            Height = THUMB_HEIGHT;
+            Width = 260;
         }
 
         void Draw(Graphics g)
         {
             //Image image = Image.FromFile(@"D:\Studium\Semester 4\Project 1\Graphic\Conseptual\Slingshot.png");
             //e.Graphics.DrawImage(image,0 ,0,Width, Height);
-
+            Brush bgBrush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.LightGray);
+            g.FillRectangle(bgBrush, 0, 0, THUMB_WIDTH, THUMB_HEIGHT);
             DrawThumb(g, THUMB_WIDTH, THUMB_HEIGHT);
 
-            g.DrawString(Label, ElementFont, Brushes.Black, THUMB_WIDTH + 5, 10);
-            g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
+            g.DrawString(Label, ElementFont, new SolidBrush(ForeColor), THUMB_WIDTH + 5, 10);
         }
 
         private void DrawThumb(Graphics g, int width, int height)
@@ -50,12 +55,25 @@ namespace Sketchball.Controls
             if (Element.Width == 0) Element.Width = width;
             if (Element.Height == 0) Element.Height = height;
 
-            var factor = Math.Min((float)width / Element.Width, (float)height / Element.Height);
+            var heightRatio = (float)height / Element.Height;
+            var widthRatio = (float)width / Element.Width;
+            var ratio = Math.Min(heightRatio, widthRatio);
 
             GraphicsState state = g.Save();
             try
             {
-                g.ScaleTransform(factor, factor);
+                
+                g.ScaleTransform(ratio, ratio);
+                
+                if (heightRatio < widthRatio)
+                {
+                    g.TranslateTransform(width - (Element.Width * ratio), 0);
+                }
+                else
+                {
+                    g.TranslateTransform(0, height - (Element.Height * ratio));
+                }
+
                 Element.Draw(g);
             }
             finally

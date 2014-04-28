@@ -172,6 +172,10 @@
             // 
             // elementPanel
             // 
+            this.elementPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.elementPanel.AutoScroll = true;
             this.elementPanel.Location = new System.Drawing.Point(7, 183);
             this.elementPanel.Name = "elementPanel";
             this.elementPanel.Size = new System.Drawing.Size(292, 438);
