@@ -101,6 +101,26 @@ namespace Sketchball.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Bumper {
+            get {
+                object obj = ResourceManager.GetObject("Bumper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap circle_outline_512 {
+            get {
+                object obj = ResourceManager.GetObject("circle_outline_512", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
         internal static byte[] Courgette_Regular {
@@ -143,6 +163,26 @@ namespace Sketchball.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hole {
+            get {
+                object obj = ResourceManager.GetObject("hole", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LineTool {
+            get {
+                object obj = ResourceManager.GetObject("LineTool", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Notebook {
             get {
                 object obj = ResourceManager.GetObject("Notebook", resourceCulture);
@@ -166,6 +206,16 @@ namespace Sketchball.Properties {
         internal static System.Drawing.Bitmap PlaySchrift1 {
             get {
                 object obj = ResourceManager.GetObject("PlaySchrift1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Redo_icon {
+            get {
+                object obj = ResourceManager.GetObject("Redo_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,6 +256,36 @@ namespace Sketchball.Properties {
         internal static System.Drawing.Bitmap Slingshot {
             get {
                 object obj = ResourceManager.GetObject("Slingshot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Undo_icon {
+            get {
+                object obj = ResourceManager.GetObject("Undo_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Very_Basic_Cursor_icon {
+            get {
+                object obj = ResourceManager.GetObject("Very_Basic_Cursor_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Windows_Cursor {
+            get {
+                object obj = ResourceManager.GetObject("Windows_Cursor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

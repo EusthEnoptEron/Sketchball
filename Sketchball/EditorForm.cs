@@ -18,6 +18,7 @@ namespace Sketchball
     {
 
         private SelectionForm selectionForm;
+        private ToolTip tt = new ToolTip();
         public EditorForm()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace Sketchball
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
             Font tabFont = new Font(FontManager.Courgette, 14);
+            
        
         }
 
@@ -97,12 +99,38 @@ namespace Sketchball
 
         }
 
-        private void drawTool_MouseHover(object sender, EventArgs e)
+        private void pictureBox2_MouseHover(object sender, EventArgs e)
         {
-            ToolTip tt = new ToolTip();
-            tt.SetToolTip(this.drawTool, "Draw");
             
+            tt.SetToolTip(this.LineTool, "Line Tool");
         }
+
+        private void CircleTool_MouseHover(object sender, EventArgs e)
+        {
+            tt.SetToolTip(this.CircleTool, "Circle Tool");
+        }
+
+        private void SelectionTool_MouseHover(object sender, EventArgs e)
+        {
+            tt.SetToolTip(this.SelectionTool, "Selection");
+        }
+
+        private void undoTool_MouseHover(object sender, EventArgs e)
+        {
+            tt.SetToolTip(this.undoTool, "Undo");
+        }
+
+        private void RedoTool_MouseHover(object sender, EventArgs e)
+        {
+            tt.SetToolTip(this.RedoTool, "Redo");
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        
       
     }
 }
