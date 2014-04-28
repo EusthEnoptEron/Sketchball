@@ -44,6 +44,7 @@ namespace Sketchball
             this.CloseButton.BackgroundImage = global::Sketchball.Properties.Resources.Exit;
             this.CloseButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.CloseButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CloseButton.InitialImage = null;
             this.CloseButton.Location = new System.Drawing.Point(323, 23);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(72, 69);
@@ -64,8 +65,6 @@ namespace Sketchball
             this.picBEditor.TabIndex = 1;
             this.picBEditor.TabStop = false;
             this.picBEditor.Click += new System.EventHandler(this.picBEditor_Click);
-            this.picBEditor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBEditor_MouseDown);
-            this.picBEditor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBEditor_MouseUp);
             // 
             // picBGame
             // 
@@ -80,8 +79,6 @@ namespace Sketchball
             this.picBGame.TabIndex = 0;
             this.picBGame.TabStop = false;
             this.picBGame.Click += new System.EventHandler(this.picBGame_Click);
-            this.picBGame.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBGame_MouseDown);
-            this.picBGame.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBGame_MouseUp);
             // 
             // SelectionForm
             // 

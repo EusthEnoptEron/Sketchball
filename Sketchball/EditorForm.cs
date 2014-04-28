@@ -18,6 +18,7 @@ namespace Sketchball
     {
 
         private SelectionForm selectionForm;
+        private PinballMachine pbm;
         public EditorForm()
         {
             InitializeComponent();
@@ -31,7 +32,16 @@ namespace Sketchball
 
         public EditorForm(SelectionForm selectionForm) : this()
         {
+         
             this.selectionForm = selectionForm;
+        }
+
+        public EditorForm(PinballMachine pbm, SelectionForm selectionForm) : this()
+        {
+
+            // TODO: Complete member initialization
+            this.selectionForm = selectionForm;
+            PlayFieldEditor.PinballMachine = pbm;
         }
 
         void element_MouseDown(object sender, MouseEventArgs e)

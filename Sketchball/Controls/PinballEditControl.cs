@@ -22,19 +22,17 @@ namespace Sketchball.Controls
 
         public Vector2 ScaleFactor = new Vector2(1,1);
 
-        PinballMachine World;
+        public PinballMachine PinballMachine;
 
         public PinballEditControl()
             : base()
         {
-            World = new PinballMachine();
+            PinballMachine = new PinballMachine();
 
             // Optimize control for performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
            // SetStyle(ControlStyles.UserPaint, true);
-
-            World.Add(new Flipper() { X = World.Width / 2, Y = Height / 2 } );
 
             MouseDown += StartDrag;
             MouseMove += DoDrag;
@@ -84,7 +82,7 @@ namespace Sketchball.Controls
 
         private PinballElement FindElement(Point location)
         {
-            foreach (PinballElement element in World.DynamicElements)
+            foreach (PinballElement element in PinballMachine.DynamicElements)
             {
                 if (element.Contains(location))
                 {
@@ -107,7 +105,7 @@ namespace Sketchball.Controls
             g.FillRectangle(brush, 0, 0, base.Width, base.Height);
             g.Transform = Transform;
 
-            World.Draw(g);
+            PinballMachine.Draw(g);
         }
 
         private Matrix Transform

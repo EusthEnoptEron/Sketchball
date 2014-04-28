@@ -125,8 +125,7 @@ namespace Sketchball
 
             if (result == DialogResult.OK)
             {
-                this.Close();
-                //selectionForm.OpenEditor(originalMachine);
+                selectionForm.OpenEditor(originalMachine);
             }
         }
     }
