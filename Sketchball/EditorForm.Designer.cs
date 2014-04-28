@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
@@ -47,6 +46,7 @@
             this.CircleTool = new System.Windows.Forms.PictureBox();
             this.LineTool = new System.Windows.Forms.PictureBox();
             this.undoTool = new System.Windows.Forms.PictureBox();
+            this.dragThumb = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.mainMenuStrip.SuspendLayout();
@@ -60,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CircleTool)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LineTool)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.undoTool)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dragThumb)).BeginInit();
             this.menuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,7 +93,7 @@
             this.fileToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(1119, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1119, 26);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -106,7 +107,7 @@
             this.playToolStripMenuItem,
             this.playgroundToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
             this.fileToolStripMenuItem.Text = "File";
             this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
@@ -114,39 +115,39 @@
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openStageToolStripMenuItem
             // 
             this.openStageToolStripMenuItem.Name = "openStageToolStripMenuItem";
             this.openStageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
-            this.openStageToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.openStageToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.openStageToolStripMenuItem.Text = "Open Stage...";
             // 
             // saveStageToolStripMenuItem
             // 
             this.saveStageToolStripMenuItem.Name = "saveStageToolStripMenuItem";
             this.saveStageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
-            this.saveStageToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.saveStageToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.saveStageToolStripMenuItem.Text = "Save Stage";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
             // 
             // playToolStripMenuItem
             // 
             this.playToolStripMenuItem.Enabled = false;
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.playToolStripMenuItem.Text = "Play...";
             // 
             // playgroundToolStripMenuItem
             // 
             this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
-            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.playgroundToolStripMenuItem.Text = "Playground";
             this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
@@ -226,7 +227,7 @@
             // 
             // LineTool
             // 
-            this.LineTool.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("LineTool.BackgroundImage")));
+            this.LineTool.BackgroundImage = global::Sketchball.Properties.Resources.LineTool;
             this.LineTool.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.LineTool.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LineTool.Location = new System.Drawing.Point(44, 0);
@@ -247,6 +248,16 @@
             this.undoTool.TabIndex = 3;
             this.undoTool.TabStop = false;
             this.undoTool.MouseHover += new System.EventHandler(this.undoTool_MouseHover);
+            // 
+            // dragThumb
+            // 
+            this.dragThumb.BackColor = System.Drawing.Color.Transparent;
+            this.dragThumb.Location = new System.Drawing.Point(1016, 599);
+            this.dragThumb.Name = "dragThumb";
+            this.dragThumb.Size = new System.Drawing.Size(100, 50);
+            this.dragThumb.TabIndex = 3;
+            this.dragThumb.TabStop = false;
+            this.dragThumb.Visible = false;
             // 
             // menuPanel
             // 
@@ -271,12 +282,15 @@
             this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
             this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.DragOver);
             this.PlayFieldEditor.DragLeave += new System.EventHandler(this.DragLeave);
+            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
+            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
             // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1119, 652);
+            this.Controls.Add(this.dragThumb);
             this.Controls.Add(this.MainSplitToMenueAndField);
             this.Controls.Add(this.menuPanel);
             this.MainMenuStrip = this.mainMenuStrip;
@@ -297,6 +311,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CircleTool)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LineTool)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.undoTool)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dragThumb)).EndInit();
             this.menuPanel.ResumeLayout(false);
             this.menuPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -325,6 +340,7 @@
         private System.Windows.Forms.PictureBox CircleTool;
         private System.Windows.Forms.PictureBox LineTool;
         private System.Windows.Forms.FlowLayoutPanel elementPanel;
+        private System.Windows.Forms.PictureBox dragThumb;
 
     }
 }

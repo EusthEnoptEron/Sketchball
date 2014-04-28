@@ -14,21 +14,24 @@ using System.Windows.Forms;
 
 namespace Sketchball
 {
+
     public partial class EditorForm : Form
     {
 
         private SelectionForm selectionForm;
         private ToolTip tt = new ToolTip();
+
+
+        private DragState dragState = new DragState();
+
         public EditorForm()
         {
             InitializeComponent();
-            PlayFieldEditor.ScaleFactor *= 1.1f;
+            PlayFieldEditor.ScaleFactor *= 1.6f;
 
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
-            Font tabFont = new Font(FontManager.Courgette, 14);
-            
-       
+            Font tabFont = new Font(FontManager.Courgette, 14);       
         }
 
         public EditorForm(SelectionForm selectionForm) : this()
@@ -66,6 +69,7 @@ namespace Sketchball
         private void EditorForm_Load(object sender, EventArgs e)
         {
             populateElementPanel();
+            PlayFieldEditor.Controls.Add(dragThumb);
         }
 
         private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
@@ -154,30 +158,69 @@ namespace Sketchball
 
         private void StartDragAndDrop(object sender, MouseEventArgs e)
         {
-            ((Control)sender).DoDragDrop(sender, DragDropEffects.Copy);
+            InitDragDrop((ElementControl)sender);
         }
 
 
         private void DragDrop(object sender, DragEventArgs e)
         {
-            MessageBox.Show("DROPPED");
+            
+            PlayFieldEditor.PinballMachine.Add(dragState.Element);
+            PlayFieldEditor.Invalidate();
         }
 
         private void DragEnter(object sender, DragEventArgs e)
         {
-           
+            e.Effect = DragDropEffects.Move;
+            dragThumb.Visible = true;
         }
 
         private void DragLeave(object sender, EventArgs e)
         {
-
+            dragThumb.Visible = false;
         }
 
         private void DragOver(object sender, DragEventArgs e)
         {
+            dragThumb.Location = PlayFieldEditor.PointToClient(new Point(e.X + 1, e.Y + 1));
+            dragState.Element.Location = new Vector2(dragThumb.Left, dragThumb.Top);
+            dragThumb.Visible = true;
         }
 
+        private void OnQueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+            if (!dragState.Active)
+            {
+                // Don't allow drag'n'drop from outside
+                e.Action = DragAction.Cancel;
+            }
+        }
 
+        private void OnGiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+        }
+
+        private void InitDragDrop(ElementControl control)
+        {
+            dragState.Active = true;
+            dragState.Element = control.GetInstance();
+
+            dragThumb.Image = control.GetImage();
+
+            PlayFieldEditor.DoDragDrop(new object(), DragDropEffects.All);
+            
+            dragThumb.Visible = false;
+
+
+            dragState.Active = false;
+            dragState.Element = null;
+        }
+
+        internal class DragState
+        {
+            internal bool Active = false;
+            internal PinballElement Element = null;
+        }
       
     }
 }
