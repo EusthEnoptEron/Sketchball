@@ -160,6 +160,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\hole.png" />
+    <None Include="Resources\Bumper.png" />
     <None Include="Resources\Redo-icon.png" />
     <None Include="Resources\Undo-icon.png" />
     <None Include="Resources\Very-Basic-Cursor-icon.png" />
