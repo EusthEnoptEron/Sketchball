@@ -61,7 +61,7 @@ namespace Sketchball.Collision
         /// Gets all references to bounding  boxes
         /// </summary>
         /// <returns></returns>
-        internal IEnumerable<IBoundingBox> getReferences()
+        public IEnumerable<IBoundingBox> getReferences()
         {
             return this.bBReferences;
         }
