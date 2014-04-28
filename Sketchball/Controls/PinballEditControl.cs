@@ -46,7 +46,7 @@ namespace Sketchball.Controls
 
                 Point loc = PointToPinball(e.Location);
                 dragging = false;
-                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor);
+                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y));
 
                 History.Add(new TranslationChange(SelectedElement, SelectedElement.getLocation() - startVector));
             }
@@ -57,7 +57,7 @@ namespace Sketchball.Controls
             if (dragging)
             {
                 Point loc = PointToPinball(e.Location);
-                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y) / ScaleFactor);
+                SelectedElement.Location = (startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y));
                 Invalidate();
             }
         }
@@ -125,8 +125,8 @@ namespace Sketchball.Controls
             get
             {
                 Matrix m = new Matrix();
-                m.Translate(-15, -15);                
                 m.Scale(1/ScaleFactor.X, 1/ScaleFactor.Y);
+                m.Translate(-15, -15);                
                 //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
 
                 return m;
@@ -138,7 +138,7 @@ namespace Sketchball.Controls
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        private Point PointToPinball(Point p)
+        public Point PointToPinball(Point p)
         {
             Point[] pArray = new Point[] { p };
 
@@ -155,7 +155,7 @@ namespace Sketchball.Controls
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        private Point PointToEditor(Point p)
+        public Point PointToEditor(Point p)
         {
             Point[] pArray = new Point[] { p };
             Matrix m = Transform;

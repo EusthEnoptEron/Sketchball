@@ -24,14 +24,14 @@ namespace Sketchball.Elements
         public Flipper()  : base()
         {
 
-            Width = 150;
+            Width = 100;
             Height = 50;
 
 
   //          this.rotate((float)Math.PI*2, Origin, 0);
 
             // 0, Height / 10 * 9, Width , Height / 10 * 2 )
-            int y1 = Height / 10 * 9;
+            int y1 = Height / 10 * 8;
             int recHeight =  Height / 10 * 2 ;
 
             this.setLocation(new Vector2(0, 0));
@@ -58,8 +58,8 @@ namespace Sketchball.Elements
         {
             base.Draw(g);
             
-            g.DrawRectangle(Pens.Green, 0, Height / 10 * 9, Width, Height / 10 * 2);
-
+            g.DrawRectangle(Pens.Green, 0, Height / 10 * 8, Width, Height / 10 * 2);
+            g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
         }
 
         public override bool Contains(Point point)
