@@ -26,14 +26,7 @@ namespace Sketchball
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
             Font tabFont = new Font(FontManager.Courgette, 14);
-            ToolsTab.Font = tabFont;
-            fileToolStripMenuItem.Font = tabFont;
-            ElementControl element = new ElementControl(new Ball(), tabFont);
-
-            flowLayoutPanel1.Controls.Add(element);
-
-            element.MouseDown += element_MouseDown;
-                     
+       
         }
 
         public EditorForm(SelectionForm selectionForm) : this()
@@ -92,6 +85,23 @@ namespace Sketchball
         private void EditorForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.selectionForm.Visible = true;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SplitToNameAndTools_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void drawTool_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(this.drawTool, "Draw");
+            
         }
       
     }
