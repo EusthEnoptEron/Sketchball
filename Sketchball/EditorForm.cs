@@ -65,7 +65,7 @@ namespace Sketchball
 
         private void EditorForm_Load(object sender, EventArgs e)
         {
-           
+            populateElementPanel();
         }
 
         private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
@@ -139,7 +139,45 @@ namespace Sketchball
 
         }
 
-        
+
+        private void populateElementPanel()
+        {
+            Font font = new Font(FontManager.Courgette, 12, FontStyle.Regular);
+            elementPanel.Controls.Add(new ElementControl(new Flipper(), "Flipper", font));
+
+
+            foreach (Control c in elementPanel.Controls)
+            {
+                c.MouseDown += StartDragAndDrop;
+            }
+        }
+
+        private void StartDragAndDrop(object sender, MouseEventArgs e)
+        {
+            ((Control)sender).DoDragDrop(sender, DragDropEffects.Copy);
+        }
+
+
+        private void DragDrop(object sender, DragEventArgs e)
+        {
+            MessageBox.Show("DROPPED");
+        }
+
+        private void DragEnter(object sender, DragEventArgs e)
+        {
+           
+        }
+
+        private void DragLeave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DragOver(object sender, DragEventArgs e)
+        {
+        }
+
+
       
     }
 }
