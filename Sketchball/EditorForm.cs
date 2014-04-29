@@ -1,4 +1,5 @@
 ﻿using Sketchball.Controls;
+using Sketchball.Editor;
 using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
@@ -21,17 +22,30 @@ namespace Sketchball
         private SelectionForm selectionForm;
         private ToolTip tt = new ToolTip();
 
+        private Tool _currentTool = null;
+        private Tool CurrentTool
+        {
+            get
+            {
+                return _currentTool;
+            }
+            set
+            {
+                _currentTool = value;
+            }
+        }
 
         private DragState dragState = new DragState();
 
         public EditorForm()
         {
             InitializeComponent();
-            PlayFieldEditor.ScaleFactor *= 1f;
+            PlayFieldEditor.ScaleFactor *= 2f;
 
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
-            Font tabFont = new Font(FontManager.Courgette, 14);       
+            Font tabFont = new Font(FontManager.Courgette, 14);
+
         }
 
         public EditorForm(SelectionForm selectionForm) : this()

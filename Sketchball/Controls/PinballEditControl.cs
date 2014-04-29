@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Sketchball.Controls
 {
-    class PinballEditControl : PinballControl
+    public class PinballEditControl : PinballControl
     {
         private History History = new History();
         public PinballElement SelectedElement { get; set; }

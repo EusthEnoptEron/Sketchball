@@ -73,6 +73,7 @@
     <Compile Include="Controls\GameView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Editor\Tool.cs" />
     <Compile Include="Elements\AnimatedObject.cs" />
     <Compile Include="Controls\ElementControl.cs">
       <SubType>UserControl</SubType>
