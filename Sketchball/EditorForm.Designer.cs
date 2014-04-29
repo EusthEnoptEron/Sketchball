@@ -41,25 +41,16 @@
             this.MainSplitToMenueAndField = new System.Windows.Forms.SplitContainer();
             this.elementPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.RedoTool = new System.Windows.Forms.PictureBox();
-            this.SelectionTool = new System.Windows.Forms.PictureBox();
-            this.CircleTool = new System.Windows.Forms.PictureBox();
-            this.LineTool = new System.Windows.Forms.PictureBox();
-            this.undoTool = new System.Windows.Forms.PictureBox();
+            this.toolBar = new System.Windows.Forms.ToolStrip();
+            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.dragThumb = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
-            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
             this.MainSplitToMenueAndField.Panel2.SuspendLayout();
             this.MainSplitToMenueAndField.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RedoTool)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SelectionTool)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CircleTool)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LineTool)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.undoTool)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dragThumb)).BeginInit();
             this.menuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -74,7 +65,6 @@
             // TitleLabel
             // 
             this.TitleLabel.AccessibleName = "TitleLabel";
-            this.TitleLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.TitleLabel.AutoSize = true;
             this.TitleLabel.BackColor = System.Drawing.Color.Transparent;
             this.TitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -92,7 +82,7 @@
             this.fileToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(1119, 26);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1119, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -106,46 +96,46 @@
             this.playToolStripMenuItem,
             this.playgroundToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openStageToolStripMenuItem
             // 
             this.openStageToolStripMenuItem.Name = "openStageToolStripMenuItem";
             this.openStageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
-            this.openStageToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.openStageToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.openStageToolStripMenuItem.Text = "Open Stage...";
             // 
             // saveStageToolStripMenuItem
             // 
             this.saveStageToolStripMenuItem.Name = "saveStageToolStripMenuItem";
             this.saveStageToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
-            this.saveStageToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.saveStageToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.saveStageToolStripMenuItem.Text = "Save Stage";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
             // 
             // playToolStripMenuItem
             // 
             this.playToolStripMenuItem.Enabled = false;
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.playToolStripMenuItem.Text = "Play...";
             // 
             // playgroundToolStripMenuItem
             // 
             this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
-            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.playgroundToolStripMenuItem.Text = "Playground";
             this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
@@ -170,86 +160,45 @@
             // 
             // elementPanel
             // 
-            this.elementPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.elementPanel.AutoScroll = true;
-            this.elementPanel.Location = new System.Drawing.Point(7, 183);
+            this.elementPanel.Location = new System.Drawing.Point(7, 138);
             this.elementPanel.Name = "elementPanel";
-            this.elementPanel.Size = new System.Drawing.Size(292, 438);
+            this.elementPanel.Size = new System.Drawing.Size(292, 483);
             this.elementPanel.TabIndex = 2;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.RedoTool);
-            this.panel2.Controls.Add(this.SelectionTool);
-            this.panel2.Controls.Add(this.CircleTool);
-            this.panel2.Controls.Add(this.LineTool);
-            this.panel2.Controls.Add(this.undoTool);
+            this.panel2.Controls.Add(this.toolBar);
             this.panel2.Location = new System.Drawing.Point(0, 99);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(304, 78);
+            this.panel2.Size = new System.Drawing.Size(304, 33);
             this.panel2.TabIndex = 1;
             // 
-            // RedoTool
+            // toolBar
             // 
-            this.RedoTool.BackgroundImage = global::Sketchball.Properties.Resources.Redo_icon;
-            this.RedoTool.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RedoTool.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.RedoTool.Location = new System.Drawing.Point(232, 0);
-            this.RedoTool.Name = "RedoTool";
-            this.RedoTool.Size = new System.Drawing.Size(41, 39);
-            this.RedoTool.TabIndex = 7;
-            this.RedoTool.TabStop = false;
-            this.RedoTool.MouseHover += new System.EventHandler(this.RedoTool_MouseHover);
+            this.toolBar.Location = new System.Drawing.Point(0, 0);
+            this.toolBar.Name = "toolBar";
+            this.toolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.toolBar.Size = new System.Drawing.Size(304, 25);
+            this.toolBar.TabIndex = 0;
+            this.toolBar.Text = "toolStrip1";
             // 
-            // SelectionTool
+            // PlayFieldEditor
             // 
-            this.SelectionTool.BackgroundImage = global::Sketchball.Properties.Resources.Very_Basic_Cursor_icon;
-            this.SelectionTool.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SelectionTool.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SelectionTool.Location = new System.Drawing.Point(138, 0);
-            this.SelectionTool.Name = "SelectionTool";
-            this.SelectionTool.Size = new System.Drawing.Size(41, 39);
-            this.SelectionTool.TabIndex = 6;
-            this.SelectionTool.TabStop = false;
-            this.SelectionTool.MouseHover += new System.EventHandler(this.SelectionTool_MouseHover);
-            // 
-            // CircleTool
-            // 
-            this.CircleTool.BackgroundImage = global::Sketchball.Properties.Resources.circle_outline_512;
-            this.CircleTool.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.CircleTool.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CircleTool.Location = new System.Drawing.Point(91, 0);
-            this.CircleTool.Name = "CircleTool";
-            this.CircleTool.Size = new System.Drawing.Size(41, 39);
-            this.CircleTool.TabIndex = 5;
-            this.CircleTool.TabStop = false;
-            this.CircleTool.MouseHover += new System.EventHandler(this.CircleTool_MouseHover);
-            // 
-            // LineTool
-            // 
-            this.LineTool.BackgroundImage = global::Sketchball.Properties.Resources.LineTool;
-            this.LineTool.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.LineTool.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.LineTool.Location = new System.Drawing.Point(44, 0);
-            this.LineTool.Name = "LineTool";
-            this.LineTool.Size = new System.Drawing.Size(41, 39);
-            this.LineTool.TabIndex = 4;
-            this.LineTool.TabStop = false;
-            this.LineTool.MouseHover += new System.EventHandler(this.pictureBox2_MouseHover);
-            // 
-            // undoTool
-            // 
-            this.undoTool.BackgroundImage = global::Sketchball.Properties.Resources.Undo_icon;
-            this.undoTool.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.undoTool.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.undoTool.Location = new System.Drawing.Point(185, 0);
-            this.undoTool.Name = "undoTool";
-            this.undoTool.Size = new System.Drawing.Size(41, 39);
-            this.undoTool.TabIndex = 3;
-            this.undoTool.TabStop = false;
-            this.undoTool.MouseHover += new System.EventHandler(this.undoTool_MouseHover);
+            this.PlayFieldEditor.AllowDrop = true;
+            this.PlayFieldEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PlayFieldEditor.Location = new System.Drawing.Point(0, 0);
+            this.PlayFieldEditor.Name = "PlayFieldEditor";
+            this.PlayFieldEditor.SelectedElement = null;
+            this.PlayFieldEditor.Size = new System.Drawing.Size(813, 624);
+            this.PlayFieldEditor.TabIndex = 2;
+            this.PlayFieldEditor.Text = "pinballEditControl1";
+            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.DragDrop);
+            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
+            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.DragOver);
+            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.DragLeave);
+            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
+            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
             // 
             // dragThumb
             // 
@@ -270,23 +219,6 @@
             this.menuPanel.Size = new System.Drawing.Size(1119, 28);
             this.menuPanel.TabIndex = 1;
             // 
-            // PlayFieldEditor
-            // 
-            this.PlayFieldEditor.AllowDrop = true;
-            this.PlayFieldEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PlayFieldEditor.Location = new System.Drawing.Point(0, 0);
-            this.PlayFieldEditor.Name = "PlayFieldEditor";
-            this.PlayFieldEditor.SelectedElement = null;
-            this.PlayFieldEditor.Size = new System.Drawing.Size(813, 624);
-            this.PlayFieldEditor.TabIndex = 2;
-            this.PlayFieldEditor.Text = "pinballEditControl1";
-            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.DragDrop);
-            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
-            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.DragOver);
-            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.DragLeave);
-            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
-            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
-            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,7 +230,6 @@
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "EditorForm";
             this.Text = "Form1";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EditorForm_FormClosed);
             this.Load += new System.EventHandler(this.EditorForm_Load);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
@@ -308,11 +239,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).EndInit();
             this.MainSplitToMenueAndField.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.RedoTool)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SelectionTool)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CircleTool)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LineTool)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.undoTool)).EndInit();
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dragThumb)).EndInit();
             this.menuPanel.ResumeLayout(false);
             this.menuPanel.PerformLayout();
@@ -336,13 +263,9 @@
         private Controls.PinballEditControl PlayFieldEditor;
         private System.Windows.Forms.Panel menuPanel;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.PictureBox undoTool;
-        private System.Windows.Forms.PictureBox RedoTool;
-        private System.Windows.Forms.PictureBox SelectionTool;
-        private System.Windows.Forms.PictureBox CircleTool;
-        private System.Windows.Forms.PictureBox LineTool;
         private System.Windows.Forms.FlowLayoutPanel elementPanel;
         private System.Windows.Forms.PictureBox dragThumb;
+        private System.Windows.Forms.ToolStrip toolBar;
 
     }
 }
