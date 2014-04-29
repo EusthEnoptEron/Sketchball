@@ -166,29 +166,44 @@ namespace Sketchball.Elements
         
         public void Save(string path)
         {
-            NetDataContractSerializer serializer = new NetDataContractSerializer();
-
             using (var stream = File.OpenWrite(path))
             {
-                serializer.WriteObject(stream, this);
+                Save(stream);
             }
+        }
+
+        public void Save(Stream output)
+        {
+            NetDataContractSerializer serializer = new NetDataContractSerializer();
+            serializer.WriteObject(output, this);
         }
 
         public static PinballMachine FromFile(string path)
         {
-            NetDataContractSerializer serializer = new NetDataContractSerializer();
             PinballMachine pbm;
             using (var stream = File.OpenRead(path))
             {
-                pbm = (PinballMachine)serializer.ReadObject(stream);
+                pbm = FromStream(stream);
             }
             return pbm;
+        }
+
+        internal static PinballMachine FromStream(Stream input)
+        {
+            NetDataContractSerializer serializer = new NetDataContractSerializer();
+            return (PinballMachine)serializer.ReadObject(input);
         }
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
             Init();
+        }
+
+
+        internal bool IsValid()
+        {
+            return true;
         }
     }
 

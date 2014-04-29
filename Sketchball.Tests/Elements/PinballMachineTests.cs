@@ -10,7 +10,7 @@ namespace Sketchball.Tests.Elements
     public class PinballMachineTests
     {
         /// <summary>
-        /// Tests serialization.
+        /// Tests basic serialization.
         /// </summary>
         [TestMethod]
         public void CanSerialize()
@@ -32,7 +32,7 @@ namespace Sketchball.Tests.Elements
         }
 
         /// <summary>
-        /// Tests for deserialization capabilities.
+        /// Tests for basic deserialization capabilities.
         /// </summary>
         [TestMethod]
         public void CanDeserialize()

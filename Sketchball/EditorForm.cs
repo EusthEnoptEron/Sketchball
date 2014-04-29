@@ -18,11 +18,28 @@ namespace Sketchball
 
     public partial class EditorForm : Form
     {
-
         private SelectionForm selectionForm;
         private ToolTip tt = new ToolTip();
 
         private Tool _currentTool = null;
+        private string _fileName;
+
+        /// <summary>
+        /// Gets or sets the current filename of the pinball machine file.
+        /// </summary>
+        public string FileName
+        {
+            get { return _fileName; }
+            set
+            {
+                _fileName = value;
+                var name = _fileName;
+                if (name == null) name = "Untitled machine";
+                
+                Text = name + " - Pinball Machine Editor";
+            }
+        }
+
         private Tool CurrentTool
         {
             get
@@ -58,6 +75,8 @@ namespace Sketchball
 
             populateElementPanel();
             populateToolPanel();
+
+            FileName = null;
         }
 
  
@@ -73,7 +92,7 @@ namespace Sketchball
 
             // TODO: Complete member initialization
             this.selectionForm = selectionForm;
-            PlayFieldEditor.PinballMachine = pbm;
+            PlayFieldEditor.LoadMachine(pbm);
         }
 
         void element_MouseDown(object sender, MouseEventArgs e)
@@ -211,6 +230,63 @@ namespace Sketchball
         {
             internal bool Active = false;
             internal PinballElement Element = null;
+        }
+
+        private void openPBMButton_Click(object sender, EventArgs e)
+        {
+            if (MayOmitChanges())
+            {
+                var result = openFileDialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    PinballMachine pbm = PinballMachine.FromFile(openFileDialog.FileName);
+
+                    if (pbm.IsValid())
+                    {
+                        PlayFieldEditor.LoadMachine(pbm);
+                        FileName = openFileDialog.FileName;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void savePBMButton_Click(object sender, EventArgs e)
+        {
+            if (FileName == null)
+            {
+                var result = saveFileDialog.ShowDialog();
+                if (result != DialogResult.OK) return;
+                else FileName = saveFileDialog.FileName;
+            }
+
+            PlayFieldEditor.PinballMachine.Save(FileName);
+        }
+
+        private void newPBMButton_Click(object sender, EventArgs e)
+        {
+            if (MayOmitChanges())
+            {
+                PlayFieldEditor.LoadMachine(new PinballMachine());
+                FileName = null;
+            }
+
+        }
+
+        private bool MayOmitChanges()
+        {
+            if (PlayFieldEditor.History.HasChanged())
+            {
+                var result = MessageBox.Show("There are unsaved changes, do you want to continue?", "Unsaved changes!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return result == DialogResult.OK;
+            }
+            else
+            {
+                return true;
+            }
         }
       
     }

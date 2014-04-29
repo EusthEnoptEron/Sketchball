@@ -12,7 +12,7 @@ namespace Sketchball.Controls
 {
     public class PinballEditControl : PinballControl
     {
-        private History History = new History();
+        public readonly History History = new History();
         public PinballElement SelectedElement { get; set; }
 
         private bool dragging = false;
@@ -22,7 +22,7 @@ namespace Sketchball.Controls
 
         public Vector2 ScaleFactor = new Vector2(1,1);
 
-        public PinballMachine PinballMachine;
+        public PinballMachine PinballMachine { get; private set; }
 
         public PinballEditControl()
             : base()
@@ -162,6 +162,11 @@ namespace Sketchball.Controls
             m.TransformPoints(pArray);
 
             return pArray[0];
+        }
+
+        public void LoadMachine(PinballMachine machine) {
+            PinballMachine = machine;
+            History.Clear();
         }
     }
 }
