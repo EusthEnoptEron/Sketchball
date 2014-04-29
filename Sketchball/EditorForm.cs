@@ -40,7 +40,7 @@ namespace Sketchball
         public EditorForm()
         {
             InitializeComponent();
-            PlayFieldEditor.ScaleFactor *= 2f;
+            PlayFieldEditor.ScaleFactor *= 1f;
 
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
@@ -86,44 +86,9 @@ namespace Sketchball
             PlayFieldEditor.Controls.Add(dragThumb);
         }
 
-        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void TitleLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void EditorForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.selectionForm.Visible = true;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SplitToNameAndTools_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void pictureBox2_MouseHover(object sender, EventArgs e)

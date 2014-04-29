@@ -85,7 +85,6 @@
             this.TitleLabel.TabIndex = 0;
             this.TitleLabel.Text = "Sketchball";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.TitleLabel.Click += new System.EventHandler(this.TitleLabel_Click);
             // 
             // mainMenuStrip
             // 
@@ -109,7 +108,6 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
             this.fileToolStripMenuItem.Text = "File";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // newToolStripMenuItem
             // 
