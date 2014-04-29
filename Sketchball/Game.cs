@@ -25,12 +25,18 @@ namespace Sketchball
     {
         public delegate void ScoreChangedHandler(Game sender, int score);
         public delegate void LivesChangedHandler(Game sender, int lives);
-       
-
+        
+        /// <summary>
+        /// Occurs when the score has changed.
+        /// </summary>
         public event ScoreChangedHandler ScoreChanged;
-        public event LivesChangedHandler LivesChanged;
-        //public event GameoverHandler Gameover;
 
+        /// <summary>
+        /// Occurs when the number of lives has changed.
+        /// </summary>
+        public event LivesChangedHandler LivesChanged;
+
+        //public event GameoverHandler Gameover;
 
 
         /// <summary>
@@ -188,6 +194,9 @@ namespace Sketchball
         }
 
 
+        /// <summary>
+        /// Gets if the game is currently running.
+        /// </summary>
         public bool IsRunning {
             get {
                 return Machine.HasBall();
