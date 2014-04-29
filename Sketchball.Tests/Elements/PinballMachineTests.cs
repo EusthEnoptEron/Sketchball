@@ -51,5 +51,52 @@ namespace Sketchball.Tests.Elements
             // Cleanup
             File.Delete(fileName);
         }
+
+        [TestMethod]
+        public void HasBidirectionalConsistencyAfterDeserialization()
+        {
+            PinballMachine pbm = new PinballMachine();
+            PinballMachine pbm2;
+            Stream stream = new MemoryStream();
+
+            pbm.Save(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+            pbm2 = PinballMachine.FromStream(stream);
+
+            Assert.AreSame(pbm2, pbm2.DynamicElements.Owner);
+        }
+
+        [TestMethod]
+        public void CanSerializeWithUserObject()
+        {
+            PinballMachine pbm = new PinballMachine();
+            PinballMachine pbm2;
+            Flipper flipper = new Flipper() { X = 5, Y = 5 };
+            Stream stream = new MemoryStream();
+
+            pbm.Add(flipper);
+            pbm.Save(stream);
+            stream.Position = 0;
+            pbm2 = PinballMachine.FromStream(stream);
+
+            Assert.AreEqual(1, pbm2.DynamicElements.Count);
+            Assert.AreEqual(flipper.X, pbm2.DynamicElements.Last().X, 0.1);
+            Assert.AreEqual(flipper.Y, pbm2.DynamicElements.Last().Y, 0.1);
+        }
+
+
+
+        [TestMethod]
+        public void CanAddElement()
+        {
+            PinballMachine pbm = new PinballMachine();
+            Flipper flipper = new Flipper() { X = 5, Y = 5 };
+
+            pbm.Add(flipper);
+
+            Assert.IsTrue(pbm.Elements.Contains(flipper));
+        }
+
+
     }
 }

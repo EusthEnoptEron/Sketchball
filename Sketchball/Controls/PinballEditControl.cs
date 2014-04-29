@@ -167,6 +167,8 @@ namespace Sketchball.Controls
         public void LoadMachine(PinballMachine machine) {
             PinballMachine = machine;
             History.Clear();
+
+            Invalidate();
         }
     }
 }

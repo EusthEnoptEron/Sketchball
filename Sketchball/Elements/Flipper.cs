@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using Sketchball.Collision;
+using System.Runtime.Serialization;
 
 namespace Sketchball.Elements
 {
 
+    [DataContract]
     public class Flipper : AnimatedObject
     {
-
+        [DataMember]
         public Keys Trigger;
         protected Keys DebugTrigger;
 
         public float RotationRange = (float)(Math.PI / 180 * 60);
-        
         private bool Animating = false;
 
         public Flipper()  : base()
@@ -105,7 +106,8 @@ namespace Sketchball.Elements
         }
 
     }
-
+    
+    [DataContract]
     public class LeftFlipper : Flipper
     {
         public LeftFlipper()
@@ -115,6 +117,7 @@ namespace Sketchball.Elements
         }
     }
 
+    [DataContract]
     public class RightFlipper : Flipper
     {
 

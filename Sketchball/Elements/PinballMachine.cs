@@ -69,8 +69,8 @@ namespace Sketchball.Elements
         private void Init()
         {
             StaticElements = new ElementCollection(this);
-            DynamicElements = new ElementCollection(this);
             Balls = new ElementCollection(this);
+            if (DynamicElements == null) DynamicElements = new ElementCollection(this);
 
             Layout.Apply(this);
         }
@@ -156,7 +156,7 @@ namespace Sketchball.Elements
 
 
         /// <summary>
-        /// Disposes the pinball machine and frees all ressources used by it.
+        /// Disposes the pinball machine and frees all resources used by it.
         /// </summary>
         public void Dispose()
         {
@@ -188,7 +188,7 @@ namespace Sketchball.Elements
             return pbm;
         }
 
-        internal static PinballMachine FromStream(Stream input)
+        public static PinballMachine FromStream(Stream input)
         {
             NetDataContractSerializer serializer = new NetDataContractSerializer();
             return (PinballMachine)serializer.ReadObject(input);

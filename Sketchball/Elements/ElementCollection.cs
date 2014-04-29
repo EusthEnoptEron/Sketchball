@@ -9,7 +9,6 @@ namespace Sketchball.Elements
 {
 
     [DataContract(IsReference=true)]
-    //[KnownType(typeof(PinballElement))]
     public class ElementCollection : ICollection<PinballElement>
     {
         [DataMember]
@@ -38,7 +37,6 @@ namespace Sketchball.Elements
             if (element.World == Owner)
                 element.World = null;
         }
-
 
 #region LIST IMPLEMENTATION
         public int IndexOf(PinballElement item)
