@@ -31,22 +31,36 @@ namespace Sketchball
             }
             set
             {
+                if (_currentTool != null)
+                {
+                    _currentTool.Leave();
+                    Tools[_currentTool].Checked = false;
+                }
+
                 _currentTool = value;
+
+                _currentTool.Enter();
+                Tools[_currentTool].Checked = true;
             }
         }
+
+        private Dictionary<Tool, ToolStripButton> Tools = new Dictionary<Tool, ToolStripButton>();
 
         private DragState dragState = new DragState();
 
         public EditorForm()
         {
             InitializeComponent();
-            PlayFieldEditor.ScaleFactor *= 1f;
 
+            //PlayFieldEditor.ScaleFactor *= 1f;
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
-            Font tabFont = new Font(FontManager.Courgette, 14);
 
+            populateElementPanel();
+            populateToolPanel();
         }
+
+ 
 
         public EditorForm(SelectionForm selectionForm) : this()
         {
@@ -80,48 +94,28 @@ namespace Sketchball
             f.ShowDialog();
         }
 
-        private void EditorForm_Load(object sender, EventArgs e)
+        private void populateToolPanel()
         {
-            populateElementPanel();
-            PlayFieldEditor.Controls.Add(dragThumb);
+            // List of available tools
+            Tool[] tools = new Tool[] { new LineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor) };
+
+
+            // Initiate all tools and connect them with a button
+            foreach (var tool in tools)
+            {
+                ToolStripButton button = new ToolStripButton(tool.Icon);
+                button.ToolTipText = tool.Label;
+                button.Click += (s, e) => { CurrentTool = tool; };
+
+                toolBar.Items.Add(button);
+                Tools.Add(tool, button);
+            }
+
+            if (tools.Length > 0)
+            {
+                CurrentTool = tools[0];
+            }
         }
-
-        private void EditorForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.selectionForm.Visible = true;
-        }
-
-        private void pictureBox2_MouseHover(object sender, EventArgs e)
-        {
-            
-            tt.SetToolTip(this.LineTool, "Line Tool");
-        }
-
-        private void CircleTool_MouseHover(object sender, EventArgs e)
-        {
-            tt.SetToolTip(this.CircleTool, "Circle Tool");
-        }
-
-        private void SelectionTool_MouseHover(object sender, EventArgs e)
-        {
-            tt.SetToolTip(this.SelectionTool, "Selection");
-        }
-
-        private void undoTool_MouseHover(object sender, EventArgs e)
-        {
-            tt.SetToolTip(this.undoTool, "Undo");
-        }
-
-        private void RedoTool_MouseHover(object sender, EventArgs e)
-        {
-            tt.SetToolTip(this.RedoTool, "Redo");
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void populateElementPanel()
         {
@@ -134,7 +128,22 @@ namespace Sketchball
             {
                 c.MouseDown += StartDragAndDrop;
             }
+
+            PlayFieldEditor.Controls.Add(dragThumb);
         }
+
+        private void EditorForm_Load(object sender, EventArgs e)
+        {
+          
+        }
+
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         private void StartDragAndDrop(object sender, MouseEventArgs e)
         {

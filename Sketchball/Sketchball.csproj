@@ -74,6 +74,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editor\SelectionTool.cs" />
+    <Compile Include="Editor\CircleTool.cs" />
+    <Compile Include="Editor\LineTool.cs" />
     <Compile Include="Editor\Tool.cs" />
     <Compile Include="Elements\AnimatedObject.cs" />
     <Compile Include="Controls\ElementControl.cs">
