@@ -12,6 +12,7 @@ namespace Sketchball.Editor
         public LineTool(PinballEditControl control) : base(control) {
             Icon  = Properties.Resources.LineTool;
             Label = "Line tool";
+            
         }
     }
 }

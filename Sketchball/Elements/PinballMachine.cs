@@ -3,21 +3,26 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
-    [Serializable]
+
+    [DataContract(IsReference=true)]
     public class PinballMachine : ICloneable, IDisposable
     {
+
         // 500px = 1m
         public const float PIXELS_TO_METERS_RATIO = 500f / 1;
-
+        
+        [DataMember]
         public ElementCollection DynamicElements { get; private set; }
         public ElementCollection StaticElements { get; private set; }
-
         public ElementCollection Balls { get; private set; }
 
         public IEnumerable<PinballElement> Elements
@@ -33,25 +38,27 @@ namespace Sketchball.Elements
             }
         }
 
+        [DataMember]
         public IMachineLayout Layout { get; private set; }
 
-        protected StartingRamp Ramp;
-
+        // -------  DERIVED PROPERTIES            
+        protected StartingRamp Ramp { get { return Layout.Ramp; } }
         public int Width { get { return Layout.Width; } }
         public int Height { get { return Layout.Height; } }
 
+
+        [DataMember]
         public float Gravity = 9.81f;
 
            
         /// <summary>
         /// Tilt of the pinball machine in radians.
         /// </summary>
+        [DataMember]
         public float Angle = (float)(Math.PI / 180 * 10);
 
        
-        public PinballMachine() : this(new DefaultLayout())
-        {
-        }
+        public PinballMachine() : this(new DefaultLayout()) {}
 
         public PinballMachine(IMachineLayout layout)
         {
@@ -62,8 +69,6 @@ namespace Sketchball.Elements
             Balls = new ElementCollection(this);
 
             Layout.Apply(this);
-
-            Ramp = (StartingRamp)StaticElements.FirstOrDefault((e) => { return e is StartingRamp; });
         }
 
 
@@ -154,6 +159,33 @@ namespace Sketchball.Elements
             DynamicElements.Clear();
             Balls.Clear();
         }
-       
+        
+        public void Save(string path)
+        {
+            DataContractSerializer serializer = new DataContractSerializer(typeof(PinballMachine));
+
+            using (var stream = File.OpenWrite(path))
+            {
+                serializer.WriteObject(stream, this);
+            }
+        }
+
+        public static PinballMachine FromFile(string path)
+        {
+            DataContractSerializer serializer = new DataContractSerializer(typeof(PinballMachine));
+            PinballMachine pbm;
+            using (var stream = File.OpenWrite(path))
+            {
+                pbm = (PinballMachine)serializer.ReadObject(stream);
+            }
+            return pbm;
+        }
+
+        [OnSerialized]
+        private void OnSerialized()
+        {
+
+        }
     }
+
 }

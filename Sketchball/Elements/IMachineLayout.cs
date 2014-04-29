@@ -12,7 +12,8 @@ namespace Sketchball.Elements
     {
         int Width { get; }
         int Height { get; }
-
+        StartingRamp Ramp { get; }
+        
         void Apply(PinballMachine machine);
     }
 }
