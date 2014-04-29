@@ -3,15 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
+    [DataContract]
     public class DefaultLayout : IMachineLayout
     {
         private StartingRamp _ramp;
-        private List<PinballElement> _elements = new List<PinballElement>();
+        private List<PinballElement> _elements;
         private class Frame : PinballElement
         {
             internal Frame() : base(0,0)
@@ -40,6 +42,12 @@ namespace Sketchball.Elements
 
         public DefaultLayout()
         {
+            Init();
+        }
+
+        private void Init()
+        {
+            _elements = new List<PinballElement>();
             _elements.Add(new Frame());
 
             // Add ramp
@@ -57,7 +65,6 @@ namespace Sketchball.Elements
 
             Flipper rflipper = new RightFlipper() { X = 250, Y = Height - 100 };
             _elements.Add(rflipper);
-
         }
 
         public int Width
@@ -84,6 +91,11 @@ namespace Sketchball.Elements
             machine.StaticElements.Clear();
             foreach (PinballElement el in _elements) machine.StaticElements.Add(el);
         }
-  
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            Init();
+        }
     }
 }

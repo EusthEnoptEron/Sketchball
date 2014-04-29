@@ -63,7 +63,11 @@ namespace Sketchball.Elements
         public PinballMachine(IMachineLayout layout)
         {
             Layout = layout;
+            Init();
+        }
 
+        private void Init()
+        {
             StaticElements = new ElementCollection(this);
             DynamicElements = new ElementCollection(this);
             Balls = new ElementCollection(this);
@@ -162,7 +166,7 @@ namespace Sketchball.Elements
         
         public void Save(string path)
         {
-            DataContractSerializer serializer = new DataContractSerializer(typeof(PinballMachine));
+            NetDataContractSerializer serializer = new NetDataContractSerializer();
 
             using (var stream = File.OpenWrite(path))
             {
@@ -172,19 +176,19 @@ namespace Sketchball.Elements
 
         public static PinballMachine FromFile(string path)
         {
-            DataContractSerializer serializer = new DataContractSerializer(typeof(PinballMachine));
+            NetDataContractSerializer serializer = new NetDataContractSerializer();
             PinballMachine pbm;
-            using (var stream = File.OpenWrite(path))
+            using (var stream = File.OpenRead(path))
             {
                 pbm = (PinballMachine)serializer.ReadObject(stream);
             }
             return pbm;
         }
 
-        [OnSerialized]
-        private void OnSerialized()
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
         {
-
+            Init();
         }
     }
 

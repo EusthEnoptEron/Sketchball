@@ -9,6 +9,7 @@ namespace Sketchball.Elements
 {
 
     [DataContract(IsReference=true)]
+    //[KnownType(typeof(PinballElement))]
     public class ElementCollection : ICollection<PinballElement>
     {
         [DataMember]
