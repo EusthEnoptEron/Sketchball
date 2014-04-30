@@ -20,7 +20,6 @@ namespace Sketchball.Elements
 
         private BoundingRaster boundingRaster;
 
-
         /// <summary>
         /// No more elements can be added after this function call 
         /// </summary>
@@ -63,6 +62,11 @@ namespace Sketchball.Elements
 
             for (int i = Balls.Count - 1; i >= 0; i--)
             {
+                if (Properties.Settings.Default.Debug && (Balls[i].Y + Balls[i].Height) > Height)
+                {
+                    Balls[i].Y = Height - Balls[i].Height;
+                    ((Ball)Balls[i]).Velocity *= -1;
+                }
                 if (Balls[i].Y > Height)
                 {
                     Balls.RemoveAt(i);
@@ -91,15 +95,6 @@ namespace Sketchball.Elements
         public void debugDraw(Graphics g)
         {
             g.DrawEllipse(Pens.Orange, this.boundingRaster.hitPointDebug.X, this.boundingRaster.hitPointDebug.Y, 2, 2);
-        }
-
-        internal void addAnimatedObject(PinballElement tr)
-        {
-            foreach (BoundingBox b in tr.boundingContainer.getBoundingBoxes())
-            {
-                this.boundingRaster.addAnimatedObject(b);
-            }
-            this.DynamicElements.Add(tr);
         }
 
         internal bool HasBall()

@@ -19,6 +19,8 @@ namespace Sketchball.Elements
         public float X { get { return Location.X; } set { Location.X = value; } }
         public float Y { get { return Location.Y; } set { Location.Y = value; } }
 
+        public Vector2 Location = new Vector2();
+
         private PinballMachine _machine = null;
         public PinballMachine World { 
             get {
@@ -39,21 +41,22 @@ namespace Sketchball.Elements
             }
         }
 
-        public Vector2 Location= new Vector2();
 
 
         //Collision detection stuff
         public BoundingContainer boundingContainer{get;private set;}
 
-        public PinballElement()
+        public PinballElement() : this(0, 0)
         {
-            this.boundingContainer =  new BoundingContainer(this);
+           
         }
 
-        public PinballElement(float X, float Y) : this()
+        public PinballElement(float X, float Y)
         {
             this.X = X;
             this.Y = Y;
+            this.boundingContainer = new BoundingContainer(this);
+            this.bounceFactor = 0.9f;
         }
 
         public int Value { get; protected set; }

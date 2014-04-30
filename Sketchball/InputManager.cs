@@ -22,6 +22,18 @@ namespace Sketchball
             keyboardListener.Enabled = true;
         }
 
+        public bool Enabled
+        {
+            get
+            {
+                return keyboardListener.Enabled;
+            }
+            set
+            {
+                keyboardListener.Enabled = value;
+            }
+        }
+
         private static InputManager instance = null;
         public static InputManager Instance()
         {

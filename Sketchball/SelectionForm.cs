@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Drawing.Text;
 using System.IO;
 using Sketchball.Controls;
+using Sketchball.Elements;
 
 
 namespace Sketchball
@@ -18,67 +19,109 @@ namespace Sketchball
     public partial class SelectionForm : Form
     {
         private PrivateFontCollection fontCollection = new PrivateFontCollection();
+        private Form childForm = null;
 
         public SelectionForm()
         {
-
             InitializeComponent();
 
-            Font font = new Font(FontManager.Courgette, 30);
-            this.btnGameLabel.Font = font;
-            this.btnEditorLabel.Font = font;
         }
 
         void picBGame_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            this.picBGame.Image = global::Sketchball.Properties.Resources.btnDown;
+          //  this.picBGame.Image = global::Sketchball.Properties.Resources.btnDown;
         }
 
         private void picBGame_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            this.picBGame.Image = global::Sketchball.Properties.Resources.btnup;
-            this.Visible = false;
-
-            OpenFileDialog fDialog = new OpenFileDialog();
-            fDialog.Title = "Select Pinball machine";
-            fDialog.Filter = "Pinball machine files|*.pmf";
-            fDialog.CheckFileExists = true;
-            fDialog.CheckPathExists = true;
-
-            DialogResult result = fDialog.ShowDialog();
-
-            if (result == DialogResult.OK) // Test result.
-            {
-                //TODO
-                MessageBox.Show("machine load not implemented\n I want a cookie!");
-                PinballControl2 b = new PinballControl2();
-               
-                Sketchball.Elements.PinballMachine pbm = b.getMachine();
-                Form f = new PlayForm(pbm,this);                
-                f.ShowDialog();
-            }
-            else
-            {
-                this.Visible = true;
-            }
+            
            
         }
 
 
         private void picBEditor_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            this.picBEditor.Image = global::Sketchball.Properties.Resources.btnDown;
+           // this.picBEditor.Image = global::Sketchball.Properties.Resources.btnDown;
         }
 
         private void picBEditor_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            this.picBEditor.Image = global::Sketchball.Properties.Resources.btnup;
-            this.Visible = false;
-
-            Form f = new EditorForm(this); 
-            f.ShowDialog();
+           // this.picBEditor.Image = global::Sketchball.Properties.Resources.btnup;
+            
         }
-        
+
+        private void picBGame_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fDialog = new OpenFileDialog();
+            fDialog.Title = "Select Pinball machine";
+            fDialog.Filter = "Pinball machine files|*.pmf";
+            fDialog.CheckFileExists = true;
+            fDialog.CheckPathExists = true;
+
+            //DialogResult result = fDialog.ShowDialog();
+
+            //if (result == DialogResult.OK) // Test result.
+            //{
+            //    //TODO
+            //    MessageBox.Show("machine load not implemented\n I want a cookie!");
+                PinballControl2 b = new PinballControl2();
+                Sketchball.Elements.PinballMachine pbm = b.getMachine();
+
+                OpenGame(new PinballMachine());
+            //}
+            
+        }
+
+        private void picBEditor_Click(object sender, EventArgs e)
+        {
+            OpenEditor();
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        public void CloseManagedForm()
+        {
+            if (childForm != null)
+            {
+                childForm.FormClosed -= onChildClose;
+                childForm.Close();
+            }
+
+            this.Show();
+        }
+
+        public void OpenEditor(PinballMachine pbm = null)
+        {
+            CloseManagedForm();
+            Hide();
+
+            if (pbm == null)
+                childForm = new EditorForm(this);
+            else
+                childForm = new EditorForm(pbm, this);
+
+            childForm.Show();
+            childForm.FormClosed += onChildClose;
+        }
+
+        public void OpenGame(PinballMachine pbm)
+        {
+            CloseManagedForm();
+
+            this.Hide();
+
+            childForm = new PlayForm(pbm, this);
+            childForm.Show();
+            childForm.FormClosed += onChildClose;
+        }
+
+        private void onChildClose(object sender, FormClosedEventArgs e)
+        {
+            this.Close();
+        }
 
     }
 }
