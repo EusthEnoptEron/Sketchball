@@ -288,6 +288,12 @@ namespace Sketchball
                 return true;
             }
         }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            var form = new PlayForm(PlayFieldEditor.PinballMachine);
+            form.ShowDialog();
+        }
       
     }
 }

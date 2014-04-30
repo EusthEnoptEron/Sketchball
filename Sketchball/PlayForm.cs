@@ -42,13 +42,6 @@ namespace Sketchball
             this.selectionForm = selectionForm;
         }
 
-        private void PlayForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (selectionForm != null)
-            {
-                selectionForm.Show();
-            }
-        }
 
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
         {

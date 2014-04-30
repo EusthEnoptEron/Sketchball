@@ -121,6 +121,7 @@ namespace Sketchball.Controls
             int counter = 1;
             while (true)
             {
+                if (!IsHandleCreated) return;
                 now = DateTime.Now;
 
                 // Calculate delta since last update

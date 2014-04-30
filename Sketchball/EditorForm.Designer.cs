@@ -36,7 +36,7 @@
             this.openPBMButton = new System.Windows.Forms.ToolStripMenuItem();
             this.savePBMButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playButton = new System.Windows.Forms.ToolStripMenuItem();
             this.playgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSplitToMenueAndField = new System.Windows.Forms.SplitContainer();
             this.elementPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -95,7 +95,7 @@
             this.openPBMButton,
             this.savePBMButton,
             this.toolStripSeparator1,
-            this.playToolStripMenuItem,
+            this.playButton,
             this.playgroundToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
@@ -133,12 +133,12 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(163, 6);
             // 
-            // playToolStripMenuItem
+            // playButton
             // 
-            this.playToolStripMenuItem.Enabled = false;
-            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.playToolStripMenuItem.Text = "Play...";
+            this.playButton.Name = "playButton";
+            this.playButton.Size = new System.Drawing.Size(166, 22);
+            this.playButton.Text = "Play...";
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // playgroundToolStripMenuItem
             // 
@@ -275,7 +275,7 @@
         private System.Windows.Forms.ToolStripMenuItem openPBMButton;
         private System.Windows.Forms.ToolStripMenuItem savePBMButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playButton;
         private System.Windows.Forms.ToolStripMenuItem playgroundToolStripMenuItem;
         private System.Windows.Forms.SplitContainer MainSplitToMenueAndField;
         private Controls.PinballEditControl PlayFieldEditor;
