@@ -16,6 +16,15 @@ namespace Sketchball.Collision
         /// </summary>
         public BoundingContainer BoundingContainer { get; private set; }
 
+        public BoundingBox()
+        {
+            this.bounceFactor = 0.9f;
+        }
+        /// <summary>
+        /// Defines how hard something is reflected
+        /// </summary>
+        public float bounceFactor { get; set; }
+
         //position object space: from pinball element pos out
         public Vector2 position{ get; set; }
 
@@ -44,6 +53,15 @@ namespace Sketchball.Collision
         /// <param name="hitPoint">the point where bB and this bounding box intersected the first time</param>
         /// <returns>true if intersection</returns>
         public abstract bool intersec(IBoundingBox bB, out Vector2 hitPoint);
+
+        /// <summary>
+        /// Finds out if this bounding box intersects with bB and saves the estimated hitPoint in hitPoint
+        /// </summary>
+        /// <param name="bB">Bounding box to check intersection</param>
+        /// <param name="hitPoint">the point where bB and this bounding box intersected the first time</param>
+        /// <param name="velocity">Speed of the object intersecting</param>
+        /// <returns>true if intersection</returns>
+        public abstract bool intersec(IBoundingBox bB, out Vector2 hitPoint, Vector2 velocity);
 
         /// <summary>
         /// Method that calculated a reflection of a ball
@@ -83,9 +101,11 @@ namespace Sketchball.Collision
         /// Submethod of intersect => checks for an intersection of this bounding box and a Bounding circle
         /// </summary>
         /// <param name="bC">Bounding circle which might intersect with this bounding box</param>
-        /// <param name="hitPoint"></param>
+        /// <param name="hitPoint">Point where this bounding box intersects with bC</param>
+        /// <param name="velocity">Speed of the object intersecting</param>
         /// <returns></returns>
-        public abstract bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint);
+        public abstract bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity);
+
 
         /// <summary>
         /// Debug method
@@ -93,5 +113,10 @@ namespace Sketchball.Collision
         /// <param name="g"></param>
         /// <param name="p"></param>
         public abstract void drawDEBUG(System.Drawing.Graphics g,System.Drawing.Pen p);
+
+        public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
+        {
+            return newDirection * bounceFactor;
+        }
     }
 }

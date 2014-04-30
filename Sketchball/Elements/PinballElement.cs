@@ -15,7 +15,7 @@ namespace Sketchball.Elements
         public int Width = 100;
         public int Height = 100;
 
-        public float bounceFactor { get; set; }
+        
         public float X { get { return Location.X; } set { Location.X = value; } }
         public float Y { get { return Location.Y; } set { Location.Y = value; } }
 
@@ -48,7 +48,6 @@ namespace Sketchball.Elements
         public PinballElement()
         {
             this.boundingContainer =  new BoundingContainer(this);
-            this.bounceFactor = 0.9f;
         }
 
         public PinballElement(float X, float Y) : this()
@@ -99,11 +98,6 @@ namespace Sketchball.Elements
         {
             this.Location.X = newLoc.X;
             this.Location.Y = newLoc.Y;
-        }
-
-        public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
-        {
-            return newDirection* bounceFactor;
         }
     }
 }

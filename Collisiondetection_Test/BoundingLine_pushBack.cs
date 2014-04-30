@@ -81,7 +81,7 @@ namespace Collisiondetection_Test
             Vector2 target1 = new Vector2(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-20, 50);
+            Vector2 center2 = new Vector2(-20, 30);
             Vector2 ballSpeed = new Vector2(5, 0);
 
             Vector2 hitPoint = new Vector2(0, 50);
@@ -113,7 +113,7 @@ namespace Collisiondetection_Test
             Vector2 target1 = new Vector2(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(70, 50);
+            Vector2 center2 = new Vector2(70, 30);
             Vector2 ballSpeed = new Vector2(-5, 0);
 
             Vector2 hitPoint = new Vector2(50, 50);
@@ -209,7 +209,7 @@ namespace Collisiondetection_Test
             Vector2 target1 = new Vector2(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(55, 45);
+            Vector2 center2 = new Vector2(35, 25);
             Vector2 ballSpeed = new Vector2(-5, 5);
 
             Vector2 hitPoint = new Vector2(50, 50);
@@ -275,7 +275,7 @@ namespace Collisiondetection_Test
             Vector2 target1 = new Vector2(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-5, 55);
+            Vector2 center2 = new Vector2(25, 35);
             Vector2 ballSpeed = new Vector2(5, -5);
 
             Vector2 hitPoint = new Vector2(50, 50);
@@ -308,7 +308,7 @@ namespace Collisiondetection_Test
             Vector2 target1 = new Vector2(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-5, 45);
+            Vector2 center2 = new Vector2(25, 25);
             Vector2 ballSpeed = new Vector2(5, 5);
 
             Vector2 hitPoint = new Vector2(50, 50);

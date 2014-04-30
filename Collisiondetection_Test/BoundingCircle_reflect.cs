@@ -37,7 +37,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -68,7 +69,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -99,7 +101,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -130,7 +133,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X,0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -161,7 +165,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -192,7 +197,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -223,7 +229,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -254,7 +261,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -285,7 +293,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
         [TestMethod]
@@ -316,7 +325,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
 
 
@@ -349,7 +359,8 @@ namespace Collisiondetection_Test
             reflection.Normalize();
 
             //Assertion
-            Assert.AreEqual(expectedReflection, reflection);
+            Assert.AreEqual(expectedReflection.X, reflection.X, 0.001f);
+            Assert.AreEqual(expectedReflection.Y, reflection.Y, 0.001f);
         }
       
     }

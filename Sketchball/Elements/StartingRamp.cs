@@ -22,17 +22,18 @@ namespace Sketchball.Elements
 
         public StartingRamp() : base()
         {
-
-            bounceFactor = 0.5f;
-
             Width = 585 - 520 + 50;
             Height = 590 - 210;
 
             // Vertical line left
-            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210)));
+            BoundingLine bl1 = new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210));
+            bl1.bounceFactor = 0.5f;
+            boundingContainer.addBoundingBox(bl1);
             
             // Horizontal line
-            boundingContainer.addBoundingBox(new BoundingLine(new Vector2(478 - 405, 590 - 210), new Vector2(520 - 405, 585 - 210)));
+            BoundingLine bl2 = new BoundingLine(new Vector2(478 - 405, 590 - 210), new Vector2(520 - 405, 585 - 210));
+            bl2.bounceFactor = 0.5f;
+            boundingContainer.addBoundingBox(bl2);
             
             // Vertical line right
             //boundingContainer.addBoundingBox(new BoundingLine(new Vector2(Width, 0), new Vector2(Width, Height)));

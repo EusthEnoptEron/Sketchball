@@ -13,6 +13,12 @@ namespace Sketchball.Collision
         /// Parent bounding container
         /// </summary>
         BoundingContainer BoundingContainer { get; }
+
+        /// <summary>
+        /// Defines how hard something is reflected
+        /// </summary>
+        float bounceFactor { get; set; }
+
         /// <summary>
         /// Position of the bounding box
         /// </summary>
@@ -33,6 +39,15 @@ namespace Sketchball.Collision
         /// <param name="hitPoint">Point where those two boxes might have intersected the first time</param>
         /// <returns>true if intersection</returns>
         bool intersec(IBoundingBox bB, out Vector2 hitPoint);
+       
+        /// <summary>
+        /// Checks for an intersection of this element with bB and saves the estimated hitpoint to hitPoint)
+        /// </summary>
+        /// <param name="bB">Bounding box to check for intersection with this</param>
+        /// <param name="hitPoint">Point where those two boxes might have intersected the first time</param>
+        /// <param name="velocity">Velocity of an object intersecting</param>
+        /// <returns>true if intersection</returns>
+        bool intersec(IBoundingBox bB, out Vector2 hitPoint, Vector2 velocity);
 
         /// <summary>
         /// Intersec for lines (more specific version)
@@ -47,8 +62,9 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="bL">Bounding box to check for intersection with this</param>
         /// <param name="hitPoint">Point where those two boxes might have intersected the first time</param>
+        /// <param name="velocity">Speed of the object intersecting</param>
         /// <returns>true if intersection</returns>
-        bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint);
+        bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity);
 
         /// <summary>
         /// Calculates reflection of an round object on this bounding box
@@ -83,5 +99,7 @@ namespace Sketchball.Collision
         void move(Vector2 moveVec);
 
         void drawDEBUG(System.Drawing.Graphics g, System.Drawing.Pen p);
+
+        Vector2 reflectManipulation(Vector2 newDirection, int energy = 0);
     }
 }

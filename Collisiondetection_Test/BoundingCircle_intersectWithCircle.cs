@@ -7,7 +7,7 @@ using Sketchball.Elements;
 namespace Collisiondetection_Test
 {
     [TestClass]
-    public class BoundingCircleIntersectTest1
+    public class BoundingCircleIntersectWithCircle
     {
         [TestMethod]
         public void TestCreation()
@@ -221,7 +221,7 @@ namespace Collisiondetection_Test
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.intersec(bC2, out hitPoint, ballSpeed);
 
             //Assertion
             Assert.IsTrue(isIntersec);
@@ -292,7 +292,7 @@ namespace Collisiondetection_Test
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.intersec(bC2, out hitPoint, ballSpeed);
 
             //Assertion
             Assert.IsTrue(isIntersec);
@@ -327,7 +327,7 @@ namespace Collisiondetection_Test
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.intersec(bC2, out hitPoint, ballSpeed);
 
             //Assertion
             Assert.IsTrue(isIntersec);
@@ -362,11 +362,10 @@ namespace Collisiondetection_Test
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.intersec(bC2, out hitPoint, ballSpeed);
 
             //Assertion
             Assert.IsTrue(isIntersec);
-            Assert.Fail();
         }
 
         [TestMethod]
@@ -376,7 +375,7 @@ namespace Collisiondetection_Test
             int radius1 = 20;
             Vector2 center1 = new Vector2(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-20, 0f);
+            Vector2 center2 = new Vector2(-40, 0f);
             Vector2 ballSpeed = new Vector2(-5, 0);
 
             Vector2 hitPoint;

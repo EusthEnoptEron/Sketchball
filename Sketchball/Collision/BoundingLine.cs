@@ -21,7 +21,13 @@ namespace Sketchball.Collision
             this.target = target;
         }
 
+
         public override bool intersec(IBoundingBox bB, out Vector2 hitPoint)
+        {
+            return bB.lineIntersec(this, out hitPoint);
+        }
+
+        public override bool intersec(IBoundingBox bB, out Vector2 hitPoint, Vector2 velocity)
         {
             return bB.lineIntersec(this, out hitPoint);
         }
@@ -52,12 +58,22 @@ namespace Sketchball.Collision
             //check if hit at the end (corner reflection must be handled with less simplification
             if (hitPoint == this.position + this.BoundingContainer.parentElement.getLocation())
             {
-                return (diameterBall / 1.7f) * Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.position + this.BoundingContainer.parentElement.getLocation()));
+                Vector2 t = ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.position + this.BoundingContainer.parentElement.getLocation());
+                if (t.X == 0 && t.Y == 0)
+                {
+                    return -Vector2.Normalize(velocity) * (diameterBall / 1.7f);
+                }
+                return (diameterBall / 1.7f) * t;
             }
 
             if (hitPoint == this.target + this.BoundingContainer.parentElement.getLocation())
             {
-                return (diameterBall / 1.7f) * Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.target + this.BoundingContainer.parentElement.getLocation()));
+                Vector2 t = Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.target + this.BoundingContainer.parentElement.getLocation()));
+                if (t.X == 0 && t.Y == 0)
+                {
+                    return -Vector2.Normalize(velocity) * (diameterBall / 1.7f);
+                }
+                return (diameterBall / 1.7f) * t;
             }
 
             //now check which normal we have to take (depends on velocity)
@@ -180,7 +196,7 @@ namespace Sketchball.Collision
             this.target = p2;     
         }
 
-        public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint)
+        public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity)
         {
             //strategy: connect center of ball with start of line. calc where the normal from center of ball on line hits (pointNormalDirectionPice). If len from center of ball to this point
             //is smaller then radius then it is a hit. Should pointNormalDirectionPice be smaller then start - radius of ball or bigger then end+ radius of ball => ignore

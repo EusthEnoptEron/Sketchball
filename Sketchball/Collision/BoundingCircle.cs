@@ -26,9 +26,14 @@ namespace Sketchball.Collision
             this.position = center+new Vector2(radius,radius);
         }
 
+        public override bool intersec(IBoundingBox bB,out Vector2 hitPoint, Vector2 velocity )
+        {
+            return bB.circleIntersec(this,out hitPoint,velocity);
+        }
+
         public override bool intersec(IBoundingBox bB,out Vector2 hitPoint)
         {
-            return bB.circleIntersec(this,out hitPoint);
+            return bB.circleIntersec(this,out hitPoint, new Vector2(0,0));
         }
 
         public override Vector2 reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos)
@@ -36,14 +41,15 @@ namespace Sketchball.Collision
             //circle => position = origin of object space coordinate system
             //=> normal to make reflection is from origin to hitpoint (hitpoint must be conferted to object space first)
             //TODO take position of bounding box into account
-            Vector2 normal = Vector2.Normalize(hitPoint-(this.BoundingContainer.parentElement.getLocation() + new Vector2(this.radius,this.radius)));
+           
+            Vector2 normal = Vector2.Normalize(hitPoint-(this.BoundingContainer.parentElement.getLocation() +this.position));
             return Vector2.Reflect(vecIn, normal);
         }
 
         public override Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos)
         {
             //TODO take bounding box position into account
-            return (diameterBall / 1.9f) * Vector2.Normalize(hitPoint - (this.BoundingContainer.parentElement.getLocation() + new Vector2(this.radius, this.radius)));
+            return (diameterBall / 1.9f) * Vector2.Normalize(hitPoint - (this.BoundingContainer.parentElement.getLocation() + this.position));
         }
 
         public override void rotate(float rad, Vector2 center)
@@ -114,7 +120,7 @@ namespace Sketchball.Collision
            
         }
 
-        public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint)
+        public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity)
         {
             
             Vector2 thisWorldTras = this.BoundingContainer.parentElement.getLocation();
@@ -122,9 +128,29 @@ namespace Sketchball.Collision
 
             if (Vector2.Distance(bC.position + bCWorldTrans, this.position + thisWorldTras) < (this.radius + bC.radius))    
             {
-                hitPoint = bC.position + bCWorldTrans + Vector2.Normalize(-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)) * bC.radius;
+                Vector2 direction;
+                if (velocity != new Vector2(0, 0))
+                {
+                    direction = (velocity);
+                    float t = (-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)).X;
+                    if ( t* direction.X >= 0)
+                    {
+                        direction = -direction;
+                    }
+                    else if( direction.X==0&&((-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)).Y * direction.Y >= 0))
+                    {
+                        direction = -direction;
+                    }
+                }
+                else
+                {
+                    direction = (-(bC.position + bCWorldTrans) + (this.position + thisWorldTras));
+                }
+                direction = Vector2.Normalize(direction);
+                hitPoint = bC.position + bCWorldTrans + direction * bC.radius;
                 return true;
             }
+
             hitPoint = new Vector2(0, 0);
             return false;
         }
