@@ -51,7 +51,26 @@ namespace Sketchball.Elements
 
 
         //Collision detection stuff
-        public BoundingContainer boundingContainer{get;private set;}
+        private BoundingContainer _boundingContainer = null;
+
+        /// <summary>
+        /// Lazy-loading bounding container.
+        /// </summary>
+        public BoundingContainer boundingContainer
+        {
+            get
+            {
+                if (_boundingContainer == null)
+                {
+                    InitBoundingContainer();
+                }
+                return _boundingContainer;
+            }
+            private set
+            {
+                _boundingContainer = boundingContainer;
+            }
+        }
 
         public PinballElement() : this(0, 0)
         {
@@ -62,12 +81,11 @@ namespace Sketchball.Elements
             this.X = X;
             this.Y = Y;
             this.bounceFactor = 0.9f;
-            InitBoundingContainer();
         }
 
         private void InitBoundingContainer()
         {
-            this.boundingContainer = new BoundingContainer(this);
+            _boundingContainer = new BoundingContainer(this);
             InitBounds();
         }
 
@@ -119,12 +137,6 @@ namespace Sketchball.Elements
         public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
         {
             return newDirection* bounceFactor;
-        }
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            InitBoundingContainer();
         }
     }
 }
