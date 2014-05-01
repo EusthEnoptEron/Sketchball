@@ -473,9 +473,7 @@ namespace Sketchball.Collision
                                     Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection, ball.getLocation());
 
                                     ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
-
-                                    //  ball.boundingContainer.parentElement.World.Gravity = 0;
-
+         
                                     ball.Velocity = b.reflectManipulation(newDirection);
                                     this.hitPointDebug = hitPoint;
                                 }

@@ -14,6 +14,8 @@ namespace Sketchball.Collision
     {
         //target is object space: based on pinball element position
         public Vector2 target{get; private set;}
+        private readonly float pushBackByPointsCoefficient = 1.7f;
+        private readonly float pushBackByLineCoefficient = 1.8f;
 
         public BoundingLine(Vector2 from, Vector2 target)
         {
@@ -61,9 +63,9 @@ namespace Sketchball.Collision
                 Vector2 t = ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.position + this.BoundingContainer.parentElement.getLocation());
                 if (t.X == 0 && t.Y == 0)
                 {
-                    return -Vector2.Normalize(velocity) * (diameterBall / 1.7f);
+                    return -Vector2.Normalize(velocity) * (diameterBall / pushBackByPointsCoefficient);
                 }
-                return (diameterBall / 1.7f) * t;
+                return (diameterBall / pushBackByPointsCoefficient) * Vector2.Normalize(t);
             }
 
             if (hitPoint == this.target + this.BoundingContainer.parentElement.getLocation())
@@ -71,9 +73,9 @@ namespace Sketchball.Collision
                 Vector2 t = Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.target + this.BoundingContainer.parentElement.getLocation()));
                 if (t.X == 0 && t.Y == 0)
                 {
-                    return -Vector2.Normalize(velocity) * (diameterBall / 1.7f);
+                    return -Vector2.Normalize(velocity) * (diameterBall / pushBackByPointsCoefficient);
                 }
-                return (diameterBall / 1.7f) * t;
+                return (diameterBall / pushBackByPointsCoefficient) * Vector2.Normalize(t);
             }
 
             //now check which normal we have to take (depends on velocity)
@@ -94,10 +96,15 @@ namespace Sketchball.Collision
             if (d == 0)
             {
                 //vertical
-                norm = -velocity;
+                norm = velocity;
+                if (velocity.X == 0 && velocity.Y == 0)
+                {
+                    //Bug velocity 0 with collision 
+                    norm.X = 1;
+                }
                 norm.Normalize();
             }
-            return (diameterBall / 1.9f) * norm;
+            return (diameterBall / pushBackByLineCoefficient) * norm;
         }
 
 

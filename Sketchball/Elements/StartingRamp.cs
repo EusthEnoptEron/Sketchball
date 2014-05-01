@@ -29,9 +29,9 @@ namespace Sketchball.Elements
             BoundingLine bl1 = new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210));
             bl1.bounceFactor = 0.5f;
             boundingContainer.addBoundingBox(bl1);
-            
+
             // Horizontal line
-            BoundingLine bl2 = new BoundingLine(new Vector2(478 - 405, 590 - 210), new Vector2(520 - 405, 585 - 210));
+            BoundingLine bl2 = new BoundingLine(new Vector2(478 - 405, 590 - 210-5), new Vector2(520 - 405, 585 - 210-5));
             bl2.bounceFactor = 0.5f;
             boundingContainer.addBoundingBox(bl2);
             

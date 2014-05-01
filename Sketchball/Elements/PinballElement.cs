@@ -56,7 +56,6 @@ namespace Sketchball.Elements
             this.X = X;
             this.Y = Y;
             this.boundingContainer = new BoundingContainer(this);
-            this.bounceFactor = 0.9f;
         }
 
         public int Value { get; protected set; }

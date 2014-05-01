@@ -128,25 +128,22 @@ namespace Sketchball.Collision
 
             if (Vector2.Distance(bC.position + bCWorldTrans, this.position + thisWorldTras) < (this.radius + bC.radius))    
             {
-                Vector2 direction;
+                Vector2 direction = (-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)); ;
                 if (velocity != new Vector2(0, 0))
                 {
-                    direction = (velocity);
-                    float t = (-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)).X;
-                    if ( t* direction.X >= 0)
+                    if (direction.X * velocity.X >= 0 && direction.Y* velocity.Y >= 0)
                     {
-                        direction = -direction;
-                    }
-                    else if( direction.X==0&&((-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)).Y * direction.Y >= 0))
-                    {
+                        //point in the same direction => reverse direction
                         direction = -direction;
                     }
                 }
-                else
+                if (direction.X == 0 && direction.Y == 0)
                 {
-                    direction = (-(bC.position + bCWorldTrans) + (this.position + thisWorldTras));
+                    direction.X = 0;
+                    direction.Y = -1;
                 }
                 direction = Vector2.Normalize(direction);
+                //hitPoint = bC.position + bCWorldTrans + Vector2.Normalize(-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)) * bC.radius
                 hitPoint = bC.position + bCWorldTrans + direction * bC.radius;
                 return true;
             }

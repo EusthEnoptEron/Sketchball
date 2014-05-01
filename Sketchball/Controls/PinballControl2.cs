@@ -65,9 +65,9 @@ namespace Sketchball.Controls
    
             LoadBuffers();
 
-            Ball ball = new Ball();
+            /*Ball ball = new Ball();
             ball.setLocation(new Vector2(150, 10));
-            ball.setParent(machine);
+            ball.setParent(machine);*/
 
             Flipper f = new Flipper();
             f.setLocation(new Vector2(50, Height - 10));
@@ -80,14 +80,15 @@ namespace Sketchball.Controls
 
             Line l = new Line();
             
-          //  Elements.Add(b);
-          //  Elements.Add(l);
+            Elements.Add(b);
+            Elements.Add(l);
 
             
             //machine.addAnimatedObject(f);
            // Elements.Add(tr);
+            machine.Add(tr);
           //  machine.addAnimatedObject(tr);
-            machine.addBall(ball);  //Changed
+           // machine.addBall(ball);  //Changed
           
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);

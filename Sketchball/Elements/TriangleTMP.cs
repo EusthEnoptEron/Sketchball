@@ -30,7 +30,7 @@ namespace Sketchball.Elements
             bL1.assigneToContainer(this.boundingContainer);
             bL2.assigneToContainer(this.boundingContainer);
             bL3.assigneToContainer(this.boundingContainer);
-           // turnaround();
+            turnaround();
         }
 
         private void turnaround()
