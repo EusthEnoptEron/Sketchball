@@ -131,11 +131,16 @@ namespace Sketchball.Collision
                 Vector2 direction = (-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)); ;
                 if (velocity != new Vector2(0, 0))
                 {
-                    if (direction.X * velocity.X >= 0 && direction.Y* velocity.Y >= 0)
+                    if (direction.X == 0 && direction.Y == 0)
+                    {
+                        direction = -velocity;
+                    }
+                    else if (direction.X * velocity.X >= 0 && direction.Y* velocity.Y >= 0)
                     {
                         //point in the same direction => reverse direction
                         direction = -direction;
                     }
+                    
                 }
                 if (direction.X == 0 && direction.Y == 0)
                 {

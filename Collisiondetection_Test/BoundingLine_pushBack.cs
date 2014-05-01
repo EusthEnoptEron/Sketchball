@@ -34,7 +34,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -66,7 +66,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -98,7 +98,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -130,7 +130,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -150,7 +150,7 @@ namespace Collisiondetection_Test
 
             Vector2 hitPoint = new Vector2(20, 50);
             Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = new Vector2(0,1);
+            Vector2 estimatedPushBackVec = new Vector2(0,-1);
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -162,7 +162,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -182,7 +182,7 @@ namespace Collisiondetection_Test
 
             Vector2 hitPoint = new Vector2(20, 50);
             Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = new Vector2(0, -1);
+            Vector2 estimatedPushBackVec = new Vector2(0, 1);
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -194,7 +194,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -226,7 +226,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -259,7 +259,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -292,7 +292,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion
@@ -325,7 +325,7 @@ namespace Collisiondetection_Test
             parent.setLocation(new Vector2(0, 0));
 
             //Operation
-            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, ballSpeed, center2);
+            pushBackVec = bL1.getOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
             pushBackVec.Normalize();
 
             //Assertion

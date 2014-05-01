@@ -63,7 +63,7 @@ namespace Sketchball.Collision
                 Vector2 t = ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.position + this.BoundingContainer.parentElement.getLocation());
                 if (t.X == 0 && t.Y == 0)
                 {
-                    return -Vector2.Normalize(velocity) * (diameterBall / pushBackByPointsCoefficient);
+                    return Vector2.Normalize(velocity) * (diameterBall / pushBackByPointsCoefficient);
                 }
                 return (diameterBall / pushBackByPointsCoefficient) * Vector2.Normalize(t);
             }
@@ -73,7 +73,7 @@ namespace Sketchball.Collision
                 Vector2 t = Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.target + this.BoundingContainer.parentElement.getLocation()));
                 if (t.X == 0 && t.Y == 0)
                 {
-                    return -Vector2.Normalize(velocity) * (diameterBall / pushBackByPointsCoefficient);
+                    return Vector2.Normalize(velocity) * (diameterBall / pushBackByPointsCoefficient);
                 }
                 return (diameterBall / pushBackByPointsCoefficient) * Vector2.Normalize(t);
             }
