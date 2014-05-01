@@ -3,13 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
+
+    [DataContract]
     public class Line : PinballElement
     {
+        [DataMember]
         PointF p1, p2;
 
 
@@ -38,11 +42,18 @@ namespace Sketchball.Elements
 
             p1 = new PointF(x0, y0);
             p2 = new PointF(x1, y1);
+        }
+
+        protected override void InitBounds()
+        {
+            var x0 = p1.X;
+            var x1 = p2.X;
+            var y0 = p1.Y;
+            var y1 = p2.Y;
 
             //set up of bounding box
-            BoundingLine bL = new BoundingLine(new Vector2(x0 - X,y0 - Y),  new Vector2(x1 - X, y1 - Y));
+            BoundingLine bL = new BoundingLine(new Vector2(x0 - X, y0 - Y), new Vector2(x1 - X, y1 - Y));
             this.boundingContainer.addBoundingBox(bL);
-
         }
 
         public override void Draw(System.Drawing.Graphics g)

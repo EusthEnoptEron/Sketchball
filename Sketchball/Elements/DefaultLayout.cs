@@ -16,22 +16,23 @@ namespace Sketchball.Elements
         private List<PinballElement> _elements;
         private class Frame : PinballElement
         {
-            internal Frame() : base(0,0)
-            {   
+            internal Frame() : base(0,0) {}
+
+            protected override void InitBounds()
+            {
                 var totalWidth = 235 * 2;
-
                 boundingContainer.AddPolygon(
-                    0, 545,
-                    75, 145,
-                    137, 52,
-                    194, 21,
-                    235, 7.5f,
+                   0, 545,
+                   75, 145,
+                   137, 52,
+                   194, 21,
+                   235, 7.5f,
 
-                    totalWidth - 194, 21,
-                    totalWidth - 137, 52,
-                    totalWidth - 75, 145,
-                    totalWidth, 545
-                );
+                   totalWidth - 194, 21,
+                   totalWidth - 137, 52,
+                   totalWidth - 75, 145,
+                   totalWidth, 545
+               );
             }
 
             public override void Draw(Graphics g)

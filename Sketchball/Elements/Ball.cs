@@ -22,8 +22,11 @@ namespace Sketchball.Elements
             Mass = 0.2f;
             Width = 30;
             Height = 30;
+        }
 
-            BoundingCircle bC = new BoundingCircle(15,  new Vector2(0,0));  
+        protected override void InitBounds()
+        {
+            BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
         }
 

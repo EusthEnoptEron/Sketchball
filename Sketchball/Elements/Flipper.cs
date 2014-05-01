@@ -32,14 +32,17 @@ namespace Sketchball.Elements
   //          this.rotate((float)Math.PI*2, Origin, 0);
 
             // 0, Height / 10 * 9, Width , Height / 10 * 2 )
-            int y1 = Height / 10 * 8;
-            int recHeight =  Height / 10 * 2 ;
 
             this.setLocation(new Vector2(0, 0));
+        }
 
+        protected override void InitBounds()
+        {
+            int y1 = Height / 10 * 8;
+            int recHeight = Height / 10 * 2;
             //set up of bounding box
             BoundingLine bL1 = new BoundingLine(new Vector2(0, y1), new Vector2(Width, y1));
-            BoundingLine bL2 = new BoundingLine(new Vector2(Width, y1), new Vector2(Width, y1+recHeight));
+            BoundingLine bL2 = new BoundingLine(new Vector2(Width, y1), new Vector2(Width, y1 + recHeight));
             BoundingLine bL3 = new BoundingLine(new Vector2(Width, y1 + recHeight), new Vector2(0, y1 + recHeight));
             BoundingLine bL4 = new BoundingLine(new Vector2(0, y1 + recHeight), new Vector2(0, y1));
 

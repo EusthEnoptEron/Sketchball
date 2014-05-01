@@ -61,9 +61,17 @@ namespace Sketchball.Elements
         {
             this.X = X;
             this.Y = Y;
-            this.boundingContainer = new BoundingContainer(this);
             this.bounceFactor = 0.9f;
+            InitBoundingContainer();
         }
+
+        private void InitBoundingContainer()
+        {
+            this.boundingContainer = new BoundingContainer(this);
+            InitBounds();
+        }
+
+        protected abstract void InitBounds();
 
         [DataMember]
         public int Value { get; protected set; }
@@ -111,6 +119,12 @@ namespace Sketchball.Elements
         public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
         {
             return newDirection* bounceFactor;
+        }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            InitBoundingContainer();
         }
     }
 }
