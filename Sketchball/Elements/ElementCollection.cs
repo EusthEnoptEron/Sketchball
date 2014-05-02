@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
+
+    [DataContract(IsReference=true)]
     public class ElementCollection : ICollection<PinballElement>
     {
+        [DataMember]
         public PinballMachine Owner { get; private set;}
+
+        [DataMember]
         private List<PinballElement> Elements = new List<PinballElement>();
 
         public ElementCollection(PinballMachine parent)
@@ -31,7 +37,6 @@ namespace Sketchball.Elements
             if (element.World == Owner)
                 element.World = null;
         }
-
 
 #region LIST IMPLEMENTATION
         public int IndexOf(PinballElement item)

@@ -17,7 +17,11 @@ namespace Sketchball.Elements
 
 
             this.setLocation(new Vector2(0, 100));
+           // turnaround();
+        }
 
+        protected override void InitBounds()
+        {
             //set up of bounding box
             BoundingLine bL1 = new BoundingLine(new Vector2(0, 200), new Vector2(100, 0));
             BoundingLine bL2 = new BoundingLine(new Vector2(100, 0), new Vector2(200, 200));

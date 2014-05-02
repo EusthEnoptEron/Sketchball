@@ -24,7 +24,10 @@ namespace Sketchball.Elements
         {
             Width = 585 - 520 + 50;
             Height = 590 - 210;
+        }
 
+        protected override void InitBounds()
+        {
             // Vertical line left
             BoundingLine bl1 = new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210));
             bl1.bounceFactor = 0.5f;
@@ -34,10 +37,9 @@ namespace Sketchball.Elements
             BoundingLine bl2 = new BoundingLine(new Vector2(478 - 405, 590 - 210-5), new Vector2(520 - 405, 585 - 210-5));
             bl2.bounceFactor = 0.5f;
             boundingContainer.addBoundingBox(bl2);
-            
+
             // Vertical line right
             //boundingContainer.addBoundingBox(new BoundingLine(new Vector2(Width, 0), new Vector2(Width, Height)));
-
         }
 
         protected override void EnterMachine(PinballGameMachine machine)

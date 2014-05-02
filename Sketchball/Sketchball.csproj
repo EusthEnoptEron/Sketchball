@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,6 +74,9 @@
     <Compile Include="Controls\GameView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Editor\CircleTool.cs" />
+    <Compile Include="Editor\LineTool.cs" />
+    <Compile Include="Editor\Tool.cs" />
     <Compile Include="Elements\AnimatedObject.cs" />
     <Compile Include="Controls\ElementControl.cs">
       <SubType>UserControl</SubType>

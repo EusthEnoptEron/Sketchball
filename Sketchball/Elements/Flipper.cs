@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using Sketchball.Collision;
+using System.Runtime.Serialization;
 
 namespace Sketchball.Elements
 {
 
+    [DataContract]
     public class Flipper : AnimatedObject
     {
-
+        [DataMember]
         public Keys Trigger;
         protected Keys DebugTrigger;
 
         public float RotationRange = (float)(Math.PI / 180 * 60);
-        
         private bool Animating = false;
 
         public Flipper()  : base()
@@ -31,21 +32,32 @@ namespace Sketchball.Elements
   //          this.rotate((float)Math.PI*2, Origin, 0);
 
             // 0, Height / 10 * 9, Width , Height / 10 * 2 )
-            int y1 = Height / 10 * 8;
-            int recHeight =  Height / 10 * 2 ;
 
             this.setLocation(new Vector2(0, 0));
+        }
 
+        protected override void InitBounds()
+        {
+            int y1 = Height / 10 * 8;
+            int recHeight = Height / 10 * 2;
             //set up of bounding box
-            BoundingLine bL1 = new BoundingLine(new Vector2(0, y1), new Vector2(Width, y1));
-            BoundingLine bL2 = new BoundingLine(new Vector2(Width, y1), new Vector2(Width, y1+recHeight));
-            BoundingLine bL3 = new BoundingLine(new Vector2(Width, y1 + recHeight), new Vector2(0, y1 + recHeight));
-            BoundingLine bL4 = new BoundingLine(new Vector2(0, y1 + recHeight), new Vector2(0, y1));
+            boundingContainer.AddPolygon(
+                0, y1,
+                Width, y1,
+                Width, y1 + recHeight,
+                0, y1 + recHeight,
+                0, y1
+            );
 
-            this.boundingContainer.addBoundingBox(bL1);
-            this.boundingContainer.addBoundingBox(bL2);
-            this.boundingContainer.addBoundingBox(bL3);
-            this.boundingContainer.addBoundingBox(bL4);
+            //BoundingLine bL1 = new BoundingLine(new Vector2(0, y1), new Vector2(Width, y1));
+            //BoundingLine bL2 = new BoundingLine(new Vector2(Width, y1), new Vector2(Width, y1 + recHeight));
+            //BoundingLine bL3 = new BoundingLine(new Vector2(Width, y1 + recHeight), new Vector2(0, y1 + recHeight));
+            //BoundingLine bL4 = new BoundingLine(new Vector2(0, y1 + recHeight), new Vector2(0, y1));
+
+            //this.boundingContainer.addBoundingBox(bL1);
+            //this.boundingContainer.addBoundingBox(bL2);
+            //this.boundingContainer.addBoundingBox(bL3);
+            //this.boundingContainer.addBoundingBox(bL4);
         }
 
  
@@ -57,8 +69,16 @@ namespace Sketchball.Elements
         public override void Draw(System.Drawing.Graphics g)
         {
             base.Draw(g);
-            
-            g.DrawRectangle(Pens.Green, 0, Height / 10 * 8, Width, Height / 10 * 2);
+
+
+            g.TranslateTransform(-X, -Y);
+            boundingContainer.boundingBoxes.ForEach((b) =>
+            {
+                b.drawDEBUG(g, Pens.Red);
+            });
+            g.TranslateTransform(X, Y);
+
+           // g.DrawRectangle(Pens.Green, 0, Height / 10 * 8, Width, Height / 10 * 2);
             //g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
         }
 
@@ -105,7 +125,8 @@ namespace Sketchball.Elements
         }
 
     }
-
+    
+    [DataContract]
     public class LeftFlipper : Flipper
     {
         public LeftFlipper()
@@ -115,6 +136,7 @@ namespace Sketchball.Elements
         }
     }
 
+    [DataContract]
     public class RightFlipper : Flipper
     {
 

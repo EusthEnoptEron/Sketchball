@@ -1,4 +1,5 @@
 ﻿using Sketchball.Controls;
+using Sketchball.Editor;
 using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
@@ -17,22 +18,68 @@ namespace Sketchball
 
     public partial class EditorForm : Form
     {
-
         private SelectionForm selectionForm;
         private ToolTip tt = new ToolTip();
 
+        private Tool _currentTool = null;
+        private string _fileName;
+
+        /// <summary>
+        /// Gets or sets the current filename of the pinball machine file.
+        /// </summary>
+        public string FileName
+        {
+            get { return _fileName; }
+            set
+            {
+                _fileName = value;
+                var name = _fileName;
+                if (name == null) name = "Untitled machine";
+                
+                Text = name + " - Pinball Machine Editor";
+            }
+        }
+
+        private Tool CurrentTool
+        {
+            get
+            {
+                return _currentTool;
+            }
+            set
+            {
+                if (_currentTool != null)
+                {
+                    _currentTool.Leave();
+                    Tools[_currentTool].Checked = false;
+                }
+
+                _currentTool = value;
+
+                _currentTool.Enter();
+                Tools[_currentTool].Checked = true;
+            }
+        }
+
+        private Dictionary<Tool, ToolStripButton> Tools = new Dictionary<Tool, ToolStripButton>();
 
         private DragState dragState = new DragState();
 
         public EditorForm()
         {
             InitializeComponent();
-            PlayFieldEditor.ScaleFactor *= 1f;
 
+            //PlayFieldEditor.ScaleFactor *= 1f;
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
-            Font tabFont = new Font(FontManager.Courgette, 14);       
+
+            populateElementPanel();
+            populateToolPanel();
+
+            FileName = null;
         }
+
+ 
 
         public EditorForm(SelectionForm selectionForm) : this()
         {
@@ -45,7 +92,7 @@ namespace Sketchball
 
             // TODO: Complete member initialization
             this.selectionForm = selectionForm;
-            PlayFieldEditor.PinballMachine = pbm;
+            PlayFieldEditor.LoadMachine(pbm);
         }
 
         void element_MouseDown(object sender, MouseEventArgs e)
@@ -66,83 +113,28 @@ namespace Sketchball
             f.ShowDialog();
         }
 
-        private void EditorForm_Load(object sender, EventArgs e)
+        private void populateToolPanel()
         {
-            populateElementPanel();
-            PlayFieldEditor.Controls.Add(dragThumb);
+            // List of available tools
+            Tool[] tools = new Tool[] { new LineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor) };
+
+
+            // Initiate all tools and connect them with a button
+            foreach (var tool in tools)
+            {
+                ToolStripButton button = new ToolStripButton(tool.Icon);
+                button.ToolTipText = tool.Label;
+                button.Click += (s, e) => { CurrentTool = tool; };
+
+                toolBar.Items.Add(button);
+                Tools.Add(tool, button);
+            }
+
+            if (tools.Length > 0)
+            {
+                CurrentTool = tools[0];
+            }
         }
-
-        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void TitleLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.selectionForm.Visible = true;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SplitToNameAndTools_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_MouseHover(object sender, EventArgs e)
-        {
-            
-            tt.SetToolTip(this.LineTool, "Line Tool");
-        }
-
-        private void CircleTool_MouseHover(object sender, EventArgs e)
-        {
-            tt.SetToolTip(this.CircleTool, "Circle Tool");
-        }
-
-        private void SelectionTool_MouseHover(object sender, EventArgs e)
-        {
-            tt.SetToolTip(this.SelectionTool, "Selection");
-        }
-
-        private void undoTool_MouseHover(object sender, EventArgs e)
-        {
-            tt.SetToolTip(this.undoTool, "Undo");
-        }
-
-        private void RedoTool_MouseHover(object sender, EventArgs e)
-        {
-            tt.SetToolTip(this.RedoTool, "Redo");
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void populateElementPanel()
         {
@@ -155,7 +147,22 @@ namespace Sketchball
             {
                 c.MouseDown += StartDragAndDrop;
             }
+
+            PlayFieldEditor.Controls.Add(dragThumb);
         }
+
+        private void EditorForm_Load(object sender, EventArgs e)
+        {
+          
+        }
+
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         private void StartDragAndDrop(object sender, MouseEventArgs e)
         {
@@ -223,6 +230,69 @@ namespace Sketchball
         {
             internal bool Active = false;
             internal PinballElement Element = null;
+        }
+
+        private void openPBMButton_Click(object sender, EventArgs e)
+        {
+            if (MayOmitChanges())
+            {
+                var result = openFileDialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    PinballMachine pbm = PinballMachine.FromFile(openFileDialog.FileName);
+
+                    if (pbm.IsValid())
+                    {
+                        PlayFieldEditor.LoadMachine(pbm);
+                        FileName = openFileDialog.FileName;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void savePBMButton_Click(object sender, EventArgs e)
+        {
+            if (FileName == null)
+            {
+                var result = saveFileDialog.ShowDialog();
+                if (result != DialogResult.OK) return;
+                else FileName = saveFileDialog.FileName;
+            }
+
+            PlayFieldEditor.PinballMachine.Save(FileName);
+        }
+
+        private void newPBMButton_Click(object sender, EventArgs e)
+        {
+            if (MayOmitChanges())
+            {
+                PlayFieldEditor.LoadMachine(new PinballMachine());
+                FileName = null;
+            }
+
+        }
+
+        private bool MayOmitChanges()
+        {
+            if (PlayFieldEditor.History.HasChanged())
+            {
+                var result = MessageBox.Show("There are unsaved changes, do you want to continue?", "Unsaved changes!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                return result == DialogResult.OK;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            var form = new PlayForm(PlayFieldEditor.PinballMachine);
+            form.ShowDialog();
         }
       
     }
