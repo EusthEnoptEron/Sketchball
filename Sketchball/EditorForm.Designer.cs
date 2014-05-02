@@ -230,10 +230,10 @@
             this.PlayFieldEditor.Size = new System.Drawing.Size(813, 624);
             this.PlayFieldEditor.TabIndex = 2;
             this.PlayFieldEditor.Text = "pinballEditControl1";
-            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.DragDrop);
-            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
-            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.DragOver);
-            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.DragLeave);
+            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
+            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
+            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
             this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
             this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
             // 

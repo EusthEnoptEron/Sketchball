@@ -78,7 +78,7 @@ namespace Sketchball.Elements
             });
             g.TranslateTransform(X, Y);
 
-           // g.DrawRectangle(Pens.Green, 0, Height / 10 * 8, Width, Height / 10 * 2);
+            g.DrawRectangle(Pens.Green, 0, Height / 10 * 8, Width, Height / 10 * 2);
             //g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
         }
 

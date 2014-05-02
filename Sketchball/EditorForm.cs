@@ -170,25 +170,25 @@ namespace Sketchball
         }
 
 
-        private void DragDrop(object sender, DragEventArgs e)
+        private void OnDragDrop(object sender, DragEventArgs e)
         {
             
             PlayFieldEditor.PinballMachine.Add(dragState.Element);
             PlayFieldEditor.Invalidate();
         }
 
-        private void DragEnter(object sender, DragEventArgs e)
+        private void OnDragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
             dragThumb.Visible = true;
         }
 
-        private void DragLeave(object sender, EventArgs e)
+        private void OnDragLeave(object sender, EventArgs e)
         {
             dragThumb.Visible = false;
         }
 
-        private void DragOver(object sender, DragEventArgs e)
+        private void OnDragOver(object sender, DragEventArgs e)
         {
             dragThumb.Location = PlayFieldEditor.PointToClient(new Point(e.X + 1, e.Y + 1));
 

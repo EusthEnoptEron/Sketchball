@@ -16,18 +16,19 @@ namespace Sketchball.Elements
             
         
             this.setLocation(new Vector2(300, 300));
-            
-
-            //set up of bounding box
-            BoundingCircle bC = new BoundingCircle(100, new Vector2(0, 0));
-            this.boundingContainer.addBoundingBox(bC);
-            bC.assigneToContainer(this.boundingContainer);
  
         }
 
         public override void Draw(System.Drawing.Graphics g)
         {
             
+        }
+
+        protected override void InitBounds()
+        {
+            BoundingCircle bC = new BoundingCircle(100, new Vector2(0, 0));
+            this.boundingContainer.addBoundingBox(bC);
+            bC.assigneToContainer(this.boundingContainer);
         }
     }
 }

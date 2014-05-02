@@ -44,7 +44,6 @@ namespace Sketchball.Tests.Elements
             pbm.Save(fileName);
             pbm2 = PinballMachine.FromFile(fileName);
 
-
             Assert.IsNotNull(pbm2);
             Assert.AreEqual(pbm.Elements.Count(), pbm2.Elements.Count());
 
