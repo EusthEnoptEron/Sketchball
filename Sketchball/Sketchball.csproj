@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Editor\CircleTool.cs" />
     <Compile Include="Editor\LineTool.cs" />
+    <Compile Include="Editor\MultiLineTool.cs" />
     <Compile Include="Editor\Tool.cs" />
     <Compile Include="Elements\AnimatedObject.cs" />
     <Compile Include="Controls\ElementControl.cs">
@@ -85,6 +86,7 @@
     </Compile>
     <Compile Include="Elements\Ball.cs" />
     <Compile Include="Elements\Bumper.cs" />
+    <Compile Include="Elements\Circle.cs" />
     <Compile Include="Elements\DefaultLayout.cs" />
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
@@ -163,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\MultiLineTool.png" />
     <None Include="Resources\hole.png" />
     <None Include="Resources\Bumper.png" />
     <None Include="Resources\Redo-icon.png" />

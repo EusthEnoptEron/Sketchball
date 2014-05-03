@@ -12,6 +12,7 @@ namespace Sketchball.Editor
 
     public abstract class Tool
     {
+        protected readonly int curserCorrection = -15;
         protected PinballEditControl Control;
         public string Label { get; protected set; }
         public Image Icon { get; protected set; }
@@ -23,7 +24,7 @@ namespace Sketchball.Editor
             Icon  = new Bitmap(1, 1);
 	    }
 
-        public void Enter()
+        public virtual void Enter()
         {
             // Bind handlers
             Control.MouseDown += OnMouseDown;
@@ -35,7 +36,7 @@ namespace Sketchball.Editor
         }
 
 
-        public void Leave()
+        public virtual void Leave()
         {
             // Unbind handlers
             Control.MouseDown -= OnMouseDown;

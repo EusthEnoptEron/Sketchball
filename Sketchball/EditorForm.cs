@@ -97,7 +97,7 @@ namespace Sketchball
         private void populateToolPanel()
         {
             // List of available tools
-            Tool[] tools = new Tool[] { new LineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor) };
+            Tool[] tools = new Tool[] { new LineTool(PlayFieldEditor), new MultiLineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor) };
 
 
             // Initiate all tools and connect them with a button
@@ -206,6 +206,7 @@ namespace Sketchball
             dragState.Active = false;
             dragState.Element = null;
         }
+
 
         internal class DragState
         {
