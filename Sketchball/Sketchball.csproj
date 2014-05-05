@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
-    <Compile Include="Change.cs" />
+    <Compile Include="Editor\Change.cs" />
     <Compile Include="Collision\BoundingBox.cs" />
     <Compile Include="Collision\BoundingCircle.cs" />
     <Compile Include="Collision\BoundingContainer.cs" />
@@ -112,7 +112,7 @@
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />
     <Compile Include="Elements\PinballElement.cs" />
-    <Compile Include="History.cs" />
+    <Compile Include="Editor\History.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="GameFieldCamera.cs" />
     <Compile Include="PlayForm.cs">
@@ -129,7 +129,7 @@
     <Compile Include="SelectionForm.Designer.cs">
       <DependentUpon>SelectionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TranslationChange.cs" />
+    <Compile Include="Editor\TranslationChange.cs" />
     <Compile Include="Vector2.cs" />
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
