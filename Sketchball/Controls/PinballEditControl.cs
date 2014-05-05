@@ -34,9 +34,9 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
            // SetStyle(ControlStyles.UserPaint, true);
 
-            MouseDown += StartDrag;
-            MouseMove += DoDrag;
-            MouseUp += StopDrag;
+            //MouseDown += StartDrag;
+            //MouseMove += DoDrag;
+            //MouseUp += StopDrag;
         }
 
         void StopDrag(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -52,16 +52,17 @@ namespace Sketchball.Controls
             }
         }
 
-        void DoDrag(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (dragging)
-            {
-                Point loc = PointToPinball(e.Location);
-                SelectedElement.Location = (startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y));
-                Invalidate();
-            }
-        }
+        //void DoDrag(object sender, System.Windows.Forms.MouseEventArgs e)
+        //{
+        //    if (dragging)
+        //    {
+        //        Point loc = PointToPinball(e.Location);
+        //        SelectedElement.Location = (startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y));
+        //        Invalidate();
+        //    }
+        //}
 
+        /*
         void StartDrag(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -80,19 +81,7 @@ namespace Sketchball.Controls
             }            
         }
 
-        private PinballElement FindElement(Point location)
-        {
-            foreach (PinballElement element in PinballMachine.DynamicElements)
-            {
-                if (element.Contains(location))
-                {
-                    return element;
-                }
-            }
-
-            return null;
-        }
-
+       */
         protected override void ConfigureGDI(Graphics g)
         {
             base.ConfigureGDI(g);
@@ -103,9 +92,12 @@ namespace Sketchball.Controls
             //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
             Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
             g.FillRectangle(brush, 0, 0, base.Width, base.Height);
+
+            var state = g.Save();
             g.Transform = Transform;
 
             PinballMachine.Draw(g);
+            g.Restore(state);
         }
 
         private Matrix Transform
