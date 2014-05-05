@@ -146,6 +146,13 @@ namespace Sketchball.Elements
             machine.Gravity = Gravity;
 
             // Clone elements
+            // (clone static ones just to be sure their settings are OK)
+            machine.StaticElements = new ElementCollection(machine);
+            foreach (PinballElement element in StaticElements)
+            {
+                machine.StaticElements.Add((PinballElement)element.Clone());
+            }
+
             machine.DynamicElements = new ElementCollection(machine);
             foreach (PinballElement element in DynamicElements)
             {
