@@ -25,7 +25,7 @@ namespace Sketchball.Editor
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            this.center = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
+            this.center = new Vector2(e.X, e.Y);
             this.radius = 0;
 
             this.drawing = true;
@@ -34,10 +34,11 @@ namespace Sketchball.Editor
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
-            this.radius = (new Vector2(e.X + curserCorrection, e.Y + curserCorrection) - this.center).Length();
+            this.radius = (new Vector2(e.X, e.Y) - this.center).Length();
+            var center = Control.PointToPinball(this.center);
 
             //Create Circle
-            Circle c = new Circle(this.center.X - this.radius, this.center.Y - this.radius, this.radius);
+            Circle c = new Circle(center.X - this.radius, center.Y - this.radius, this.radius);
             this.Control.PinballMachine.DynamicElements.Add(c);
 
             this.drawing = false;
@@ -48,7 +49,7 @@ namespace Sketchball.Editor
         {
             if (this.drawing)
             {
-                this.radius = (new Vector2(e.X + curserCorrection, e.Y + curserCorrection) - this.center).Length();
+                this.radius = (new Vector2(e.X, e.Y) - this.center).Length();
                 this.Control.Refresh();
             }
         }

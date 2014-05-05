@@ -142,6 +142,12 @@ namespace Sketchball.Controls
             return pArray[0];
         }
 
+        public Vector2 PointToPinball(Vector2 p)
+        {
+            var point = PointToPinball(new Point((int)p.X, (int)p.Y));
+            return new Vector2(point.X, point.Y);
+        }
+
         /// <summary>
         /// Computes the location of the specified pinball point into editor coordinates. 
         /// </summary>
@@ -154,6 +160,12 @@ namespace Sketchball.Controls
             m.TransformPoints(pArray);
 
             return pArray[0];
+        }
+
+        public Vector2 PointToEditor(Vector2 p)
+        {
+            var point = PointToEditor(new Point((int)p.X, (int)p.Y));
+            return new Vector2(point.X, point.Y);
         }
 
         public void LoadMachine(PinballMachine machine) {

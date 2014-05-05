@@ -28,33 +28,32 @@ namespace Sketchball.Editor
         {
             if (drawing == false)
             {
-                this.startPos = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
-                this.actualPos = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
+                this.startPos = new Vector2(e.X, e.Y);
+                this.actualPos = new Vector2(e.X, e.Y);
                 this.drawing = true;
                 this.Control.Refresh();
             }
         }
 
-        public override void Enter()
+        protected override void OnSelect()
         {
             Control.MouseDoubleClick += OnMouseDoubleClick;
-            base.Enter();
         }
 
-       
-
-        public override void Leave()
+        protected override void OnUnselect()
         {
             Control.MouseDoubleClick -= OnMouseDoubleClick;
-            base.Leave();
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
-            this.actualPos = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
+            this.actualPos = new Vector2(e.X, e.Y);
+
+            var end = Control.PointToPinball(actualPos);
+            var start = Control.PointToPinball(startPos);
 
             //Create Line
-            Line l = new Line(this.startPos.X, this.startPos.Y, this.actualPos.X, this.actualPos.Y);
+            Line l = new Line(start.X, start.Y, end.X, end.Y);
             this.Control.PinballMachine.DynamicElements.Add(l);
 
             this.startPos = actualPos;
@@ -71,8 +70,8 @@ namespace Sketchball.Editor
         {
             if (this.drawing)
             {
-                this.actualPos.X = e.X + curserCorrection;
-                this.actualPos.Y = e.Y + curserCorrection;
+                this.actualPos.X = e.X;
+                this.actualPos.Y = e.Y;
 
                 this.Control.Refresh();
             }
