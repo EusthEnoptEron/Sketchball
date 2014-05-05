@@ -76,6 +76,9 @@ namespace Sketchball
             populateElementPanel();
             populateToolPanel();
 
+            editToolStripMenuItem.DropDownItems.Add(new UndoItem(PlayFieldEditor.History));
+            editToolStripMenuItem.DropDownItems.Add(new RedoItem(PlayFieldEditor.History));
+
             FileName = null;
         }
 
@@ -304,53 +307,4 @@ namespace Sketchball
       
     }
 
-    class UndoButton : ToolStripButton
-    {
-        private History history;
-
-        public UndoButton(History history)
-        {
-            this.history = history;
-            history.Change += OnChange;
-            this.Image = Properties.Resources.Undo_icon;
-            
-            OnChange();
-        }
-
-        protected override void OnClick(EventArgs e)
-        {
-            history.Undo();
-        }
-
-        void OnChange()
-        {
-            Enabled = history.CanUndo();
-        }
-        
-    }
-
-    class RedoButton : ToolStripButton
-    {
-        private History history;
-
-        public RedoButton(History history)
-        {
-            this.history = history;
-            history.Change += OnChange;
-            this.Image = Properties.Resources.Redo_icon;
-
-            OnChange();
-        }
-
-        protected override void OnClick(EventArgs e)
-        {
-            history.Redo();
-        }
-
-        void OnChange()
-        {
-            Enabled = history.CanRedo();
-        }
-
-    }
 }

@@ -81,6 +81,9 @@
     <Compile Include="Editor\LineTool.cs" />
     <Compile Include="Editor\MultiLineTool.cs" />
     <Compile Include="Editor\Tool.cs" />
+    <Compile Include="Editor\UndoRedoButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Elements\AnimatedObject.cs" />
     <Compile Include="Controls\ElementControl.cs">
       <SubType>UserControl</SubType>
