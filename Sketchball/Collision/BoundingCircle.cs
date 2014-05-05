@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Collision
 {
+    /// <summary>
+    /// Circle variant
+    /// </summary>
     public class BoundingCircle : BoundingBox
     {
         public int radius{get; private set;}
       
         /// <summary>
-        /// creates new Bounding Circle
+        /// Creates new bounding circle
         /// </summary>
-        /// <param name="radius"></param>
+        /// <param name="radius">Radius of the bounding circle</param>
         /// <param name="center">position based on pinballElement</param>
         public BoundingCircle(int radius, Vector2 center)
         {
@@ -23,22 +26,30 @@ namespace Sketchball.Collision
             this.position = center+new Vector2(radius,radius);
         }
 
+        public override bool intersec(IBoundingBox bB,out Vector2 hitPoint, Vector2 velocity )
+        {
+            return bB.circleIntersec(this,out hitPoint,velocity);
+        }
+
         public override bool intersec(IBoundingBox bB,out Vector2 hitPoint)
         {
-            return bB.circleIntersec(this,out hitPoint);
+            return bB.circleIntersec(this,out hitPoint, new Vector2(0,0));
         }
 
         public override Vector2 reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos)
         {
             //circle => position = origin of object space coordinate system
             //=> normal to make reflection is from origin to hitpoint (hitpoint must be conferted to object space first)
-            Vector2 normal = Vector2.Normalize(hitPoint-(this.BoundingContainer.parentElement.getLocation() + new Vector2(this.radius,this.radius)));
+            //TODO take position of bounding box into account
+           
+            Vector2 normal = Vector2.Normalize(hitPoint-(this.BoundingContainer.parentElement.getLocation() +this.position));
             return Vector2.Reflect(vecIn, normal);
         }
 
         public override Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos)
         {
-            return (diameterBall / 1.9f) * Vector2.Normalize(hitPoint - (this.BoundingContainer.parentElement.getLocation() + new Vector2(this.radius, this.radius)));
+            //TODO take bounding box position into account
+            return (diameterBall / 1.9f) * Vector2.Normalize(hitPoint - (this.BoundingContainer.parentElement.getLocation() + this.position));
         }
 
         public override void rotate(float rad, Vector2 center)
@@ -77,7 +88,7 @@ namespace Sketchball.Collision
 
             float lenDirectionPiece = Vector2.Dot((centerOfCircle - bLWorldPos) , Vector2.Normalize(directionLine));
            // Console.WriteLine(bL.position+" "+bL.target+" "+lenDirectionPiece);
-            if (lenDirectionPiece < -this.radius || lenDirectionPiece > (directionLine.Length()+this.radius))
+            if (lenDirectionPiece < -this.radius || lenDirectionPiece >= (directionLine.Length()+this.radius))
             {
                 return false;
             }
@@ -109,8 +120,7 @@ namespace Sketchball.Collision
            
         }
 
-
-        public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint)
+        public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity)
         {
             
             Vector2 thisWorldTras = this.BoundingContainer.parentElement.getLocation();
@@ -118,13 +128,34 @@ namespace Sketchball.Collision
 
             if (Vector2.Distance(bC.position + bCWorldTrans, this.position + thisWorldTras) < (this.radius + bC.radius))    
             {
-                hitPoint = bC.position + bCWorldTrans + Vector2.Normalize(-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)) * bC.radius;
+                Vector2 direction = (-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)); ;
+                if (velocity != new Vector2(0, 0))
+                {
+                    if (direction.X == 0 && direction.Y == 0)
+                    {
+                        direction = -velocity;
+                    }
+                    else if (direction.X * velocity.X >= 0 && direction.Y* velocity.Y >= 0)
+                    {
+                        //point in the same direction => reverse direction
+                        direction = -direction;
+                    }
+                    
+                }
+                if (direction.X == 0 && direction.Y == 0)
+                {
+                    direction.X = 0;
+                    direction.Y = -1;
+                }
+                direction = Vector2.Normalize(direction);
+                //hitPoint = bC.position + bCWorldTrans + Vector2.Normalize(-(bC.position + bCWorldTrans) + (this.position + thisWorldTras)) * bC.radius
+                hitPoint = bC.position + bCWorldTrans + direction * bC.radius;
                 return true;
             }
+
             hitPoint = new Vector2(0, 0);
             return false;
         }
-
 
         public override void drawDEBUG(System.Drawing.Graphics g, Pen p)
         {

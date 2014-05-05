@@ -33,6 +33,7 @@ namespace Sketchball
             originalMachine = pbm;
             game = new Game(pbm);
             gameView = new GameView(game);
+            gameView.MouseUp += OnMouseUp;
 
             // Fill entire space
             gameView.Dock = DockStyle.Fill;
@@ -40,16 +41,10 @@ namespace Sketchball
             Controls.Add(gameView);
 
             this.selectionForm = selectionForm;
+
+            debugModeButton.Checked = Properties.Settings.Default.Debug;
         }
 
-        private void PlayForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            game.Dispose();
-            if (selectionForm != null)
-            {
-                selectionForm.Show();
-            }
-        }
 
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -126,9 +121,25 @@ namespace Sketchball
 
             if (result == DialogResult.OK)
             {
-                this.Close();
-                //selectionForm.OpenEditor(originalMachine);
+                selectionForm.OpenEditor(originalMachine);
             }
         }
+
+        private void debugModeButton_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Debug = debugModeButton.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+
+        private void OnMouseUp(object sender, MouseEventArgs e)
+        {
+            if (Properties.Settings.Default.Debug && e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                game.Machine.IntroduceBall();
+                game.Machine.Balls.Last().Location = new Vector2(e.X, e.Y);
+            }
+        }
+
     }
 }

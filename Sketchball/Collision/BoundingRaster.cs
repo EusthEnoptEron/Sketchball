@@ -9,23 +9,69 @@ namespace Sketchball.Collision
 {
     public class BoundingRaster
     {
+        /// <summary>
+        /// Defines amount of rows (must be in sync with height and fieldHeight)
+        /// </summary>
         public int rows { get; private set; }
+
+        /// <summary>
+        /// Defines amount of cols (must be in sync with width and fieldWidth)
+        /// </summary>
         public int cols { get; private set; }
 
+        /// <summary>
+        /// Defines width of form (must be in sync with cols and fieldWidth)
+        /// </summary>
         public int width { get; set; }
+
+        /// <summary>
+        /// Defines height of form (must be in sync with rows and fieldHeight)
+        /// </summary>
         public int height { get; set; }
 
+        /// <summary>
+        /// List of all animated objects
+        /// </summary>
         private LinkedList<IBoundingBox> animatedObjects;
+
+        /// <summary>
+        /// Fields on the raster that hold reference to bounding boxes
+        /// </summary>
         private BoundingField[,] fields;
 
+        /// <summary>
+        /// Width of one field
+        /// </summary>
         private int fieldWidth;
+
+        /// <summary>
+        /// Height of one field
+        /// </summary>
         private int fieldHeight;
 
         public Vector2 hitPointDebug = new Vector2(0, 0);
 
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="cols">Amount of columns</param>
+        /// <param name="rows">Amount of rows</param>
+        /// <param name="width">Width of the form</param>
+        /// <param name="height">Height of the form</param>
         public BoundingRaster(int cols, int rows, int width, int height)
         {
+            if ((width / cols) % 1 != 0)
+            {
+                //not whole number
+                throw new ArgumentException("width / cols must be whole number");
+            }
+
+            if ((height / rows) % 1 != 0)
+            {
+                //not whole number
+                throw new ArgumentException("width / cols must be whole number");
+            }
+
             this.animatedObjects = new LinkedList<IBoundingBox>();
             this.fields = new BoundingField[cols, rows];
 
@@ -48,6 +94,11 @@ namespace Sketchball.Collision
 
         }
 
+        /// <summary>
+        /// Goes though the bounding container and takes over his bounding boxes.
+        /// Animated Objects do not need to be taken over
+        /// </summary>
+        /// <param name="bC">Container that holds bounding boxes to add</param>
         public void TakeOverBoundingContainer(BoundingContainer bC) {
             Vector2 worldTrans = bC.parentElement.getLocation();
 
@@ -72,6 +123,24 @@ namespace Sketchball.Collision
                     //2*cicFieldsY + (1 where the ceneter is) will make the height of the square which includes the circle)
                     int circFieldsX = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldWidth));
                     int circFieldsy = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldHeight));
+
+                    if ((bCir.position.X + worldTrans.X) < 0)
+                    {
+                        x = (x - 1);
+                        if (circFieldsX + x > 0)
+                        {
+                            circFieldsX++;
+                        }
+                    }
+
+                    if ((bCir.position.Y + worldTrans.Y) < 0)
+                    {
+                        y = (y - 1);
+                        if (circFieldsy + y > 0)
+                        {
+                            circFieldsy++;
+                        }
+                    }
 
                     //go from the left to the right of the square
                     for (int h = x - circFieldsX; h <= x + circFieldsX; h++)
@@ -116,11 +185,11 @@ namespace Sketchball.Collision
 
                     if (unitV.X > 0)
                     {
-                        takeOverBoundingLineLeftToRight(unitV, posX, posY, x, y, bL, worldTrans);
+                        takeOverBoundingLineLeftToRight(unitV, posX, posY,ref x,ref y, bL, worldTrans);
                     }
                     else
                     {
-                        takeOverBoundingLineRightToLeft(unitV, posX, posY, x, y, bL, worldTrans);
+                        takeOverBoundingLineRightToLeft(unitV, posX, posY,ref x,ref y, bL, worldTrans);
                     }
 
                     //at this point all x fields have been added but there might be some y fields who get touched but are not referenced yet.
@@ -131,7 +200,7 @@ namespace Sketchball.Collision
 
                     if (unitV.Y > 0)        //heading down
                     {
-                        for (int i = y + 1; i < endField; i++)
+                        for (int i = y + 1; i <= endField; i++)
                         {
                             if (IsWithinBounds(x, i))
                                 this.fields[x, i].addReference(bL);
@@ -149,6 +218,11 @@ namespace Sketchball.Collision
             }       //foreach (IBoundingBox b in bC.boundingBoxes)
         }
 
+        /// <summary>
+        /// Goes through all elements given and adds their bounding boxes to the raster.
+        /// Animated Objects do not need to be taken over
+        /// </summary>
+        /// <param name="eles">Elements to add</param>
         public void takeOverBoundingBoxes(IEnumerable<PinballElement> eles)
         {
 
@@ -172,7 +246,10 @@ namespace Sketchball.Collision
             }       //foreach (PinballElement pE in eles)
         }
 
-        private void takeOverBoundingLineLeftToRight(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL, Vector2 worldTrans)
+        /// <summary>
+        /// Submethod to TakeOverBoundingContainer - not intended to be called outside of TakeOverBoundingContainer
+        /// </summary>
+        private void takeOverBoundingLineLeftToRight(Vector2 unitV, float posX, float posY,ref int x,ref int y, BoundingLine bL, Vector2 worldTrans)
         {
             if (unitV.X == 0)
             {
@@ -239,7 +316,10 @@ namespace Sketchball.Collision
 
         }
 
-        private void takeOverBoundingLineRightToLeft(Vector2 unitV, float posX, float posY, int x, int y, BoundingLine bL, Vector2 worldTrans)
+        /// <summary>
+        /// Submethod to TakeOverBoundingContainer - not intended to be called outside of TakeOverBoundingContainer
+        /// </summary>
+        private void takeOverBoundingLineRightToLeft(Vector2 unitV, float posX, float posY,ref int x,ref int y, BoundingLine bL, Vector2 worldTrans)
         {
             if (unitV.X == 0)
             {
@@ -259,14 +339,14 @@ namespace Sketchball.Collision
                 float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
-                int newFieldYIdx = ((int)(nextXCrossY) / fieldHeight);
+                int newFieldYIdx = ((int)(nextXCrossY-1) / fieldHeight);
 
                 if (unitV.Y > 0)        //heading down
                 {
                     if (newFieldYIdx > y)
                     {
                         //we entered new y field(s)
-                        for (int i = y; i < newFieldYIdx; y++)
+                        for (int i = y; i < newFieldYIdx; i++)
                         {
                             if (IsWithinBounds(x, i))
                                 this.fields[x, i].addReference(bL);      //this is a field that the line goes through
@@ -279,7 +359,7 @@ namespace Sketchball.Collision
                     if (newFieldYIdx < y)
                     {
                         //we entered new y field(s)
-                        for (int i = y; i > newFieldYIdx; y--)
+                        for (int i = y; i > newFieldYIdx; i--)
                         {
                             if (IsWithinBounds(x, i))
                                 this.fields[x, i].addReference(bL);      //this is a field that the line goes through
@@ -297,7 +377,7 @@ namespace Sketchball.Collision
 
                 //since we are at the border of a field the deltaRight will allways be the full field width
                 deltaLeft = fieldWidth;
-                if (x > 0)
+                if (x >= 0)
                 {
                     if (IsWithinBounds(x, newFieldYIdx))
                         this.fields[x, newFieldYIdx].addReference(bL);       //add the next x field (since the line just gets crossed)
@@ -311,6 +391,10 @@ namespace Sketchball.Collision
             return x >= 0 && x < cols && y >= 0 && y < rows;
         }
 
+        /// <summary>
+        /// This method takes a ball and handles the collision of it with all other bounding boxes in this raster
+        /// </summary>
+        /// <param name="ball">Ball that causes collisions</param>
         public void handleCollision(Ball ball)
         {
             //Collide first with animated object then with object around ball self
@@ -325,7 +409,7 @@ namespace Sketchball.Collision
                 }
 
                 Vector2 hitPoint = new Vector2(0, 0);
-                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint))       //specify bounding box of ball
+                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                 {
                     history.AddFirst(b);
                     AnimatedObject aniO = ((AnimatedObject)b.BoundingContainer.parentElement);
@@ -350,7 +434,7 @@ namespace Sketchball.Collision
 
                     ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
 
-                    ball.Velocity = b.BoundingContainer.parentElement.reflectManipulation(newDirection);
+                    ball.Velocity = b.reflectManipulation(newDirection);
                     this.hitPointDebug = hitPoint;
                 }
             }
@@ -379,7 +463,7 @@ namespace Sketchball.Collision
                                 }
 
                                 Vector2 hitPoint = new Vector2(0, 0);
-                                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint))       //specify bounding box of ball
+                                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                                 {
                                     //collision
 
@@ -389,10 +473,8 @@ namespace Sketchball.Collision
                                     Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection, ball.getLocation());
 
                                     ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
-
-                                    //  ball.boundingContainer.parentElement.World.Gravity = 0;
-
-                                    ball.Velocity = b.BoundingContainer.parentElement.reflectManipulation(newDirection);
+         
+                                    ball.Velocity = b.reflectManipulation(newDirection);
                                     this.hitPointDebug = hitPoint;
                                 }
                             }
@@ -404,21 +486,55 @@ namespace Sketchball.Collision
         }
 
 
-
+        /// <summary>
+        /// Adds an animated object to the raster (no need to call take over bounding boxes on this.
+        /// </summary>
+        /// <param name="aO">Element to add</param>
         public void addAnimatedObject(IBoundingBox aO)
         {
             this.animatedObjects.AddLast(aO);
         }
 
+        /// <summary>
+        /// Returns all animated objects
+        /// </summary>
+        /// <returns>List of animated objects</returns>
         public LinkedList<IBoundingBox> getAnimatedObjects()
         {
             return this.animatedObjects;
         }
-
+        /// <summary>
+        /// Removes an animated object
+        /// </summary>
+        /// <param name="aO">The object to be removed</param>
         public void removeAnimatedObject(IBoundingBox aO)
         {
             this.animatedObjects.Remove(aO);
         }
+
+        /// <summary>
+        /// Returns the fieldWidth // for test purposes
+        /// </summary>
+        /// <returns>fieldWidth</returns>
+        public int getFieldWidth()
+        {
+            return this.fieldWidth;
+        }
+
+        /// <summary>
+        /// Returns the fieldHeight // for test purposes
+        /// </summary>
+        /// <returns>fieldHeight</returns>
+        public int getFieldHeight()
+        {
+            return this.fieldHeight;
+        }
+
+        public BoundingField getBoundingField(int x, int y)
+        {
+            return this.fields[x, y];
+        }
+
 
     }
 }

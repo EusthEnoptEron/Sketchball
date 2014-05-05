@@ -122,6 +122,7 @@ namespace Sketchball.Controls
             int counter = 1;
             while (true)
             {
+                if (!IsHandleCreated) return;
                 now = DateTime.Now;
 
                 if (Game.Status == GameStatus.Playing || counter-- > 0)

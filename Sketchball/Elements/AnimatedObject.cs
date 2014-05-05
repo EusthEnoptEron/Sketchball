@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
+    [DataContract]
     public abstract class AnimatedObject : PinballElement, IAnimatedObject
     {
         public float Rotation { get; set; }

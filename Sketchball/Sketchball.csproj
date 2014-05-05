@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,6 +74,9 @@
     <Compile Include="Controls\GameView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Editor\CircleTool.cs" />
+    <Compile Include="Editor\LineTool.cs" />
+    <Compile Include="Editor\Tool.cs" />
     <Compile Include="Elements\AnimatedObject.cs" />
     <Compile Include="Controls\ElementControl.cs">
       <SubType>UserControl</SubType>
@@ -160,6 +164,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\hole.png" />
+    <None Include="Resources\Bumper.png" />
+    <None Include="Resources\Redo-icon.png" />
+    <None Include="Resources\Undo-icon.png" />
+    <None Include="Resources\Very-Basic-Cursor-icon.png" />
+    <None Include="Resources\Windows_Cursor.png" />
+    <None Include="Resources\circle-outline-512.png" />
+    <None Include="Resources\LineTool.png" />
+    <None Include="Resources\32217.png" />
+    <None Include="Resources\refresh_icon_scalable_vector_graphics_svg-1969px.png" />
+    <None Include="Resources\editor-eraser.png" />
+    <None Include="Resources\pencil-1979px.png" />
+    <None Include="Resources\BackgroundScharf.png" />
+    <None Include="Resources\PlaySchrift1.png" />
+    <None Include="Resources\Exit.png" />
+    <None Include="Resources\EditorSchrift2.png" />
+    <None Include="Resources\BackgroundextraScharf.png" />
     <None Include="Resources\Notebook.png" />
     <None Include="Resources\WoodPattern.png" />
     <None Include="Resources\ScoreBG.png" />

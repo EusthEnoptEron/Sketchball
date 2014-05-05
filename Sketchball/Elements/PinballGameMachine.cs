@@ -20,7 +20,6 @@ namespace Sketchball.Elements
 
         private BoundingRaster boundingRaster;
 
-
         /// <summary>
         /// No more elements can be added after this function call 
         /// </summary>
@@ -63,6 +62,11 @@ namespace Sketchball.Elements
 
             for (int i = Balls.Count - 1; i >= 0; i--)
             {
+                if (Properties.Settings.Default.Debug && (Balls[i].Y + Balls[i].Height) > Height)
+                {
+                    Balls[i].Y = Height - Balls[i].Height;
+                    ((Ball)Balls[i]).Velocity *= -1;
+                }
                 if (Balls[i].Y > Height)
                 {
                     Balls.RemoveAt(i);

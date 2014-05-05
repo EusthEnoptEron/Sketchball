@@ -22,8 +22,11 @@ namespace Sketchball.Elements
             Mass = 0.2f;
             Width = 30;
             Height = 30;
+        }
 
-            BoundingCircle bC = new BoundingCircle(15,  new Vector2(0,0));  
+        protected override void InitBounds()
+        {
+            BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
         }
 
@@ -38,7 +41,6 @@ namespace Sketchball.Elements
             Velocity += World.Acceleration * (delta / 1000f);
             float prev = Location.Y;
             Location += Velocity * (delta / 1000f);
-          
         }
 
         public float Mass

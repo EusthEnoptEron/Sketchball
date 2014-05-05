@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Sketchball.Controls
 {
-    abstract class PinballControl : Control
+    public abstract class PinballControl : Control
     {
         //private Bitmap BackgroundBitmap = null;
         //private Graphics BackgroundBuffer = null;
