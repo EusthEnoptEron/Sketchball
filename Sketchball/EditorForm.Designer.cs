@@ -42,11 +42,11 @@
             this.elementPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolBar = new System.Windows.Forms.ToolStrip();
+            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.dragThumb = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
@@ -84,7 +84,7 @@
             this.fileToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(1119, 26);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1119, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -98,7 +98,7 @@
             this.playButton,
             this.playgroundToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newPBMButton
@@ -106,7 +106,7 @@
             this.newPBMButton.Name = "newPBMButton";
             this.newPBMButton.ShortcutKeyDisplayString = "";
             this.newPBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newPBMButton.Size = new System.Drawing.Size(166, 22);
+            this.newPBMButton.Size = new System.Drawing.Size(155, 22);
             this.newPBMButton.Text = "New";
             this.newPBMButton.Click += new System.EventHandler(this.newPBMButton_Click);
             // 
@@ -115,7 +115,7 @@
             this.openPBMButton.Name = "openPBMButton";
             this.openPBMButton.ShortcutKeyDisplayString = "";
             this.openPBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openPBMButton.Size = new System.Drawing.Size(166, 22);
+            this.openPBMButton.Size = new System.Drawing.Size(155, 22);
             this.openPBMButton.Text = "Open...";
             this.openPBMButton.Click += new System.EventHandler(this.openPBMButton_Click);
             // 
@@ -124,26 +124,26 @@
             this.savePBMButton.Name = "savePBMButton";
             this.savePBMButton.ShortcutKeyDisplayString = "";
             this.savePBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.savePBMButton.Size = new System.Drawing.Size(166, 22);
+            this.savePBMButton.Size = new System.Drawing.Size(155, 22);
             this.savePBMButton.Text = "Save";
             this.savePBMButton.Click += new System.EventHandler(this.savePBMButton_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(163, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
             // playButton
             // 
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(166, 22);
+            this.playButton.Size = new System.Drawing.Size(155, 22);
             this.playButton.Text = "Play...";
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // playgroundToolStripMenuItem
             // 
             this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
-            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.playgroundToolStripMenuItem.Text = "Playground";
             this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
@@ -191,6 +191,23 @@
             this.toolBar.TabIndex = 0;
             this.toolBar.Text = "toolStrip1";
             // 
+            // PlayFieldEditor
+            // 
+            this.PlayFieldEditor.AllowDrop = true;
+            this.PlayFieldEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PlayFieldEditor.Location = new System.Drawing.Point(0, 0);
+            this.PlayFieldEditor.Name = "PlayFieldEditor";
+            this.PlayFieldEditor.SelectedElement = null;
+            this.PlayFieldEditor.Size = new System.Drawing.Size(813, 624);
+            this.PlayFieldEditor.TabIndex = 2;
+            this.PlayFieldEditor.Text = "pinballEditControl1";
+            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
+            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
+            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
+            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
+            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
+            // 
             // dragThumb
             // 
             this.dragThumb.BackColor = System.Drawing.Color.Transparent;
@@ -219,23 +236,6 @@
             // 
             this.saveFileDialog.DefaultExt = "pmf";
             this.saveFileDialog.Filter = "Pinball machine files|*.pmf";
-            // 
-            // PlayFieldEditor
-            // 
-            this.PlayFieldEditor.AllowDrop = true;
-            this.PlayFieldEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PlayFieldEditor.Location = new System.Drawing.Point(0, 0);
-            this.PlayFieldEditor.Name = "PlayFieldEditor";
-            this.PlayFieldEditor.SelectedElement = null;
-            this.PlayFieldEditor.Size = new System.Drawing.Size(813, 624);
-            this.PlayFieldEditor.TabIndex = 2;
-            this.PlayFieldEditor.Text = "pinballEditControl1";
-            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
-            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
-            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
-            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
-            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
-            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
             // 
             // EditorForm
             // 

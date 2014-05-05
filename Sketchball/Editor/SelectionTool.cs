@@ -19,7 +19,8 @@ namespace Sketchball.Editor
         private Vector2 startVector;
         private bool mouseIsDown = false;
         private Vector2 delta;
-        
+       
+        private TranslationChange posChange = null;
 
 
         private PinballMachine Machine {
@@ -49,9 +50,8 @@ namespace Sketchball.Editor
                     // Select
                     SelectedElement = element;
                     this.delta = new Vector2(e.X - SelectedElement.X, e.Y - SelectedElement.Y);
-                    startPoint = loc;
-                    startVector = element.getLocation();
-
+                    startVector = SelectedElement.Location;
+                   
                     Control.Invalidate();
                 }
                 else
@@ -80,18 +80,28 @@ namespace Sketchball.Editor
             
             if (mouseIsDown && SelectedElement != null)
             {
-               
-                SelectedElement.Location = new Vector2(e.X, e.Y) - delta;
+                var newPos = new Vector2(e.X, e.Y) - delta;
 
-                Control.Invalidate();
+                SelectedElement.Location = newPos;
+
+                posChange = new TranslationChange(SelectedElement, newPos - startVector);
                 
+                Control.Invalidate(); 
             }
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
+            if (posChange != null)
+            {
+                Control.History.Add(posChange);
+                posChange = null;
+            }
+
             mouseIsDown = false;
             delta = Vector2.Zero;
+
+
         }
 
         protected override void Draw(object sender, PaintEventArgs e)

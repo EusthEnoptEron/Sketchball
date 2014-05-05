@@ -34,54 +34,15 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
            // SetStyle(ControlStyles.UserPaint, true);
 
-            //MouseDown += StartDrag;
-            //MouseMove += DoDrag;
-            //MouseUp += StopDrag;
+
+            History.Change += History_Change;
         }
 
-        void StopDrag(object sender, System.Windows.Forms.MouseEventArgs e)
+        void History_Change()
         {
-            if (dragging && e.Button == MouseButtons.Left)
-            {
-
-                Point loc = PointToPinball(e.Location);
-                dragging = false;
-                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y));
-
-                History.Add(new TranslationChange(SelectedElement, SelectedElement.getLocation() - startVector));
-            }
+            Invalidate();
         }
 
-        //void DoDrag(object sender, System.Windows.Forms.MouseEventArgs e)
-        //{
-        //    if (dragging)
-        //    {
-        //        Point loc = PointToPinball(e.Location);
-        //        SelectedElement.Location = (startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y));
-        //        Invalidate();
-        //    }
-        //}
-
-        /*
-        void StartDrag(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                Point loc = PointToPinball(e.Location);
-
-                PinballElement element = FindElement(loc);
-                if (element != null)
-                {
-                    // Select
-                    SelectedElement = element;
-                    dragging = true;
-                    startPoint = loc;
-                    startVector = element.getLocation();
-                }
-            }            
-        }
-
-       */
         protected override void ConfigureGDI(Graphics g)
         {
             base.ConfigureGDI(g);

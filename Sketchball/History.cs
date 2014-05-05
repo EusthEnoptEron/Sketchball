@@ -11,10 +11,13 @@ namespace Sketchball
     /// </summary>
     public class History
     {
+        public delegate void OnChange();
+        public event OnChange Change;
+
         private const int DEFAULT_CAPACITY = 50;
 
         private Stack<IChange> ExecutedChanges;
-        private Queue<IChange> PendingChanges;
+        private Stack<IChange> PendingChanges;
         private int Capacity;
 
         private int _dirty = 0;
@@ -26,7 +29,7 @@ namespace Sketchball
         public History(int capacity)
         {
             ExecutedChanges = new Stack<IChange>(capacity);
-            PendingChanges = new Queue<IChange>(capacity);
+            PendingChanges = new Stack<IChange>(capacity);
             Capacity = capacity;
         }
 
@@ -58,9 +61,11 @@ namespace Sketchball
                 IChange change = ExecutedChanges.Pop();
                 change.Undo();
 
-                PendingChanges.Enqueue(change);
+                PendingChanges.Push(change);
 
                 _dirty -= 1;
+
+                RaiseChangeEvent();
             }
         }
 
@@ -71,10 +76,14 @@ namespace Sketchball
         {
             if (CanRedo())
             {
-                IChange change = PendingChanges.Dequeue();
+                IChange change = PendingChanges.Pop();
                 change.Do();
 
+                ExecutedChanges.Push(change);
+
                 _dirty += 1;
+
+                RaiseChangeEvent();
             }
         }
 
@@ -90,6 +99,8 @@ namespace Sketchball
             // x < 0 => clean state not reachable anymore.
             if (_dirty < 0) _dirty = Capacity * 2;
             else _dirty += 1;
+
+            RaiseChangeEvent();
         }
 
 
@@ -101,6 +112,8 @@ namespace Sketchball
             PendingChanges.Clear();
             ExecutedChanges.Clear();
             _dirty = 0;
+
+            RaiseChangeEvent();
         }
 
         /// <summary>
@@ -115,6 +128,15 @@ namespace Sketchball
         public void ClearStatus()
         {
             _dirty = 0;
+        }
+
+        private void RaiseChangeEvent()
+        {
+            var handlers = Change;
+            if (handlers != null)
+            {
+                handlers();
+            }
         }
     }
 }

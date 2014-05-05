@@ -119,7 +119,7 @@ namespace Sketchball
             Tool[] tools = new Tool[] { 
                 new SelectionTool(PlayFieldEditor),
                 new LineTool(PlayFieldEditor), new MultiLineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor)
- };
+            };
 
 
             // Initiate all tools and connect them with a button
@@ -137,6 +137,10 @@ namespace Sketchball
             {
                 CurrentTool = tools[0];
             }
+
+            // Add undo / redo buttons
+            toolBar.Items.Add(new RedoButton(PlayFieldEditor.History) { Alignment = ToolStripItemAlignment.Right });
+            toolBar.Items.Add(new UndoButton(PlayFieldEditor.History) { Alignment = ToolStripItemAlignment.Right });
         }
 
         private void populateElementPanel()
@@ -300,5 +304,55 @@ namespace Sketchball
             form.ShowDialog();
         }
       
+    }
+
+    class UndoButton : ToolStripButton
+    {
+        private History history;
+
+        public UndoButton(History history)
+        {
+            this.history = history;
+            history.Change += OnChange;
+            this.Image = Properties.Resources.Undo_icon;
+            
+            OnChange();
+        }
+
+        protected override void OnClick(EventArgs e)
+        {
+            history.Undo();
+        }
+
+        void OnChange()
+        {
+            Enabled = history.CanUndo();
+        }
+        
+    }
+
+    class RedoButton : ToolStripButton
+    {
+        private History history;
+
+        public RedoButton(History history)
+        {
+            this.history = history;
+            history.Change += OnChange;
+            this.Image = Properties.Resources.Redo_icon;
+
+            OnChange();
+        }
+
+        protected override void OnClick(EventArgs e)
+        {
+            history.Redo();
+        }
+
+        void OnChange()
+        {
+            Enabled = history.CanRedo();
+        }
+
     }
 }
