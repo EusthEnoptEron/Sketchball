@@ -33,11 +33,13 @@ namespace Sketchball.Elements
             Width = (int)(2 * radius);
             Height = (int)(2 * radius);
             this.radius = (int)radius;
+        }
 
+        protected override void InitBounds()
+        {
             //set up of bounding box
-            BoundingCircle bc = new BoundingCircle(this.radius, new Vector2(0,0));
+            BoundingCircle bc = new BoundingCircle(this.radius, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bc);
-
         }
 
         public override void Draw(System.Drawing.Graphics g)

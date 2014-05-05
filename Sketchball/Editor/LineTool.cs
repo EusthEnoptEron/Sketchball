@@ -39,7 +39,7 @@ namespace Sketchball.Editor
 
             //Create Line
             Line l = new Line(this.startPos.X, this.startPos.Y, this.actualPos.X,this.actualPos.Y);
-            this.Control.PinballMachine.StaticElements.Add(l);
+            this.Control.PinballMachine.DynamicElements.Add(l);
 
             this.drawing = false;
             this.Control.Refresh();

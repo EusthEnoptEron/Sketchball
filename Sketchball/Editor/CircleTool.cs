@@ -38,7 +38,7 @@ namespace Sketchball.Editor
 
             //Create Circle
             Circle c = new Circle(this.center.X - this.radius, this.center.Y - this.radius, this.radius);
-            this.Control.PinballMachine.StaticElements.Add(c);
+            this.Control.PinballMachine.DynamicElements.Add(c);
 
             this.drawing = false;
             this.Control.Refresh();
