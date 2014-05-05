@@ -138,5 +138,11 @@ namespace Sketchball
                 handlers();
             }
         }
+
+        public void AddAndDo(IChange change)
+        {
+            this.Add(change);
+            change.Do();
+        }
     }
 }
