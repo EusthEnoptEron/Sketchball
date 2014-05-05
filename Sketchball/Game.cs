@@ -115,7 +115,7 @@ namespace Sketchball
 
         private Thread UpdateLoop = null;
         private volatile bool Disposed;
-        private const int FPS = 80;
+        private const int FPS = 60;
 
 
         public Game(PinballMachine machine) {
@@ -273,9 +273,7 @@ namespace Sketchball
                         if (Disposed) break;
                     }
 
-                    
                     this.Update(timePerPass);
-                    
                 }
                 stopWatch.Stop();
 

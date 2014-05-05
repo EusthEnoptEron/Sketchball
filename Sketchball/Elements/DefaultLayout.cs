@@ -61,10 +61,10 @@ namespace Sketchball.Elements
 
 
             // Add flippers
-            Flipper lflipper = new LeftFlipper() { X = 50, Y = Height - 100 };
+            Flipper lflipper = new LeftFlipper() { X = 50, Y = Height - 200 };
             _elements.Add(lflipper);
 
-            Flipper rflipper = new RightFlipper() { X = 250, Y = Height - 100 };
+            Flipper rflipper = new RightFlipper() { X = 250, Y = Height - 200 };
             _elements.Add(rflipper);
         }
 

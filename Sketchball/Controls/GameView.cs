@@ -141,6 +141,9 @@ namespace Sketchball.Controls
                     ));
 
                     EndInvoke(result);
+
+                    // Give some time for input processing
+                    Thread.Sleep(1);
                 }
                 else
                 {
