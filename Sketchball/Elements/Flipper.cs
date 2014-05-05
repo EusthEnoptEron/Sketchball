@@ -26,7 +26,7 @@ namespace Sketchball.Elements
         {
 
             Width = 100;
-            Height = 150;
+            Height = 50;
 
 
   //          this.rotate((float)Math.PI*2, Origin, 0);
