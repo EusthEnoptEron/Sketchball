@@ -10,27 +10,43 @@ using Sketchball.Elements;
 
 namespace Sketchball.Editor
 {
-    public class LineTool : Tool
+    public class MultiLineTool : Tool
     {
         private Vector2 startPos;
         private Vector2 actualPos;
         private bool drawing = false;
-        
 
-        public LineTool(PinballEditControl control)
+
+        public MultiLineTool(PinballEditControl control)
             : base(control)
         {
-            Icon = Properties.Resources.LineTool;
-            Label = "Line tool";
-            
+            Icon = Properties.Resources.MultiLineTool;
+            Label = "Multi Line tool";
         }
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            this.startPos = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
-            this.actualPos = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
-            this.drawing = true;
-            this.Control.Refresh();
+            if (drawing == false)
+            {
+                this.startPos = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
+                this.actualPos = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
+                this.drawing = true;
+                this.Control.Refresh();
+            }
+        }
+
+        public override void Enter()
+        {
+            Control.MouseDoubleClick += OnMouseDoubleClick;
+            base.Enter();
+        }
+
+       
+
+        public override void Leave()
+        {
+            Control.MouseDoubleClick -= OnMouseDoubleClick;
+            base.Leave();
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
@@ -38,11 +54,17 @@ namespace Sketchball.Editor
             this.actualPos = new Vector2(e.X + curserCorrection, e.Y + curserCorrection);
 
             //Create Line
-            Line l = new Line(this.startPos.X, this.startPos.Y, this.actualPos.X,this.actualPos.Y);
+            Line l = new Line(this.startPos.X, this.startPos.Y, this.actualPos.X, this.actualPos.Y);
             this.Control.PinballMachine.StaticElements.Add(l);
 
-            this.drawing = false;
+            this.startPos = actualPos;
             this.Control.Refresh();
+        }
+
+        protected void OnMouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            OnMouseUp(sender, e);
+            this.drawing = false;
         }
 
         protected override void OnMouseMove(object sender, MouseEventArgs e)
