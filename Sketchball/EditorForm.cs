@@ -180,9 +180,7 @@ namespace Sketchball
 
         private void OnDragDrop(object sender, DragEventArgs e)
         {
-            
-            PlayFieldEditor.PinballMachine.Add(dragState.Element);
-            PlayFieldEditor.Invalidate();
+            PlayFieldEditor.AddElement(dragState.Element);
         }
 
         private void OnDragEnter(object sender, DragEventArgs e)

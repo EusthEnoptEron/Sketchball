@@ -41,8 +41,6 @@ namespace Sketchball.Controls
 
         void Draw(Graphics g)
         {
-            //Image image = Image.FromFile(@"D:\Studium\Semester 4\Project 1\Graphic\Conseptual\Slingshot.png");
-            //e.Graphics.DrawImage(image,0 ,0,Width, Height);
             Brush bgBrush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.LightGray);
             g.FillRectangle(bgBrush, 0, 0, THUMB_WIDTH, THUMB_HEIGHT);
             DrawThumb(g, THUMB_WIDTH, THUMB_HEIGHT);
@@ -97,7 +95,5 @@ namespace Sketchball.Controls
         {
             return (PinballElement)Element.Clone();
         }
-
-        
     }
 }

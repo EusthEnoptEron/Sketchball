@@ -1,4 +1,5 @@
-﻿using Sketchball.Elements;
+﻿using Sketchball.Editor;
+using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -38,6 +39,31 @@ namespace Sketchball.Controls
             History.Change += History_Change;
         }
 
+        /// <summary>
+        /// Adds a new element to the pinball machine AND keeps track of it.
+        /// </summary>
+        /// <param name="element"></param>
+        public void AddElement(PinballElement element)
+        {
+            IChange change = new CreationChange(PinballMachine.DynamicElements, element);
+            change.Do();
+
+            History.Add(change);
+        }
+
+
+        /// <summary>
+        /// Removes an element from the pinball machine AND keeps track of it.
+        /// </summary>
+        /// <param name="element"></param>
+        public void RemoveElement(PinballElement element)
+        {
+            IChange change = new DeletionChange(PinballMachine.DynamicElements, element);
+            change.Do();
+
+            History.Add(change);
+        }
+
         void History_Change()
         {
             Invalidate();
@@ -68,18 +94,6 @@ namespace Sketchball.Controls
                 Matrix m  = new Matrix();
                 m.Translate(15, 15);
                 m.Scale(ScaleFactor.X, ScaleFactor.Y);
-                //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
-
-                return m;
-            }
-        }
-        private Matrix Transform2
-        {
-            get
-            {
-                Matrix m = new Matrix();
-                m.Scale(1/ScaleFactor.X, 1/ScaleFactor.Y);
-                m.Translate(-15, -15);                
                 //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
 
                 return m;

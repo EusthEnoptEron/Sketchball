@@ -41,7 +41,7 @@ namespace Sketchball.Editor
             var start = Control.PointToPinball(startPos);
             var end = Control.PointToPinball(actualPos);
             Line l = new Line(start.X, start.Y, end.X, end.Y);
-            this.Control.PinballMachine.DynamicElements.Add(l);
+            this.Control.AddElement(l);
 
             this.drawing = false;
             this.Control.Refresh();

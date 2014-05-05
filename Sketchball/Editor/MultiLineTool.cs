@@ -54,7 +54,7 @@ namespace Sketchball.Editor
 
             //Create Line
             Line l = new Line(start.X, start.Y, end.X, end.Y);
-            this.Control.PinballMachine.DynamicElements.Add(l);
+            this.Control.AddElement(l);
 
             this.startPos = actualPos;
             this.Control.Refresh();
