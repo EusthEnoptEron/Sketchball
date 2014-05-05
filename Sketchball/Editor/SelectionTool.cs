@@ -14,9 +14,12 @@ namespace Sketchball.Editor
 
         public PinballElement SelectedElement { get; set; }
 
-        private bool dragging = false;
+       
         private Point startPoint;
         private Vector2 startVector;
+        private bool mouseIsDown = false;
+        private Vector2 delta;
+        
 
 
         private PinballMachine Machine {
@@ -37,6 +40,7 @@ namespace Sketchball.Editor
         {
             if (e.Button == MouseButtons.Left)
             {
+                mouseIsDown = true;
                 Point loc = Control.PointToPinball(e.Location);
 
                 PinballElement element = FindElement(loc);
@@ -44,10 +48,15 @@ namespace Sketchball.Editor
                 {
                     // Select
                     SelectedElement = element;
-                    dragging = true;
+                    this.delta = new Vector2(e.X - SelectedElement.X, e.Y - SelectedElement.Y);
                     startPoint = loc;
                     startVector = element.getLocation();
 
+                    Control.Invalidate();
+                }
+                else
+                {
+                    SelectedElement = null;
                     Control.Invalidate();
                 }
             }
@@ -66,15 +75,33 @@ namespace Sketchball.Editor
             return null;
         }
 
+        protected override void OnMouseMove(object sender, MouseEventArgs e)
+        {
+            
+            if (mouseIsDown && SelectedElement != null)
+            {
+               
+                SelectedElement.Location = new Vector2(e.X, e.Y) - delta;
 
+                Control.Invalidate();
+                
+            }
+        }
 
+        protected override void OnMouseUp(object sender, MouseEventArgs e)
+        {
+            mouseIsDown = false;
+            delta = Vector2.Zero;
+        }
 
         protected override void Draw(object sender, PaintEventArgs e)
         {
             if(SelectedElement != null) {
-                Pen pen = new Pen(Color.Black, 2);
+                Pen pen = new Pen(Color.Black, 1);
+                pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                pen.DashPattern = new float[] { 5f, 4f };
+                
                 var origin = Control.PointToEditor(new Point((int)SelectedElement.Location.X, (int)SelectedElement.Location.Y));
-                //var origin = new Point((int)SelectedElement.Location.X, (int)SelectedElement.Location.Y);
                 e.Graphics.DrawRectangle(pen, origin.X, origin.Y, SelectedElement.Width, SelectedElement.Height);
             }
         }
