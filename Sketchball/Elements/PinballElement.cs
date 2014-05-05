@@ -104,6 +104,7 @@ namespace Sketchball.Elements
         public object Clone()
         {
             PinballElement element = (PinballElement)MemberwiseClone();
+            this._boundingContainer = null;
 
             OnClone(element);
             return element;

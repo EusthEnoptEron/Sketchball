@@ -21,12 +21,12 @@ namespace Sketchball.Elements
 
         public override void Draw(System.Drawing.Graphics g)
         {
-            
+            g.DrawImage(Properties.Resources.Bumper, 0, 0, Width, Height);
         }
 
         protected override void InitBounds()
         {
-            BoundingCircle bC = new BoundingCircle(100, new Vector2(0, 0));
+            BoundingCircle bC = new BoundingCircle(Width / 2, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
             bC.assigneToContainer(this.boundingContainer);
         }
