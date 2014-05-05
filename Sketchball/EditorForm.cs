@@ -97,7 +97,9 @@ namespace Sketchball
         private void populateToolPanel()
         {
             // List of available tools
-            Tool[] tools = new Tool[] { new LineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor) };
+            Tool[] tools = new Tool[] { 
+                new SelectionTool(PlayFieldEditor),
+                new LineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor) };
 
 
             // Initiate all tools and connect them with a button

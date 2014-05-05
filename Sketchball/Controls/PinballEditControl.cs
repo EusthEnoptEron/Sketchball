@@ -92,9 +92,12 @@ namespace Sketchball.Controls
             //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
             Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
             g.FillRectangle(brush, 0, 0, base.Width, base.Height);
+
+            var state = g.Save();
             g.Transform = Transform;
 
             PinballMachine.Draw(g);
+            g.Restore(state);
         }
 
         private Matrix Transform

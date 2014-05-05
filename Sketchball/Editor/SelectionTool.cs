@@ -47,6 +47,8 @@ namespace Sketchball.Editor
                     dragging = true;
                     startPoint = loc;
                     startVector = element.getLocation();
+
+                    Control.Invalidate();
                 }
             }
         }
@@ -69,9 +71,12 @@ namespace Sketchball.Editor
 
         protected override void Draw(object sender, PaintEventArgs e)
         {
-            Pen pen = new Pen(Color.Black, 2);
-            Rectangle boundingRect = new Rectangle();
-           
+            if(SelectedElement != null) {
+                Pen pen = new Pen(Color.Black, 2);
+                var origin = Control.PointToEditor(new Point((int)SelectedElement.Location.X, (int)SelectedElement.Location.Y));
+                //var origin = new Point((int)SelectedElement.Location.X, (int)SelectedElement.Location.Y);
+                e.Graphics.DrawRectangle(pen, origin.X, origin.Y, SelectedElement.Width, SelectedElement.Height);
+            }
         }
 
        
