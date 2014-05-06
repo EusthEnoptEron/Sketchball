@@ -26,6 +26,8 @@ namespace Sketchball.Elements
 
         private PinballMachine _machine = null;
 
+        public bool pureIntersection{ get; protected set;}
+
         [DataMember]
         public PinballMachine World { 
             get {
@@ -72,10 +74,12 @@ namespace Sketchball.Elements
 
         public PinballElement() : this(0, 0)
         {
+            pureIntersection = false;
         }
 
         public PinballElement(float X, float Y)
         {
+            pureIntersection = false;
             this.X = X;
             this.Y = Y;
         }
@@ -149,5 +153,12 @@ namespace Sketchball.Elements
             this.Location.X = newLoc.X;
             this.Location.Y = newLoc.Y;
         }
+
+        public virtual void notifyIntersection(Ball b)
+        {
+            //placeholder
+        }
+
+        
     }
 }

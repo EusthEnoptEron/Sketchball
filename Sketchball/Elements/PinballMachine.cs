@@ -217,6 +217,31 @@ namespace Sketchball.Elements
 
         internal bool IsValid()
         {
+            foreach(PinballElement p in this.Elements)
+            {
+                if (p.GetType() == typeof(WormholeEntry))
+                {
+                    if (((WormholeEntry)p).WormholeExit == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        bool isthere = false;
+                        foreach (PinballElement p2 in this.Elements)
+                        {
+                            if (p2.Equals(((WormholeEntry)p).WormholeExit))
+                            {
+                                isthere = true;
+                            }
+                        }
+                        if (!isthere)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
             return true;
         }
     }
