@@ -149,19 +149,13 @@ namespace Sketchball
         private void populateElementPanel()
         {
             Font font = new Font("Arial", 10, FontStyle.Regular);
-<<<<<<< HEAD
             elementPanel.Controls.Add(new ElementControl(new LeftFlipper(), "Flipper (left)", font));
             elementPanel.Controls.Add(new ElementControl(new RightFlipper(), "Flipper (right)", font));     //new RightFlipper() { Rotation = 0.1f }
-            elementPanel.Controls.Add(new ElementControl(new Bumper(), "Bumper", font));
             elementPanel.Controls.Add(new ElementControl(new SlingshotLeft(), "Slingshot (left)", font));
             elementPanel.Controls.Add(new ElementControl(new SlingshotRight(), "Slingshot (right)", font));
             elementPanel.Controls.Add(new ElementControl(new Hole(), "Hole", font));
-=======
-            elementPanel.Controls.Add(new ElementControl(new Flipper(), "Flipper (left)", font));
-            elementPanel.Controls.Add(new ElementControl(new Flipper() { Rotation = 0.1f }, "Flipper (right)", font));
             elementPanel.Controls.Add(new ElementControl(new Bumper(), "Bumper", font));
             
->>>>>>> master
 
             foreach (Control c in elementPanel.Controls)
             {
