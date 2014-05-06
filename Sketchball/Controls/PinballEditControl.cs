@@ -143,6 +143,31 @@ namespace Sketchball.Controls
             return new Vector2(point.X, point.Y);
         }
 
+        /// <summary>
+        /// Takes a float from the pinball coordinate system and converts it into the editor coordinate system.
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public float LengthToEditor(float val)
+        {
+            var vBefore = new Vector2(0, val);
+            var vAfter = PointToEditor(vBefore);
+
+            return vAfter.Length();
+        }
+
+        /// <summary>
+        /// Takes a float from the editor coordinate system and converts it into the pinball coordinate system.
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public float LengthToPinball(float val) {
+            var vBefore = new Vector2(0, val);
+            var vAfter = PointToPinball(vBefore);
+
+            return vAfter.Length();
+        }
+
         public void LoadMachine(PinballMachine machine) {
             PinballMachine = machine;
             History.Clear();

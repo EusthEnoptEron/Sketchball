@@ -143,9 +143,14 @@ namespace Sketchball.Editor
                 Pen pen = new Pen(Color.Black, 1);
                 pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
                 pen.DashPattern = new float[] { 5f, 4f };
-                
+
+
+                var rect = SelectedElement.Shape;
                 var origin = Control.PointToEditor(new Point((int)SelectedElement.Location.X, (int)SelectedElement.Location.Y));
-                e.Graphics.DrawRectangle(pen, origin.X, origin.Y, SelectedElement.Width, SelectedElement.Height);
+                var width = Control.LengthToEditor(rect.Width) - 15;
+                var height = Control.LengthToEditor(rect.Height) -15;
+
+                e.Graphics.DrawRectangle(pen, origin.X + rect.X, origin.Y + rect.Y, width, height);
             }
         }
 
