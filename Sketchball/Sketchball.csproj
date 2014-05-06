@@ -95,11 +95,16 @@
     <Compile Include="EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Elements\Hole.cs" />
     <Compile Include="Elements\IAnimatedObject.cs" />
     <Compile Include="Elements\IMachineLayout.cs" />
+    <Compile Include="Elements\LeftFlipper.cs" />
     <Compile Include="Elements\Line.cs" />
     <Compile Include="Elements\PinballGameMachine.cs" />
     <Compile Include="Elements\PinballMachine.cs" />
+    <Compile Include="Elements\RightFlipper.cs" />
+    <Compile Include="Elements\SlingshotLeft.cs" />
+    <Compile Include="Elements\SlingshotRight.cs" />
     <Compile Include="Elements\StartingRamp.cs" />
     <Compile Include="Elements\TriangleTMP.cs" />
     <Compile Include="FontManager.cs" />
@@ -164,6 +169,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\FlipperRight.png" />
+    <None Include="Resources\FlipperLeft.png" />
+    <None Include="Resources\SlingshotLeft.png" />
+    <None Include="Resources\SlingshotLeft.bmp" />
     <None Include="Resources\hole.png" />
     <None Include="Resources\Bumper.png" />
     <None Include="Resources\Redo-icon.png" />
@@ -187,7 +196,7 @@
     <None Include="Resources\Courgette-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Slingshot.png" />
+    <None Include="Resources\SlingshotRight.png" />
     <None Include="Resources\PinballImage.png" />
   </ItemGroup>
   <ItemGroup />

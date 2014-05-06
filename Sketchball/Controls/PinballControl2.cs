@@ -69,7 +69,7 @@ namespace Sketchball.Controls
             ball.setLocation(new Vector2(150, 10));
             ball.setParent(machine);*/
 
-            Flipper f = new Flipper();
+            Flipper f = new LeftFlipper();
             f.setLocation(new Vector2(50, Height - 10));
 
             Bumper b = new Bumper();
@@ -80,13 +80,15 @@ namespace Sketchball.Controls
 
             Line l = new Line();
             
-            Elements.Add(b);
-            Elements.Add(l);
-
+            //Elements.Add(b);
+            //Elements.Add(l);
+            SlingshotRight sL = new SlingshotRight();
+            sL.setLocation(new Vector2(100, 200));
+            Elements.Add(sL);
             
             //machine.addAnimatedObject(f);
            // Elements.Add(tr);
-            machine.Add(tr);
+        //    machine.Add(tr);
           //  machine.addAnimatedObject(tr);
            // machine.addBall(ball);  //Changed
           

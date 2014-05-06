@@ -97,8 +97,9 @@ namespace Sketchball.Elements
             try
             {
                 g.IntersectClip(new Rectangle(0, 0, Width, Height));
-
-               // g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
+                
+                //TODO take away red border
+                g.DrawRectangle(Pens.Red, 0, 0, Width - 1, Height - 1);
 
                 // Draw contours
 

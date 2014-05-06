@@ -164,5 +164,12 @@ namespace Sketchball.Collision
             g.DrawEllipse(p, (int)pos.X, (int)pos.Y, (int)(this.radius * 2), ((int)this.radius * 2));
             
         }
+
+        public override IBoundingBox Clone()
+        {
+            //do not forget to assinge BoundingContainer after clone
+            BoundingCircle bL = new BoundingCircle(this.radius, new Vector2(this.position.X - this.radius, this.position.Y - this.radius));
+            return bL;
+        }
     }
 }

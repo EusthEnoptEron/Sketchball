@@ -13,7 +13,7 @@ namespace Sketchball.Elements
 {
 
     [DataContract]
-    public class Flipper : AnimatedObject
+    public abstract class Flipper : AnimatedObject
     {
         [DataMember]
         public Keys Trigger;
@@ -25,8 +25,8 @@ namespace Sketchball.Elements
         public Flipper()  : base()
         {
 
-            Width = 100;
-            Height = 50;
+            Width = 70;
+            Height = 70;
 
 
   //          this.rotate((float)Math.PI*2, Origin, 0);
@@ -36,51 +36,13 @@ namespace Sketchball.Elements
             this.setLocation(new Vector2(0, 0));
         }
 
-        protected override void InitBounds()
-        {
-            int y1 = Height / 10 * 8;
-            int recHeight = Height / 10 * 2;
-            //set up of bounding box
-            boundingContainer.AddPolygon(
-                0, y1,
-                Width, y1,
-                Width, y1 + recHeight,
-                0, y1 + recHeight,
-                0, y1
-            );
-
-            //BoundingLine bL1 = new BoundingLine(new Vector2(0, y1), new Vector2(Width, y1));
-            //BoundingLine bL2 = new BoundingLine(new Vector2(Width, y1), new Vector2(Width, y1 + recHeight));
-            //BoundingLine bL3 = new BoundingLine(new Vector2(Width, y1 + recHeight), new Vector2(0, y1 + recHeight));
-            //BoundingLine bL4 = new BoundingLine(new Vector2(0, y1 + recHeight), new Vector2(0, y1));
-
-            //this.boundingContainer.addBoundingBox(bL1);
-            //this.boundingContainer.addBoundingBox(bL2);
-            //this.boundingContainer.addBoundingBox(bL3);
-            //this.boundingContainer.addBoundingBox(bL4);
-        }
-
  
         public override void Update(long delta)
         {
             base.Update(delta);
         }
 
-        public override void Draw(System.Drawing.Graphics g)
-        {
-            base.Draw(g);
-
-
-            g.TranslateTransform(-X, -Y);
-            boundingContainer.boundingBoxes.ForEach((b) =>
-            {
-                b.drawDEBUG(g, Pens.Red);
-            });
-            g.TranslateTransform(X, Y);
-
-            g.DrawRectangle(Pens.Green, 0, Height / 10 * 8, Width, Height / 10 * 2);
-            //g.DrawRectangle(Pens.Black, 0, 0, Width - 1, Height - 1);
-        }
+       
 
         public override bool Contains(Point point)
         {
@@ -125,34 +87,6 @@ namespace Sketchball.Elements
         }
 
     }
+   
     
-    [DataContract]
-    public class LeftFlipper : Flipper
-    {
-        public LeftFlipper()
-        {
-            Trigger = Keys.A;
-            DebugTrigger = Keys.Q;
-        }
-    }
-
-    [DataContract]
-    public class RightFlipper : Flipper
-    {
-
-        protected override Vector2 Origin
-        {
-            get
-            {
-                return new Vector2(Width, Height);
-            }
-        }
-
-        public RightFlipper()
-        {
-            Trigger = Keys.D;
-            DebugTrigger = Keys.E;
-            RotationRange = - RotationRange;
-        }
-    }
 }

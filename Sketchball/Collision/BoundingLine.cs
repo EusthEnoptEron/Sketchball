@@ -257,5 +257,12 @@ namespace Sketchball.Collision
             Vector2 pos = this.BoundingContainer.parentElement.getLocation();
             g.DrawLine(p, (int)(this.position.X + pos.X), (int)(this.position.Y + pos.Y), (int)(this.target.X + pos.X), (int)(this.target.Y + pos.Y));
         }
+
+        public override IBoundingBox Clone()
+        {
+            BoundingLine bL =  new BoundingLine(new Vector2(this.position.X, this.position.Y), new Vector2(this.target.X, this.target.Y));
+            //do not forget to assinge BoundingContainer after clone
+            return bL;
+        }
     }
 }

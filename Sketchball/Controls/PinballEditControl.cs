@@ -20,7 +20,7 @@ namespace Sketchball.Controls
         private Vector2 startVector;
         private Point startPoint;
 
-        public Vector2 ScaleFactor = new Vector2(1,1);
+        public Vector2 ScaleFactor = new Vector2(1.7f,1.7f);
 
         public PinballMachine PinballMachine { get; private set; }
 

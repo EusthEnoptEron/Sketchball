@@ -102,7 +102,7 @@ namespace Sketchball
                 childForm = new EditorForm(this);
             else
                 childForm = new EditorForm(pbm, this);
-
+            
             childForm.Show();
             childForm.FormClosed += onChildClose;
         }

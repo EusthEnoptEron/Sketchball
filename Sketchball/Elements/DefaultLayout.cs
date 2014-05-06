@@ -21,8 +21,9 @@ namespace Sketchball.Elements
             protected override void InitBounds()
             {
                 var totalWidth = 235 * 2;
+                int totalHeight = 545;
                 boundingContainer.AddPolygon(
-                   0, 545,
+                   0, totalHeight,
                    75, 145,
                    137, 52,
                    194, 21,
@@ -31,7 +32,7 @@ namespace Sketchball.Elements
                    totalWidth - 194, 21,
                    totalWidth - 137, 52,
                    totalWidth - 75, 145,
-                   totalWidth, 545
+                   totalWidth, totalHeight
                );
             }
 
@@ -46,6 +47,7 @@ namespace Sketchball.Elements
             Init();
         }
 
+       
         private void Init()
         {
             _elements = new List<PinballElement>();
@@ -61,10 +63,10 @@ namespace Sketchball.Elements
 
 
             // Add flippers
-            Flipper lflipper = new LeftFlipper() { X = 50, Y = Height - 100 };
+            Flipper lflipper = new LeftFlipper() { X = 140, Y = Height - 90 };
             _elements.Add(lflipper);
 
-            Flipper rflipper = new RightFlipper() { X = 250, Y = Height - 100 };
+            Flipper rflipper = new RightFlipper() { X = 210, Y = Height - 90 };
             _elements.Add(rflipper);
         }
 

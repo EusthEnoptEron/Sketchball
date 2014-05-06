@@ -106,6 +106,14 @@ namespace Sketchball.Elements
         public object Clone()
         {
             PinballElement element = (PinballElement)MemberwiseClone();
+            element.InitBoundingContainer();
+
+            foreach (IBoundingBox b in this.boundingContainer.getBoundingBoxes())
+            {
+                IBoundingBox nB = b.Clone();
+                element.boundingContainer.addBoundingBox(nB);
+
+            }
             return element;
         }
 

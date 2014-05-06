@@ -101,5 +101,7 @@ namespace Sketchball.Collision
         void drawDEBUG(System.Drawing.Graphics g, System.Drawing.Pen p);
 
         Vector2 reflectManipulation(Vector2 newDirection, int energy = 0);
+
+        IBoundingBox Clone();
     }
 }

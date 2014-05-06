@@ -118,5 +118,8 @@ namespace Sketchball.Collision
         {
             return newDirection * bounceFactor;
         }
+
+
+        public abstract IBoundingBox Clone();
     }
 }

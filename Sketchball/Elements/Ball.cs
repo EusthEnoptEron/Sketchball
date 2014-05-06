@@ -19,14 +19,13 @@ namespace Sketchball.Elements
         public Ball()
         {
             Velocity = new Vector2(0,0);
-            Mass = 0.2f;
-            Width = 30;
-            Height = 30;
+            Width = 20;
+            Height = 20;
         }
 
         protected override void InitBounds()
         {
-            BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
+            BoundingCircle bC = new BoundingCircle(10, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
         }
 

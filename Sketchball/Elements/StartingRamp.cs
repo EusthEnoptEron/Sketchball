@@ -22,19 +22,19 @@ namespace Sketchball.Elements
 
         public StartingRamp() : base()
         {
-            Width = 585 - 520 + 50;
+            Width = 585 - 520+32;
             Height = 590 - 210;
         }
 
         protected override void InitBounds()
         {
             // Vertical line left
-            BoundingLine bl1 = new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210));
+            BoundingLine bl1 = new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210-5));
             bl1.bounceFactor = 0.5f;
             boundingContainer.addBoundingBox(bl1);
 
             // Horizontal line
-            BoundingLine bl2 = new BoundingLine(new Vector2(478 - 405, 590 - 210-5), new Vector2(520 - 405, 585 - 210-5));
+            BoundingLine bl2 = new BoundingLine(new Vector2(478 - 405, 590 - 210-5), new Vector2(520 - 405-8, 585 - 210-5));
             bl2.bounceFactor = 0.5f;
             boundingContainer.addBoundingBox(bl2);
 
@@ -73,7 +73,7 @@ namespace Sketchball.Elements
         public void IntroduceBall(Ball ball) {
             Ball = ball;
 
-            Ball.X = X + Ball.Width / 4;
+            Ball.X = X + Ball.Width / 2;
             Ball.Y = Y;
         }
 
