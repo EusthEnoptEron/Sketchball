@@ -29,12 +29,19 @@ namespace Sketchball.Elements
         {
             get
             {
-                foreach (PinballElement el in StaticElements)
-                    yield return el;
-                foreach (PinballElement el in DynamicElements)
-                    yield return el;
-                foreach (PinballElement el in Balls)
-                    yield return el;
+                lock (StaticElements)
+                {
+                    foreach (PinballElement el in StaticElements)
+                        yield return el;
+                }
+                lock(DynamicElements) {
+                    foreach (PinballElement el in DynamicElements)
+                        yield return el;
+                }
+                lock(Balls) {
+                    foreach (PinballElement el in Balls)
+                        yield return el;
+                }
             }
         }
 
@@ -103,7 +110,6 @@ namespace Sketchball.Elements
 
                 // Draw contours
 
-
                 foreach (PinballElement element in Elements)
                 {
                     GraphicsState gstate = g.Save();
@@ -141,12 +147,19 @@ namespace Sketchball.Elements
             machine.Gravity = Gravity;
 
             // Clone elements
+            // (clone static ones just to be sure their settings are OK)
+            machine.StaticElements = new ElementCollection(machine);
+            foreach (PinballElement element in StaticElements)
+            {
+                machine.StaticElements.Add((PinballElement)element.Clone());
+            }
+
             machine.DynamicElements = new ElementCollection(machine);
             foreach (PinballElement element in DynamicElements)
             {
                 machine.DynamicElements.Add((PinballElement)element.Clone());
             }
-
+            
             return machine;
         }
 

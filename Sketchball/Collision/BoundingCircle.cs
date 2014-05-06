@@ -19,11 +19,11 @@ namespace Sketchball.Collision
         /// Creates new bounding circle
         /// </summary>
         /// <param name="radius">Radius of the bounding circle</param>
-        /// <param name="center">position based on pinballElement</param>
-        public BoundingCircle(int radius, Vector2 center)
+        /// <param name="position">position based on pinballElement</param>
+        public BoundingCircle(int radius, Vector2 position)
         {
             this.radius = radius;
-            this.position = center+new Vector2(radius,radius);
+            this.position = position+new Vector2(radius,radius);
         }
 
         public override bool intersec(IBoundingBox bB,out Vector2 hitPoint, Vector2 velocity )

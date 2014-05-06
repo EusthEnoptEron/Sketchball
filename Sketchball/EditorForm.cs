@@ -76,6 +76,9 @@ namespace Sketchball
             populateElementPanel();
             populateToolPanel();
 
+            editToolStripMenuItem.DropDownItems.Add(new UndoItem(PlayFieldEditor.History));
+            editToolStripMenuItem.DropDownItems.Add(new RedoItem(PlayFieldEditor.History));
+
             FileName = null;
         }
 
@@ -116,7 +119,10 @@ namespace Sketchball
         private void populateToolPanel()
         {
             // List of available tools
-            Tool[] tools = new Tool[] { new LineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor) };
+            Tool[] tools = new Tool[] { 
+                new SelectionTool(PlayFieldEditor),
+                new LineTool(PlayFieldEditor), new MultiLineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor)
+            };
 
 
             // Initiate all tools and connect them with a button
@@ -134,6 +140,10 @@ namespace Sketchball
             {
                 CurrentTool = tools[0];
             }
+
+            // Add undo / redo buttons
+            toolBar.Items.Add(new RedoButton(PlayFieldEditor.History) { Alignment = ToolStripItemAlignment.Right });
+            toolBar.Items.Add(new UndoButton(PlayFieldEditor.History) { Alignment = ToolStripItemAlignment.Right });
         }
 
         private void populateElementPanel()
@@ -141,10 +151,11 @@ namespace Sketchball
             Font font = new Font("Arial", 10, FontStyle.Regular);
             elementPanel.Controls.Add(new ElementControl(new LeftFlipper(), "Flipper (left)", font));
             elementPanel.Controls.Add(new ElementControl(new RightFlipper(), "Flipper (right)", font));     //new RightFlipper() { Rotation = 0.1f }
-            elementPanel.Controls.Add(new ElementControl(new Bumper(), "Bumper", font));
             elementPanel.Controls.Add(new ElementControl(new SlingshotLeft(), "Slingshot (left)", font));
             elementPanel.Controls.Add(new ElementControl(new SlingshotRight(), "Slingshot (right)", font));
             elementPanel.Controls.Add(new ElementControl(new Hole(), "Hole", font));
+            elementPanel.Controls.Add(new ElementControl(new Bumper(), "Bumper", font));
+            
 
             foreach (Control c in elementPanel.Controls)
             {
@@ -175,9 +186,7 @@ namespace Sketchball
 
         private void OnDragDrop(object sender, DragEventArgs e)
         {
-            
-            PlayFieldEditor.PinballMachine.Add(dragState.Element);
-            PlayFieldEditor.Invalidate();
+            PlayFieldEditor.AddElement(dragState.Element);
         }
 
         private void OnDragEnter(object sender, DragEventArgs e)
@@ -228,6 +237,7 @@ namespace Sketchball
             dragState.Active = false;
             dragState.Element = null;
         }
+
 
         internal class DragState
         {
@@ -299,4 +309,5 @@ namespace Sketchball
         }
       
     }
+
 }

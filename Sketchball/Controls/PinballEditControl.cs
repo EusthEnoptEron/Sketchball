@@ -1,4 +1,5 @@
-﻿using Sketchball.Elements;
+﻿using Sketchball.Editor;
+using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -34,63 +35,38 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
            // SetStyle(ControlStyles.UserPaint, true);
 
-            MouseDown += StartDrag;
-            MouseMove += DoDrag;
-            MouseUp += StopDrag;
+
+            History.Change += History_Change;
         }
 
-        void StopDrag(object sender, System.Windows.Forms.MouseEventArgs e)
+        /// <summary>
+        /// Adds a new element to the pinball machine AND keeps track of it.
+        /// </summary>
+        /// <param name="element"></param>
+        public void AddElement(PinballElement element)
         {
-            if (dragging && e.Button == MouseButtons.Left)
-            {
+            IChange change = new CreationChange(PinballMachine.DynamicElements, element);
+            change.Do();
 
-                Point loc = PointToPinball(e.Location);
-                dragging = false;
-                SelectedElement.setLocation(startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y));
-
-                History.Add(new TranslationChange(SelectedElement, SelectedElement.getLocation() - startVector));
-            }
+            History.Add(change);
         }
 
-        void DoDrag(object sender, System.Windows.Forms.MouseEventArgs e)
+
+        /// <summary>
+        /// Removes an element from the pinball machine AND keeps track of it.
+        /// </summary>
+        /// <param name="element"></param>
+        public void RemoveElement(PinballElement element)
         {
-            if (dragging)
-            {
-                Point loc = PointToPinball(e.Location);
-                SelectedElement.Location = (startVector + new Vector2(loc.X - startPoint.X, loc.Y - startPoint.Y));
-                Invalidate();
-            }
+            IChange change = new DeletionChange(PinballMachine.DynamicElements, element);
+            change.Do();
+
+            History.Add(change);
         }
 
-        void StartDrag(object sender, System.Windows.Forms.MouseEventArgs e)
+        void History_Change()
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                Point loc = PointToPinball(e.Location);
-
-                PinballElement element = FindElement(loc);
-                if (element != null)
-                {
-                    // Select
-                    SelectedElement = element;
-                    dragging = true;
-                    startPoint = loc;
-                    startVector = element.getLocation();
-                }
-            }            
-        }
-
-        private PinballElement FindElement(Point location)
-        {
-            foreach (PinballElement element in PinballMachine.DynamicElements)
-            {
-                if (element.Contains(location))
-                {
-                    return element;
-                }
-            }
-
-            return null;
+            Invalidate();
         }
 
         protected override void ConfigureGDI(Graphics g)
@@ -103,9 +79,12 @@ namespace Sketchball.Controls
             //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
             Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
             g.FillRectangle(brush, 0, 0, base.Width, base.Height);
+
+            var state = g.Save();
             g.Transform = Transform;
 
             PinballMachine.Draw(g);
+            g.Restore(state);
         }
 
         private Matrix Transform
@@ -115,18 +94,6 @@ namespace Sketchball.Controls
                 Matrix m  = new Matrix();
                 m.Translate(15, 15);
                 m.Scale(ScaleFactor.X, ScaleFactor.Y);
-                //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
-
-                return m;
-            }
-        }
-        private Matrix Transform2
-        {
-            get
-            {
-                Matrix m = new Matrix();
-                m.Scale(1/ScaleFactor.X, 1/ScaleFactor.Y);
-                m.Translate(-15, -15);                
                 //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
 
                 return m;
@@ -150,6 +117,12 @@ namespace Sketchball.Controls
             return pArray[0];
         }
 
+        public Vector2 PointToPinball(Vector2 p)
+        {
+            var point = PointToPinball(new Point((int)p.X, (int)p.Y));
+            return new Vector2(point.X, point.Y);
+        }
+
         /// <summary>
         /// Computes the location of the specified pinball point into editor coordinates. 
         /// </summary>
@@ -162,6 +135,12 @@ namespace Sketchball.Controls
             m.TransformPoints(pArray);
 
             return pArray[0];
+        }
+
+        public Vector2 PointToEditor(Vector2 p)
+        {
+            var point = PointToEditor(new Point((int)p.X, (int)p.Y));
+            return new Vector2(point.X, point.Y);
         }
 
         public void LoadMachine(PinballMachine machine) {

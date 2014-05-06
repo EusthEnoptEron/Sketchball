@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sketchball
 {
-    class TranslationChange : IChange
+    public class TranslationChange : IChange
     {
         private int dx;
         private int dy;
