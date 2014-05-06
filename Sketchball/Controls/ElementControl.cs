@@ -13,7 +13,7 @@ using System.Drawing.Drawing2D;
 namespace Sketchball.Controls
 {
     /// <summary>
-    /// A control that is used to create new PinballElements. It's tasks are:
+    /// A control that is used to create new PinballElements. Its tasks are:
     /// 
     /// 1. Provide a control that shows a preview of an element and labels it
     /// 2. Provide a way to get a bitmap object of that preview
