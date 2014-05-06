@@ -43,11 +43,11 @@
             this.elementPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolBar = new System.Windows.Forms.ToolStrip();
-            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.dragThumb = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
@@ -207,25 +207,6 @@
             this.toolBar.TabIndex = 0;
             this.toolBar.Text = "toolStrip1";
             // 
-            // PlayFieldEditor
-            // 
-            this.PlayFieldEditor.AllowDrop = true;
-            this.PlayFieldEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayFieldEditor.Location = new System.Drawing.Point(0, 0);
-            this.PlayFieldEditor.Name = "PlayFieldEditor";
-            this.PlayFieldEditor.SelectedElement = null;
-            this.PlayFieldEditor.Size = new System.Drawing.Size(806, 668);
-            this.PlayFieldEditor.TabIndex = 2;
-            this.PlayFieldEditor.Text = "pinballEditControl1";
-            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
-            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
-            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
-            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
-            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
-            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
-            // 
             // dragThumb
             // 
             this.dragThumb.BackColor = System.Drawing.Color.Transparent;
@@ -254,6 +235,25 @@
             // 
             this.saveFileDialog.DefaultExt = "pmf";
             this.saveFileDialog.Filter = "Pinball machine files|*.pmf";
+            // 
+            // PlayFieldEditor
+            // 
+            this.PlayFieldEditor.AllowDrop = true;
+            this.PlayFieldEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayFieldEditor.Location = new System.Drawing.Point(0, 0);
+            this.PlayFieldEditor.Name = "PlayFieldEditor";
+            this.PlayFieldEditor.SelectedElement = null;
+            this.PlayFieldEditor.Size = new System.Drawing.Size(806, 668);
+            this.PlayFieldEditor.TabIndex = 2;
+            this.PlayFieldEditor.Text = "pinballEditControl1";
+            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
+            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
+            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
+            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
+            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
             // 
             // EditorForm
             // 

@@ -23,6 +23,8 @@ namespace Sketchball.Editor
         private TranslationChange posChange = null;
 
 
+        private PropertyGrid propertyGrid;
+
         private PinballMachine Machine {
             get
             {
@@ -35,6 +37,27 @@ namespace Sketchball.Editor
         {
             this.Icon = Properties.Resources.Very_Basic_Cursor_icon;
             this.Label = "Select";
+
+
+            propertyGrid = new PropertyGrid();
+            propertyGrid.Dock    = DockStyle.Right;
+            propertyGrid.Width   = 200;
+            propertyGrid.Visible = false;
+          
+           
+            propertyGrid.PropertyValueChanged += (s, e) => { Control.Refresh(); };
+            Control.History.Change += () => { propertyGrid.Refresh(); };
+        }
+
+
+        protected override void OnSelect()
+        {
+            Control.Controls.Add(propertyGrid);
+        }
+
+        protected override void OnUnselect()
+        {
+            Control.Controls.Remove(propertyGrid);
         }
 
         protected override void OnMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -58,6 +81,16 @@ namespace Sketchball.Editor
                 {
                     SelectedElement = null;
                     Control.Invalidate();
+                }
+
+                if (SelectedElement != null)
+                {
+                    propertyGrid.Show();
+                    propertyGrid.SelectedObject = SelectedElement;
+                }
+                else
+                {
+                    propertyGrid.Hide();
                 }
             }
         }
