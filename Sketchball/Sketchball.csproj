@@ -107,6 +107,7 @@
     <Compile Include="Elements\SlingshotRight.cs" />
     <Compile Include="Elements\StartingRamp.cs" />
     <Compile Include="Elements\TriangleTMP.cs" />
+    <Compile Include="Elements\wormholeEntry.cs" />
     <Compile Include="FontManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Controls\GameHUD.cs" />
