@@ -141,5 +141,10 @@ namespace Sketchball
             }
         }
 
+        private void PlayForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            game.Dispose();
+        }
+
     }
 }

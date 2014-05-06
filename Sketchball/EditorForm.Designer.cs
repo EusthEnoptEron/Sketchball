@@ -38,15 +38,16 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.playButton = new System.Windows.Forms.ToolStripMenuItem();
             this.playgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSplitToMenueAndField = new System.Windows.Forms.SplitContainer();
             this.elementPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolBar = new System.Windows.Forms.ToolStrip();
+            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.dragThumb = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
@@ -81,7 +82,8 @@
             // mainMenuStrip
             // 
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Size = new System.Drawing.Size(1119, 24);
@@ -147,6 +149,12 @@
             this.playgroundToolStripMenuItem.Text = "Playground";
             this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
             // MainSplitToMenueAndField
             // 
             this.MainSplitToMenueAndField.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -195,6 +203,23 @@
             this.toolBar.Stretch = true;
             this.toolBar.TabIndex = 0;
             this.toolBar.Text = "toolStrip1";
+            // 
+            // PlayFieldEditor
+            // 
+            this.PlayFieldEditor.AllowDrop = true;
+            this.PlayFieldEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PlayFieldEditor.Location = new System.Drawing.Point(0, 0);
+            this.PlayFieldEditor.Name = "PlayFieldEditor";
+            this.PlayFieldEditor.SelectedElement = null;
+            this.PlayFieldEditor.Size = new System.Drawing.Size(813, 624);
+            this.PlayFieldEditor.TabIndex = 2;
+            this.PlayFieldEditor.Text = "pinballEditControl1";
+            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
+            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
+            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
+            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
+            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
             // 
             // dragThumb
             // 
@@ -293,6 +318,7 @@
         private System.Windows.Forms.ToolStrip toolBar;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
 
     }
 }

@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
-    <Compile Include="Change.cs" />
+    <Compile Include="Editor\Change.cs" />
     <Compile Include="Collision\BoundingBox.cs" />
     <Compile Include="Collision\BoundingCircle.cs" />
     <Compile Include="Collision\BoundingContainer.cs" />
@@ -74,9 +74,16 @@
     <Compile Include="Controls\GameView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Editor\CreationChange.cs" />
+    <Compile Include="Editor\DeletionChange.cs" />
+    <Compile Include="Editor\SelectionTool.cs" />
     <Compile Include="Editor\CircleTool.cs" />
     <Compile Include="Editor\LineTool.cs" />
+    <Compile Include="Editor\MultiLineTool.cs" />
     <Compile Include="Editor\Tool.cs" />
+    <Compile Include="Editor\UndoRedoButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Elements\AnimatedObject.cs" />
     <Compile Include="Controls\ElementControl.cs">
       <SubType>UserControl</SubType>
@@ -86,6 +93,7 @@
     </Compile>
     <Compile Include="Elements\Ball.cs" />
     <Compile Include="Elements\Bumper.cs" />
+    <Compile Include="Elements\Circle.cs" />
     <Compile Include="Elements\DefaultLayout.cs" />
     <Compile Include="Elements\ElementCollection.cs" />
     <Compile Include="Elements\Flipper.cs" />
@@ -114,7 +122,7 @@
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />
     <Compile Include="Elements\PinballElement.cs" />
-    <Compile Include="History.cs" />
+    <Compile Include="Editor\History.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="GameFieldCamera.cs" />
     <Compile Include="PlayForm.cs">
@@ -131,7 +139,7 @@
     <Compile Include="SelectionForm.Designer.cs">
       <DependentUpon>SelectionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TranslationChange.cs" />
+    <Compile Include="Editor\TranslationChange.cs" />
     <Compile Include="Vector2.cs" />
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
@@ -169,7 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
-    <None Include="Resources\FlipperRight.png" />
+    <None Include="Resources\MultiLineTool.png" />    <None Include="Resources\FlipperRight.png" />
     <None Include="Resources\FlipperLeft.png" />
     <None Include="Resources\SlingshotLeft.png" />
     <None Include="Resources\SlingshotLeft.bmp" />

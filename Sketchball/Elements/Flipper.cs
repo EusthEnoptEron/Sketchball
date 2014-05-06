@@ -74,6 +74,7 @@ namespace Sketchball.Elements
         {
             if ( (e.KeyCode == Trigger ||e.KeyCode == DebugTrigger) && !Animating)
             {
+
                 var speed = e.KeyCode == Trigger ? 0.1f : 4f;
 
                 Animating = true;

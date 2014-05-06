@@ -10,41 +10,60 @@ using Sketchball.Elements;
 
 namespace Sketchball.Editor
 {
-    public class LineTool : Tool
+    public class MultiLineTool : Tool
     {
         private Vector2 startPos;
         private Vector2 actualPos;
         private bool drawing = false;
-        
 
-        public LineTool(PinballEditControl control)
+
+        public MultiLineTool(PinballEditControl control)
             : base(control)
         {
-            Icon = Properties.Resources.LineTool;
-            Label = "Line tool";
-            
+            Icon = Properties.Resources.MultiLineTool;
+            Label = "Multi Line tool";
         }
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            this.startPos = new Vector2(e.X, e.Y);
-            this.actualPos = new Vector2(e.X, e.Y);
-            this.drawing = true;
-            this.Control.Refresh();
+            if (drawing == false)
+            {
+                this.startPos = new Vector2(e.X, e.Y);
+                this.actualPos = new Vector2(e.X, e.Y);
+                this.drawing = true;
+                this.Control.Refresh();
+            }
+        }
+
+        protected override void OnSelect()
+        {
+            Control.MouseDoubleClick += OnMouseDoubleClick;
+        }
+
+        protected override void OnUnselect()
+        {
+            Control.MouseDoubleClick -= OnMouseDoubleClick;
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
             this.actualPos = new Vector2(e.X, e.Y);
 
-            //Create Line
-            var start = Control.PointToPinball(startPos);
             var end = Control.PointToPinball(actualPos);
+            var start = Control.PointToPinball(startPos);
+
+            //Create Line
             Line l = new Line(start.X, start.Y, end.X, end.Y);
             this.Control.AddElement(l);
 
-            this.drawing = false;
+            this.startPos = actualPos;
             this.Control.Refresh();
+        }
+
+        protected void OnMouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            OnMouseUp(sender, e);
+            this.drawing = false;
         }
 
         protected override void OnMouseMove(object sender, MouseEventArgs e)

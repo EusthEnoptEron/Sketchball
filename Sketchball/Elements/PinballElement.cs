@@ -18,8 +18,6 @@ namespace Sketchball.Elements
         [DataMember]
         public int Height = 100;
 
-        
-
         public float X { get { return Location.X; } set { Location.X = value; } }
         public float Y { get { return Location.Y; } set { Location.Y = value; } }
 
@@ -106,22 +104,33 @@ namespace Sketchball.Elements
         public object Clone()
         {
             PinballElement element = (PinballElement)MemberwiseClone();
-            element.InitBoundingContainer();
+            element._boundingContainer = null;
 
-            foreach (IBoundingBox b in this.boundingContainer.getBoundingBoxes())
-            {
-                IBoundingBox nB = b.Clone();
-                element.boundingContainer.addBoundingBox(nB);
-
-            }
+            OnClone(element);
             return element;
         }
 
-  		 protected virtual void EnterMachine(PinballGameMachine machine)
+        /// <summary>
+        /// Does additional stuff when an element is cloned.
+        /// </summary>
+        /// <param name="element"></param>
+        protected virtual void OnClone(PinballElement element)
         {
         }
 
-         protected virtual void LeaveMachine(PinballGameMachine machine)
+        /// <summary>
+        /// Sets up event listeners when a new machine is entered.
+        /// </summary>
+        /// <param name="machine"></param>
+  		protected virtual void EnterMachine(PinballGameMachine machine)
+        {
+        }
+
+        /// <summary>
+        /// Removes event listeners when a machine is left
+        /// </summary>
+        /// <param name="machine"></param>
+        protected virtual void LeaveMachine(PinballGameMachine machine)
         {
         }
 

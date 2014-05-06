@@ -12,6 +12,8 @@ namespace Sketchball.Editor
 
     public abstract class Tool
     {
+
+        
         protected PinballEditControl Control;
         public string Label { get; protected set; }
         public Image Icon { get; protected set; }
