@@ -2,6 +2,7 @@
 using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -16,15 +17,24 @@ namespace Sketchball.Elements
     public abstract class PinballElement : ICloneable
     {
         [DataMember]
-        public int Width = 100;
-        [DataMember]
-        public int Height = 100;
-
-        public float X { get { return Location.X; } set { Location.X = value; } }
-        public float Y { get { return Location.Y; } set { Location.Y = value; } }
+        private Size _size = new Size(100, 100);
 
         [DataMember]
         public Vector2 Location = new Vector2();
+
+        [Category("Position")]
+        public int Width { get { return _size.Width; } set { _size.Width = value; } }
+
+        [Category("Position")]
+        public int Height { get { return _size.Height; } set { _size.Height = value; } }
+
+        [Category("Position")]
+        public float X { get { return Location.X; } set { Location.X = value; } }
+       
+        [Category("Position")]
+        public float Y { get { return Location.Y; } set { Location.Y = value; } }
+
+
 
         private PinballMachine _machine = null;
 
@@ -91,7 +101,7 @@ namespace Sketchball.Elements
         protected abstract void InitBounds();
 
         [DataMember]
-        public int Value { get; protected set; }
+        public int Value { get; set; }
 
         public virtual void Update(long delta) {}
 
