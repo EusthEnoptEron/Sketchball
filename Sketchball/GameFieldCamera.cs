@@ -41,12 +41,7 @@ namespace Sketchball
             {
                 float ratio = CalculateRatio(Size.Width, Size.Height);
 
-                Background = new Bitmap((int)(ratio * Game.Machine.Width), (int)(ratio * Game.Machine.Height), PixelFormat.Format32bppPArgb);
-
-                using (Graphics g = Graphics.FromImage(Background))
-                {
-                    g.DrawImage(Notebook, 0, 0, Background.Width, Background.Height);
-                }
+                Background = Booster.OptimizeImage(Notebook, (int)(ratio * Game.Machine.Width), (int)(ratio * Game.Machine.Height));
             }
         }
 
@@ -81,7 +76,6 @@ namespace Sketchball
             float heightRatio = (float)(height) / Game.Machine.Height;
 
             return Math.Min(widthRatio, heightRatio);
-            
         }
     }
 }

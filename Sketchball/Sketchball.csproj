@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Booster.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Editor\Change.cs" />
     <Compile Include="Collision\BoundingBox.cs" />
@@ -177,7 +178,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
-    <None Include="Resources\MultiLineTool.png" />    <None Include="Resources\FlipperRight.png" />
+    <None Include="Resources\MultiLineTool.png" />
+    <None Include="Resources\FlipperRight.png" />
     <None Include="Resources\FlipperLeft.png" />
     <None Include="Resources\SlingshotLeft.png" />
     <None Include="Resources\SlingshotLeft.bmp" />

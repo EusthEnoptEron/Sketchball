@@ -70,7 +70,7 @@ namespace Sketchball.Tests.Elements
         {
             PinballMachine pbm = new PinballMachine();
             PinballMachine pbm2;
-            Flipper flipper = new Flipper() { X = 5, Y = 5 };
+            Flipper flipper = new LeftFlipper() { X = 5, Y = 5 };
             Stream stream = new MemoryStream();
 
             pbm.Add(flipper);
@@ -89,7 +89,7 @@ namespace Sketchball.Tests.Elements
         public void CanAddElement()
         {
             PinballMachine pbm = new PinballMachine();
-            Flipper flipper = new Flipper() { X = 5, Y = 5 };
+            Flipper flipper = new LeftFlipper() { X = 5, Y = 5 };
 
             pbm.Add(flipper);
 

@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{07EDAE
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collisiondetection_Test", "Collisiondetection_Test\Collisiondetection_Test.csproj", "{EB2224F7-013C-4BD9-A207-700898785EE8}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sketchball.Tests", "Sketchball.Tests\Sketchball.Tests.csproj", "{BFB515BB-AEE8-4A0F-A25E-0AAD40624FA3}"
 EndProject
 Global
@@ -34,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
