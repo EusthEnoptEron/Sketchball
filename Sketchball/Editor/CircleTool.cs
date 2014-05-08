@@ -34,8 +34,9 @@ namespace Sketchball.Editor
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
-            this.radius = (new Vector2(e.X, e.Y) - this.center).Length();
+            this.radius = Control.LengthToPinball((new Vector2(e.X, e.Y) - this.center).Length());
             var center = Control.PointToPinball(this.center);
+            
 
             //Create Circle
             Circle c = new Circle(center.X - this.radius, center.Y - this.radius, this.radius);

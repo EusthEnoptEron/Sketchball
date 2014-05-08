@@ -16,12 +16,7 @@ namespace Sketchball.Controls
         public readonly History History = new History();
         public PinballElement SelectedElement { get; set; }
 
-        private bool dragging = false;
-
-        private Vector2 startVector;
-        private Point startPoint;
-
-        public Vector2 ScaleFactor = new Vector2(1.7f,1.7f);
+        public float ScaleFactor = 1.0f;
 
         public PinballMachine PinballMachine { get; private set; }
 
@@ -93,7 +88,7 @@ namespace Sketchball.Controls
             {
                 Matrix m  = new Matrix();
                 m.Translate(15, 15);
-                m.Scale(ScaleFactor.X, ScaleFactor.Y);
+                m.Scale(ScaleFactor, ScaleFactor);
                 //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
 
                 return m;
@@ -150,10 +145,7 @@ namespace Sketchball.Controls
         /// <returns></returns>
         public float LengthToEditor(float val)
         {
-            var vBefore = new Vector2(0, val);
-            var vAfter = PointToEditor(vBefore);
-
-            return vAfter.Length();
+            return val * ScaleFactor;
         }
 
         /// <summary>
@@ -162,10 +154,7 @@ namespace Sketchball.Controls
         /// <param name="val"></param>
         /// <returns></returns>
         public float LengthToPinball(float val) {
-            var vBefore = new Vector2(0, val);
-            var vAfter = PointToPinball(vBefore);
-
-            return vAfter.Length();
+            return val / ScaleFactor;
         }
 
         public void LoadMachine(PinballMachine machine) {

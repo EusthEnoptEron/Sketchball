@@ -69,7 +69,7 @@ namespace Sketchball
         {
             InitializeComponent();
 
-            //PlayFieldEditor.ScaleFactor *= 1f;
+            PlayFieldEditor.ScaleFactor = 1.7f;
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
 
