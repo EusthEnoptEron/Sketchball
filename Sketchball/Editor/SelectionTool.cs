@@ -43,7 +43,6 @@ namespace Sketchball.Editor
             propertyGrid.Dock    = DockStyle.Right;
             propertyGrid.Width   = 200;
             propertyGrid.Visible = false;
-          
            
             propertyGrid.PropertyValueChanged += (s, e) => { Control.Refresh(); };
             Control.History.Change += () => { propertyGrid.Refresh(); };
@@ -97,8 +96,11 @@ namespace Sketchball.Editor
 
         private PinballElement FindElement(Point location)
         {
-            foreach (PinballElement element in Machine.DynamicElements)
+            // Elements with a higher index are drawn *above* those with a lower one
+            // -> we need to iterate downward
+            for (int i = Machine.DynamicElements.Count - 1; i >= 0; --i)
             {
+                var element = Machine.DynamicElements[i];
                 if (element.Contains(location))
                 {
                     return element;
