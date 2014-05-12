@@ -1,6 +1,7 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace Sketchball.Elements
 {
     public class Hole : PinballElement
     {
+        private static Image image = Booster.OptimizeImage(Properties.Resources.hole, 50, 50);
         public Hole()
             : base()
         {
@@ -26,7 +28,7 @@ namespace Sketchball.Elements
                 b.drawDEBUG(g, System.Drawing.Pens.Red);
             });
             g.TranslateTransform(X, Y);
-            g.DrawImage(Properties.Resources.hole, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, Width, Height);
         }
 
         protected override void InitBounds()

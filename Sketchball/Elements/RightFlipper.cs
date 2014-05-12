@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Sketchball.Elements
     [DataContract]
     public class RightFlipper : Flipper
     {
+        private static Image image = Booster.OptimizeImage(Properties.Resources.FlipperRight, 100);
 
         public RightFlipper()
         {
@@ -45,7 +47,7 @@ namespace Sketchball.Elements
         public override void Draw(System.Drawing.Graphics g)
         {
             base.Draw(g);
-            g.DrawImage(Properties.Resources.FlipperRight, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, Width, Height);
         }
     }
     

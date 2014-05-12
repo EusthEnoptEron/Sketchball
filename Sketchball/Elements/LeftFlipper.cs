@@ -12,6 +12,8 @@ namespace Sketchball.Elements
     [DataContract]
     public class LeftFlipper : Flipper
     {
+        private static Image image = Booster.OptimizeImage(Properties.Resources.FlipperLeft, 100);
+
         public LeftFlipper()
         {
             Trigger = Keys.A;
@@ -43,7 +45,7 @@ namespace Sketchball.Elements
             });
             //g.TranslateTransform(X, Y);
             
-            g.DrawImage(Properties.Resources.FlipperLeft, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, Width, Height);
         }
 
     }
