@@ -10,18 +10,24 @@ using System.Windows.Forms;
 namespace Sketchball.Editor
 {
     class SelectionTool : Tool
-    {
-
-        public PinballElement SelectedElement { get; set; }
-
-       
+    {   
         private Point startPoint;
         private Vector2 startVector;
         private bool mouseIsDown = false;
         private Vector2 delta;
        
         private TranslationChange posChange = null;
-
+        private PinballElement SelectedElement
+        {
+            get
+            {
+                return Control.SelectedElement;
+            }
+            set
+            {
+                Control.SelectedElement = value;
+            }
+        }
 
         private PropertyGrid propertyGrid;
 
@@ -37,15 +43,6 @@ namespace Sketchball.Editor
         {
             this.Icon = Properties.Resources.Very_Basic_Cursor_icon;
             this.Label = "Select";
-
-
-            propertyGrid = new PropertyGrid();
-            propertyGrid.Dock    = DockStyle.Right;
-            propertyGrid.Width   = 200;
-            propertyGrid.Visible = false;
-           
-            propertyGrid.PropertyValueChanged += (s, e) => { Control.Refresh(); };
-            Control.History.Change += () => { propertyGrid.Refresh(); };
         }
 
 
@@ -73,23 +70,10 @@ namespace Sketchball.Editor
                     SelectedElement = element;
                     this.delta = new Vector2(e.X, e.Y) - Control.PointToEditor(SelectedElement.Location);
                     startVector = SelectedElement.Location;
-                   
-                    Control.Invalidate();
                 }
                 else
                 {
                     SelectedElement = null;
-                    Control.Invalidate();
-                }
-
-                if (SelectedElement != null)
-                {
-                    propertyGrid.Show();
-                    propertyGrid.SelectedObject = SelectedElement;
-                }
-                else
-                {
-                    propertyGrid.Hide();
                 }
             }
         }
@@ -138,25 +122,6 @@ namespace Sketchball.Editor
 
 
         }
-
-        protected override void Draw(object sender, PaintEventArgs e)
-        {
-            if(SelectedElement != null) {
-                Pen pen = new Pen(Color.Black, 1);
-                pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-                pen.DashPattern = new float[] { 5f, 4f };
-
-
-                var rect = SelectedElement.Shape;
-                var origin = Control.PointToEditor(new Point((int)SelectedElement.Location.X, (int)SelectedElement.Location.Y));
-                var width = Control.LengthToEditor(rect.Width) - 15;
-                var height = Control.LengthToEditor(rect.Height) -15;
-
-                e.Graphics.DrawRectangle(pen, origin.X + rect.X, origin.Y + rect.Y, width, height);
-            }
-        }
-
-       
 
     }
 }

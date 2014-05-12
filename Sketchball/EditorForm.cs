@@ -79,6 +79,10 @@ namespace Sketchball
             editToolStripMenuItem.DropDownItems.Add(new UndoItem(PlayFieldEditor.History));
             editToolStripMenuItem.DropDownItems.Add(new RedoItem(PlayFieldEditor.History));
 
+            PlayFieldEditor.History.Change += () => { elementInspector.Refresh(); };
+            elementInspector.PropertyValueChanged += (sender, e) => { PlayFieldEditor.Refresh(); };
+            fieldAndPropertySplitter.Panel2Collapsed = true;
+
             FileName = null;
         }
 
@@ -306,6 +310,20 @@ namespace Sketchball
         {
             var form = new PlayForm(PlayFieldEditor.PinballMachine);
             form.ShowDialog();
+        }
+
+        private void PlayFieldEditor_SelectionChanged(PinballElement prevElement, PinballElement newElement)
+        {
+            if (newElement != null)
+            {
+                elementInspector.SelectedObject = newElement;
+                fieldAndPropertySplitter.Panel2Collapsed = false;
+            }
+            else
+            {
+                elementInspector.SelectedObject = null;
+                fieldAndPropertySplitter.Panel2Collapsed = true;
+            }
         }
       
     }
