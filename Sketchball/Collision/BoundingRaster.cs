@@ -395,7 +395,7 @@ namespace Sketchball.Collision
         /// This method takes a ball and handles the collision of it with all other bounding boxes in this raster
         /// </summary>
         /// <param name="ball">Ball that causes collisions</param>
-        public void handleCollision(Ball ball)
+        public LinkedList<IBoundingBox> handleCollision(Ball ball)
         {
             //Collide first with animated object then with object around ball self
             LinkedList<IBoundingBox> history = new LinkedList<IBoundingBox>();
@@ -473,6 +473,7 @@ namespace Sketchball.Collision
                                 Vector2 hitPoint = new Vector2(0, 0);
                                 if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                                 {
+                                    history.AddFirst(b);
                                     //collision
                                     if (b.BoundingContainer.parentElement.pureIntersection)
                                     {
@@ -480,8 +481,6 @@ namespace Sketchball.Collision
                                     }
                                     else
                                     {
-                                        history.AddFirst(b);
-
                                         Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.getLocation() + ball.getBoundingContainer().getBoundingBoxes()[0].position);
                                         Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection, ball.getLocation());
 
@@ -497,6 +496,7 @@ namespace Sketchball.Collision
                 }
 
             }
+            return history;
         }
 
 

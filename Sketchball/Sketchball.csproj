@@ -179,6 +179,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\flipperRight %282%29.png" />
+    <None Include="Resources\flipperLeft %282%29.png" />
     <None Include="Resources\WormholeExit.png" />
     <None Include="Resources\WormholeEntry.png" />
     <None Include="Resources\MultiLineTool.png" />
