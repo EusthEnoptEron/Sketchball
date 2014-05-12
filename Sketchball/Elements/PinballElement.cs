@@ -13,6 +13,21 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
+    public enum RotationOrigin
+    {
+        TopLeft,
+        TopCenter,
+        TopRight,
+        
+        MiddleLeft,
+        MiddleCenter,
+        MiddleRight,
+
+        BottomLeft,
+        BottomCenter,
+        BottomRight
+    }
+
     [DataContract]
     public abstract class PinballElement : ICloneable
     {
@@ -34,7 +49,14 @@ namespace Sketchball.Elements
         [Category("Position")]
         public float Y { get { return Location.Y; } set { Location.Y = value; } }
 
+        [DataMember]
+        [Category("Position"), DisplayName("Rotation"), Description("The rotation of this element in degrees.")]
+        public float BaseRotation { get; set; }
 
+        [DataMember]
+        [Category("Position")]
+        [DefaultValue(typeof(RotationOrigin), "RotationOrigin.TopLeft")]
+        public RotationOrigin Origin { get; set; }
 
         private PinballMachine _machine = null;
         private const int SELECTION_PADDING = 2;
@@ -89,6 +111,7 @@ namespace Sketchball.Elements
 
         public PinballElement(float X, float Y)
         {
+            Origin = RotationOrigin.TopLeft;
             this.X = X;
             this.Y = Y;
         }
