@@ -70,6 +70,7 @@ namespace Sketchball.Elements
 
             Flipper rflipper = new RightFlipper() { X = 210, Y = Height - 90 };
             _elements.Add(rflipper);
+
         }
 
         public int Width

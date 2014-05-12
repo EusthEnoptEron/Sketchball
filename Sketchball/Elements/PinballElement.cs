@@ -39,6 +39,8 @@ namespace Sketchball.Elements
         private PinballMachine _machine = null;
         private const int SELECTION_PADDING = 2;
 
+        public bool pureIntersection{ get; protected set;}
+
         [DataMember]
         public PinballMachine World { 
             get {
@@ -85,10 +87,12 @@ namespace Sketchball.Elements
 
         public PinballElement() : this(0, 0)
         {
+            pureIntersection = false;
         }
 
         public PinballElement(float X, float Y)
         {
+            pureIntersection = false;
             this.X = X;
             this.Y = Y;
         }
@@ -194,5 +198,12 @@ namespace Sketchball.Elements
                 return new Rectangle(0, 0, Width, Height);
             }
         }
+
+        public virtual void notifyIntersection(Ball b)
+        {
+            //placeholder
+        }
+
+        
     }
 }

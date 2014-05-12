@@ -84,12 +84,14 @@ namespace Sketchball.Elements
             }
         }
 
-        public void handleCollision()
+        public List<IBoundingBox> handleCollision()
         {
+            List<IBoundingBox> hits = new List<IBoundingBox>(20);
             foreach (Ball b in this.Balls)
             {
-                this.boundingRaster.handleCollision(b);
+                hits.AddRange(boundingRaster.handleCollision(b));
             }
+            return hits;
         }
 
         public void debugDraw(Graphics g)
