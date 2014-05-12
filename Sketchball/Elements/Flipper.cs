@@ -42,14 +42,6 @@ namespace Sketchball.Elements
             base.Update(delta);
         }
 
-       
-
-        public override bool Contains(Point point)
-        {
-            Rectangle rect = new Rectangle((int)X, (int)Y, Width, Height);
-            return rect.Contains(point);
-        }
-
         protected override void EnterMachine(PinballGameMachine machine)
         {
             machine.Input.KeyDown += OnKeyDown;
