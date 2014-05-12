@@ -23,7 +23,8 @@ namespace Sketchball
 
         private Tool _currentTool = null;
         private string _fileName;
-
+       
+        private WormholeEntry lastWormholeEntry = null;
         /// <summary>
         /// Gets or sets the current filename of the pinball machine file.
         /// </summary>
@@ -90,7 +91,6 @@ namespace Sketchball
 
         public EditorForm(SelectionForm selectionForm) : this()
         {
-         
             this.selectionForm = selectionForm;
         }
 
@@ -159,7 +159,8 @@ namespace Sketchball
             elementPanel.Controls.Add(new ElementControl(new SlingshotRight(), "Slingshot (right)", font));
             elementPanel.Controls.Add(new ElementControl(new Hole(), "Hole", font));
             elementPanel.Controls.Add(new ElementControl(new Bumper(), "Bumper", font));
-            
+            elementPanel.Controls.Add(new ElementControl(new WormholeEntry(), "Wormhole (entry)", font));
+            elementPanel.Controls.Add(new ElementControl(new WormholeExit(), "Wormhole (exit)", font));
 
             foreach (Control c in elementPanel.Controls)
             {
@@ -191,6 +192,19 @@ namespace Sketchball
         private void OnDragDrop(object sender, DragEventArgs e)
         {
             PlayFieldEditor.AddElement(dragState.Element);
+            if( dragState.Element.GetType() == typeof(WormholeEntry))
+            {
+                lastWormholeEntry = (WormholeEntry)dragState.Element;
+            }
+
+            if (dragState.Element.GetType() == typeof(WormholeExit))
+            {
+                if (lastWormholeEntry != null)
+                {
+                    lastWormholeEntry.WormholeExit = (WormholeExit)dragState.Element;
+                }
+                lastWormholeEntry = null;
+            }
         }
 
         private void OnDragEnter(object sender, DragEventArgs e)
@@ -237,9 +251,9 @@ namespace Sketchball
             
             dragThumb.Visible = false;
 
-
             dragState.Active = false;
             dragState.Element = null;
+           
         }
 
 
@@ -273,14 +287,22 @@ namespace Sketchball
 
         private void savePBMButton_Click(object sender, EventArgs e)
         {
-            if (FileName == null)
+            if (PlayFieldEditor.PinballMachine.IsValid())
             {
-                var result = saveFileDialog.ShowDialog();
-                if (result != DialogResult.OK) return;
-                else FileName = saveFileDialog.FileName;
-            }
 
-            PlayFieldEditor.PinballMachine.Save(FileName);
+                if (FileName == null)
+                {
+                    var result = saveFileDialog.ShowDialog();
+                    if (result != DialogResult.OK) return;
+                    else FileName = saveFileDialog.FileName;
+                }
+
+                PlayFieldEditor.PinballMachine.Save(FileName);
+            }
+            else
+            {
+                MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);    
+            }
         }
 
         private void newPBMButton_Click(object sender, EventArgs e)
@@ -308,8 +330,15 @@ namespace Sketchball
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            var form = new PlayForm(PlayFieldEditor.PinballMachine);
-            form.ShowDialog();
+            if (PlayFieldEditor.PinballMachine.IsValid())
+            {
+                var form = new PlayForm(PlayFieldEditor.PinballMachine);
+                form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void PlayFieldEditor_SelectionChanged(PinballElement prevElement, PinballElement newElement)
