@@ -224,6 +224,7 @@
             // 
             // fieldAndPropertySplitter
             // 
+            this.fieldAndPropertySplitter.BackColor = System.Drawing.SystemColors.Control;
             this.fieldAndPropertySplitter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldAndPropertySplitter.Location = new System.Drawing.Point(0, 0);
             this.fieldAndPropertySplitter.Name = "fieldAndPropertySplitter";
@@ -231,6 +232,7 @@
             // fieldAndPropertySplitter.Panel1
             // 
             this.fieldAndPropertySplitter.Panel1.AutoScroll = true;
+            this.fieldAndPropertySplitter.Panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.fieldAndPropertySplitter.Panel1.Controls.Add(this.PlayFieldEditor);
             // 
             // fieldAndPropertySplitter.Panel2
@@ -336,9 +338,6 @@
             this.zoomBar.Name = "zoomBar";
             this.zoomBar.Size = new System.Drawing.Size(104, 45);
             this.zoomBar.Text = "toolStripTrackBarItem1";
-            this.zoomBar.Trackbar.Minimum = 5;
-            this.zoomBar.Trackbar.Maximum = 20;
-            
             // 
             // EditorForm
             // 
