@@ -61,9 +61,12 @@ namespace Sketchball.Elements
         private PinballMachine _machine = null;
         private const int SELECTION_PADDING = 2;
 
+
+        [Browsable(false)]
         public bool pureIntersection{ get; protected set;}
 
         [DataMember]
+        [Browsable(false)]
         public PinballMachine World { 
             get {
                 return _machine;
@@ -91,6 +94,7 @@ namespace Sketchball.Elements
         /// <summary>
         /// Lazy-loading bounding container.
         /// </summary>
+        [Browsable(false)]
         public BoundingContainer boundingContainer
         {
             get
@@ -211,15 +215,6 @@ namespace Sketchball.Elements
         {
             this.Location.X = newLoc.X;
             this.Location.Y = newLoc.Y;
-        }
-
-
-        public Rectangle Shape
-        {
-            get
-            {
-                return new Rectangle(0, 0, Width, Height);
-            }
         }
 
         public virtual void notifyIntersection(Ball b)

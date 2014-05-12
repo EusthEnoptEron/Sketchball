@@ -16,7 +16,7 @@ namespace Sketchball.Elements
     public abstract class Flipper : AnimatedObject
     {
         [DataMember]
-        public Keys Trigger;
+        public Keys Trigger { get; set; }
         protected Keys DebugTrigger;
 
         public float RotationRange = (float)(Math.PI / 180 * 60);
