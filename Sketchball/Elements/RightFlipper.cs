@@ -22,16 +22,17 @@ namespace Sketchball.Elements
 
         protected override void InitBounds()
         {
+            Vector2 offset = new Vector2(-10, -10);
             int r1 = 70;
             int r2 = 16;
-            Vector2 mitteKreis = new Vector2(-(140-400)+400, 295);
-            Vector2 obenKreisLinie = new Vector2(-(180 - 400) + 400, 241);
-            Vector2 p3 = new Vector2(-(678 - 400) + 400, 505);
-            Vector2 p4 = new Vector2(-(700 - 400) + 400, 534);
-            Vector2 circle2 = new Vector2(-(692 - 400) + 400, 546);
-            Vector2 p5 = new Vector2(-(692 - 400) + 400, 561);
-            Vector2 p6 = new Vector2(-(645 - 400) + 400, 566);
-            Vector2 p7 = new Vector2(-(116 - 400) + 400, 355);
+            Vector2 mitteKreis = new Vector2(-(140 - 400) + 400, 295) + offset;
+            Vector2 obenKreisLinie = new Vector2(-(180 - 400) + 400, 241) + offset;
+            Vector2 p3 = new Vector2(-(678 - 400) + 400, 505) + offset;
+            Vector2 p4 = new Vector2(-(700 - 400) + 400, 534) + offset;
+            Vector2 circle2 = new Vector2(-(692 - 400) + 400, 546) + offset;
+            Vector2 p5 = new Vector2(-(692 - 400) + 400, 561) + offset;
+            Vector2 p6 = new Vector2(-(645 - 400) + 400, 566) + offset;
+            Vector2 p7 = new Vector2(-(116 - 400) + 400, 355) + offset;
 
             float factor = 800 / 70;
 
