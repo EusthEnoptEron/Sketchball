@@ -70,8 +70,6 @@ namespace Sketchball
         {
             InitializeComponent();
 
-            PlayFieldEditor.ScaleFactor = 1.7f;
-
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
 
             populateElementPanel();
@@ -83,6 +81,8 @@ namespace Sketchball
             PlayFieldEditor.History.Change += () => { elementInspector.Refresh(); };
             elementInspector.PropertyValueChanged += (sender, e) => { PlayFieldEditor.Refresh(); };
             fieldAndPropertySplitter.Panel2Collapsed = true;
+
+            zoomBar.Trackbar.ValueChanged += (sender, e) => { PlayFieldEditor.ScaleFactor = zoomBar.Trackbar.Value / 10f; };
 
             FileName = null;
         }

@@ -54,6 +54,7 @@ namespace Sketchball.Controls
             Width = (int)(PinballMachine.Width * ScaleFactor);
             Height = (int)(PinballMachine.Height * ScaleFactor);
             ResumeLayout();
+            Invalidate();
         }
 
         public PinballMachine PinballMachine { get; private set; }

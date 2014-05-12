@@ -43,25 +43,32 @@
             this.elementPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolBar = new System.Windows.Forms.ToolStrip();
+            this.fieldAndPropertySplitter = new System.Windows.Forms.SplitContainer();
+            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
+            this.elementInspector = new Sketchball.Controls.ElementInspector();
             this.dragThumb = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.fieldAndPropertySplitter = new System.Windows.Forms.SplitContainer();
-            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
-            this.elementInspector = new Sketchball.Controls.ElementInspector();
+            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.zoomBar = new Sketchball.Controls.ToolStripTrackBarItem();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
             this.MainSplitToMenueAndField.Panel2.SuspendLayout();
             this.MainSplitToMenueAndField.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dragThumb)).BeginInit();
-            this.menuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fieldAndPropertySplitter)).BeginInit();
             this.fieldAndPropertySplitter.Panel1.SuspendLayout();
             this.fieldAndPropertySplitter.Panel2.SuspendLayout();
             this.fieldAndPropertySplitter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dragThumb)).BeginInit();
+            this.menuPanel.SuspendLayout();
+            this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.ContentPanel.SuspendLayout();
+            this.toolStripContainer1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -164,7 +171,7 @@
             // MainSplitToMenueAndField
             // 
             this.MainSplitToMenueAndField.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainSplitToMenueAndField.Location = new System.Drawing.Point(0, 28);
+            this.MainSplitToMenueAndField.Location = new System.Drawing.Point(0, 0);
             this.MainSplitToMenueAndField.Name = "MainSplitToMenueAndField";
             // 
             // MainSplitToMenueAndField.Panel1
@@ -178,8 +185,8 @@
             this.MainSplitToMenueAndField.Panel2.AutoScroll = true;
             this.MainSplitToMenueAndField.Panel2.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.MainSplitToMenueAndField.Panel2.Controls.Add(this.fieldAndPropertySplitter);
-            this.MainSplitToMenueAndField.Size = new System.Drawing.Size(1119, 668);
-            this.MainSplitToMenueAndField.SplitterDistance = 309;
+            this.MainSplitToMenueAndField.Size = new System.Drawing.Size(1119, 666);
+            this.MainSplitToMenueAndField.SplitterDistance = 353;
             this.MainSplitToMenueAndField.TabIndex = 1;
             // 
             // elementPanel
@@ -190,7 +197,7 @@
             this.elementPanel.AutoScroll = true;
             this.elementPanel.Location = new System.Drawing.Point(7, 138);
             this.elementPanel.Name = "elementPanel";
-            this.elementPanel.Size = new System.Drawing.Size(297, 518);
+            this.elementPanel.Size = new System.Drawing.Size(341, 539);
             this.elementPanel.TabIndex = 2;
             // 
             // panel2
@@ -201,7 +208,7 @@
             this.panel2.Controls.Add(this.toolBar);
             this.panel2.Location = new System.Drawing.Point(0, 99);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(307, 33);
+            this.panel2.Size = new System.Drawing.Size(351, 33);
             this.panel2.TabIndex = 1;
             // 
             // toolBar
@@ -210,10 +217,54 @@
             this.toolBar.Location = new System.Drawing.Point(0, 0);
             this.toolBar.Name = "toolBar";
             this.toolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolBar.Size = new System.Drawing.Size(307, 25);
+            this.toolBar.Size = new System.Drawing.Size(351, 25);
             this.toolBar.Stretch = true;
             this.toolBar.TabIndex = 0;
             this.toolBar.Text = "toolStrip1";
+            // 
+            // fieldAndPropertySplitter
+            // 
+            this.fieldAndPropertySplitter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldAndPropertySplitter.Location = new System.Drawing.Point(0, 0);
+            this.fieldAndPropertySplitter.Name = "fieldAndPropertySplitter";
+            // 
+            // fieldAndPropertySplitter.Panel1
+            // 
+            this.fieldAndPropertySplitter.Panel1.AutoScroll = true;
+            this.fieldAndPropertySplitter.Panel1.Controls.Add(this.PlayFieldEditor);
+            // 
+            // fieldAndPropertySplitter.Panel2
+            // 
+            this.fieldAndPropertySplitter.Panel2.Controls.Add(this.elementInspector);
+            this.fieldAndPropertySplitter.Size = new System.Drawing.Size(762, 666);
+            this.fieldAndPropertySplitter.SplitterDistance = 579;
+            this.fieldAndPropertySplitter.TabIndex = 3;
+            // 
+            // PlayFieldEditor
+            // 
+            this.PlayFieldEditor.AllowDrop = true;
+            this.PlayFieldEditor.Location = new System.Drawing.Point(3, 3);
+            this.PlayFieldEditor.Name = "PlayFieldEditor";
+            this.PlayFieldEditor.ScaleFactor = 1F;
+            this.PlayFieldEditor.SelectedElement = null;
+            this.PlayFieldEditor.Size = new System.Drawing.Size(540, 545);
+            this.PlayFieldEditor.TabIndex = 2;
+            this.PlayFieldEditor.Text = "pinballEditControl1";
+            this.PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
+            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
+            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
+            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
+            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
+            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
+            // 
+            // elementInspector
+            // 
+            this.elementInspector.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementInspector.Location = new System.Drawing.Point(0, 0);
+            this.elementInspector.Name = "elementInspector";
+            this.elementInspector.Size = new System.Drawing.Size(179, 666);
+            this.elementInspector.TabIndex = 0;
             // 
             // dragThumb
             // 
@@ -244,58 +295,58 @@
             this.saveFileDialog.DefaultExt = "pmf";
             this.saveFileDialog.Filter = "Pinball machine files|*.pmf";
             // 
-            // fieldAndPropertySplitter
+            // toolStripContainer1
             // 
-            this.fieldAndPropertySplitter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldAndPropertySplitter.Location = new System.Drawing.Point(0, 0);
-            this.fieldAndPropertySplitter.Name = "fieldAndPropertySplitter";
             // 
-            // fieldAndPropertySplitter.Panel1
+            // toolStripContainer1.BottomToolStripPanel
             // 
-            this.fieldAndPropertySplitter.Panel1.AutoScroll = true;
-            this.fieldAndPropertySplitter.Panel1.Controls.Add(this.PlayFieldEditor);
+            this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.toolStrip1);
             // 
-            // fieldAndPropertySplitter.Panel2
+            // toolStripContainer1.ContentPanel
             // 
-            this.fieldAndPropertySplitter.Panel2.Controls.Add(this.elementInspector);
-            this.fieldAndPropertySplitter.Size = new System.Drawing.Size(806, 668);
-            this.fieldAndPropertySplitter.SplitterDistance = 613;
-            this.fieldAndPropertySplitter.TabIndex = 3;
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.dragThumb);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.MainSplitToMenueAndField);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1119, 666);
+            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer1.LeftToolStripPanelVisible = false;
+            this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer1.Name = "toolStripContainer1";
+            this.toolStripContainer1.RightToolStripPanelVisible = false;
+            this.toolStripContainer1.Size = new System.Drawing.Size(1119, 696);
+            this.toolStripContainer1.TabIndex = 0;
+            this.toolStripContainer1.Text = "toolStripContainer1";
+            this.toolStripContainer1.TopToolStripPanelVisible = false;
             // 
-            // PlayFieldEditor
+            // toolStrip1
             // 
-            this.PlayFieldEditor.AllowDrop = true;
-            this.PlayFieldEditor.Location = new System.Drawing.Point(3, 3);
-            this.PlayFieldEditor.Name = "PlayFieldEditor";
-            this.PlayFieldEditor.ScaleFactor = 1F;
-            this.PlayFieldEditor.SelectedElement = null;
-            this.PlayFieldEditor.Size = new System.Drawing.Size(540, 545);
-            this.PlayFieldEditor.TabIndex = 2;
-            this.PlayFieldEditor.Text = "pinballEditControl1";
-            this.PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
-            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
-            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
-            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
-            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
-            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
-            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zoomBar});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.MaximumSize = new System.Drawing.Size(0, 30);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(0, 30);
+            this.toolStrip1.Stretch = true;
+            this.toolStrip1.TabIndex = 0;
             // 
-            // elementInspector
+            // zoomBar
             // 
-            this.elementInspector.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.elementInspector.Location = new System.Drawing.Point(0, 0);
-            this.elementInspector.Name = "elementInspector";
-            this.elementInspector.Size = new System.Drawing.Size(189, 668);
-            this.elementInspector.TabIndex = 0;
+            this.zoomBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.zoomBar.Name = "zoomBar";
+            this.zoomBar.Size = new System.Drawing.Size(104, 45);
+            this.zoomBar.Text = "toolStripTrackBarItem1";
+            this.zoomBar.Trackbar.Minimum = 5;
+            this.zoomBar.Trackbar.Maximum = 20;
+            
             // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1119, 696);
-            this.Controls.Add(this.dragThumb);
-            this.Controls.Add(this.MainSplitToMenueAndField);
             this.Controls.Add(this.menuPanel);
+            this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "EditorForm";
             this.Text = "Form1";
@@ -309,13 +360,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).EndInit();
             this.MainSplitToMenueAndField.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dragThumb)).EndInit();
-            this.menuPanel.ResumeLayout(false);
-            this.menuPanel.PerformLayout();
             this.fieldAndPropertySplitter.Panel1.ResumeLayout(false);
             this.fieldAndPropertySplitter.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fieldAndPropertySplitter)).EndInit();
             this.fieldAndPropertySplitter.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dragThumb)).EndInit();
+            this.menuPanel.ResumeLayout(false);
+            this.menuPanel.PerformLayout();
+            this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer1.ResumeLayout(false);
+            this.toolStripContainer1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -344,6 +401,9 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.SplitContainer fieldAndPropertySplitter;
         private Controls.ElementInspector elementInspector;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private Controls.ToolStripTrackBarItem zoomBar;
 
     }
 }
