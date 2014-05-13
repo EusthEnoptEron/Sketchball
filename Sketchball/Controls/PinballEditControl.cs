@@ -28,6 +28,12 @@ namespace Sketchball.Controls
                 if (prevElement != _selectedElement)
                 {
                     RaiseSelectionChanged(prevElement);
+
+                    if (SelectedElement != null)
+                    {
+                        PinballMachine.Remove(SelectedElement);
+                        PinballMachine.Add(SelectedElement);
+                    }
                     Invalidate();
                 }
             }
@@ -73,7 +79,7 @@ namespace Sketchball.Controls
 
             SelectionPen = new Pen(Color.Black, 1);
             SelectionPen.DashStyle = DashStyle.Dash;
-
+            
             UpdateSize();
 
             History.Change += () => { Invalidate(); };
