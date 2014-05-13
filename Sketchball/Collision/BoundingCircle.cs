@@ -171,5 +171,12 @@ namespace Sketchball.Collision
             BoundingCircle bL = new BoundingCircle(this.radius, new Vector2(this.position.X - this.radius, this.position.Y - this.radius));
             return bL;
         }
+
+        public override Rectangle GetBounds()
+        {
+            return new Rectangle((int)(position.X - radius + BoundingContainer.parentElement.X), 
+                                 (int)(position.Y - radius + BoundingContainer.parentElement.Y), 
+                                 radius*2, radius*2);
+        }
     }
 }

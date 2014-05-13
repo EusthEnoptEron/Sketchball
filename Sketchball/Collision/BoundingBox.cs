@@ -121,5 +121,8 @@ namespace Sketchball.Collision
 
 
         public abstract IBoundingBox Clone();
+
+
+        public abstract System.Drawing.Rectangle GetBounds();
     }
 }

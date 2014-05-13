@@ -66,12 +66,12 @@ namespace Sketchball.Elements
         public override void Draw(System.Drawing.Graphics g)
         {
             base.Draw(g);
-           // g.TranslateTransform(-X, -Y);
+            g.TranslateTransform(-X, -Y);
             boundingContainer.boundingBoxes.ForEach((b) =>
             {
                 b.drawDEBUG(g, Pens.Red);
             });
-            //g.TranslateTransform(X, Y);
+            g.TranslateTransform(X, Y);
             
             g.DrawImage(image, 0, 0, Width, Height);
         }

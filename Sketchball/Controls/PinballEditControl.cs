@@ -14,6 +14,7 @@ namespace Sketchball.Controls
     public class PinballEditControl : PinballControl
     {
         public readonly History History = new History();
+        private Pen SelectionPen;
 
         private PinballElement _selectedElement = null;
         public PinballElement SelectedElement { 
@@ -27,6 +28,7 @@ namespace Sketchball.Controls
                 if (prevElement != _selectedElement)
                 {
                     RaiseSelectionChanged(prevElement);
+                    Invalidate();
                 }
             }
         }
@@ -68,6 +70,9 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
            // SetStyle(ControlStyles.UserPaint, true);
+
+            SelectionPen = new Pen(Color.Black, 1);
+            SelectionPen.DashStyle = DashStyle.Dash;
 
             UpdateSize();
 
@@ -113,9 +118,21 @@ namespace Sketchball.Controls
 
             var state = g.Save();
             g.Transform = Transform;
-
             PinballMachine.Draw(g);
             g.Restore(state);
+
+            // Draw selection
+            // Border should always look the same, therefore we need to restore the gstate first and then use editor coordinates
+            if (SelectedElement != null)
+            {
+                var bounds = SelectedElement.boundingContainer.GetBounds();
+                bounds.Location = PointToEditor(bounds.Location);
+                bounds.Width = (int)LengthToEditor(bounds.Width);
+                bounds.Height = (int)LengthToEditor(bounds.Height);
+
+                g.DrawRectangle(SelectionPen, bounds);
+            }
+
         }
 
         private Matrix Transform
