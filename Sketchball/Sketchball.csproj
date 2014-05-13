@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Booster.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Collision\CollisionResult.cs" />
     <Compile Include="Controls\ElementInspector.cs">
       <SubType>Component</SubType>
     </Compile>

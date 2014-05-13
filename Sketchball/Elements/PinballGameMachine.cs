@@ -84,14 +84,26 @@ namespace Sketchball.Elements
             }
         }
 
-        public List<IBoundingBox> handleCollision()
+        public void handleCollision()
         {
-            List<IBoundingBox> hits = new List<IBoundingBox>(20);
+            List<CollisionResult> hits = new List<CollisionResult>(20);
             foreach (Ball b in this.Balls)
             {
-                hits.AddRange(boundingRaster.handleCollision(b));
+                hits.Add(boundingRaster.handleCollision(b));
             }
-            return hits;
+
+            foreach (CollisionResult result in hits)
+            {
+                AnalyzeCollisions(result);
+            }
+        }
+
+        private void AnalyzeCollisions(CollisionResult result)
+        {
+            foreach (PinballElement element in result)
+            {
+                RaiseCollision(element);
+            }
         }
 
         public void debugDraw(Graphics g)
@@ -113,5 +125,13 @@ namespace Sketchball.Elements
             this.Balls.Add(ball);
         }
 
+        private void RaiseCollision(PinballElement element)
+        {
+            var handlers = Collision;
+            if (handlers != null)
+            {
+                handlers(element);
+            }
+        }
     }
 }

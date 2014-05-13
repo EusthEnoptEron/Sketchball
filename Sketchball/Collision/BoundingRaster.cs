@@ -395,7 +395,7 @@ namespace Sketchball.Collision
         /// This method takes a ball and handles the collision of it with all other bounding boxes in this raster
         /// </summary>
         /// <param name="ball">Ball that causes collisions</param>
-        public LinkedList<IBoundingBox> handleCollision(Ball ball)
+        public CollisionResult handleCollision(Ball ball)
         {
             //Collide first with animated object then with object around ball self
             LinkedList<IBoundingBox> history = new LinkedList<IBoundingBox>();
@@ -496,7 +496,7 @@ namespace Sketchball.Collision
                 }
 
             }
-            return history;
+            return new CollisionResult(history);
         }
 
 

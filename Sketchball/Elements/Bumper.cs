@@ -19,7 +19,6 @@ namespace Sketchball.Elements
             
         
             this.setLocation(new Vector2(0, 100));
- 
         }
 
         public override void Draw(System.Drawing.Graphics g)

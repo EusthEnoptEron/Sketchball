@@ -116,7 +116,7 @@ namespace Sketchball.Collision
 
         public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
         {
-            return newDirection * bounceFactor;
+            return newDirection * bounceFactor * BoundingContainer.parentElement.BounceFactor;
         }
 
 

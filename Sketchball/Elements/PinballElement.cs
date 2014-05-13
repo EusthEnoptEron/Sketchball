@@ -86,7 +86,23 @@ namespace Sketchball.Elements
             }
         }
 
+        private float _bounceFactor = 1f;
 
+        [DataMember]
+        [Category("Behavior")]
+        public float BounceFactor
+        {
+            get
+            {
+                return _bounceFactor;
+            }
+            set
+            {
+                if (value < 1) value = 1;
+                if (value > 5) value = 5;
+                _bounceFactor = value;
+            }
+        }
 
         //Collision detection stuff
         private BoundingContainer _boundingContainer = null;
@@ -113,7 +129,6 @@ namespace Sketchball.Elements
 
         public PinballElement() : this(0, 0)
         {
-            pureIntersection = false;
         }
 
         public PinballElement(float X, float Y)
