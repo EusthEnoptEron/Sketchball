@@ -26,7 +26,7 @@ namespace Sketchball.Elements
             bC.assigneToContainer(this.boundingContainer);
         }
 
-        public override void Draw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Drawing.Graphics g)
         {
             g.DrawImage(Properties.Resources.WormholeExit, 0, 0, Width, Height);
         }

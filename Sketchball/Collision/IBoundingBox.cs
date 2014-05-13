@@ -89,8 +89,9 @@ namespace Sketchball.Collision
         /// Rotation for this bounding box
         /// </summary>
         /// <param name="rad">Amount of roation in rad</param>
-        /// <param name="center">Center of rotation</param>
+        /// <param name="center">Center of rotation relative to the parent coordinates</param>
         void rotate(float rad, Vector2 center);
+        void clearRotation();
 
         /// <summary>
         /// Displacement of this bounding box

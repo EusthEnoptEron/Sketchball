@@ -124,5 +124,8 @@ namespace Sketchball.Collision
 
 
         public abstract System.Drawing.Rectangle GetBounds();
+
+
+        public abstract void clearRotation();
     }
 }

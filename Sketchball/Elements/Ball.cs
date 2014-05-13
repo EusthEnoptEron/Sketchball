@@ -31,7 +31,7 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bC);
         }
 
-        public override void Draw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Drawing.Graphics g)
         {
             //g.FillEllipse(Brushes.Peru, 0, 0, Width, Height);
             g.DrawImage(image, 0, 0, Width, Height);

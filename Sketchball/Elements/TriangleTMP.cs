@@ -50,9 +50,8 @@ namespace Sketchball.Elements
             base.Update(delta);
         }
 
-        public override void Draw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Drawing.Graphics g)
         {
-            base.Draw(g);
             g.DrawRectangle(Pens.Green, 0, Height / 10 * 9, Width, Height / 10 * 2);
         }
     }

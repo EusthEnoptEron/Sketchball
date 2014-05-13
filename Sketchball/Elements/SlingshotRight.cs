@@ -22,7 +22,7 @@ namespace Sketchball.Elements
             this.setLocation(new Vector2(100, 100));
         }
 
-        public override void Draw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Drawing.Graphics g)
         {
             g.DrawImage(image, 0, 0, Width, Height);
         }

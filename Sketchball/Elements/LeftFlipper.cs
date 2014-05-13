@@ -63,9 +63,8 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bL4);
         }
 
-        public override void Draw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Drawing.Graphics g)
         {
-            base.Draw(g);
             g.TranslateTransform(-X, -Y);
             boundingContainer.boundingBoxes.ForEach((b) =>
             {

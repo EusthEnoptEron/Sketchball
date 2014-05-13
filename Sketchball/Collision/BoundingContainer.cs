@@ -59,10 +59,17 @@ namespace Sketchball.Collision
         {
             foreach (IBoundingBox b in this.boundingBoxes)
             {
-                b.rotate(rad - Rotation, center+this.parentElement.getLocation());
+                b.rotate(rad - Rotation, center);
             }
             this.Rotation = rad;
+        }
 
+        public void clearRotation()
+        {
+            foreach (IBoundingBox b in this.boundingBoxes)
+            {
+                b.clearRotation();
+            }
         }
 
         /// <summary>

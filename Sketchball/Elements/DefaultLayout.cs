@@ -36,7 +36,7 @@ namespace Sketchball.Elements
                );
             }
 
-            public override void Draw(Graphics g)
+            protected override void OnDraw(Graphics g)
             {
                 boundingContainer.boundingBoxes.ForEach((e) => { 
                     e.drawDEBUG(g, Pens.Black); 

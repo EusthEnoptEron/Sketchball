@@ -131,10 +131,20 @@ namespace Sketchball.Controls
             // Border should always look the same, therefore we need to restore the gstate first and then use editor coordinates
             if (SelectedElement != null)
             {
-                var bounds = SelectedElement.boundingContainer.GetBounds();
+                var bounds = SelectedElement.GetBounds();
+                var origin = SelectedElement.GetRotationOrigin();
+
+
                 bounds.Location = PointToEditor(bounds.Location);
                 bounds.Width = (int)LengthToEditor(bounds.Width);
                 bounds.Height = (int)LengthToEditor(bounds.Height);
+                origin.X = LengthToEditor(origin.X);
+                origin.Y = LengthToEditor(origin.Y);
+
+
+                g.TranslateTransform(bounds.X + origin.X, bounds.Y + origin.Y);
+                g.RotateTransform(SelectedElement.BaseRotation);
+                g.TranslateTransform(-bounds.X - origin.Y, -bounds.Y - origin.Y);
 
                 g.DrawRectangle(SelectionPen, bounds);
             }

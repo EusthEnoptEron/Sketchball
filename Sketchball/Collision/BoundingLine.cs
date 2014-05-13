@@ -18,10 +18,16 @@ namespace Sketchball.Collision
         private readonly float pushBackByPointsCoefficient = 1.7f;
         private readonly float pushBackByLineCoefficient = 1.8f;
 
+        private Vector2 _originalPosition;
+        private Vector2 _originalTarget;
+
         public BoundingLine(Vector2 from, Vector2 target)
         {
             this.position = from;
             this.target = target;
+
+            _originalPosition = from;
+            _originalTarget   = target;
         }
 
 
@@ -187,18 +193,18 @@ namespace Sketchball.Collision
             rotation.RotateAt((float)(rad/Math.PI*180f), ptCenter);
 
             System.Drawing.PointF[] pts = new System.Drawing.PointF[2];
-            Vector2 p1 = this.position + this.BoundingContainer.parentElement.getLocation();
-            Vector2 p2 = this.target + this.BoundingContainer.parentElement.getLocation();
+            Vector2 p1 = this.position;
+            Vector2 p2 = this.target;
             pts[0].X = p1.X;
             pts[0].Y = p1.Y;
             pts[1].X = p2.X;
             pts[1].Y = p2.Y;
 
             rotation.TransformPoints(pts);
-            p1.X = pts[0].X - this.BoundingContainer.parentElement.getLocation().X;
-            p1.Y = pts[0].Y - this.BoundingContainer.parentElement.getLocation().Y;
-            p2.X = pts[1].X - this.BoundingContainer.parentElement.getLocation().X;
-            p2.Y = pts[1].Y- this.BoundingContainer.parentElement.getLocation().Y;
+            p1.X = pts[0].X;
+            p1.Y = pts[0].Y;
+            p2.X = pts[1].X;
+            p2.Y = pts[1].Y;
 
             this.position = p1;
             this.target = p2;     
@@ -272,6 +278,12 @@ namespace Sketchball.Collision
                                  (int)(Math.Min(position.Y, target.Y) + BoundingContainer.parentElement.Y), 
                                  (int)(Math.Max(position.X, target.X)), 
                                  (int)(Math.Max(position.Y, target.Y)));
+        }
+
+        public override void clearRotation()
+        {
+            position = _originalPosition;
+            target   = _originalTarget;
         }
     }
 }

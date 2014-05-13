@@ -43,7 +43,7 @@ namespace Sketchball.Elements
             return Tweener.Tween(this, new { Rotation = degAbs }, time).OnComplete(endRotation);
         }
 
-        public override void Draw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Drawing.Graphics g)
         {
             if (Rotation != 0)
             {

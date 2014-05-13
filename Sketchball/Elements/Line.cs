@@ -46,7 +46,7 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bL);
         }
 
-        public override void Draw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Drawing.Graphics g)
         {
             g.DrawLine(Pens.Red, p1, p2);
         }

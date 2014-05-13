@@ -56,7 +56,7 @@ namespace Sketchball.Elements
             machine.Input.KeyUp -= Discharge;
         }
 
-        public override void Draw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Drawing.Graphics g)
         {
             g.TranslateTransform(-X, -Y);
             boundingContainer.boundingBoxes.ForEach((el) =>

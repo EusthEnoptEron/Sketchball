@@ -14,7 +14,8 @@ namespace Sketchball.Collision
     public class BoundingCircle : BoundingBox
     {
         public int radius{get; private set;}
-      
+        private Vector2 _originalPosition;
+
         /// <summary>
         /// Creates new bounding circle
         /// </summary>
@@ -24,6 +25,8 @@ namespace Sketchball.Collision
         {
             this.radius = radius;
             this.position = position+new Vector2(radius,radius);
+
+            _originalPosition = this.position;
         }
 
         public override bool intersec(IBoundingBox bB,out Vector2 hitPoint, Vector2 velocity )
@@ -59,14 +62,14 @@ namespace Sketchball.Collision
             rotation.RotateAt((float)(rad / Math.PI * 180f), ptCenter);
 
             System.Drawing.PointF[] pts = new System.Drawing.PointF[2];
-            Vector2 p1 = this.position + this.BoundingContainer.parentElement.getLocation();
+            Vector2 p1 = this.position;
             pts[0].X = p1.X;
             pts[0].Y = p1.Y;
 
 
             rotation.TransformPoints(pts);
-            p1.X = pts[0].X - this.BoundingContainer.parentElement.getLocation().X;
-            p1.Y = pts[0].Y - this.BoundingContainer.parentElement.getLocation().Y;
+            p1.X = pts[0].X;
+            p1.Y = pts[0].Y;
           
             this.position = p1;
         }
@@ -177,6 +180,11 @@ namespace Sketchball.Collision
             return new Rectangle((int)(position.X - radius + BoundingContainer.parentElement.X), 
                                  (int)(position.Y - radius + BoundingContainer.parentElement.Y), 
                                  radius*2, radius*2);
+        }
+
+        public override void clearRotation()
+        {
+            this.position = _originalPosition;
         }
     }
 }

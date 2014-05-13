@@ -15,17 +15,17 @@ namespace Sketchball.Elements
 {
     public enum RotationOrigin
     {
-        TopLeft,
-        TopCenter,
-        TopRight,
+        TopLeft = 1,
+        TopCenter = 2,
+        TopRight = 4,
         
-        MiddleLeft,
-        MiddleCenter,
-        MiddleRight,
+        MiddleLeft = 8,
+        MiddleCenter = 16,
+        MiddleRight = 32,
 
-        BottomLeft,
-        BottomCenter,
-        BottomRight
+        BottomLeft = 64,
+        BottomCenter = 128,
+        BottomRight = 256
     }
 
     [DataContract]
@@ -152,7 +152,56 @@ namespace Sketchball.Elements
 
         public virtual void Update(long delta) {}
 
-        public abstract void Draw(Graphics g);
+        public void Draw(Graphics g)
+        {
+
+            Vector2 origin = GetRotationOrigin();
+
+            g.TranslateTransform(origin.X, origin.Y);
+            g.RotateTransform(BaseRotation);
+            g.TranslateTransform(-origin.X, -origin.Y);
+
+            OnDraw(g);
+        }
+
+        public Vector2 GetRotationOrigin()
+        {
+            var top = (RotationOrigin.TopLeft | RotationOrigin.TopCenter | RotationOrigin.TopRight);
+            var middle = (RotationOrigin.MiddleLeft | RotationOrigin.MiddleCenter | RotationOrigin.MiddleRight);
+            //var bottom = (RotationOrigin.BottomLeft | RotationOrigin.BottomCenter | RotationOrigin.BottomRight);
+ 
+            var left = (RotationOrigin.TopLeft | RotationOrigin.MiddleLeft | RotationOrigin.BottomLeft);
+            var center = (RotationOrigin.TopCenter | RotationOrigin.MiddleCenter | RotationOrigin.BottomCenter);
+            //var right = (RotationOrigin.TopRight | RotationOrigin.MiddleRight | RotationOrigin.BottomRight);
+
+
+            Vector2 origin = new Vector2();
+            if ( (Origin & top) != 0)
+            {
+                origin.Y = 0;
+            } else if ( (Origin & middle) != 0 ) {
+                origin.Y = Height / 2f;
+            } else {
+                origin.Y = Height;
+            }
+
+            if ((Origin & left) != 0)
+            {
+                origin.X = 0;
+            }
+            else if ((Origin & center) != 0)
+            {
+                origin.X = Width / 2f;
+            }
+            else
+            {
+                origin.X = Width;
+            }
+
+            return origin;
+        }
+
+        protected abstract void OnDraw(Graphics g);
 
         public virtual bool Contains(Point point)
         {
@@ -200,6 +249,10 @@ namespace Sketchball.Elements
         {
         }
 
+        private void Sync()
+        {
+        }
+
         /// <summary>
         /// Sets up event listeners when a new machine is entered.
         /// </summary>
@@ -237,6 +290,10 @@ namespace Sketchball.Elements
             //placeholder
         }
 
+        public Rectangle GetBounds()
+        {
+            return new Rectangle((int)X, (int)Y, Width, Height);
+        }
         
     }
 }
