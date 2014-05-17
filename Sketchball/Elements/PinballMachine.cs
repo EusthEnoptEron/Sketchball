@@ -106,7 +106,15 @@ namespace Sketchball.Elements
                 g.IntersectClip(new Rectangle(0, 0, Width, Height));
                 
                 //TODO take away red border
-                g.DrawRectangle(Pens.Red, 0, 0, Width - 1, Height - 1);
+                for (int y = 0; y <= Height; y += 10)
+                {
+                    g.DrawLine(Pens.LightGray, 0, y, Width, y);
+                }
+
+                for (int x = 0; x <= Width; x += 10)
+                {
+                    g.DrawLine(Pens.LightGray, x, 0, x, Height);
+                }
 
                 // Draw contours
 

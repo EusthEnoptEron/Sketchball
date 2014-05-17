@@ -33,10 +33,14 @@ namespace Sketchball
             originalMachine = pbm;
             game = new Game(pbm);
             gameView = new GameView(game);
+            this.MinimumSize = gameView.MinimumSize;
             gameView.MouseUp += OnMouseUp;
 
             // Fill entire space
             gameView.Dock = DockStyle.Fill;
+            gameView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+           
+          
 
             Controls.Add(gameView);
 

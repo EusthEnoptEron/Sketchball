@@ -23,7 +23,6 @@ namespace Sketchball.Controls
         /// </summary>
         private const int MIN_FPS = 10;
 
-
         private Camera Camera;
         private GameHUD HUD;
 
@@ -48,6 +47,8 @@ namespace Sketchball.Controls
         {
             Game = game;
             Camera = new GameFieldCamera(Game);
+            this.MinimumSize = new Size(((GameFieldCamera)(Camera)).getMinSize().Width,((GameFieldCamera)(Camera)).getMinSize().Height);
+
             HUD = new GameHUD(Game);
 
             // Init camera
@@ -63,6 +64,12 @@ namespace Sketchball.Controls
             Resize += ResizeCamera;
         }
 
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            Camera.Size = Size;
+            Invalidate();
+            base.OnSizeChanged(e);
+        }
 
         private void ResizeCamera(object sender, EventArgs e)
         {
@@ -159,7 +166,7 @@ namespace Sketchball.Controls
         {
             // Draw pinball machine
             Camera.Draw(g);
-
+           
             g.TranslateTransform(Width - HUD.Width, 0);
             HUD.Draw(g);
             g.TranslateTransform(-(Width - HUD.Width), 0);

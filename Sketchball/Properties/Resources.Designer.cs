@@ -83,6 +83,16 @@ namespace Sketchball.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bfhLogo2 {
+            get {
+                object obj = ResourceManager.GetObject("bfhLogo2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap btnDown {
             get {
                 object obj = ResourceManager.GetObject("btnDown", resourceCulture);
@@ -203,6 +213,16 @@ namespace Sketchball.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Logo_BFH {
+            get {
+                object obj = ResourceManager.GetObject("Logo_BFH", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MultiLineTool {
             get {
                 object obj = ResourceManager.GetObject("MultiLineTool", resourceCulture);
@@ -216,6 +236,46 @@ namespace Sketchball.Properties {
         internal static System.Drawing.Bitmap Notebook {
             get {
                 object obj = ResourceManager.GetObject("Notebook", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Notebook_body {
+            get {
+                object obj = ResourceManager.GetObject("Notebook_body", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Notebook_bot {
+            get {
+                object obj = ResourceManager.GetObject("Notebook_bot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Notebook_Ende {
+            get {
+                object obj = ResourceManager.GetObject("Notebook_Ende", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Notebook_Ringe {
+            get {
+                object obj = ResourceManager.GetObject("Notebook_Ringe", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

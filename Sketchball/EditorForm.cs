@@ -113,6 +113,7 @@ namespace Sketchball
             pinball.Dock = DockStyle.Fill;
             f.Width = 500;
             f.Height = 500;
+            f.WindowState = FormWindowState.Maximized;
             f.ShowDialog();
         }
 
@@ -329,6 +330,8 @@ namespace Sketchball
             if (PlayFieldEditor.PinballMachine.IsValid())
             {
                 var form = new PlayForm(PlayFieldEditor.PinballMachine);
+                form.WindowState = FormWindowState.Maximized;
+      
                 form.ShowDialog();
             }
             else

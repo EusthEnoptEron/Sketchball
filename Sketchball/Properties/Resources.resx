@@ -196,16 +196,34 @@
   <data name="SlingshotLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SlingshotLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="FlipperLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flipperLeft (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FlipperRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flipperRight (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="WormholeEntry" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WormholeEntry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WormholeExit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WormholeExit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FlipperLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flipperLeft (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bfhLogo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bfhLogo2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FlipperRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flipperRight (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Logo_BFH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Logo_BFH.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Notebook_body" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Notebook_body.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Notebook_bot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Notebook_bot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Notebook_Ende" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Notebook_Ende.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Notebook_Ringe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Notebook_Ringe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

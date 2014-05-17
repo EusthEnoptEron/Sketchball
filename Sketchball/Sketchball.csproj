@@ -180,10 +180,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
-    <None Include="Resources\flipperRight %282%29.png" />
-    <None Include="Resources\flipperLeft %282%29.png" />
+    <None Include="Resources\Notebook_Ringe.png" />
+    <None Include="Resources\Notebook_Ende.png" />
+    <None Include="Resources\Notebook_bot.png" />
+    <None Include="Resources\Notebook_body.png" />
+    <None Include="Resources\Notebook.png" />
+    <None Include="Resources\bfhLogo2.png" />
+    <None Include="Resources\Logo_BFH.jpg" />
     <None Include="Resources\WormholeExit.png" />
     <None Include="Resources\WormholeEntry.png" />
+    <None Include="Resources\flipperRight %282%29.png" />
+    <None Include="Resources\flipperLeft %282%29.png" />
     <None Include="Resources\MultiLineTool.png" />
     <None Include="Resources\FlipperRight.png" />
     <None Include="Resources\FlipperLeft.png" />
@@ -206,7 +213,6 @@
     <None Include="Resources\Exit.png" />
     <None Include="Resources\EditorSchrift2.png" />
     <None Include="Resources\BackgroundextraScharf.png" />
-    <None Include="Resources\Notebook.png" />
     <None Include="Resources\WoodPattern.png" />
     <None Include="Resources\ScoreBG.png" />
     <None Include="Resources\Courgette-Regular.ttf">
