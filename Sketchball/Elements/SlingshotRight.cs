@@ -12,22 +12,24 @@ namespace Sketchball.Elements
     {
 
         private static Image image = Booster.OptimizeImage(Properties.Resources.SlingshotRight, 150);
+        private static readonly Size size = new Size(110, 110);
+
+        protected override Size BaseSize
+        {
+            get { return size; }
+        }
 
         public SlingshotRight()
-            : base()
         {
-            Width = 110;
-            Height = 110;
-
-            this.setLocation(new Vector2(100, 100));
         }
+
 
         protected override void OnDraw(System.Drawing.Graphics g)
         {
-            g.DrawImage(image, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
 
-        protected override void InitBounds()
+        protected override void Init()
         {
             //Todo: Correct
             Vector2 p1 = new Vector2(311, 59);

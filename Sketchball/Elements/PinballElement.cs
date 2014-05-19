@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -13,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Allowed origins for rotation. Powers of 2 to make them flags.
+    /// </summary>
     public enum RotationOrigin
     {
         TopLeft = 1,
@@ -28,43 +32,120 @@ namespace Sketchball.Elements
         BottomRight = 256
     }
 
+
+    /// <summary>
+    /// Central element class that is inherited by all elements on the play field.
+    /// </summary>
     [DataContract]
     public abstract class PinballElement : ICloneable
     {
-        [DataMember]
-        private Size _size = new Size(100, 100);
+        // Determines how many pixels around the click position will be taken into account on click.
+        private const int SELECTION_PADDING = 2;
 
+        #region Properties
+        /// <summary>
+        /// Gets or sets the current location of the element in internal coordinates.
+        /// </summary>
         [DataMember]
         public Vector2 Location = new Vector2();
 
-        [Category("Position")]
-        public int Width { get { return _size.Width; } set { _size.Width = value; } }
+        /// <summary>
+        /// Gets the original size of the element.
+        /// </summary>
+        [Browsable(false)]
+        protected abstract Size BaseSize { get;}
 
-        [Category("Position")]
-        public int Height { get { return _size.Height; } set { _size.Height = value; } }
+        /// <summary>
+        /// Gets the original width of the element.
+        /// </summary>
+        [Browsable(false)]
+        protected int BaseWidth { get { return BaseSize.Width; } }
 
+
+        /// <summary>
+        /// Gets the original height of the element.
+        /// </summary>
+        [Browsable(false)]
+        protected int BaseHeight { get { return BaseSize.Height; } }
+
+        /// <summary>
+        /// Gets or sets the effective width of the element.
+        /// </summary>
+        [Category("Position"), Browsable(false)]
+        public int Width { get { return (int)(BaseWidth * Scale); } set { Scale = Scale / Width * value; } }
+
+        /// <summary>
+        /// Gets or sets the effective height of the element.
+        /// </summary>
+        [Category("Position"), Browsable(false)]
+        public int Height { get { return (int)(BaseHeight * Scale); } set { Scale = Scale / Height * value; } }
+
+        /// <summary>
+        /// Gets or sets the X position of the element.
+        /// </summary>
         [Category("Position")]
         public float X { get { return Location.X; } set { Location.X = value; } }
        
+        /// <summary>
+        /// Gets or sets the Y position of the element.
+        /// </summary>
         [Category("Position")]
         public float Y { get { return Location.Y; } set { Location.Y = value; } }
 
+        
+        /// <summary>
+        /// Gets or sets how much the element is rotated (in degrees)
+        /// </summary>
         [DataMember]
         [Category("Position"), DisplayName("Rotation"), Description("The rotation of this element in degrees.")]
-        public float BaseRotation { get; set; }
+        public float BaseRotation
+        {
+            get { return _baseRotation; }
+            set
+            {
+                _baseRotation = value;
+                RebuildMatrix();
+            }
+        }
+        private float _baseRotation = 0;
 
+
+        /// <summary>
+        /// Gets or sets the origin for rotation.
+        /// </summary>
         [DataMember]
         [Category("Position")]
-        [DefaultValue(typeof(RotationOrigin), "RotationOrigin.TopLeft")]
         public RotationOrigin Origin { get; set; }
 
-        private PinballMachine _machine = null;
-        private const int SELECTION_PADDING = 2;
 
+        /// <summary>
+        /// Sets or gets the scale of this element.
+        /// </summary>
+        [Category("Position"), DefaultValue(1.0f)]
+        public float Scale
+        {
+            get { return _scale; }
+            set
+            {
+                if (_scale != 0)
+                {
+                    _scale = value;
+                    RebuildMatrix();
+                }
+            }
+        }
+        [DataMember]
+        private float _scale = 1.0f;
 
+        /// <summary>
+        /// Gets whether or not this element reflects the ball.
+        /// </summary>
         [Browsable(false)]
         public bool pureIntersection{ get; protected set;}
 
+        /// <summary>
+        /// Gets or sets the pinball machine this element is attached to. Don't tinker with this property.
+        /// </summary>
         [DataMember]
         [Browsable(false)]
         public PinballMachine World { 
@@ -85,11 +166,13 @@ namespace Sketchball.Elements
                 }
             }
         }
-
-        private float _bounceFactor = 1f;
-
+        private PinballMachine _machine = null;
+        
+        /// <summary>
+        /// Gets or sets the bounce factor of the element.
+        /// </summary>
         [DataMember]
-        [Category("Behavior")]
+        [Category("Behavior"), Description("Determines how the ball will be reflected.")]
         public float BounceFactor
         {
             get
@@ -103,29 +186,19 @@ namespace Sketchball.Elements
                 _bounceFactor = value;
             }
         }
-
-        //Collision detection stuff
-        private BoundingContainer _boundingContainer = null;
+        private float _bounceFactor = 1f;
 
         /// <summary>
-        /// Lazy-loading bounding container.
+        /// Gets the bounding container of this element.
         /// </summary>
         [Browsable(false)]
-        public BoundingContainer boundingContainer
-        {
-            get
-            {
-                if (_boundingContainer == null)
-                {
-                    InitBoundingContainer();
-                }
-                return _boundingContainer;
-            }
-            private set
-            {
-                _boundingContainer = boundingContainer;
-            }
-        }
+        public BoundingContainer boundingContainer { get; private set; }
+
+
+        [DataMember]
+        public int Value { get; set; }
+
+        #endregion
 
         public PinballElement() : this(0, 0)
         {
@@ -133,37 +206,69 @@ namespace Sketchball.Elements
 
         public PinballElement(float X, float Y)
         {
-            Origin = RotationOrigin.TopLeft;
-            pureIntersection = false;
             this.X = X;
             this.Y = Y;
+
+            Origin = RotationOrigin.MiddleCenter;
+
+            init();
         }
 
-        private void InitBoundingContainer()
+        private void init()
         {
-            _boundingContainer = new BoundingContainer(this);
-            InitBounds();
+            Transform = new Matrix();
+            pureIntersection = false;
+            boundingContainer = new BoundingContainer(this);
+
+            Init();
         }
 
-        protected abstract void InitBounds();
+        [OnDeserializing]
+        private void OnDeserialized(StreamingContext context)
+        {
+            init();
+        }
 
-        [DataMember]
-        public int Value { get; set; }
-
-        public virtual void Update(long delta) {}
 
         public void Draw(Graphics g)
         {
+            var state = g.Save();
 
-            Vector2 origin = GetRotationOrigin();
-
-            g.TranslateTransform(origin.X, origin.Y);
-            g.RotateTransform(BaseRotation);
-            g.TranslateTransform(-origin.X, -origin.Y);
+            g.MultiplyTransform(Transform, MatrixOrder.Prepend);
 
             OnDraw(g);
+
+            g.Restore(state);
+
+            g.TranslateTransform(-X, -Y);
+            // Debug draw
+            if (Properties.Settings.Default.Debug)
+            {
+                foreach (var box in boundingContainer.boundingBoxes)
+                {
+                    box.drawDEBUG(g, Pens.Red);
+                }
+            }
+            g.TranslateTransform(X, Y);
         }
 
+        public Matrix Transform { get; private set; }
+        private void RebuildMatrix()
+        {
+            var vOrigin = GetRotationOrigin();
+            var origin = new PointF(vOrigin.X, vOrigin.Y);
+
+            Transform = new Matrix();
+            Transform.RotateAt(BaseRotation, origin);
+            Transform.Scale(Scale, Scale);
+
+            Sync();
+        }
+
+        /// <summary>
+        /// Returns the exact coordinates of the origin where the element is to be rotated.
+        /// </summary>
+        /// <returns></returns>
         public Vector2 GetRotationOrigin()
         {
             var top = (RotationOrigin.TopLeft | RotationOrigin.TopCenter | RotationOrigin.TopRight);
@@ -201,8 +306,6 @@ namespace Sketchball.Elements
             return origin;
         }
 
-        protected abstract void OnDraw(Graphics g);
-
         public virtual bool Contains(Point point)
         {
             using (Bitmap bm = new Bitmap(World.Width, World.Height))
@@ -235,39 +338,18 @@ namespace Sketchball.Elements
         public object Clone()
         {
             PinballElement element = (PinballElement)MemberwiseClone();
-            element._boundingContainer = null;
+            element.init();
 
             OnClone(element);
             return element;
         }
 
-        /// <summary>
-        /// Does additional stuff when an element is cloned.
-        /// </summary>
-        /// <param name="element"></param>
-        protected virtual void OnClone(PinballElement element)
-        {
-        }
 
         private void Sync()
         {
+            boundingContainer.Sync();
         }
 
-        /// <summary>
-        /// Sets up event listeners when a new machine is entered.
-        /// </summary>
-        /// <param name="machine"></param>
-  		protected virtual void EnterMachine(PinballGameMachine machine)
-        {
-        }
-
-        /// <summary>
-        /// Removes event listeners when a machine is left
-        /// </summary>
-        /// <param name="machine"></param>
-        protected virtual void LeaveMachine(PinballGameMachine machine)
-        {
-        }
 
         public BoundingContainer getBoundingContainer()
         {
@@ -285,15 +367,53 @@ namespace Sketchball.Elements
             this.Location.Y = newLoc.Y;
         }
 
-        public virtual void notifyIntersection(Ball b)
-        {
-            //placeholder
-        }
 
         public Rectangle GetBounds()
         {
             return new Rectangle((int)X, (int)Y, Width, Height);
         }
+
+
+#region Implementables
+
+        protected abstract void Init();
+        protected abstract void OnDraw(Graphics g);
+
+        public virtual void Update(long delta) { }
+
+
+        /// <summary>
+        /// Does additional stuff when an element is cloned.
+        /// </summary>
+        /// <param name="element"></param>
+        protected virtual void OnClone(PinballElement element)
+        {
+        }
+
+        /// <summary>
+        /// Sets up event listeners when a new machine is entered.
+        /// </summary>
+        /// <param name="machine"></param>
+        protected virtual void EnterMachine(PinballGameMachine machine)
+        {
+        }
+
+        /// <summary>
+        /// Removes event listeners when a machine is left
+        /// </summary>
+        /// <param name="machine"></param>
+        protected virtual void LeaveMachine(PinballGameMachine machine)
+        {
+        }
+
+        public virtual void notifyIntersection(Ball b)
+        {
+            //placeholder
+        }
+
+#endregion
+
+        
         
     }
 }

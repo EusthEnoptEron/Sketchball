@@ -11,31 +11,23 @@ namespace Sketchball.Elements
     class Circle: PinballElement
     {
         private int radius;
+        private static readonly Size size = new Size(100, 100);
 
         public Circle() : base()
         {
-            Width = 100;
-            Height = 100;
-
-            this.setLocation(new Vector2(0, 0));
-
-
-            //set up of bounding box
-            BoundingLine bL = new BoundingLine(new Vector2(0, 0), new Vector2(this.Width, this.Height));
-            this.boundingContainer.addBoundingBox(bL);
-
         }
 
-        public Circle(float x0, float y0, float radius)
+        public Circle(float x0, float y0, float radius) : base()
         {
-            X = x0;
-            Y = y0;
             Width = (int)(2 * radius);
             Height = (int)(2 * radius);
+
+            X = x0;
+            Y = y0;
             this.radius = (int)radius;
         }
 
-        protected override void InitBounds()
+        protected override void Init()
         {
             //set up of bounding box
             BoundingCircle bc = new BoundingCircle(this.radius, new Vector2(0, 0));
@@ -49,6 +41,11 @@ namespace Sketchball.Elements
             g.DrawEllipse(Pens.Red, (int)this.Location.X, (int)this.Location.Y, (int)(this.radius * 2), ((int)this.radius * 2));
 
             g.TranslateTransform(X, Y);
+        }
+
+        protected override Size BaseSize
+        {
+            get { return size; }
         }
     }
 }

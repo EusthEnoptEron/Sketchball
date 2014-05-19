@@ -68,5 +68,6 @@ namespace Sketchball.Elements
            
             this.boundingContainer.rotate(-this.Rotation, this.currentRotationCenter);
         }
+
     }
 }

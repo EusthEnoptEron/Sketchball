@@ -17,13 +17,15 @@ namespace Sketchball.Elements
 
         public RightFlipper()
         {
+        }
+
+        protected override void Init()
+        {
             Trigger = Keys.D;
             DebugTrigger = Keys.E;
             RotationRange = -RotationRange;
-        }
 
-        protected override void InitBounds()
-        {
+
             Vector2 offset = new Vector2(-10, -10);
             int r1 = 70;
             int r2 = 16;
@@ -75,12 +77,7 @@ namespace Sketchball.Elements
 
         protected override void OnDraw(System.Drawing.Graphics g)
         {
-            g.DrawImage(image, 0, 0, Width, Height);
-            boundingContainer.boundingBoxes.ForEach((b) =>
-            {
-                b.drawDEBUG(g, System.Drawing.Pens.Red);
-            });
-            g.DrawImage(Properties.Resources.FlipperRight, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
     }
     

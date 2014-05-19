@@ -20,13 +20,19 @@ namespace Sketchball.Elements
         private Ball Ball = null;
         private Glide Tweener = new Glide();
 
-        public StartingRamp() : base()
+        private static readonly Size size = new Size(585 + 32, 590 - 210);
+
+        protected override Size BaseSize
         {
-            Width = 585 - 520+32;
-            Height = 590 - 210;
+            get { return size; }
         }
 
-        protected override void InitBounds()
+
+        public StartingRamp()
+        {
+        }
+
+        protected override void Init()
         {
             // Vertical line left
             BoundingLine bl1 = new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210-5));
@@ -58,13 +64,6 @@ namespace Sketchball.Elements
 
         protected override void OnDraw(System.Drawing.Graphics g)
         {
-            g.TranslateTransform(-X, -Y);
-            boundingContainer.boundingBoxes.ForEach((el) =>
-            {
-                el.drawDEBUG(g, Pens.Orange);
-            });
-            g.TranslateTransform(X, Y);
-
             g.DrawString(Power + "", new Font("Arial", 12, FontStyle.Regular), Brushes.Red, 0f, 0f);
 
             //g.DrawRectangle(Pens.Red, 0, 0, Width, Height);

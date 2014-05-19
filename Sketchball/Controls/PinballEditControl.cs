@@ -144,7 +144,7 @@ namespace Sketchball.Controls
 
                 g.TranslateTransform(bounds.X + origin.X, bounds.Y + origin.Y);
                 g.RotateTransform(SelectedElement.BaseRotation);
-                g.TranslateTransform(-bounds.X - origin.Y, -bounds.Y - origin.Y);
+                g.TranslateTransform(-bounds.X - origin.X, -bounds.Y - origin.Y);
 
                 g.DrawRectangle(SelectionPen, bounds);
             }

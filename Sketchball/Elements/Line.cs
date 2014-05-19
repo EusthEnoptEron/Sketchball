@@ -18,28 +18,34 @@ namespace Sketchball.Elements
 
 
         public Line()
-            : this(0, 0, 100, 0)
+            : this(100, 0, 0, 0)
         {
         }
 
-        public Line(float x0, float y0, float x1, float y1) : base()
+        private Size size;
+        protected override Size BaseSize
+        {
+            get { return size; }
+        }
+
+        public Line(float x0, float y0, float x1, float y1)
+            : base()
         {
             X = Math.Min(x0, x1);
             Y = Math.Min(y0, y1);
-            Width = (int)Math.Abs(x1 - x0);
-            Height = (int)Math.Abs(y1 - y0);
-
 
             p1 = new PointF(x0 - X, y0 - Y);
             p2 = new PointF(x1 - X, y1 - Y);
         }
 
-        protected override void InitBounds()
+        protected override void Init()
         {
             var x0 = p1.X;
             var x1 = p2.X;
             var y0 = p1.Y;
             var y1 = p2.Y;
+
+            size = new Size((int)Math.Abs(x1 - x0), (int)Math.Abs(y1 - y0));
 
             //set up of bounding box
             BoundingLine bL = new BoundingLine(new Vector2(x0, y0), new Vector2(x1, y1));
@@ -50,5 +56,7 @@ namespace Sketchball.Elements
         {
             g.DrawLine(Pens.Red, p1, p2);
         }
+
+        
     }
 }

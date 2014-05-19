@@ -285,5 +285,14 @@ namespace Sketchball.Collision
             position = _originalPosition;
             target   = _originalTarget;
         }
+
+        public override void Sync(Matrix matrix)
+        {
+            PointF[] points = new PointF[] { new PointF(_originalPosition.X, _originalPosition.Y), new PointF(_originalTarget.X, _originalTarget.Y) };
+            matrix.TransformPoints(points);
+
+            position = new Vector2(points[0].X, points[0].Y);
+            target   = new Vector2(points[1].X, points[1].Y);
+        }
     }
 }

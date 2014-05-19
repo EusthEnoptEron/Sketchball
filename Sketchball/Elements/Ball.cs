@@ -10,7 +10,13 @@ namespace Sketchball.Elements
 {
     public class Ball : PinballElement
     {
-        private static Image image = Booster.OptimizeImage(Properties.Resources.BallWithAlpha, 20, 20);
+        private static readonly Size size = new Size(20, 20);
+        private static Image image = Booster.OptimizeImage(Properties.Resources.BallWithAlpha, size.Width, size.Height);
+       
+        protected override Size BaseSize
+        {
+            get { return size; }
+        }
 
         public Vector2 Velocity
         {
@@ -18,14 +24,12 @@ namespace Sketchball.Elements
             set;
         }
 
-        public Ball()
+        public Ball() : base()
         {
             Velocity = new Vector2(0,0);
-            Width = 20;
-            Height = 20;
         }
 
-        protected override void InitBounds()
+        protected override void Init()
         {
             BoundingCircle bC = new BoundingCircle(10, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
@@ -34,7 +38,7 @@ namespace Sketchball.Elements
         protected override void OnDraw(System.Drawing.Graphics g)
         {
             //g.FillEllipse(Brushes.Peru, 0, 0, Width, Height);
-            g.DrawImage(image, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
         public override void Update(long delta)
         {
@@ -55,5 +59,6 @@ namespace Sketchball.Elements
         {
             this.World = pM;
         }
+
     }
 }

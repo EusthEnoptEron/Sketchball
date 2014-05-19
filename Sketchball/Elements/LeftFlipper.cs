@@ -21,7 +21,7 @@ namespace Sketchball.Elements
             DebugTrigger = Keys.Q;
         }
 
-        protected override void InitBounds()
+        protected override void Init()
         {
             int r1 = 70;
             int r2 = 16;
@@ -64,15 +64,8 @@ namespace Sketchball.Elements
         }
 
         protected override void OnDraw(System.Drawing.Graphics g)
-        {
-            g.TranslateTransform(-X, -Y);
-            boundingContainer.boundingBoxes.ForEach((b) =>
-            {
-                b.drawDEBUG(g, Pens.Red);
-            });
-            g.TranslateTransform(X, Y);
-            
-            g.DrawImage(image, 0, 0, Width, Height);
+        {   
+            g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
 
     }

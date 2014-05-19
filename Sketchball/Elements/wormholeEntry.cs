@@ -12,17 +12,21 @@ namespace Sketchball.Elements
     {
         public WormholeExit WormholeExit { get; set; }
 
-        public WormholeEntry()
-            : base()
-        {
-            Width = 30;
-            Height = 30;
-            this.pureIntersection = true;
+        private static readonly Size size = new Size(30, 30);
+        private static Image image = Booster.OptimizeImage(Properties.Resources.WormholeEntry, size.Width);
 
-            this.setLocation(new Vector2(0, 100));
+        protected override Size BaseSize
+        {
+            get { return size; }
         }
 
-        protected override void OnDraw(System.Drawing.Graphics g)
+
+        public WormholeEntry()
+        {
+            this.pureIntersection = true;
+        }
+
+        protected override void OnDraw(Graphics g)
         {
             /* g.TranslateTransform(-X, -Y);
             boundingContainer.boundingBoxes.ForEach((b) =>
@@ -30,10 +34,10 @@ namespace Sketchball.Elements
                 b.drawDEBUG(g, Pens.Red);
             });
             g.TranslateTransform(X, Y);*/
-            g.DrawImage(Properties.Resources.WormholeEntry, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, Width, Height);
         }
 
-        protected override void InitBounds()
+        protected override void Init()
         {
             BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);

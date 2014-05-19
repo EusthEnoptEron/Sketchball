@@ -15,6 +15,8 @@ namespace Sketchball.Elements
     [DataContract]
     public abstract class Flipper : AnimatedObject
     {
+        private static readonly Size size = new Size(70, 70);
+
         [DataMember]
         public Keys Trigger { get; set; }
         protected Keys DebugTrigger;
@@ -24,16 +26,6 @@ namespace Sketchball.Elements
 
         public Flipper()  : base()
         {
-
-            Width = 70;
-            Height = 70;
-
-
-  //          this.rotate((float)Math.PI*2, Origin, 0);
-
-            // 0, Height / 10 * 9, Width , Height / 10 * 2 )
-
-            this.setLocation(new Vector2(0, 0));
         }
 
  
@@ -79,6 +71,15 @@ namespace Sketchball.Elements
             }
         }
 
+
+        protected override Size BaseSize
+        {
+            get { return size; }
+        }
+
+        protected override void Init()
+        {
+        }
     }
    
     

@@ -14,6 +14,8 @@ namespace Sketchball.Collision
     public class BoundingCircle : BoundingBox
     {
         public int radius{get; private set;}
+
+        private int _originalRadius;
         private Vector2 _originalPosition;
 
         /// <summary>
@@ -27,6 +29,7 @@ namespace Sketchball.Collision
             this.position = position+new Vector2(radius,radius);
 
             _originalPosition = this.position;
+            _originalRadius = radius;
         }
 
         public override bool intersec(IBoundingBox bB,out Vector2 hitPoint, Vector2 velocity )
@@ -185,6 +188,18 @@ namespace Sketchball.Collision
         public override void clearRotation()
         {
             this.position = _originalPosition;
+        }
+
+        public override void Sync(Matrix matrix)
+        {
+            PointF[] points = new PointF[] { new PointF(_originalPosition.X, _originalPosition.Y) };
+            matrix.TransformPoints(points);
+            position = new Vector2(points[0].X, points[0].Y);
+
+
+            points = new PointF[] { new PointF( _originalRadius, 0 ) };
+            matrix.TransformVectors(points);
+            radius = (int)new Vector2(points[0].X, points[0].Y).Length();
         }
     }
 }

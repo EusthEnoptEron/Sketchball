@@ -16,9 +16,13 @@ namespace Sketchball.Elements
         private List<PinballElement> _elements;
         private class Frame : PinballElement
         {
-            internal Frame() : base(0,0) {}
+            private static readonly Size size = new Size(235 * 2, 545);
 
-            protected override void InitBounds()
+
+
+            internal Frame() : base(0, 0) {}
+
+            protected override void Init()
             {
                 var totalWidth = 235 * 2;
                 int totalHeight = 545;
@@ -38,9 +42,11 @@ namespace Sketchball.Elements
 
             protected override void OnDraw(Graphics g)
             {
-                boundingContainer.boundingBoxes.ForEach((e) => { 
-                    e.drawDEBUG(g, Pens.Black); 
-                });
+            }
+
+            protected override Size BaseSize
+            {
+                get { return size; }
             }
         }
 

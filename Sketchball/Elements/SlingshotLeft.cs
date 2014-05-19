@@ -11,23 +11,23 @@ namespace Sketchball.Elements
     public class SlingshotLeft : PinballElement
     {
         private static Image image = Booster.OptimizeImage(Properties.Resources.SlingshotLeft, 150);
+        private static readonly Size size = new Size(110, 110);
 
-        public SlingshotLeft():base()
+        protected override Size BaseSize
         {
-            Width = 110;
-            Height = 110;
-            
-        
-            this.setLocation(new Vector2(100, 0));
- 
+            get { return size; }
+        }
+
+        public SlingshotLeft()
+        {
         }
 
         protected override void OnDraw(System.Drawing.Graphics g)
         {
-            g.DrawImage(image, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
 
-        protected override void InitBounds()
+        protected override void Init()
         {
             Vector2 p1 = new Vector2(127, 60);
             Vector2 p2 = new Vector2(364, 335);
@@ -39,7 +39,7 @@ namespace Sketchball.Elements
             p3 /= 4;
             p4 /= 4;
 
-            BoundingLine bL1 = new BoundingLine(p1,p2);
+            BoundingLine bL1 = new BoundingLine(p1, p2);
             BoundingLine bL2 = new BoundingLine(p2, p3);
             BoundingLine bL3 = new BoundingLine(p3, p4);
             BoundingLine bL4 = new BoundingLine(p4, p1);

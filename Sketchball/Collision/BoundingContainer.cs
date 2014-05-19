@@ -85,6 +85,17 @@ namespace Sketchball.Collision
         }
 
         /// <summary>
+        /// Synchronize points with the assigned parent element.
+        /// </summary>
+        public void Sync()
+        {
+            foreach (IBoundingBox b in this.boundingBoxes)
+            {
+                b.Sync(parentElement.Transform);
+            }
+        }
+
+        /// <summary>
         /// Adds a bounding box to this container
         /// </summary>
         /// <param name="bL">The bounding box to add</param>
