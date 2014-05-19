@@ -12,6 +12,7 @@ namespace Sketchball.Elements
     [DataContract]
     public class RightFlipper : Flipper
     {
+        private float factor = 800 / 70;
 
         public RightFlipper()
         {
@@ -34,8 +35,7 @@ namespace Sketchball.Elements
             Vector2 p6 = new Vector2(-(645 - 400) + 400, 566) + offset;
             Vector2 p7 = new Vector2(-(116 - 400) + 400, 355) + offset;
 
-            float factor = 800 / 70;
-
+          
             r1 = (int)(r1 / factor);
             r2 = (int)(r2 / factor);
             mitteKreis /= factor;
@@ -67,7 +67,9 @@ namespace Sketchball.Elements
         {
             get
             {
-                return new Vector2(Width, Height);
+                Vector2 pictureRotPos = new Vector2(-(157 - 400) + 400, 304);
+
+                return pictureRotPos / factor;
             }
         }
 

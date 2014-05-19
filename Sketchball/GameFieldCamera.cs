@@ -59,7 +59,10 @@ namespace Sketchball
                     float ratio = (this.Size.Width * 1f) / (this.orginalSize.Width );
                     float ratio2 = this.Size.Height * 1.02f / this.orginalSize.Height;
                     ratio = Math.Min(ratio,ratio2);
-                    this.Scale = new Vector2(ratio, ratio);
+                    if(Scale == new Vector2(0,0))
+                    {
+                        this.Scale = new Vector2(ratio, ratio);
+                    }
                 }
                 _size = value;
                 UpdateBackground();
@@ -159,5 +162,24 @@ namespace Sketchball
         {
             return this.minimumSize;
         }
+
+        public void zoom(float factor)
+        {
+            if (factor > 0)
+            {
+                this.Scale *= factor;
+            }
+        }
+
+        public void moveRel(Vector2 relativ)
+        {
+            this.Translocation += relativ;
+        }
+
+        public void moveAbs(Vector2 absPos)
+        {
+            this.Translocation = absPos;
+        }
+
     }
 }

@@ -363,6 +363,16 @@ namespace Sketchball.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TableBackground {
+            get {
+                object obj = ResourceManager.GetObject("TableBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Undo_icon {
             get {
                 object obj = ResourceManager.GetObject("Undo_icon", resourceCulture);
@@ -386,16 +396,6 @@ namespace Sketchball.Properties {
         internal static System.Drawing.Bitmap Windows_Cursor {
             get {
                 object obj = ResourceManager.GetObject("Windows_Cursor", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap WoodPattern {
-            get {
-                object obj = ResourceManager.GetObject("WoodPattern", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -13,6 +13,8 @@ namespace Sketchball.Elements
     [DataContract]
     public class LeftFlipper : Flipper
     {
+        private float factor = 800 / 70;
+
         public LeftFlipper()
         {
             Trigger = Keys.A;
@@ -32,7 +34,6 @@ namespace Sketchball.Elements
             Vector2 p6 = new Vector2(645, 566);
             Vector2 p7 = new Vector2(116, 355);
            
-            float factor = 800/70;
 
             r1 = (int)(r1/factor);
             r2 = (int)(r2 / factor);
@@ -72,6 +73,16 @@ namespace Sketchball.Elements
             //g.TranslateTransform(X, Y);
             
             g.DrawImage(Properties.Resources.FlipperLeft, 0, 0, Width, Height);
+        }
+
+        protected override Vector2 Origin
+        {
+            get
+            {
+                Vector2 pictureRotPos = new Vector2(157, 304);
+                
+                return pictureRotPos / factor;
+            }
         }
 
     }

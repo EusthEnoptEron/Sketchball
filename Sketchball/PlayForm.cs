@@ -40,8 +40,6 @@ namespace Sketchball
             gameView.Dock = DockStyle.Fill;
             gameView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
            
-          
-
             Controls.Add(gameView);
 
             this.selectionForm = selectionForm;

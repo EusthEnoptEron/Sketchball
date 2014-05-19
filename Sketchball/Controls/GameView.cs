@@ -17,6 +17,8 @@ namespace Sketchball.Controls
     /// </summary>
     class GameView : PinballControl
     {
+        private readonly float zoomfactor = 0.05f;
+        private bool lockOnBall = false;
 
         /// <summary>
         /// The absolute minimum of FPS at any point in time.
@@ -83,24 +85,37 @@ namespace Sketchball.Controls
         /// </summary>
         private void HandleKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
+            switch (e.KeyCode)
             {
-                if (!Game.IsRunning)
-                {
-                    Game.Start();
-                }
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                if (Game.Status == GameStatus.Playing)
-                {
-                    Game.Pause();
-                }
-                else if (Game.Status == GameStatus.Pause)
-                {
-                    Game.Resume();
-                }
-            }
+                case Keys.Space:
+                    if (!Game.IsRunning)
+                    {
+                        Game.Start();
+                    }
+                    break;
+                
+                case Keys.Enter:
+                    if (Game.Status == GameStatus.Playing)
+                    {
+                        Game.Pause();
+                    }
+                    else if (Game.Status == GameStatus.Pause)
+                    {
+                        Game.Resume();
+                    }
+                    break;
+
+                case Keys.Add:
+                    this.Camera.zoom(1+this.zoomfactor);
+                    break;
+
+                case Keys.OemMinus:
+                case Keys.Subtract:
+                    this.Camera.zoom(1-this.zoomfactor);
+                    break;
+
+            }         
+
         }
 
 
@@ -136,8 +151,12 @@ namespace Sketchball.Controls
                 {
                     // Make sure that we draw the scene once more after status change
                     if (Game.Status == GameStatus.Playing) counter = 1;
-
-
+                 
+                    if(this.Game.Machine.Balls!=null)
+                    {
+                        this.UpdateCam(this.Game.Machine.Balls[0].Location);
+                    }
+                        
                     // Redraw scene
                     IAsyncResult result = BeginInvoke(new Action(
                         () =>
@@ -194,6 +213,19 @@ namespace Sketchball.Controls
                     g.DrawString(msg, new Font("Arial", 13, FontStyle.Regular), solidBrush, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
                 }
             }
+        }
+
+        public void UpdateCam(Vector2 ballPos)
+        {
+            if (this.lockOnBall)
+            {
+                this.Camera.moveAbs(-ballPos);
+            }
+        }
+
+        public void lockonBall()
+        {
+            this.lockOnBall = true;
         }
     }
 }
