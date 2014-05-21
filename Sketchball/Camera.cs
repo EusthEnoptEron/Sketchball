@@ -14,5 +14,8 @@ namespace Sketchball
         void zoom(float factor);
         void moveRel(Vector2 relMove);
         void moveAbs(Vector2 relAbs);
+
+        Vector2 Scale { get; }
+        BackgroundManager backgroundManager { get; }
     }
 }

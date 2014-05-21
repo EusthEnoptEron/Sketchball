@@ -128,6 +128,7 @@
             this.Name = "PlayForm";
             this.Text = "PlayForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayForm_FormClosed);
+            this.Resize += new System.EventHandler(this.PlayForm_ResizeEnd);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

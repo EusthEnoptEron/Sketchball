@@ -25,7 +25,7 @@ namespace Sketchball.Controls
         /// </summary>
         private const int MIN_FPS = 10;
 
-        private Camera Camera;
+        public Camera Camera{get; private set;}
         private GameHUD HUD;
 
         protected override void ConfigureGDI(Graphics g)

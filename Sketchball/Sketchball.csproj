@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackgroundManager.cs" />
     <Compile Include="Booster.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Editor\Change.cs" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\TableBackground.jpg" />
     <None Include="Resources\TableBackground.png" />
     <None Include="Resources\TableBackground.bmp" />
     <None Include="Resources\Notebook_Ringe.png" />
