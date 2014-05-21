@@ -16,7 +16,7 @@ namespace Sketchball.Elements
     public abstract class Flipper : AnimatedObject
     {
         [DataMember]
-        public Keys Trigger;
+        public Keys Trigger { get; set; }
         protected Keys DebugTrigger;
 
         public float RotationRange = (float)(Math.PI / 180 * 60);
@@ -40,14 +40,6 @@ namespace Sketchball.Elements
         public override void Update(long delta)
         {
             base.Update(delta);
-        }
-
-       
-
-        public override bool Contains(Point point)
-        {
-            Rectangle rect = new Rectangle((int)X, (int)Y, Width, Height);
-            return rect.Contains(point);
         }
 
         protected override void EnterMachine(PinballGameMachine machine)

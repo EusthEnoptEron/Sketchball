@@ -70,16 +70,27 @@ namespace Sketchball
         {
             InitializeComponent();
 
-            PlayFieldEditor.ScaleFactor = 1.7f;
-
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
 
-            populateElementPanel();
-            populateToolPanel();
-
+            // Set up menu
             editToolStripMenuItem.DropDownItems.Add(new UndoItem(PlayFieldEditor.History));
             editToolStripMenuItem.DropDownItems.Add(new RedoItem(PlayFieldEditor.History));
 
+            // Set up left panel
+            populateElementPanel();
+            populateToolPanel();
+
+            // Set up playfield and element inspector
+            PlayFieldEditor.History.Change += () => { elementInspector.Refresh(); };
+            elementInspector.PropertyValueChanged += (sender, e) => { PlayFieldEditor.Refresh(); };
+            fieldAndPropertySplitter.Panel2Collapsed = true;
+
+            // Set up zoom bar
+            zoomBar.Trackbar.Minimum = 5;
+            zoomBar.Trackbar.Maximum = 20;
+            zoomBar.Trackbar.Value = 10;
+            zoomBar.Trackbar.ValueChanged += (sender, e) => { PlayFieldEditor.ScaleFactor = zoomBar.Trackbar.Value / 10f; };
+            
             FileName = null;
         }
 
@@ -337,6 +348,20 @@ namespace Sketchball
             else
             {
                 MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PlayFieldEditor_SelectionChanged(PinballElement prevElement, PinballElement newElement)
+        {
+            if (newElement != null)
+            {
+                elementInspector.SelectedObject = newElement;
+                fieldAndPropertySplitter.Panel2Collapsed = false;
+            }
+            else
+            {
+                elementInspector.SelectedObject = null;
+                fieldAndPropertySplitter.Panel2Collapsed = true;
             }
         }
       

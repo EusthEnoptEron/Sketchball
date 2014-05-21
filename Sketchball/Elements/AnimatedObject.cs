@@ -1,6 +1,7 @@
 ﻿using GlideTween;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -11,10 +12,14 @@ namespace Sketchball.Elements
     [DataContract]
     public abstract class AnimatedObject : PinballElement, IAnimatedObject
     {
+        [Browsable(false)]
         public float Rotation { get; set; }
+        [Browsable(false)]
         public float angualrVelocityPerFrame { get; private set; }
+        [Browsable(false)]
         public float angularVelocity { get; private set; }
 
+        [Browsable(false)]
         public Vector2 currentRotationCenter { get; private set; }
         protected Glide Tweener;
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using Sketchball.Elements;
+using System.Drawing;
 
 namespace Sketchball.Collision
 {
@@ -111,6 +112,26 @@ namespace Sketchball.Collision
 
                 prev = v;
             }
+        }
+
+        public Rectangle GetBounds()
+        {
+            Vector2 origin  = parentElement.Location;
+            Vector2 topLeft = new Vector2(0xFFFF, 0xFFFF);
+            Vector2 bottomRight = Vector2.Zero;
+
+            foreach (IBoundingBox box in boundingBoxes)
+            {
+                Rectangle bounds = box.GetBounds();
+                topLeft.X = Math.Min(topLeft.X, bounds.X);
+                topLeft.Y = Math.Min(topLeft.Y, bounds.Y);
+
+                bottomRight.X = Math.Max(bottomRight.X, bounds.Width);
+                bottomRight.Y = Math.Max(bottomRight.Y, bounds.Height);
+            }
+
+
+            return new Rectangle((int)(topLeft.X), (int)(topLeft.Y), (int)(bottomRight.X), (int)(bottomRight.Y));
         }
 
     }

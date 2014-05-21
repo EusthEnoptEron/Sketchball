@@ -10,6 +10,8 @@ namespace Sketchball.Elements
 {
     public class Ball : PinballElement
     {
+        private static Image image = Booster.OptimizeImage(Properties.Resources.BallWithAlpha, 20, 20);
+
         public Vector2 Velocity
         {
             get;
@@ -32,7 +34,7 @@ namespace Sketchball.Elements
         public override void Draw(System.Drawing.Graphics g)
         {
             //g.FillEllipse(Brushes.Peru, 0, 0, Width, Height);
-            g.DrawImage(Properties.Resources.BallWithAlpha, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, Width, Height);
         }
         public override void Update(long delta)
         {

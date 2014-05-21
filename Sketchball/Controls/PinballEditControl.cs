@@ -14,9 +14,56 @@ namespace Sketchball.Controls
     public class PinballEditControl : PinballControl
     {
         public readonly History History = new History();
-        public PinballElement SelectedElement { get; set; }
+        private Pen SelectionPen;
 
-        public float ScaleFactor = 1.0f;
+        private PinballElement _selectedElement = null;
+        public PinballElement SelectedElement { 
+            get {
+                return _selectedElement;
+            }
+            set {
+                var prevElement = _selectedElement;
+                _selectedElement = value;
+
+                if (prevElement != _selectedElement)
+                {
+                    RaiseSelectionChanged(prevElement);
+
+                    if (SelectedElement != null)
+                    {
+                        PinballMachine.Remove(SelectedElement);
+                        PinballMachine.Add(SelectedElement);
+                    }
+                    Invalidate();
+                }
+            }
+        }
+
+        public delegate void SelectionChangedHandler(PinballElement prevElement, PinballElement newElement);
+        public event SelectionChangedHandler SelectionChanged;
+
+        private float _scaleFactor = 1.0f;
+        public float ScaleFactor
+        {
+            get
+            {
+                return _scaleFactor;
+            }
+            set
+            {
+                _scaleFactor = value;
+                UpdateSize();
+            }
+        }
+
+        private void UpdateSize()
+        {
+            SuspendLayout();
+            Width = (int)(PinballMachine.Width * ScaleFactor);
+            Height = (int)(PinballMachine.Height * ScaleFactor);
+            ResumeLayout();
+            Invalidate();
+        }
 
         public PinballMachine PinballMachine { get; private set; }
 
@@ -30,8 +77,12 @@ namespace Sketchball.Controls
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
            // SetStyle(ControlStyles.UserPaint, true);
 
+            SelectionPen = new Pen(Color.Black, 1);
+            SelectionPen.DashStyle = DashStyle.Dash;
+            
+            UpdateSize();
 
-            History.Change += History_Change;
+            History.Change += () => { Invalidate(); };
         }
 
         /// <summary>
@@ -59,11 +110,6 @@ namespace Sketchball.Controls
             History.Add(change);
         }
 
-        void History_Change()
-        {
-            Invalidate();
-        }
-
         protected override void ConfigureGDI(Graphics g)
         {
             base.ConfigureGDI(g);
@@ -72,14 +118,27 @@ namespace Sketchball.Controls
         protected override void Draw(Graphics g)
         {
             //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
-            Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
+            /*Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
             g.FillRectangle(brush, 0, 0, base.Width, base.Height);
+            */
 
             var state = g.Save();
             g.Transform = Transform;
-
             PinballMachine.Draw(g);
             g.Restore(state);
+
+            // Draw selection
+            // Border should always look the same, therefore we need to restore the gstate first and then use editor coordinates
+            if (SelectedElement != null)
+            {
+                var bounds = SelectedElement.boundingContainer.GetBounds();
+                bounds.Location = PointToEditor(bounds.Location);
+                bounds.Width = (int)LengthToEditor(bounds.Width);
+                bounds.Height = (int)LengthToEditor(bounds.Height);
+
+                g.DrawRectangle(SelectionPen, bounds);
+            }
+
         }
 
         private Matrix Transform
@@ -162,6 +221,15 @@ namespace Sketchball.Controls
             History.Clear();
 
             Invalidate();
+        }
+
+        private void RaiseSelectionChanged(PinballElement prev)
+        {
+            var listeners = SelectionChanged;
+            if (listeners != null)
+            {
+                listeners(prev, SelectedElement);
+            }
         }
     }
 }

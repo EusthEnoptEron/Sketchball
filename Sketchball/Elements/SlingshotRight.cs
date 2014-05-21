@@ -10,6 +10,9 @@ namespace Sketchball.Elements
 {
     public class SlingshotRight : PinballElement
     {
+
+        private static Image image = Booster.OptimizeImage(Properties.Resources.SlingshotRight, 150);
+
         public SlingshotRight()
             : base()
         {
@@ -21,7 +24,7 @@ namespace Sketchball.Elements
 
         public override void Draw(System.Drawing.Graphics g)
         {
-            g.DrawImage(Properties.Resources.SlingshotRight, 0, 0, Width, Height);
+            g.DrawImage(image, 0, 0, Width, Height);
         }
 
         protected override void InitBounds()

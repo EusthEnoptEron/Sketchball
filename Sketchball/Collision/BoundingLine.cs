@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
@@ -263,6 +264,14 @@ namespace Sketchball.Collision
             BoundingLine bL =  new BoundingLine(new Vector2(this.position.X, this.position.Y), new Vector2(this.target.X, this.target.Y));
             //do not forget to assinge BoundingContainer after clone
             return bL;
+        }
+
+        public override Rectangle GetBounds()
+        {
+            return new Rectangle((int)(Math.Min(position.X, target.X) + BoundingContainer.parentElement.X), 
+                                 (int)(Math.Min(position.Y, target.Y) + BoundingContainer.parentElement.Y), 
+                                 (int)(Math.Max(position.X, target.X)), 
+                                 (int)(Math.Max(position.Y, target.Y)));
         }
     }
 }

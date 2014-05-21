@@ -103,5 +103,7 @@ namespace Sketchball.Collision
         Vector2 reflectManipulation(Vector2 newDirection, int energy = 0);
 
         IBoundingBox Clone();
+
+        System.Drawing.Rectangle GetBounds();
     }
 }

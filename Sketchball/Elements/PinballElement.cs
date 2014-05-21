@@ -13,6 +13,21 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
+    public enum RotationOrigin
+    {
+        TopLeft,
+        TopCenter,
+        TopRight,
+        
+        MiddleLeft,
+        MiddleCenter,
+        MiddleRight,
+
+        BottomLeft,
+        BottomCenter,
+        BottomRight
+    }
+
     [DataContract]
     public abstract class PinballElement : ICloneable
     {
@@ -34,14 +49,24 @@ namespace Sketchball.Elements
         [Category("Position")]
         public float Y { get { return Location.Y; } set { Location.Y = value; } }
 
+        [DataMember]
+        [Category("Position"), DisplayName("Rotation"), Description("The rotation of this element in degrees.")]
+        public float BaseRotation { get; set; }
 
+        [DataMember]
+        [Category("Position")]
+        [DefaultValue(typeof(RotationOrigin), "RotationOrigin.TopLeft")]
+        public RotationOrigin Origin { get; set; }
 
         private PinballMachine _machine = null;
         private const int SELECTION_PADDING = 2;
 
+
+        [Browsable(false)]
         public bool pureIntersection{ get; protected set;}
 
         [DataMember]
+        [Browsable(false)]
         public PinballMachine World { 
             get {
                 return _machine;
@@ -61,7 +86,23 @@ namespace Sketchball.Elements
             }
         }
 
+        private float _bounceFactor = 1f;
 
+        [DataMember]
+        [Category("Behavior")]
+        public float BounceFactor
+        {
+            get
+            {
+                return _bounceFactor;
+            }
+            set
+            {
+                if (value < 1) value = 1;
+                if (value > 5) value = 5;
+                _bounceFactor = value;
+            }
+        }
 
         //Collision detection stuff
         private BoundingContainer _boundingContainer = null;
@@ -69,6 +110,7 @@ namespace Sketchball.Elements
         /// <summary>
         /// Lazy-loading bounding container.
         /// </summary>
+        [Browsable(false)]
         public BoundingContainer boundingContainer
         {
             get
@@ -87,11 +129,11 @@ namespace Sketchball.Elements
 
         public PinballElement() : this(0, 0)
         {
-            pureIntersection = false;
         }
 
         public PinballElement(float X, float Y)
         {
+            Origin = RotationOrigin.TopLeft;
             pureIntersection = false;
             this.X = X;
             this.Y = Y;
@@ -188,15 +230,6 @@ namespace Sketchball.Elements
         {
             this.Location.X = newLoc.X;
             this.Location.Y = newLoc.Y;
-        }
-
-
-        public Rectangle Shape
-        {
-            get
-            {
-                return new Rectangle(0, 0, Width, Height);
-            }
         }
 
         public virtual void notifyIntersection(Ball b)

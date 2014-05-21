@@ -53,6 +53,13 @@
     <Compile Include="BackgroundManager.cs" />
     <Compile Include="Booster.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Collision\CollisionResult.cs" />
+    <Compile Include="Controls\ElementInspector.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ToolStripTrackBarItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Editor\Change.cs" />
     <Compile Include="Collision\BoundingBox.cs" />
     <Compile Include="Collision\BoundingCircle.cs" />

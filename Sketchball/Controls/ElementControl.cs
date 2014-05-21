@@ -44,7 +44,7 @@ namespace Sketchball.Controls
             Element = el;
             Label = label;
             Height = THUMB_HEIGHT;
-            Width = 260;
+            Width = 200;
 
             // Add event listeners
             Paint += (s, e) => { Draw(e.Graphics); };
