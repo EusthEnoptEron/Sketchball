@@ -58,16 +58,16 @@ namespace Sketchball.Elements
 
         public override void Draw(System.Drawing.Graphics g)
         {
-            g.TranslateTransform(-X, -Y);
-            boundingContainer.boundingBoxes.ForEach((el) =>
+            // g.TranslateTransform(-X, -Y);
+            boundingContainer.boundingBoxes.ForEach((b) =>
             {
-                el.drawDEBUG(g, Pens.Orange);
+                b.drawDEBUG(g, Pens.Red);
             });
-            g.TranslateTransform(X, Y);
+            //g.TranslateTransform(X, Y);
 
+            g.DrawImage(Properties.Resources.Rampe, 0, 0, Width, Height);
+ 
             g.DrawString(Power + "", new Font("Arial", 12, FontStyle.Regular), Brushes.Red, 0f, 0f);
-
-            //g.DrawRectangle(Pens.Red, 0, 0, Width, Height);
         }
 
         public void IntroduceBall(Ball ball) {
