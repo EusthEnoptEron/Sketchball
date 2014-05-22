@@ -95,7 +95,7 @@ namespace Sketchball
                 {
                     g.TranslateTransform(this.Translocation.X, this.Translocation.Y);
                 }
-
+             
                 g.DrawImageUnscaled(backgroundManager.Background_Rings, startPosXAbs, offsetYAbs + this.backgroundManager.offsetTopYAbs);
                 g.DrawImageUnscaled(backgroundManager.Background_Body, backgroundManager.Background_Rings.Width + startPosXAbs - 1, offsetYAbs + this.backgroundManager.offsetTopYAbs);
                 g.DrawImageUnscaled(backgroundManager.Background_Bot, backgroundManager.Background_Rings.Width + startPosXAbs - 1, backgroundManager.Background_Body.Height + offsetYAbs + this.backgroundManager.offsetTopYAbs - 1);
@@ -104,8 +104,10 @@ namespace Sketchball
                 g.DrawImageUnscaled(backgroundManager.Background_LogoTop, startPosXAbs + backgroundManager.Background_Rings.Width + backgroundManager.Background_Body.Width - this.backgroundManager.Background_LogoTop.Width, offsetYAbs + this.backgroundManager.offsetTopYAbs + 10);
 
                 g.TranslateTransform(startPosXAbs + backgroundManager.Background_Rings.Width, (offsetYAbs + this.backgroundManager.offsetTopYAbs + this.backgroundManager.Background_LogoTop.Height + 15));
-
+               
                 g.ScaleTransform(ratio, ratio);
+                g.Clip = new Region(new Rectangle(0, 0, this.Size.Width, this.Size.Height));
+                
                 Game.Machine.Draw(g);
             }
             finally

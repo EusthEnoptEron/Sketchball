@@ -83,7 +83,7 @@ namespace Sketchball.Elements
             {
                 b.drawDEBUG(g, System.Drawing.Pens.Red);
             });
-            g.DrawImage(Properties.Resources.FlipperRight, 0, 0, Width, Height);
+            g.DrawImage(Booster.OptimizeImage(Properties.Resources.FlipperRight,Width,Height), 0, 0, Width, Height);
         }
     }
     

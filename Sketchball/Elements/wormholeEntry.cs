@@ -11,6 +11,7 @@ namespace Sketchball.Elements
     public class WormholeEntry : PinballElement
     {
         public WormholeExit WormholeExit { get; set; }
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWomholeEntry);
 
         public WormholeEntry()
             : base()
@@ -30,7 +31,7 @@ namespace Sketchball.Elements
                 b.drawDEBUG(g, Pens.Red);
             });
             g.TranslateTransform(X, Y);*/
-            g.DrawImage(Properties.Resources.WormholeEntry, 0, 0, Width, Height);
+            g.DrawImage(Booster.OptimizeImage(Properties.Resources.WormholeEntry,Width,Height), 0, 0, Width, Height);
         }
 
         protected override void InitBounds()
@@ -43,6 +44,7 @@ namespace Sketchball.Elements
         public override void notifyIntersection(Ball b)
         {
             b.Location = this.WormholeExit.Location + new Vector2(this.WormholeExit.Width / 2, this.WormholeExit.Height / 2);
+            player.Play();
         }
     }
 }

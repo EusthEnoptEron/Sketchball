@@ -12,6 +12,7 @@ namespace Sketchball.Elements
     {
 
         private static Image image = Booster.OptimizeImage(Properties.Resources.SlingshotRight, 150);
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SSlingshot);
 
         public SlingshotRight()
             : base()
@@ -51,6 +52,11 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bL3);
             this.boundingContainer.addBoundingBox(bL4);
 
+        }
+
+        public override void notifyIntersection(Ball b)
+        {
+            player.Play();
         }
     }
 }

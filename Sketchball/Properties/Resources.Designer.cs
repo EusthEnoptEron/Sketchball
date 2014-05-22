@@ -351,6 +351,15 @@ namespace Sketchball.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SBumper {
+            get {
+                return ResourceManager.GetStream("SBumper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ScoreBG {
@@ -377,6 +386,33 @@ namespace Sketchball.Properties {
             get {
                 object obj = ResourceManager.GetObject("SlingshotRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SSlingshot {
+            get {
+                return ResourceManager.GetStream("SSlingshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SWomholeEntry {
+            get {
+                return ResourceManager.GetStream("SWomholeEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream SWormholeExit {
+            get {
+                return ResourceManager.GetStream("SWormholeExit", resourceCulture);
             }
         }
         

@@ -11,6 +11,7 @@ namespace Sketchball.Elements
     public class Bumper : PinballElement
     {
         private static Image image = Booster.OptimizeImage(Properties.Resources.Bumper, 50, 50);
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SBumper);
 
         public Bumper():base()
         {
@@ -37,6 +38,11 @@ namespace Sketchball.Elements
             BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
             bC.assigneToContainer(this.boundingContainer);
+        }
+
+        public override void notifyIntersection(Ball b)
+        {
+            player.Play();
         }
     }
 }

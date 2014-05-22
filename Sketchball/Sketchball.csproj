@@ -188,11 +188,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\Balloon Popping-SoundBible.com-1247261379.wav" />
+    <None Include="Resources\Silencer-SoundBible.com-1632156458.wav" />
+    <None Include="Resources\Pop Banner-SoundBible.com-641783855.wav" />
+    <None Include="Resources\Blop-Mark_DiAngelo-79054334.wav" />
+    <None Include="Resources\Rampe_pencil.png" />
+    <None Include="Resources\WormholeExit.png" />
+    <None Include="Resources\WormholeEntry.png" />
+    <None Include="Resources\SlingshotRight.png" />
+    <None Include="Resources\SlingshotLeft.png" />
     <None Include="Resources\Rampe.png" />
+    <None Include="Resources\flipperRight.png" />
+    <None Include="Resources\flipperLeft.png" />
+    <None Include="Resources\Bumper.png" />
+    <None Include="Resources\BallWithAlpha.png" />
     <None Include="Resources\pencil.png" />
+    <None Include="Resources\hole.png" />
     <None Include="Resources\TableBackground.jpg" />
-    <None Include="Resources\TableBackground.png" />
-    <None Include="Resources\TableBackground.bmp" />
     <None Include="Resources\Notebook_Ringe.png" />
     <None Include="Resources\Notebook_Ende.png" />
     <None Include="Resources\Notebook_bot.png" />
@@ -200,17 +212,7 @@
     <None Include="Resources\Notebook.png" />
     <None Include="Resources\bfhLogo2.png" />
     <None Include="Resources\Logo_BFH.jpg" />
-    <None Include="Resources\WormholeExit.png" />
-    <None Include="Resources\WormholeEntry.png" />
-    <None Include="Resources\flipperRight %282%29.png" />
-    <None Include="Resources\flipperLeft %282%29.png" />
     <None Include="Resources\MultiLineTool.png" />
-    <None Include="Resources\FlipperRight.png" />
-    <None Include="Resources\FlipperLeft.png" />
-    <None Include="Resources\SlingshotLeft.png" />
-    <None Include="Resources\SlingshotLeft.bmp" />
-    <None Include="Resources\hole.png" />
-    <None Include="Resources\Bumper.png" />
     <None Include="Resources\Redo-icon.png" />
     <None Include="Resources\Undo-icon.png" />
     <None Include="Resources\Very-Basic-Cursor-icon.png" />
@@ -231,7 +233,6 @@
     <None Include="Resources\Courgette-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\SlingshotRight.png" />
     <None Include="Resources\PinballImage.png" />
   </ItemGroup>
   <ItemGroup />

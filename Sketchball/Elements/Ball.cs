@@ -11,6 +11,7 @@ namespace Sketchball.Elements
     public class Ball : PinballElement
     {
         private static Image image = Booster.OptimizeImage(Properties.Resources.BallWithAlpha, 20, 20);
+        public static readonly int defaultSize = 20;
 
         public Vector2 Velocity
         {
@@ -21,8 +22,8 @@ namespace Sketchball.Elements
         public Ball()
         {
             Velocity = new Vector2(0,0);
-            Width = 20;
-            Height = 20;
+            Width = Ball.defaultSize;
+            Height = Ball.defaultSize;
         }
 
         protected override void InitBounds()

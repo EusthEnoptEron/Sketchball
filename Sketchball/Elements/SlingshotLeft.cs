@@ -11,6 +11,7 @@ namespace Sketchball.Elements
     public class SlingshotLeft : PinballElement
     {
         private static Image image = Booster.OptimizeImage(Properties.Resources.SlingshotLeft, 150);
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SSlingshot);
 
         public SlingshotLeft():base()
         {
@@ -24,6 +25,13 @@ namespace Sketchball.Elements
 
         public override void Draw(System.Drawing.Graphics g)
         {
+            g.TranslateTransform(-X, -Y);
+            boundingContainer.boundingBoxes.ForEach((b) =>
+            {
+                b.drawDEBUG(g, Pens.Red);
+            });
+            g.TranslateTransform(X, Y);
+            
             g.DrawImage(image, 0, 0, Width, Height);
         }
 
@@ -50,6 +58,11 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bL3);
             this.boundingContainer.addBoundingBox(bL4);
 
+        }
+
+        public override void notifyIntersection(Ball b)
+        {
+            player.Play();
         }
     }
 }

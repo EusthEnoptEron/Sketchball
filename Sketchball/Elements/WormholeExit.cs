@@ -13,7 +13,7 @@ namespace Sketchball.Elements
         {
             Width = 30;
             Height = 30;
-            this.pureIntersection = true;
+            
 
             this.setLocation(new Vector2(0, 100));
 
@@ -24,11 +24,16 @@ namespace Sketchball.Elements
             BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
             bC.assigneToContainer(this.boundingContainer);
+            this.pureIntersection = true;
         }
 
         public override void Draw(System.Drawing.Graphics g)
         {
-            g.DrawImage(Properties.Resources.WormholeExit, 0, 0, Width, Height);
+            g.DrawImage(Booster.OptimizeImage(Properties.Resources.WormholeExit,Width,Height), 0, 0, Width, Height);
         }
+
+        
+
+
     }
 }

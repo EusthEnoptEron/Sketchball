@@ -21,6 +21,8 @@ namespace Sketchball.Elements
 
         public float RotationRange = (float)(Math.PI / 180 * 60);
         private bool Animating = false;
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWormholeExit);
+
 
         public Flipper()  : base()
         {
@@ -77,6 +79,11 @@ namespace Sketchball.Elements
 
                 this.rotate(RotationRange, Origin, speed, endRot);
             }
+        }
+
+        public override void notifyIntersection(Ball b)
+        {
+            player.Play();
         }
 
     }
