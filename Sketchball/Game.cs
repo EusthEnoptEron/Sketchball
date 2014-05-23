@@ -118,7 +118,7 @@ namespace Sketchball
 
         private Thread UpdateLoop = null;
         private volatile bool Disposed;
-        private const int FPS = 100;
+        private const int FPS = 60;
 
 
         public Game(PinballMachine machine) {
