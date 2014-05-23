@@ -116,12 +116,12 @@ namespace Sketchball.Elements
                     g.DrawLine(Pens.LightGray, x, 0, x, Height);
                 }
 
-                for (int x = 0; x <= Width; x += (int)(this.Width * 1f / Ball.defaultSize))
+                for (int x = 0; x <= Width; x += (int)(this.Width * 1f / Ball.Size.Width))
                 {
                     g.DrawLine(Pens.Blue, x, 0, x, Height);
                 }
 
-                for (int y = 0; y <= Height; y += (int)(this.Height * 1f / Ball.defaultSize))
+                for (int y = 0; y <= Height; y += (int)(this.Height * 1f / Ball.Size.Width))
                 {
                     g.DrawLine(Pens.Blue, 0, y, Width,y );
                 }

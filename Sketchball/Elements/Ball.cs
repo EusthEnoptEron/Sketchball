@@ -10,12 +10,12 @@ namespace Sketchball.Elements
 {
     public class Ball : PinballElement
     {
-        private static readonly Size size = new Size(20, 20);
-        private static Image image = Booster.OptimizeImage(Properties.Resources.BallWithAlpha, size.Width, size.Height);
+        public static readonly Size Size = new Size(20, 20);
+        private static Image image = Booster.OptimizeImage(Properties.Resources.BallWithAlpha, Size.Width, Size.Height);
        
         protected override Size BaseSize
         {
-            get { return size; }
+            get { return Size; }
         }
        
 
