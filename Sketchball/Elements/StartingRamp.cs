@@ -12,7 +12,6 @@ namespace Sketchball.Elements
 {
     public class StartingRamp : PinballElement
     {
-        private float factor = 1f / 5;
         private float Power = 0;
         private Keys Trigger = Keys.Space;
         private Vector2 MaxVelocity = new Vector2(5, -1000f);
@@ -22,11 +21,15 @@ namespace Sketchball.Elements
         private Glide Tweener = new Glide();
 
         private static readonly Size size = new Size(276, 1934);
+        //private static readonly Size size = new Size((int)(276 /5f), (int)(1934/5f));
 
         protected override Size BaseSize { get { return size; } }
         private readonly int PencilPullback = 50;
         private readonly int PencilOffsetY = -100;
 
+
+        private static Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 200);
+        private static Image RampImage = Booster.OptimizeImage(Properties.Resources.Rampe, 500);
 
 
 
@@ -37,10 +40,6 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
-            // Vertical line left
-            BoundingLine bl1 = new BoundingLine(new Vector2(0, 0), new Vector2(478 - 405, 590 - 210-5));
-            bl1.bounceFactor = 0.5f;
-            boundingContainer.addBoundingBox(bl1);
 
             Vector2 p1 = new Vector2(7,1874);
             Vector2 p2 = new Vector2(7, 403);
@@ -58,23 +57,6 @@ namespace Sketchball.Elements
             Vector2 pPs = new Vector2(84, 1800 + PencilOffsetY);
             Vector2 pPe = new Vector2(223, 1800 + PencilOffsetY);
 
-            //Factors here
-       
-            p1 *= factor;
-            p2 *= factor;
-            p3 *= factor;
-            p4 *= factor;
-            p5 *= factor;
-
-            p21 *= factor;
-            p22 *= factor;
-            p23 *= factor;
-            p24 *= factor;
-            p25 *= factor;
-            p26 *= factor;
-
-            pPs *= factor;
-            pPe *= factor;
 
             BoundingLine bL1 = new BoundingLine(p1, p2);
             BoundingLine bL2 = new BoundingLine(p2, p3);
@@ -109,6 +91,9 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bL26);
 
             this.boundingContainer.addBoundingBox(bLP);
+
+
+            Scale = 1 / 5f;
         }
 
         protected override void EnterMachine(PinballGameMachine machine)
@@ -127,9 +112,9 @@ namespace Sketchball.Elements
 
         protected override void OnDraw(System.Drawing.Graphics g)
         {
-            g.DrawImage(Booster.OptimizeImage(Properties.Resources.Rampe,Width,Height), 0, 0, Width, Height);
-            g.DrawImage(Booster.OptimizeImage(Properties.Resources.Rampe_pencil, (int)(115f / 276 * Width), (int)(273f / 1934 * Height)), 86f / 276 * Width, (1800f + PencilOffsetY - 5) / 1934 * Height + Power * PencilPullback, (int)(115f / 276 * Width), (int)(273f / 1934 * Height));
-        }
+            g.DrawImage(RampImage, 0, 0, BaseWidth, BaseHeight);
+            g.DrawImage(PencilImage, 86f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback);
+        } 
 
         public void IntroduceBall(Ball ball) {
             Ball = ball;

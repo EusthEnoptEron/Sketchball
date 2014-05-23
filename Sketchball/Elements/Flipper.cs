@@ -84,6 +84,7 @@ namespace Sketchball.Elements
         protected override void Init()
         {
         }
+
         void OnKeyUp(object sender, KeyEventArgs e)
         {
             if ((e.KeyCode == Trigger || e.KeyCode == DebugTrigger) && Animating)

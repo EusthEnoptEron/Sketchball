@@ -31,20 +31,24 @@ namespace Sketchball.Elements
 
                 boundingContainer.AddPolygon(
                    0, totalHeight,
-                   75, 145,
-                   137, 52,
+                   10, 160,
+                   87, 52,
                    194, 21,
                    235, 7.5f,
 
                    totalWidth - 194, 21,
-                   totalWidth - 137, 52,
-                   totalWidth - 75, 145,
+                   totalWidth - 87, 52,
+                   totalWidth - 10, 160,
                    totalWidth, totalHeight
                );
             }
 
             protected override void OnDraw(Graphics g)
             {
+                boundingContainer.boundingBoxes.ForEach((e) =>
+                {
+                    e.drawDEBUG(g, Pens.Black);
+                });
             }
 
             protected override Size BaseSize

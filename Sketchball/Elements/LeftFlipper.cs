@@ -64,7 +64,8 @@ namespace Sketchball.Elements
         }
 
         protected override void OnDraw(System.Drawing.Graphics g)
-        {   
+        {
+            base.OnDraw(g);
             g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
 

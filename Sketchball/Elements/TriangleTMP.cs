@@ -61,7 +61,7 @@ namespace Sketchball.Elements
             Point p1 = new Point(0, 200);
             Point p2 = new Point(100, 0);
             Point p3 = new Point(200, 200);
-            base.Draw(g);
+
             g.DrawLine(Pens.Red, p1, p2);
             g.DrawLine(Pens.Red, p2, p3);
             g.DrawLine(Pens.Red, p3, p1);
