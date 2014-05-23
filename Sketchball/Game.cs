@@ -45,7 +45,7 @@ namespace Sketchball
         /// <summary>
         /// Total number of lives (<=> balls)
         /// </summary>
-        public const int TOTAL_LIVES = 1;
+        public const int TOTAL_LIVES = 3;
 
 
         private GameStatus _status = GameStatus.Setup;
