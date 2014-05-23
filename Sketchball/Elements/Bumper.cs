@@ -12,6 +12,7 @@ namespace Sketchball.Elements
     {
         private static Image image = Booster.OptimizeImage(Properties.Resources.Bumper, 50, 50);
         private static readonly Size size = new Size(30, 30);
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SBumper);
 
         public Bumper()
         {
@@ -38,6 +39,11 @@ namespace Sketchball.Elements
         protected override Size BaseSize
         {
             get { return size; }
+        }
+
+        public override void notifyIntersection(Ball b)
+        {
+            player.Play();
         }
     }
 }

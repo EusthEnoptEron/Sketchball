@@ -23,6 +23,8 @@ namespace Sketchball.Elements
 
         public float RotationRange = (float)(Math.PI / 180 * 60);
         private bool Animating = false;
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWormholeExit);
+
 
         public Flipper()  : base()
         {
@@ -37,12 +39,14 @@ namespace Sketchball.Elements
         protected override void EnterMachine(PinballGameMachine machine)
         {
             machine.Input.KeyDown += OnKeyDown;
+            machine.Input.KeyUp += OnKeyUp;
         }
 
 
         protected override void LeaveMachine(PinballGameMachine machine)
         {
             machine.Input.KeyDown -= OnKeyDown;
+            machine.Input.KeyUp -= OnKeyUp;
         }
 
         protected virtual Vector2 Origin
@@ -59,15 +63,15 @@ namespace Sketchball.Elements
             if ( (e.KeyCode == Trigger ||e.KeyCode == DebugTrigger) && !Animating)
             {
 
-                var speed = e.KeyCode == Trigger ? 0.1f : 4f;
+                var speed = e.KeyCode == Trigger ? 0.05f : 4f;
 
                 Animating = true;
 
                 Action endRot = () => {
-                    this.rotate(-Rotation, Origin, 0.1f, () => { Animating = false; }); 
+                    this.rotate(-Rotation, Origin, 0.05f, () => { Animating = false; }); 
                 };
 
-                this.rotate(RotationRange, Origin, speed, endRot);
+                this.rotate(RotationRange, Origin, speed, null);
             }
         }
 
@@ -80,6 +84,22 @@ namespace Sketchball.Elements
         protected override void Init()
         {
         }
+
+        void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Trigger || e.KeyCode == DebugTrigger) && Animating)
+            {
+                var speed = e.KeyCode == Trigger ? 0.1f : 4f;
+
+                this.rotate(-Rotation, Origin, 0.1f, () => { Animating = false; });
+            }
+        }
+
+        public override void notifyIntersection(Ball b)
+        {
+            player.Play();
+        }
+
     }
    
     

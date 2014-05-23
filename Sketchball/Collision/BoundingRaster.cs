@@ -413,11 +413,8 @@ namespace Sketchball.Collision
                 {
                     history.AddFirst(b);
                     AnimatedObject aniO = ((AnimatedObject)b.BoundingContainer.parentElement);
-                    if (aniO.pureIntersection)
-                    {
-                        aniO.notifyIntersection(ball);
-                    }
-                    else
+                    aniO.notifyIntersection(ball);
+                    if (!aniO.pureIntersection)
                     {
                        
                         Vector2 rotationCenter = aniO.currentRotationCenter + aniO.getLocation();
@@ -475,11 +472,8 @@ namespace Sketchball.Collision
                                 {
                                     history.AddFirst(b);
                                     //collision
-                                    if (b.BoundingContainer.parentElement.pureIntersection)
-                                    {
-                                        b.BoundingContainer.parentElement.notifyIntersection(ball);
-                                    }
-                                    else
+                                    b.BoundingContainer.parentElement.notifyIntersection(ball);
+                                    if (!b.BoundingContainer.parentElement.pureIntersection)
                                     {
                                         Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.getLocation() + ball.getBoundingContainer().getBoundingBoxes()[0].position);
                                         Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection, ball.getLocation());

@@ -24,18 +24,26 @@ namespace Sketchball
 
         public static Bitmap OptimizeImage(Image src, int width)
         {
-            return OptimizeImage(src, width, src.Height / src.Width * width);
+            return OptimizeImage(src, width, (int)((float)src.Height / src.Width * width));
         }
 
         public static Bitmap OptimizeImage(Image src, int width, int height)
         {
-            var img = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-            using (Graphics g = Graphics.FromImage(img))
+            try
             {
-                g.DrawImage(src, 0, 0, width, height);
+                var img = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                using (Graphics g = Graphics.FromImage(img))
+                {
+                    g.DrawImage(src, 0, 0, width, height);
+                }
+
+                return img;
+            }
+            catch (Exception e)
+            {
+                return null;
             }
 
-            return img;
         }
     }
 }

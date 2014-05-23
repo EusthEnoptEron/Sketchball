@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Sketchball
 {
@@ -26,6 +27,8 @@ namespace Sketchball
     {
         public delegate void ScoreChangedHandler(Game sender, int score);
         public delegate void LivesChangedHandler(Game sender, int lives);
+
+        private int MaxTime = 0;
         
         /// <summary>
         /// Occurs when the score has changed.
@@ -126,7 +129,7 @@ namespace Sketchball
             UpdateLoop = new Thread(new ThreadStart(BeginUpdate));
             UpdateLoop.Name = "Updater";
             UpdateLoop.Start();
-            
+                       
             Start();
         }
 
@@ -136,7 +139,7 @@ namespace Sketchball
         /// </summary>
         public void Start()
         {
-            lock (this)
+             lock (this)
             {
                 Machine = new PinballGameMachine(OriginalMachine);
                 Machine.prepareForLaunch();
@@ -247,12 +250,12 @@ namespace Sketchball
                 handlers(this, Lives);
         }
 
-
         /// <summary>
         /// Update-Loop (has its own thread)
         /// </summary>
         private void BeginUpdate()
         {
+           
             System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
 
             int timePerPass = 1000 / FPS;
@@ -276,15 +279,14 @@ namespace Sketchball
                     this.Update(timePerPass);
                 }
                 stopWatch.Stop();
-
                 int sleepTime = Math.Max(0, timePerPass - (int)stopWatch.ElapsedMilliseconds);
-
                 Thread.Sleep(sleepTime);
             }
         }
 
         public void Dispose()
         {
+           // MessageBox.Show(MaxTime.ToString()+" "+sleepTime*1f/this.tims);
             Disposed = true;
 
             lock (this)

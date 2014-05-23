@@ -17,14 +17,15 @@ namespace Sketchball.Controls
     /// </summary>
     class GameView : PinballControl
     {
+        private readonly float zoomfactor = 0.05f;
+        private bool lockOnBall = false;
 
         /// <summary>
         /// The absolute minimum of FPS at any point in time.
         /// </summary>
         private const int MIN_FPS = 10;
 
-
-        private Camera Camera;
+        public Camera Camera{get; private set;}
         private GameHUD HUD;
 
         protected override void ConfigureGDI(Graphics g)
@@ -48,6 +49,8 @@ namespace Sketchball.Controls
         {
             Game = game;
             Camera = new GameFieldCamera(Game);
+            this.MinimumSize = new Size(((GameFieldCamera)(Camera)).getMinSize().Width,((GameFieldCamera)(Camera)).getMinSize().Height);
+
             HUD = new GameHUD(Game);
 
             // Init camera
@@ -63,6 +66,12 @@ namespace Sketchball.Controls
             Resize += ResizeCamera;
         }
 
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            Camera.Size = Size;
+            Invalidate();
+            base.OnSizeChanged(e);
+        }
 
         private void ResizeCamera(object sender, EventArgs e)
         {
@@ -76,24 +85,37 @@ namespace Sketchball.Controls
         /// </summary>
         private void HandleKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
+            switch (e.KeyCode)
             {
-                if (!Game.IsRunning)
-                {
-                    Game.Start();
-                }
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                if (Game.Status == GameStatus.Playing)
-                {
-                    Game.Pause();
-                }
-                else if (Game.Status == GameStatus.Pause)
-                {
-                    Game.Resume();
-                }
-            }
+                case Keys.Space:
+                    if ((!Game.IsRunning) || Game.Status == GameStatus.GameOver)
+                    {
+                        Game.Start();
+                    }
+                    break;
+                
+                case Keys.Enter:
+                    if (Game.Status == GameStatus.Playing)
+                    {
+                        Game.Pause();
+                    }
+                    else if (Game.Status == GameStatus.Pause)
+                    {
+                        Game.Resume();
+                    }
+                    break;
+
+                case Keys.Add:
+                    this.Camera.zoom(1+this.zoomfactor);
+                    break;
+
+                case Keys.OemMinus:
+                case Keys.Subtract:
+                    this.Camera.zoom(1-this.zoomfactor);
+                    break;
+
+            }         
+
         }
 
 
@@ -120,6 +142,8 @@ namespace Sketchball.Controls
             DateTime now;
 
             int counter = 1;
+ 
+
             while (true)
             {
                 if (!IsHandleCreated) return;
@@ -130,6 +154,10 @@ namespace Sketchball.Controls
                     // Make sure that we draw the scene once more after status change
                     if (Game.Status == GameStatus.Playing) counter = 1;
 
+                    if (Game.Machine.HasBall())
+                    {
+                        this.UpdateCam(this.Game.Machine.Balls[0].Location);
+                    }
 
                     // Redraw scene
                     IAsyncResult result = BeginInvoke(new Action(
@@ -152,9 +180,10 @@ namespace Sketchball.Controls
 
                 prev = now;
             }
+        
         }
-       
 
+ 
         protected override void Draw(Graphics g)
         {
             // Draw pinball machine
@@ -172,6 +201,7 @@ namespace Sketchball.Controls
             {
                 DrawOverlay(g, Color.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
             }
+            
         }
 
         private void DrawOverlay(Graphics g, Color color, string title, string msg)
@@ -187,6 +217,19 @@ namespace Sketchball.Controls
                     g.DrawString(msg, new Font("Arial", 13, FontStyle.Regular), solidBrush, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
                 }
             }
+        }
+
+        public void UpdateCam(Vector2 ballPos)
+        {
+            if (this.lockOnBall)
+            {
+                this.Camera.moveAbs(-ballPos);
+            }
+        }
+
+        public void lockonBall()
+        {
+            this.lockOnBall = true;
         }
     }
 }

@@ -30,6 +30,7 @@ namespace Sketchball.Elements
             BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
             this.boundingContainer.addBoundingBox(bC);
             bC.assigneToContainer(this.boundingContainer);
+            this.pureIntersection = true;
         }
 
         protected override void OnDraw(System.Drawing.Graphics g)

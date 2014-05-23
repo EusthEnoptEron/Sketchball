@@ -21,11 +21,10 @@ namespace Sketchball.Elements
 
         [Browsable(false)]
         public Vector2 currentRotationCenter { get; private set; }
-        protected Glide Tweener;
+        protected Glide Tweener = new Glide();
 
         public AnimatedObject()
         {
-            this.Tweener = new Glide();
         }
 
         public GlideTween.Glide rotate(float rad, Vector2 center, float time)

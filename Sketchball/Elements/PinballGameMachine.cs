@@ -16,8 +16,6 @@ namespace Sketchball.Elements
         public event CollisionEventHandler Collision;
         public event GameOverEventHandler GameOver;
 
-        private List<PinballElement> FallenBalls = new List<PinballElement>();
-
         private BoundingRaster boundingRaster;
 
         /// <summary>
@@ -26,7 +24,7 @@ namespace Sketchball.Elements
         public void prepareForLaunch()
         {
             LinkedList<IBoundingBox> anis = this.boundingRaster.getAnimatedObjects();
-            this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width / 60f), (int)Math.Ceiling(Height / 60f), Width, Height);
+            this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width * 1f / Ball.Size.Width), (int)Math.Ceiling(Height * 1f / Ball.Size.Width), Width, Height);
             foreach (IBoundingBox b in anis)
             {
                 this.boundingRaster.addAnimatedObject(b);
@@ -65,7 +63,7 @@ namespace Sketchball.Elements
                 if (Properties.Settings.Default.Debug && (Balls[i].Y + Balls[i].Height) > Height)
                 {
                     Balls[i].Y = Height - Balls[i].Height;
-                    ((Ball)Balls[i]).Velocity *= -1;
+                    ((Ball)Balls[i]).Velocity *= -0.5f;
                 }
                 if (Balls[i].Y > Height)
                 {
@@ -122,6 +120,7 @@ namespace Sketchball.Elements
             Ball ball = new Ball();
 
             Ramp.IntroduceBall(ball);
+          
             this.Balls.Add(ball);
         }
 

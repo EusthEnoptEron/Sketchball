@@ -21,7 +21,7 @@ namespace Sketchball.Elements
 
         public TriangleTMP()
         {
-           // turnaround();
+            turnaround();
         }
 
         protected override void Init()
@@ -39,6 +39,8 @@ namespace Sketchball.Elements
             bL2.assigneToContainer(this.boundingContainer);
             bL3.assigneToContainer(this.boundingContainer);
             turnaround();
+
+            
         }
 
         private void turnaround()
@@ -56,7 +58,13 @@ namespace Sketchball.Elements
 
         protected override void OnDraw(System.Drawing.Graphics g)
         {
-            g.DrawRectangle(Pens.Green, 0, Height / 10 * 9, Width, Height / 10 * 2);
+            Point p1 = new Point(0, 200);
+            Point p2 = new Point(100, 0);
+            Point p3 = new Point(200, 200);
+
+            g.DrawLine(Pens.Red, p1, p2);
+            g.DrawLine(Pens.Red, p2, p3);
+            g.DrawLine(Pens.Red, p3, p1);
         }
     }
 }
