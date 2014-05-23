@@ -17,7 +17,7 @@ namespace Sketchball.Elements
 
 
             this.setLocation(new Vector2(0, 100));
-           // turnaround();
+            turnaround();
         }
 
         protected override void InitBounds()
@@ -35,6 +35,8 @@ namespace Sketchball.Elements
             bL2.assigneToContainer(this.boundingContainer);
             bL3.assigneToContainer(this.boundingContainer);
             turnaround();
+
+            
         }
 
         private void turnaround()
@@ -52,8 +54,13 @@ namespace Sketchball.Elements
 
         public override void Draw(System.Drawing.Graphics g)
         {
+            Point p1 = new Point(0, 200);
+            Point p2 = new Point(100, 0);
+            Point p3 = new Point(200, 200);
             base.Draw(g);
-            g.DrawRectangle(Pens.Green, 0, Height / 10 * 9, Width, Height / 10 * 2);
+            g.DrawLine(Pens.Red, p1, p2);
+            g.DrawLine(Pens.Red, p2, p3);
+            g.DrawLine(Pens.Red, p3, p1);
         }
     }
 }

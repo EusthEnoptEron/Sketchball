@@ -169,6 +169,7 @@ namespace Sketchball
             elementPanel.Controls.Add(new ElementControl(new Bumper(), "Bumper", font));
             elementPanel.Controls.Add(new ElementControl(new WormholeEntry(), "Wormhole (entry)", font));
             elementPanel.Controls.Add(new ElementControl(new WormholeExit(), "Wormhole (exit)", font));
+            elementPanel.Controls.Add(new ElementControl(new TriangleTMP(), "TriDebgu", font));
 
             foreach (Control c in elementPanel.Controls)
             {

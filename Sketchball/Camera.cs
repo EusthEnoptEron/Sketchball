@@ -16,6 +16,7 @@ namespace Sketchball
         void moveAbs(Vector2 relAbs);
 
         Vector2 Scale { get; }
+        Vector2 Translocation { get; }
         BackgroundManager backgroundManager { get; }
     }
 }

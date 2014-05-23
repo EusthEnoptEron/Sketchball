@@ -122,6 +122,7 @@ namespace Sketchball.Elements
             Ball ball = new Ball();
 
             Ramp.IntroduceBall(ball);
+          
             this.Balls.Add(ball);
         }
 

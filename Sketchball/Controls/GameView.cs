@@ -88,7 +88,7 @@ namespace Sketchball.Controls
             switch (e.KeyCode)
             {
                 case Keys.Space:
-                    if (!Game.IsRunning)
+                    if ((!Game.IsRunning)||Game.Status==GameStatus.GameOver)
                     {
                         Game.Start();
                     }
@@ -179,13 +179,13 @@ namespace Sketchball.Controls
                 prev = now;
             }
         }
-       
 
+ 
         protected override void Draw(Graphics g)
         {
             // Draw pinball machine
             Camera.Draw(g);
-           
+
             g.TranslateTransform(Width - HUD.Width, 0);
             HUD.Draw(g);
             g.TranslateTransform(-(Width - HUD.Width), 0);
@@ -198,6 +198,7 @@ namespace Sketchball.Controls
             {
                 DrawOverlay(g, Color.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
             }
+            
         }
 
         private void DrawOverlay(Graphics g, Color color, string title, string msg)
