@@ -45,7 +45,7 @@ namespace Sketchball
         /// <summary>
         /// Total number of lives (<=> balls)
         /// </summary>
-        public const int TOTAL_LIVES = 3;
+        public const int TOTAL_LIVES = 1;
 
 
         private GameStatus _status = GameStatus.Setup;
@@ -139,7 +139,7 @@ namespace Sketchball
         /// </summary>
         public void Start()
         {
-            lock (this)
+             lock (this)
             {
                 Machine = new PinballGameMachine(OriginalMachine);
                 Machine.prepareForLaunch();

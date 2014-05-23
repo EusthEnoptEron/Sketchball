@@ -88,7 +88,7 @@ namespace Sketchball.Controls
             switch (e.KeyCode)
             {
                 case Keys.Space:
-                    if ((!Game.IsRunning)||Game.Status==GameStatus.GameOver)
+                    if ((!Game.IsRunning) || Game.Status == GameStatus.GameOver)
                     {
                         Game.Start();
                     }
@@ -142,6 +142,8 @@ namespace Sketchball.Controls
             DateTime now;
 
             int counter = 1;
+ 
+
             while (true)
             {
                 if (!IsHandleCreated) return;
@@ -151,12 +153,12 @@ namespace Sketchball.Controls
                 {
                     // Make sure that we draw the scene once more after status change
                     if (Game.Status == GameStatus.Playing) counter = 1;
-                 
-                    if(this.Game.Machine.Balls!=null)
+
+                    if (Game.Machine.HasBall())
                     {
                         this.UpdateCam(this.Game.Machine.Balls[0].Location);
                     }
-                        
+
                     // Redraw scene
                     IAsyncResult result = BeginInvoke(new Action(
                         () =>
@@ -178,6 +180,7 @@ namespace Sketchball.Controls
 
                 prev = now;
             }
+        
         }
 
  

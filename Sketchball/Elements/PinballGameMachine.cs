@@ -16,8 +16,6 @@ namespace Sketchball.Elements
         public event CollisionEventHandler Collision;
         public event GameOverEventHandler GameOver;
 
-        private List<PinballElement> FallenBalls = new List<PinballElement>();
-
         private BoundingRaster boundingRaster;
 
         /// <summary>
