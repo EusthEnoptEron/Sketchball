@@ -22,18 +22,14 @@ namespace Sketchball
             Application.SetCompatibleTextRenderingDefault(false);
 
             Form f = new Form();
+
             
-            var ctrlHost = new ElementHost();
             Experiment exp = new Experiment();
-            exp.InitializeComponent();
-            ctrlHost.Child = exp;
+            var ctrlHost = new WPFContainer(exp);
+            //exp.InitializeComponent();
+
             f.Controls.Add(ctrlHost);
             ctrlHost.Dock = DockStyle.Fill;
-
-            Rectangle bounds = Screen.PrimaryScreen.Bounds;
-            f.WindowState = FormWindowState.Maximized;
-            exp.Width = bounds.Width;
-            exp.Height = bounds.Height;
 
             f.FormClosing += (s, e) => { exp.Exit(); };
 

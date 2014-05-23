@@ -42,22 +42,22 @@ namespace Sketchball
                 running = 
                     new CancellationTokenSource();
 
-                try
-                {
+                
                     while (!running.IsCancellationRequested)
                     {
                         time = watch.Elapsed.TotalSeconds;
-                        Dispatcher.Invoke(() =>
+                        try
                         {
-                            InvalidateVisual();
-                        }, DispatcherPriority.Render, running.Token);
+                            Dispatcher.Invoke(() =>
+                            {
+                                InvalidateVisual();
+                            }, DispatcherPriority.Render, running.Token);
+                        }
+                        catch (TaskCanceledException) { }
+
                         Thread.Sleep((int)(1000 / 30f));
                     }
-                }
-                catch (TaskCanceledException e)
-                {
-
-                }
+              
             }));
             thread.Start();
                 
