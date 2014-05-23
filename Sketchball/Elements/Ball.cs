@@ -17,6 +17,7 @@ namespace Sketchball.Elements
         {
             get { return size; }
         }
+       
 
         public Vector2 Velocity
         {

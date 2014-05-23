@@ -33,16 +33,64 @@ namespace Sketchball
             originalMachine = pbm;
             game = new Game(pbm);
             gameView = new GameView(game);
+            this.MinimumSize = gameView.MinimumSize;
             gameView.MouseUp += OnMouseUp;
 
             // Fill entire space
             gameView.Dock = DockStyle.Fill;
-
+            gameView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+           
             Controls.Add(gameView);
 
             this.selectionForm = selectionForm;
 
             debugModeButton.Checked = Properties.Settings.Default.Debug;
+            this.gameView.Camera.backgroundManager.backgroundChanged +=backgroundManager_backgroundChanged;
+        }
+
+        ~PlayForm()
+        {
+            this.gameView.Camera.backgroundManager.backgroundChanged -= backgroundManager_backgroundChanged;
+        }
+
+        private void backgroundManager_backgroundChanged(object sender, EventArgs e)
+        {
+            int width = (this).Width;
+            int height = this.Height;
+            Bitmap inUse = this.gameView.Camera.backgroundManager.Background_TableBackground;
+
+            if (width > inUse.Width || height > inUse.Height)
+            {
+                float ratW = width * 1f / inUse.Width;
+                float ratH = height * 1f / inUse.Height;
+
+                if (ratW > ratH)
+                {
+                    width = (int)(inUse.Width * ratW);
+                    height = (int)(inUse.Height * ratW);
+                }
+                else
+                {
+                    width = (int)(inUse.Width * ratH);
+                    height = (int)(inUse.Height * ratH);
+                }
+            }
+            else
+            {
+                width = inUse.Width;
+                height = inUse.Height;
+            }
+
+
+            Bitmap m = Booster.OptimizeImage(inUse, width, height);
+            this.BackgroundImage = m;
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e) 
+        {
+            base.OnPaintBackground(e);
+            var rc = new Rectangle((this.ClientSize.Width - this.BackgroundImage.Width)/2, (this.ClientSize.Height - this.BackgroundImage.Height)/2, this.BackgroundImage.Width, this.BackgroundImage.Height);
+            e.Graphics.DrawImage(this.BackgroundImage, rc);
         }
 
 
@@ -137,13 +185,42 @@ namespace Sketchball
             if (Properties.Settings.Default.Debug && e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 game.Machine.IntroduceBall();
-                game.Machine.Balls.Last().Location = new Vector2(e.X, e.Y);
+                game.Machine.Balls.Last().Location = new Vector2(e.X * 0.4f, e.Y * 0.4f);
             }
         }
 
         private void PlayForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             game.Dispose();
+        }
+
+        private void PlayForm_ResizeEnd(object sender, EventArgs e)
+        {
+            int width = ((Control)sender).Width;
+            int height = ((Control)sender).Height;
+            Bitmap inUse = this.gameView.Camera.backgroundManager.Background_TableBackground;
+            Image i = Properties.Resources.TableBackground;
+
+            if ((height <= i.Height && width <= i.Width))
+            {
+                return;
+            }
+
+            float ratW = width * 1f / inUse.Width;
+            float ratH = height * 1f / inUse.Height;
+
+            if (ratW > ratH)
+            {
+                height = (int)((this.BackgroundImage.Height * 1f / this.BackgroundImage.Width) * width);
+            }
+            else
+            {
+                width = (int)((this.BackgroundImage.Width * 1f / this.BackgroundImage.Height) * height);
+            }
+
+            Bitmap m = Booster.OptimizeImage(inUse, width, height);
+            this.BackgroundImage = m;
+            
         }
 
     }

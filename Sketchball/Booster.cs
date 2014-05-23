@@ -29,7 +29,7 @@ namespace Sketchball
 
         public static Bitmap OptimizeImage(Image src, int width, int height)
         {
-            var img = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            var img = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb); 
             using (Graphics g = Graphics.FromImage(img))
             {
                 g.DrawImage(src, 0, 0, width, height);

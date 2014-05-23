@@ -11,5 +11,12 @@ namespace Sketchball
     {
         Size Size { get; set; }
         void Draw(Graphics g);
+        void zoom(float factor);
+        void moveRel(Vector2 relMove);
+        void moveAbs(Vector2 relAbs);
+
+        Vector2 Scale { get; }
+        Vector2 Translocation { get; }
+        BackgroundManager backgroundManager { get; }
     }
 }

@@ -124,6 +124,7 @@ namespace Sketchball
             pinball.Dock = DockStyle.Fill;
             f.Width = 500;
             f.Height = 500;
+            f.WindowState = FormWindowState.Maximized;
             f.ShowDialog();
         }
 
@@ -168,6 +169,7 @@ namespace Sketchball
             elementPanel.Controls.Add(new ElementControl(new Bumper(), "Bumper", font));
             elementPanel.Controls.Add(new ElementControl(new WormholeEntry(), "Wormhole (entry)", font));
             elementPanel.Controls.Add(new ElementControl(new WormholeExit(), "Wormhole (exit)", font));
+            elementPanel.Controls.Add(new ElementControl(new TriangleTMP(), "TriDebgu", font));
 
             foreach (Control c in elementPanel.Controls)
             {
@@ -340,6 +342,8 @@ namespace Sketchball
             if (PlayFieldEditor.PinballMachine.IsValid())
             {
                 var form = new PlayForm(PlayFieldEditor.PinballMachine);
+                form.WindowState = FormWindowState.Maximized;
+      
                 form.ShowDialog();
             }
             else

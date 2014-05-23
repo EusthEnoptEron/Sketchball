@@ -26,7 +26,7 @@ namespace Sketchball.Elements
         public void prepareForLaunch()
         {
             LinkedList<IBoundingBox> anis = this.boundingRaster.getAnimatedObjects();
-            this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width / 60f), (int)Math.Ceiling(Height / 60f), Width, Height);
+            this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width * 1f / Ball.defaultSize), (int)Math.Ceiling(Height * 1f / Ball.defaultSize), Width, Height);
             foreach (IBoundingBox b in anis)
             {
                 this.boundingRaster.addAnimatedObject(b);
@@ -122,6 +122,7 @@ namespace Sketchball.Elements
             Ball ball = new Ball();
 
             Ramp.IntroduceBall(ball);
+          
             this.Balls.Add(ball);
         }
 

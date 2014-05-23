@@ -13,6 +13,7 @@ namespace Sketchball.Elements
     [DataContract]
     public class LeftFlipper : Flipper
     {
+        private float factor = 800 / 70;
         private static Image image = Booster.OptimizeImage(Properties.Resources.FlipperLeft, 100);
 
         public LeftFlipper()
@@ -34,7 +35,6 @@ namespace Sketchball.Elements
             Vector2 p6 = new Vector2(645, 566);
             Vector2 p7 = new Vector2(116, 355);
            
-            float factor = 800/70;
 
             r1 = (int)(r1/factor);
             r2 = (int)(r2 / factor);
@@ -66,6 +66,16 @@ namespace Sketchball.Elements
         protected override void OnDraw(System.Drawing.Graphics g)
         {   
             g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
+        }
+
+        protected override Vector2 Origin
+        {
+            get
+            {
+                Vector2 pictureRotPos = new Vector2(157, 304);
+                
+                return pictureRotPos / factor;
+            }
         }
 
     }

@@ -12,6 +12,7 @@ namespace Sketchball.Elements
     [DataContract]
     public class DefaultLayout : IMachineLayout
     {
+
         private StartingRamp _ramp;
         private List<PinballElement> _elements;
         private class Frame : PinballElement
@@ -24,8 +25,10 @@ namespace Sketchball.Elements
 
             protected override void Init()
             {
-                var totalWidth = 235 * 2;
-                int totalHeight = 545;
+                var totalWidth = this.Width;
+                int totalHeight = this.Height;
+
+
                 boundingContainer.AddPolygon(
                    0, totalHeight,
                    75, 145,

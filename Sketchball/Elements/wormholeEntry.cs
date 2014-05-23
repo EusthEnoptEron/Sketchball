@@ -11,6 +11,7 @@ namespace Sketchball.Elements
     public class WormholeEntry : PinballElement
     {
         public WormholeExit WormholeExit { get; set; }
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWomholeEntry);
 
         private static readonly Size size = new Size(30, 30);
         private static Image image = Booster.OptimizeImage(Properties.Resources.WormholeEntry, size.Width);
@@ -47,6 +48,7 @@ namespace Sketchball.Elements
         public override void notifyIntersection(Ball b)
         {
             b.Location = this.WormholeExit.Location + new Vector2(this.WormholeExit.Width / 2, this.WormholeExit.Height / 2);
+            player.Play();
         }
     }
 }
