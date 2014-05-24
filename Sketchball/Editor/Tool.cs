@@ -5,7 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Sketchball.Editor
 {
@@ -37,6 +38,7 @@ namespace Sketchball.Editor
         }
 
 
+
         public void Leave()
         {
             // Unbind handlers
@@ -51,7 +53,7 @@ namespace Sketchball.Editor
 	    protected virtual void OnMouseDown(object sender, MouseEventArgs e) {}
 	    protected virtual void OnMouseUp(object sender, MouseEventArgs e) {}
 	    protected virtual void OnMouseMove(object sender, MouseEventArgs e) {}
-        protected virtual void Draw(object sender, PaintEventArgs e) {}
+        protected virtual void Draw(object sender, DrawingContext e) {}
 
         protected virtual void OnSelect() {}
         protected virtual void OnUnselect() {}

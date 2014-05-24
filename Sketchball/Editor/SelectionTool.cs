@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace Sketchball.Editor
 {
@@ -29,7 +29,6 @@ namespace Sketchball.Editor
             }
         }
 
-        private PropertyGrid propertyGrid;
 
         private PinballMachine Machine {
             get
@@ -46,29 +45,20 @@ namespace Sketchball.Editor
         }
 
 
-        protected override void OnSelect()
+        protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            Control.Controls.Add(propertyGrid);
-        }
-
-        protected override void OnUnselect()
-        {
-            Control.Controls.Remove(propertyGrid);
-        }
-
-        protected override void OnMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 mouseIsDown = true;
-                Point loc = Control.PointToPinball(e.Location);
+                var pos = e.GetPosition(Control);
+                Point loc = Control.PointToPinball(new System.Drawing.Point((int)pos.X, (int)pos.Y));
 
                 PinballElement element = FindElement(loc);
                 if (element != null)
                 {
                     // Select
                     SelectedElement = element;
-                    this.delta = new Vector2(e.X, e.Y) - Control.PointToEditor(SelectedElement.Location);
+                    this.delta = new Vector2((float)pos.X, (float)pos.Y) - Control.PointToEditor(SelectedElement.Location);
                     startVector = SelectedElement.Location;
                 }
                 else
@@ -99,7 +89,8 @@ namespace Sketchball.Editor
             
             if (mouseIsDown && SelectedElement != null)
             {
-                var newPos = Control.PointToPinball(new Vector2(e.X, e.Y) - delta);
+                var pos = e.GetPosition(Control);
+                var newPos = Control.PointToPinball(new Vector2((float)pos.X, (float)pos.Y) - delta);
 
                 SelectedElement.Location = newPos;
 

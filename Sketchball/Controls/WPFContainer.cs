@@ -11,12 +11,21 @@ namespace Sketchball.Controls
     public class WPFContainer : ElementHost
     {
         private ManagedWPFControl Control;
+        private bool updating = false;
 
         public WPFContainer(ManagedWPFControl control)
         {
             Child = Control = control;
 
-            
+            Control.SizeChanged += (s,e) => {
+                if (Dock != System.Windows.Forms.DockStyle.Fill)
+                {
+                    updating = true;
+                    this.Width = (int)Control.Width;
+                    this.Height = (int)Control.Height;
+                    updating = false;
+                }
+            };
             Disposed += (s,e) => {
                 Control.Exit();
             };
@@ -26,8 +35,11 @@ namespace Sketchball.Controls
         {
             base.OnSizeChanged(e);
 
-            Control.Width = Width;
-            Control.Height = Height;
+            if (!updating)
+            {
+                Control.Width = Width;
+                Control.Height = Height;
+            }
 
         }
         

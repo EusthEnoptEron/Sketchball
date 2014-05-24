@@ -157,6 +157,8 @@ namespace Sketchball.Elements
                 element.Draw(g);
                 g.Pop();
             }
+
+            g.Pop();
         }
 
 

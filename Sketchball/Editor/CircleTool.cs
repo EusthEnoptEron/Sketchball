@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Sketchball.Editor
 {
@@ -25,16 +27,19 @@ namespace Sketchball.Editor
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            this.center = new Vector2(e.X, e.Y);
+            var pos = e.GetPosition(Control);
+            this.center = new Vector2((float)pos.X, (float)pos.Y);
             this.radius = 0;
 
             this.drawing = true;
-            this.Control.Refresh();
+            this.Control.Invalidate();
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
-            this.radius = Control.LengthToPinball((new Vector2(e.X, e.Y) - this.center).Length());
+            var position = e.GetPosition(Control);
+
+            this.radius = Control.LengthToPinball((new Vector2((float)position.X, (float)position.Y) - this.center).Length());
             var center = Control.PointToPinball(this.center);
             
 
@@ -43,23 +48,24 @@ namespace Sketchball.Editor
             this.Control.AddElement(c);
 
             this.drawing = false;
-            this.Control.Refresh();
+            this.Control.Invalidate();
         }
 
         protected override void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (this.drawing)
             {
-                this.radius = (new Vector2(e.X, e.Y) - this.center).Length();
-                this.Control.Refresh();
+                var position = e.GetPosition(Control);
+                this.radius = (new Vector2((float)position.X, (float)position.Y) - this.center).Length();
+                this.Control.Invalidate();
             }
         }
 
-        protected override void Draw(object sender, PaintEventArgs e)
+        protected override void Draw(object sender, DrawingContext g)
         {
             if (this.drawing)
             {
-                e.Graphics.DrawEllipse(System.Drawing.Pens.Black, this.center.X-this.radius, this.center.Y-this.radius, (int)(this.radius * 2), ((int)this.radius * 2));
+                g.DrawEllipse(null, new Pen(Brushes.Black,1), new Point(this.center.X, this.center.Y), this.radius, this.radius);
             }
         }
     }

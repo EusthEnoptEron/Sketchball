@@ -2,16 +2,16 @@
 using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace Sketchball.Controls
 {
-    public class PinballEditControl : LegacyPinballControl
+    public class PinballEditControl : PinballControl
     {
         public readonly History History = new History();
         private Pen SelectionPen;
@@ -39,10 +39,18 @@ namespace Sketchball.Controls
             }
         }
 
+        public void Invalidate()
+        {
+            InvalidateVisual();
+        }
+
         public delegate void SelectionChangedHandler(PinballElement prevElement, PinballElement newElement);
         public event SelectionChangedHandler SelectionChanged;
 
         private float _scaleFactor = 1.0f;
+
+        public event EventHandler<DrawingContext> Paint;
+
         public float ScaleFactor
         {
             get
@@ -58,11 +66,10 @@ namespace Sketchball.Controls
 
         private void UpdateSize()
         {
-            SuspendLayout();
             Width = (int)(PinballMachine.Width * ScaleFactor);
             Height = (int)(PinballMachine.Height * ScaleFactor);
-            ResumeLayout();
-            Invalidate();
+
+          //  Invalidate();
         }
 
         public PinballMachine PinballMachine { get; private set; }
@@ -72,14 +79,11 @@ namespace Sketchball.Controls
         {
             PinballMachine = new PinballMachine();
 
-            // Optimize control for performance
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-           // SetStyle(ControlStyles.UserPaint, true);
 
-            SelectionPen = new Pen(Color.Black, 1);
-            SelectionPen.DashStyle = DashStyle.Dash;
-            
+            SelectionPen = new Pen(Brushes.Black, 1);
+            SelectionPen.DashStyle = DashStyles.Dash;
+            //SelectionPen.DashStyle = DashStyle.Dash;
+           
             UpdateSize();
 
             History.Change += () => { Invalidate(); };
@@ -110,22 +114,18 @@ namespace Sketchball.Controls
             History.Add(change);
         }
 
-        protected override void ConfigureGDI(Graphics g)
-        {
-            base.ConfigureGDI(g);
-        }
-
-        protected override void Draw(Graphics g)
+        protected override void Draw(DrawingContext g)
         {
             //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
             /*Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
             g.FillRectangle(brush, 0, 0, base.Width, base.Height);
             */
+            g.DrawRectangle(Brushes.White, null, new Rect(0, 0, Width, Height));
 
-            var state = g.Save();
-            g.Transform = Transform;
+
+            g.PushTransform(new MatrixTransform(Transform));
             PinballMachine.Draw(g);
-            g.Restore(state);
+            g.Pop();
 
             // Draw selection
             // Border should always look the same, therefore we need to restore the gstate first and then use editor coordinates
@@ -134,20 +134,24 @@ namespace Sketchball.Controls
                 var bounds = SelectedElement.GetBounds();
                 var origin = SelectedElement.GetRotationOrigin();
 
-
-                bounds.Location = PointToEditor(bounds.Location);
+                var point = new Point(bounds.Location.X, bounds.Location.Y);
+                var pRes = PointToEditor(point);
+                bounds.Location = new System.Drawing.Point((int)pRes.X, (int)pRes.Y);
                 bounds.Width = (int)LengthToEditor(bounds.Width);
                 bounds.Height = (int)LengthToEditor(bounds.Height);
                 origin.X = LengthToEditor(origin.X);
                 origin.Y = LengthToEditor(origin.Y);
 
 
-                g.TranslateTransform(bounds.X + origin.X, bounds.Y + origin.Y);
-                g.RotateTransform(SelectedElement.BaseRotation);
-                g.TranslateTransform(-bounds.X - origin.X, -bounds.Y - origin.Y);
+                g.PushTransform(new RotateTransform(SelectedElement.BaseRotation, bounds.X + origin.X, bounds.Y + origin.Y)); 
 
-                g.DrawRectangle(SelectionPen, bounds);
+                g.DrawRectangle(null, SelectionPen, new Rect(bounds.X, bounds.Y, bounds.Width, bounds.Height));
+
+                g.Pop();
             }
+
+            if (Paint != null)
+                Paint(this, g);
 
         }
 
@@ -176,7 +180,7 @@ namespace Sketchball.Controls
             Matrix m = Transform;
             m.Invert();
  
-            m.TransformPoints(pArray);
+            m.Transform(pArray);
             
             return pArray[0];
         }
@@ -184,7 +188,7 @@ namespace Sketchball.Controls
         public Vector2 PointToPinball(Vector2 p)
         {
             var point = PointToPinball(new Point((int)p.X, (int)p.Y));
-            return new Vector2(point.X, point.Y);
+            return new Vector2((float)point.X, (float)point.Y);
         }
 
         /// <summary>
@@ -196,7 +200,7 @@ namespace Sketchball.Controls
         {
             Point[] pArray = new Point[] { p };
             Matrix m = Transform;
-            m.TransformPoints(pArray);
+            m.Transform(pArray);
 
             return pArray[0];
         }
@@ -204,7 +208,7 @@ namespace Sketchball.Controls
         public Vector2 PointToEditor(Vector2 p)
         {
             var point = PointToEditor(new Point((int)p.X, (int)p.Y));
-            return new Vector2(point.X, point.Y);
+            return new Vector2((float)point.X, (float)point.Y);
         }
 
         /// <summary>
@@ -242,5 +246,10 @@ namespace Sketchball.Controls
             }
         }
 
+        public System.Drawing.Point PointToPinball(System.Drawing.Point point)
+        {
+            var p = PointToPinball(new Point(point.X, point.Y));
+            return new System.Drawing.Point((int)p.X, (int)p.Y);
+        }
     }
 }

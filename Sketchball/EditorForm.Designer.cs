@@ -44,7 +44,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolBar = new System.Windows.Forms.ToolStrip();
             this.fieldAndPropertySplitter = new System.Windows.Forms.SplitContainer();
-            this.PlayFieldEditor = new Sketchball.Controls.PinballEditControl();
             this.elementInspector = new Sketchball.Controls.ElementInspector();
             this.dragThumb = new System.Windows.Forms.PictureBox();
             this.menuPanel = new System.Windows.Forms.Panel();
@@ -233,7 +232,7 @@
             // 
             this.fieldAndPropertySplitter.Panel1.AutoScroll = true;
             this.fieldAndPropertySplitter.Panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.fieldAndPropertySplitter.Panel1.Controls.Add(this.PlayFieldEditor);
+            
             // 
             // fieldAndPropertySplitter.Panel2
             // 
@@ -241,24 +240,7 @@
             this.fieldAndPropertySplitter.Size = new System.Drawing.Size(762, 666);
             this.fieldAndPropertySplitter.SplitterDistance = 579;
             this.fieldAndPropertySplitter.TabIndex = 3;
-            // 
-            // PlayFieldEditor
-            // 
-            this.PlayFieldEditor.AllowDrop = true;
-            this.PlayFieldEditor.Location = new System.Drawing.Point(3, 3);
-            this.PlayFieldEditor.Name = "PlayFieldEditor";
-            this.PlayFieldEditor.ScaleFactor = 1F;
-            this.PlayFieldEditor.SelectedElement = null;
-            this.PlayFieldEditor.Size = new System.Drawing.Size(540, 545);
-            this.PlayFieldEditor.TabIndex = 2;
-            this.PlayFieldEditor.Text = "pinballEditControl1";
-            this.PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
-            this.PlayFieldEditor.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
-            this.PlayFieldEditor.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
-            this.PlayFieldEditor.DragOver += new System.Windows.Forms.DragEventHandler(this.OnDragOver);
-            this.PlayFieldEditor.DragLeave += new System.EventHandler(this.OnDragLeave);
-            this.PlayFieldEditor.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.OnGiveFeedback);
-            this.PlayFieldEditor.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.OnQueryContinueDrag);
+
             // 
             // elementInspector
             // 
@@ -389,7 +371,6 @@
         private System.Windows.Forms.ToolStripMenuItem playButton;
         private System.Windows.Forms.ToolStripMenuItem playgroundToolStripMenuItem;
         private System.Windows.Forms.SplitContainer MainSplitToMenueAndField;
-        private Controls.PinballEditControl PlayFieldEditor;
         private System.Windows.Forms.Panel menuPanel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.FlowLayoutPanel elementPanel;

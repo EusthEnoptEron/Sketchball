@@ -38,7 +38,6 @@ namespace Sketchball.Controls
         {
             Game = game;
             Camera = new GameFieldCamera(Game);
-//this.MinimumSize = new Size(((GameFieldCamera)(Camera)).getMinSize().Width,((GameFieldCamera)(Camera)).getMinSize().Height);
 
             HUD = new GameHUD(Game);
 
@@ -46,15 +45,13 @@ namespace Sketchball.Controls
             Camera.Size = new System.Drawing.Size((int)Width, (int)Height);
 
             // Optimize control for performance
-//SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-//SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-//SetStyle(ControlStyles.UserPaint, true);
+
 
             PinballGameControl_HandleCreated(this, null);
-
             KeyDown += HandleKeyDown;
             SizeChanged += ResizeCamera;
 
+            SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
         }
 
         private void ResizeCamera(object sender, System.Windows.SizeChangedEventArgs e)
