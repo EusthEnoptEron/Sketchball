@@ -54,6 +54,7 @@ namespace Sketchball.Controls
 
             KeyDown += HandleKeyDown;
             SizeChanged += ResizeCamera;
+
         }
 
         private void ResizeCamera(object sender, System.Windows.SizeChangedEventArgs e)
@@ -145,7 +146,7 @@ namespace Sketchball.Controls
                         }, System.Windows.Threading.DispatcherPriority.Render);
 
                         // Give some time for input processing
-                        Thread.Sleep(1);
+                        Thread.Sleep(10);
                     }
                     else
                     {
