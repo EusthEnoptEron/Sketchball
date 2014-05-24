@@ -55,6 +55,14 @@ namespace Sketchball.Elements
             {
                 get { return size; }
             }
+
+            protected override void OnDraw(System.Windows.Media.DrawingContext g)
+            {
+                 boundingContainer.boundingBoxes.ForEach((e) =>
+                {
+                    e.drawDEBUG(g, new System.Windows.Media.Pen(System.Windows.Media.Brushes.Red, 1));
+                });
+            }
         }
 
         public DefaultLayout()

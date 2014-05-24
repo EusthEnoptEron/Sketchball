@@ -10,10 +10,16 @@ namespace Sketchball.Controls
 {
     public class WPFContainer : ElementHost
     {
-        private UserControl Control;
-        public WPFContainer(UserControl control)
+        private ManagedWPFControl Control;
+
+        public WPFContainer(ManagedWPFControl control)
         {
             Child = Control = control;
+
+            
+            Disposed += (s,e) => {
+                Control.Exit();
+            };
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -22,7 +28,9 @@ namespace Sketchball.Controls
 
             Control.Width = Width;
             Control.Height = Height;
+
         }
+        
 
     }
 }

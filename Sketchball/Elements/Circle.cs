@@ -43,9 +43,16 @@ namespace Sketchball.Elements
             g.TranslateTransform(X, Y);
         }
 
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            g.DrawEllipse(null, new System.Windows.Media.Pen(System.Windows.Media.Brushes.Red, 1), new System.Windows.Point(radius, radius), radius, radius);
+
+        }
+
         protected override Size BaseSize
         {
             get { return size; }
         }
+
     }
 }

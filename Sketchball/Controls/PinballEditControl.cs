@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Sketchball.Controls
 {
-    public class PinballEditControl : PinballControl
+    public class PinballEditControl : LegacyPinballControl
     {
         public readonly History History = new History();
         private Pen SelectionPen;
@@ -241,5 +241,6 @@ namespace Sketchball.Controls
                 listeners(prev, SelectedElement);
             }
         }
+
     }
 }

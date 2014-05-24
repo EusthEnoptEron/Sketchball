@@ -217,6 +217,8 @@ namespace Sketchball.Elements
         private void init()
         {
             Transform = new Matrix();
+            WpfTransform = System.Windows.Media.Matrix.Identity;
+            
             pureIntersection = false;
             boundingContainer = new BoundingContainer(this);
 
@@ -252,7 +254,33 @@ namespace Sketchball.Elements
             g.TranslateTransform(X, Y);
         }
 
+
+        public virtual void Draw(System.Windows.Media.DrawingContext g)
+        {
+            g.PushTransform(new System.Windows.Media.MatrixTransform(WpfTransform));
+
+            OnDraw(g);
+
+            g.Pop();
+
+            if (Properties.Settings.Default.Debug) {
+                g.PushTransform(new System.Windows.Media.TranslateTransform(-X, -Y));
+
+                System.Windows.Media.Pen pen = new System.Windows.Media.Pen(System.Windows.Media.Brushes.Red, 1);
+                foreach (var box in boundingContainer.boundingBoxes)
+                {
+                    box.drawDEBUG(g, pen);
+                }
+
+                g.Pop();
+            }
+
+        }
+
+
         public Matrix Transform { get; private set; }
+        public System.Windows.Media.Matrix WpfTransform = new System.Windows.Media.Matrix();
+
         private void RebuildMatrix()
         {
             var vOrigin = GetRotationOrigin();
@@ -262,6 +290,12 @@ namespace Sketchball.Elements
             Transform.RotateAt(BaseRotation, origin);
             Transform.Scale(Scale, Scale);
 
+
+            WpfTransform = new System.Windows.Media.Matrix();
+
+            WpfTransform.RotateAt(BaseRotation, vOrigin.X, vOrigin.Y);
+            WpfTransform.Scale(Scale, Scale);
+            
             Sync();
         }
 
@@ -378,6 +412,7 @@ namespace Sketchball.Elements
 
         protected abstract void Init();
         protected abstract void OnDraw(Graphics g);
+        protected abstract void OnDraw(System.Windows.Media.DrawingContext g);
 
         public virtual void Update(long delta) { }
 
@@ -413,7 +448,7 @@ namespace Sketchball.Elements
 
 #endregion
 
-        
-        
+
+
     }
 }

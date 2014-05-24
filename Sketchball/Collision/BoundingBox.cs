@@ -131,5 +131,8 @@ namespace Sketchball.Collision
 
 
         public abstract void Sync(Matrix matrix);
+
+
+        public abstract void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen);
     }
 }

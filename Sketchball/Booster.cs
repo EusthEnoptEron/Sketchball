@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace Sketchball
 {
@@ -44,6 +45,37 @@ namespace Sketchball
                 return null;
             }
 
+        }
+
+        private static System.Windows.Controls.Image GetWpfImage(string path)
+        {
+            var img = new System.Windows.Controls.Image();
+            img.Source = new BitmapImage(new Uri(@"pack://application:,,,/Sketchball;component/Resources/" + path));
+            return img;
+        }
+
+        public static System.Windows.Media.ImageSource OptimizeWpfImage(string path)
+        {
+            return GetWpfImage(path).Source;
+            
+        }
+        public static System.Windows.Media.ImageSource OptimizeWpfImage(string path, int width)
+        {
+            var img = GetWpfImage(path);
+            var height = width / img.Width * img.Height;
+            img.Width = width;
+            img.Height = height;
+
+            return img.Source;
+        }
+
+        public static System.Windows.Media.ImageSource OptimizeWpfImage(string path, int width, int height)
+        {
+            var img = GetWpfImage(path);
+            img.Width = width;
+            img.Height = height;
+
+            return img.Source;
         }
     }
 }

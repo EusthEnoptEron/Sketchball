@@ -52,6 +52,24 @@ namespace Sketchball.Elements
             }
         }
 
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            if (Rotation != 0)
+            {
+                g.PushTransform(new System.Windows.Media.RotateTransform(-(Rotation / (Math.PI) * 180f), currentRotationCenter.X, currentRotationCenter.Y));
+            }
+        }
+
+        public override void Draw(System.Windows.Media.DrawingContext g)
+        {
+            base.Draw(g);
+
+            if (Rotation != 0)
+            {
+                g.Pop();
+            }
+        }
+
         public override void Update(long delta)
         {
             if (delta != 0)
@@ -67,6 +85,7 @@ namespace Sketchball.Elements
            
             this.boundingContainer.rotate(-this.Rotation, this.currentRotationCenter);
         }
+
 
     }
 }

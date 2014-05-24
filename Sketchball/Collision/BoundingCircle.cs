@@ -171,6 +171,14 @@ namespace Sketchball.Collision
             
         }
 
+        public override void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen)
+        {
+            Vector2 pos = this.position+this.BoundingContainer.parentElement.getLocation();
+
+            g.DrawEllipse(null, pen, new System.Windows.Point((int)pos.X, (int)pos.Y ), (int)(this.radius), ((int)this.radius));
+        }
+
+
         public override IBoundingBox Clone()
         {
             //do not forget to assinge BoundingContainer after clone
@@ -201,5 +209,7 @@ namespace Sketchball.Collision
             matrix.TransformVectors(points);
             radius = (int)new Vector2(points[0].X, points[0].Y).Length();
         }
+
+
     }
 }

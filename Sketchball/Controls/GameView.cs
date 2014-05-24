@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Sketchball.Controls
 {
@@ -17,8 +18,6 @@ namespace Sketchball.Controls
     /// </summary>
     class GameView : PinballControl
     {
-        private readonly float zoomfactor = 0.05f;
-        private bool lockOnBall = false;
 
         /// <summary>
         /// The absolute minimum of FPS at any point in time.
@@ -27,16 +26,6 @@ namespace Sketchball.Controls
 
         public Camera Camera{get; private set;}
         private GameHUD HUD;
-
-        protected override void ConfigureGDI(Graphics g)
-        {
-            base.ConfigureGDI(g);
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            BackColor = Color.Transparent;
-
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-        }
-
 
         public Game Game;
 
@@ -49,52 +38,45 @@ namespace Sketchball.Controls
         {
             Game = game;
             Camera = new GameFieldCamera(Game);
-            this.MinimumSize = new Size(((GameFieldCamera)(Camera)).getMinSize().Width,((GameFieldCamera)(Camera)).getMinSize().Height);
+//this.MinimumSize = new Size(((GameFieldCamera)(Camera)).getMinSize().Width,((GameFieldCamera)(Camera)).getMinSize().Height);
 
             HUD = new GameHUD(Game);
 
             // Init camera
-            Camera.Size = Size;
+            Camera.Size = new System.Drawing.Size((int)Width, (int)Height);
 
             // Optimize control for performance
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            SetStyle(ControlStyles.UserPaint, true);
-            
-            HandleCreated += PinballGameControl_HandleCreated;
+//SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+//SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+//SetStyle(ControlStyles.UserPaint, true);
+
+            PinballGameControl_HandleCreated(this, null);
+
             KeyDown += HandleKeyDown;
-            Resize += ResizeCamera;
+            SizeChanged += ResizeCamera;
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        private void ResizeCamera(object sender, System.Windows.SizeChangedEventArgs e)
         {
-            Camera.Size = Size;
-            Invalidate();
-            base.OnSizeChanged(e);
-        }
-
-        private void ResizeCamera(object sender, EventArgs e)
-        {
-            Camera.Size = Size;
-            Invalidate();
+            Camera.Size = new System.Drawing.Size((int)Width, (int)Height);
         }
 
 
         /// <summary>
         /// Handles key presses (used to initiate a new game)
         /// </summary>
-        private void HandleKeyDown(object sender, KeyEventArgs e)
+        private void HandleKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            switch (e.Key)
             {
-                case Keys.Space:
+                case Key.Space:
                     if ((!Game.IsRunning) || Game.Status == GameStatus.GameOver)
                     {
                         Game.Start();
                     }
                     break;
                 
-                case Keys.Enter:
+                case Key.Enter:
                     if (Game.Status == GameStatus.Playing)
                     {
                         Game.Pause();
@@ -105,13 +87,13 @@ namespace Sketchball.Controls
                     }
                     break;
 
-                case Keys.Add:
-                    this.Camera.zoom(1+this.zoomfactor);
+                case Key.Add:
+                   // this.Camera.zoom(1+this.zoomfactor);
                     break;
 
-                case Keys.OemMinus:
-                case Keys.Subtract:
-                    this.Camera.zoom(1-this.zoomfactor);
+                case Key.OemMinus:
+                case Key.Subtract:
+                   // this.Camera.zoom(1-this.zoomfactor);
                     break;
 
             }         
@@ -142,94 +124,77 @@ namespace Sketchball.Controls
             DateTime now;
 
             int counter = 1;
- 
 
-            while (true)
+
+            try
             {
-                if (!IsHandleCreated) return;
-                now = DateTime.Now;
-
-                if (Game.Status == GameStatus.Playing || counter-- > 0)
+                while (!CancelToken.IsCancellationRequested)
                 {
-                    // Make sure that we draw the scene once more after status change
-                    if (Game.Status == GameStatus.Playing) counter = 1;
+                    now = DateTime.Now;
 
-                    if (Game.Machine.HasBall())
+                    if (Game.Status == GameStatus.Playing || counter-- > 0)
                     {
-                        this.UpdateCam(this.Game.Machine.Balls[0].Location);
+                        // Make sure that we draw the scene once more after status change
+                        if (Game.Status == GameStatus.Playing) counter = 1;
+
+                        // Redraw scene
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            InvalidateVisual();
+                        }, System.Windows.Threading.DispatcherPriority.Render);
+
+                        // Give some time for input processing
+                        Thread.Sleep(1);
+                    }
+                    else
+                    {
+                        Thread.Sleep(10);
                     }
 
-                    // Redraw scene
-                    IAsyncResult result = BeginInvoke(new Action(
-                        () =>
-                        {
-                            Invalidate();
-                            base.Update();
-                        }
-                    ));
-
-                    EndInvoke(result);
-
-                    // Give some time for input processing
-                    Thread.Sleep(1);
+                    prev = now;
                 }
-                else
-                {
-                    Thread.Sleep(10);
-                }
-
-                prev = now;
             }
+            catch (TaskCanceledException) { }
         
         }
 
- 
-        protected override void Draw(Graphics g)
+        protected override void Draw(DrawingContext g)
         {
             // Draw pinball machine
             Camera.Draw(g);
 
-            g.TranslateTransform(Width - HUD.Width, 0);
+            g.PushTransform(new TranslateTransform(Width - HUD.Width, 0));
             HUD.Draw(g);
-            g.TranslateTransform(-(Width - HUD.Width), 0);
+            g.Pop();
 
             if (Game.Status == GameStatus.GameOver)
             {
-                DrawOverlay(g, Color.DarkRed, "YOU LOSE", "Press [SPACE] to try again.");
+                DrawOverlay(g, Colors.DarkRed, "YOU LOSE", "Press [SPACE] to try again.");
             }
             else if (Game.Status == GameStatus.Pause)
             {
-                DrawOverlay(g, Color.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
+                DrawOverlay(g, Colors.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
             }
             
         }
 
-        private void DrawOverlay(Graphics g, Color color, string title, string msg)
+        private void DrawOverlay(DrawingContext g, Color color, string title, string msg)
         {
-            using (Brush brush = new SolidBrush(Color.FromArgb(150, color)))
-            {
-                using (Brush solidBrush = new SolidBrush(color))
-                {
-                    g.FillRectangle(brush, 0, 0, Width, Height);
-                    SizeF size = g.MeasureString(title, new Font("Impact", 40, FontStyle.Regular));
+            var col = Color.FromArgb(color.R, color.G, color.B, 150);
 
-                    g.DrawString(title, new Font("Impact", 40, FontStyle.Regular), solidBrush, new PointF(Width / 2 - size.Width / 2, Height / 2 - size.Height / 2));
-                    g.DrawString(msg, new Font("Arial", 13, FontStyle.Regular), solidBrush, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
-                }
-            }
+            Brush brush = new SolidColorBrush(col);
+            Brush solidBrush = new SolidColorBrush(color);
+
+            g.DrawRectangle(brush, null, new Rect(0, 0, Width, Height));
+/*
+            SizeF size = g.MeasureString(title, new Font("Impact", 40, System.Drawing.FontStyle.Regular));
+
+            g.DrawString(title, new Font("Impact", 40, System.Drawing.FontStyle.Regular), solidBrush, new PointF((int)Width / 2 - size.Width / 2, (int)Height / 2 - size.Height / 2));
+            g.DrawString(msg, new Font("Arial", 13, System.Drawing.FontStyle.Regular), solidBrush, new PointF((int)Width / 2 - size.Width / 2, (int)Height / 2 + size.Height / 2));
+*/             
         }
 
-        public void UpdateCam(Vector2 ballPos)
-        {
-            if (this.lockOnBall)
-            {
-                this.Camera.moveAbs(-ballPos);
-            }
-        }
 
-        public void lockonBall()
-        {
-            this.lockOnBall = true;
-        }
     }
 }

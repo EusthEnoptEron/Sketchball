@@ -11,6 +11,8 @@ namespace Sketchball.Elements
     public class Bumper : PinballElement
     {
         private static Image image = Booster.OptimizeImage(Properties.Resources.Bumper, 50, 50);
+        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("Bumper.png");
+
         private static readonly Size size = new Size(30, 30);
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SBumper);
 
@@ -44,6 +46,11 @@ namespace Sketchball.Elements
         public override void notifyIntersection(Ball b)
         {
             player.Play();
+        }
+
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
     }
 }

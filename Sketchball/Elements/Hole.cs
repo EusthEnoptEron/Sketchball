@@ -12,7 +12,7 @@ namespace Sketchball.Elements
     {
         private static readonly Size size = new Size(50, 50);
         private static Image image = Booster.OptimizeImage(Properties.Resources.hole, 50, 50);
-
+        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("hole.png");
 
         public Hole()
             : base(100, 100)
@@ -34,6 +34,11 @@ namespace Sketchball.Elements
         protected override Size BaseSize
         {
             get { return size; }
+        }
+
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
     }
 }

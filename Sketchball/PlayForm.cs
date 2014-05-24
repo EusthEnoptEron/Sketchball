@@ -19,6 +19,7 @@ namespace Sketchball
     {
         private Game game;
         private GameView gameView;
+        private WPFContainer gameContainer;
         private SelectionForm selectionForm = null;
         private PinballMachine originalMachine = null;
         public PlayForm(PinballMachine pbm) : this(pbm, null)
@@ -33,19 +34,25 @@ namespace Sketchball
             originalMachine = pbm;
             game = new Game(pbm);
             gameView = new GameView(game);
-            this.MinimumSize = gameView.MinimumSize;
+            gameContainer = new WPFContainer(gameView);
+
+          //  this.MinimumSize = gameView.MinimumSize;
             gameView.MouseUp += OnMouseUp;
 
             // Fill entire space
-            gameView.Dock = DockStyle.Fill;
-            gameView.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-           
-            Controls.Add(gameView);
+            gameContainer.Dock = DockStyle.Fill;
+
+            Controls.Add(gameContainer);
 
             this.selectionForm = selectionForm;
 
             debugModeButton.Checked = Properties.Settings.Default.Debug;
             this.gameView.Camera.backgroundManager.backgroundChanged +=backgroundManager_backgroundChanged;
+        }
+
+        private void OnMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         ~PlayForm()
@@ -57,7 +64,7 @@ namespace Sketchball
         {
             int width = (this).Width;
             int height = this.Height;
-            Bitmap inUse = this.gameView.Camera.backgroundManager.Background_TableBackground;
+            /*Bitmap inUse = this.gameView.Camera.backgroundManager.Background_TableBackground;
 
             if (width > inUse.Width || height > inUse.Height)
             {
@@ -83,7 +90,7 @@ namespace Sketchball
 
 
             Bitmap m = Booster.OptimizeImage(inUse, width, height);
-            this.BackgroundImage = m;
+            this.BackgroundImage = m;*/
         }
 
         protected override void OnPaintBackground(PaintEventArgs e) 
@@ -198,7 +205,7 @@ namespace Sketchball
         {
             int width = ((Control)sender).Width;
             int height = ((Control)sender).Height;
-            Bitmap inUse = this.gameView.Camera.backgroundManager.Background_TableBackground;
+           /* Bitmap inUse = this.gameView.Camera.backgroundManager.Background_TableBackground;
             Image i = Properties.Resources.TableBackground;
 
             if ((height <= i.Height && width <= i.Width))
@@ -220,7 +227,7 @@ namespace Sketchball
 
             Bitmap m = Booster.OptimizeImage(inUse, width, height);
             this.BackgroundImage = m;
-            
+            */
         }
 
     }

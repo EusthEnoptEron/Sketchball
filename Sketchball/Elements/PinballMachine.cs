@@ -145,6 +145,20 @@ namespace Sketchball.Elements
             }
         }
 
+        public virtual void Draw(System.Windows.Media.DrawingContext g)
+        {
+            g.PushClip(new System.Windows.Media.RectangleGeometry(new System.Windows.Rect(0, 0, Width, Height)));
+
+            // Draw contours
+
+            foreach (PinballElement element in Elements)
+            {
+                g.PushTransform(new System.Windows.Media.TranslateTransform(element.X, element.Y));
+                element.Draw(g);
+                g.Pop();
+            }
+        }
+
 
         public void Add(PinballElement element)
         {

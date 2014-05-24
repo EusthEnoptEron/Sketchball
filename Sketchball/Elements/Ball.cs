@@ -12,6 +12,7 @@ namespace Sketchball.Elements
     {
         public static readonly Size Size = new Size(20, 20);
         private static Image image = Booster.OptimizeImage(Properties.Resources.BallWithAlpha, Size.Width, Size.Height);
+        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("BallWithAlpha.png");
        
         protected override Size BaseSize
         {
@@ -41,6 +42,12 @@ namespace Sketchball.Elements
             //g.FillEllipse(Brushes.Peru, 0, 0, Width, Height);
             g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
+
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+        }
+
         public override void Update(long delta)
         {
             base.Update(delta);
@@ -60,6 +67,8 @@ namespace Sketchball.Elements
         {
             this.World = pM;
         }
+
+
 
     }
 }

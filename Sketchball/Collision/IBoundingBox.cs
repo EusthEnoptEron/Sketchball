@@ -108,5 +108,7 @@ namespace Sketchball.Collision
         System.Drawing.Rectangle GetBounds();
 
         void Sync(System.Drawing.Drawing2D.Matrix matrix);
+
+        void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen);
     }
 }

@@ -16,6 +16,8 @@ namespace Sketchball.Elements
         private float factor = 800 / 70;
         private static Image image = Booster.OptimizeImage(Properties.Resources.FlipperLeft, 100);
 
+        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("FlipperLeft.png");
+
         public LeftFlipper()
         {
             Trigger = Keys.A;
@@ -69,12 +71,17 @@ namespace Sketchball.Elements
             g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
 
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            base.OnDraw(g);
+            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+        }
+
         protected override Vector2 Origin
         {
             get
             {
                 Vector2 pictureRotPos = new Vector2(157, 304);
-                
                 return pictureRotPos / factor;
             }
         }

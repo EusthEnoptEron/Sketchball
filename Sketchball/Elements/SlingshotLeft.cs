@@ -11,8 +11,11 @@ namespace Sketchball.Elements
     public class SlingshotLeft : PinballElement
     {
         private static Image image = Booster.OptimizeImage(Properties.Resources.SlingshotLeft, 150);
+        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("SlingshotLeft.png");
+
         private static readonly Size size = new Size(110, 110);
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SSlingshot);
+
 
         protected override Size BaseSize
         {
@@ -56,6 +59,12 @@ namespace Sketchball.Elements
         public override void notifyIntersection(Ball b)
         {
             player.Play();
+        }
+
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+
+            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
     }
 }

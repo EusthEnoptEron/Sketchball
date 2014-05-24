@@ -63,6 +63,13 @@
     <Compile Include="Controls\ElementInspector.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\LegacyPinballControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ManagedWPFControl.xaml.cs">
+      <DependentUpon>ManagedWPFControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Rect0.cs" />
     <Compile Include="Controls\ToolStripTrackBarItem.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -75,9 +82,7 @@
     <Compile Include="Collision\BoundingLine.cs" />
     <Compile Include="Collision\BoundingRaster.cs" />
     <Compile Include="Collision\IBoundingBox.cs" />
-    <Compile Include="Controls\PinballControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controls\PinballControl.cs" />
     <Compile Include="Controls\PinballControl2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -87,9 +92,7 @@
     <Compile Include="Controls\PinballEditControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\GameView.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controls\GameView.cs" />
     <Compile Include="Editor\CreationChange.cs" />
     <Compile Include="Editor\DeletionChange.cs" />
     <Compile Include="Editor\SelectionTool.cs" />
@@ -133,9 +136,7 @@
     <Compile Include="Elements\TriangleTMP.cs" />
     <Compile Include="Elements\WormholeEntry.cs" />
     <Compile Include="Elements\WormholeExit.cs" />
-    <Compile Include="Experiment.xaml.cs">
-      <DependentUpon>Experiment.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Experiment.cs" />
     <Compile Include="FontManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Controls\GameHUD.cs" />
@@ -198,60 +199,56 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <Resource Include="Resources\SlingshotRight.png" />
     <None Include="Resources\Balloon Popping-SoundBible.com-1247261379.wav" />
     <None Include="Resources\Silencer-SoundBible.com-1632156458.wav" />
     <None Include="Resources\Pop Banner-SoundBible.com-641783855.wav" />
     <None Include="Resources\Blop-Mark_DiAngelo-79054334.wav" />
-    <None Include="Resources\Rampe_pencil.png" />
-    <None Include="Resources\WormholeExit.png" />
-    <None Include="Resources\WormholeEntry.png" />
-    <None Include="Resources\SlingshotRight.png" />
-    <None Include="Resources\SlingshotLeft.png" />
-    <None Include="Resources\Rampe.png" />
-    <None Include="Resources\flipperRight.png" />
-    <None Include="Resources\flipperLeft.png" />
-    <None Include="Resources\Bumper.png" />
-    <None Include="Resources\BallWithAlpha.png" />
-    <None Include="Resources\pencil.png" />
-    <None Include="Resources\hole.png" />
-    <None Include="Resources\TableBackground.jpg" />
-    <None Include="Resources\Notebook_Ringe.png" />
-    <None Include="Resources\Notebook_Ende.png" />
-    <None Include="Resources\Notebook_bot.png" />
-    <None Include="Resources\Notebook_body.png" />
-    <None Include="Resources\Notebook.png" />
-    <None Include="Resources\bfhLogo2.png" />
-    <None Include="Resources\Logo_BFH.jpg" />
-    <None Include="Resources\MultiLineTool.png" />
-    <None Include="Resources\Redo-icon.png" />
-    <None Include="Resources\Undo-icon.png" />
-    <None Include="Resources\Very-Basic-Cursor-icon.png" />
-    <None Include="Resources\Windows_Cursor.png" />
-    <None Include="Resources\circle-outline-512.png" />
-    <None Include="Resources\LineTool.png" />
-    <None Include="Resources\32217.png" />
-    <None Include="Resources\refresh_icon_scalable_vector_graphics_svg-1969px.png" />
-    <None Include="Resources\editor-eraser.png" />
-    <None Include="Resources\pencil-1979px.png" />
-    <None Include="Resources\BackgroundScharf.png" />
-    <None Include="Resources\PlaySchrift1.png" />
-    <None Include="Resources\Exit.png" />
-    <None Include="Resources\EditorSchrift2.png" />
-    <None Include="Resources\BackgroundextraScharf.png" />
-    <None Include="Resources\WoodPattern.png" />
-    <None Include="Resources\ScoreBG.png" />
+    <Resource Include="Resources\Rampe_pencil.png" />
+    <Resource Include="Resources\WormholeExit.png" />
+    <Resource Include="Resources\WormholeEntry.png" />
+    <Resource Include="Resources\SlingshotLeft.png" />
+    <Resource Include="Resources\Rampe.png" />
+    <Resource Include="Resources\flipperRight.png" />
+    <Resource Include="Resources\flipperLeft.png" />
+    <Resource Include="Resources\Bumper.png" />
+    <Resource Include="Resources\BallWithAlpha.png" />
+    <Resource Include="Resources\pencil.png" />
+    <Resource Include="Resources\hole.png" />
+    <Resource Include="Resources\TableBackground.jpg" />
+    <Resource Include="Resources\Notebook_Ringe.png" />
+    <Resource Include="Resources\Notebook_Ende.png" />
+    <Resource Include="Resources\Notebook_bot.png" />
+    <Resource Include="Resources\Notebook_body.png" />
+    <Resource Include="Resources\Notebook.png" />
+    <Resource Include="Resources\bfhLogo2.png" />
+    <Resource Include="Resources\Logo_BFH.jpg" />
+    <Resource Include="Resources\MultiLineTool.png" />
+    <Resource Include="Resources\Redo-icon.png" />
+    <Resource Include="Resources\Undo-icon.png" />
+    <Resource Include="Resources\Very-Basic-Cursor-icon.png" />
+    <Resource Include="Resources\Windows_Cursor.png" />
+    <Resource Include="Resources\circle-outline-512.png" />
+    <Resource Include="Resources\LineTool.png" />
+    <Resource Include="Resources\32217.png" />
+    <Resource Include="Resources\refresh_icon_scalable_vector_graphics_svg-1969px.png" />
+    <Resource Include="Resources\editor-eraser.png" />
+    <Resource Include="Resources\pencil-1979px.png" />
+    <Resource Include="Resources\BackgroundScharf.png" />
+    <Resource Include="Resources\PlaySchrift1.png" />
+    <Resource Include="Resources\Exit.png" />
+    <Resource Include="Resources\EditorSchrift2.png" />
+    <Resource Include="Resources\BackgroundextraScharf.png" />
+    <Resource Include="Resources\WoodPattern.png" />
+    <Resource Include="Resources\ScoreBG.png" />
     <None Include="Resources\Courgette-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\SlingshotRight.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\PinballImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Experiment.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Controls\ManagedWPFControl.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

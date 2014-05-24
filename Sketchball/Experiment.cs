@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sketchball.Controls;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,28 +23,23 @@ namespace Sketchball
     /// <summary>
     /// Interaction logic for Experiment.xaml
     /// </summary>
-    public partial class Experiment : UserControl
+    public partial class Experiment : ManagedWPFControl
     {
         private System.Drawing.Bitmap Ball = Properties.Resources.BallWithAlpha;
         Image img;
         public Thread thread;
-        private CancellationTokenSource running;
 
         public Experiment()
         {
-            InitializeComponent();
             img = new Image();
-            img.Source = new BitmapImage(new Uri(@"Resources/SlingshotRight.png", UriKind.Relative));
+            img.Source = new BitmapImage(new Uri(@"pack://application:,,,/Sketchball;component/Resources/Rampe.png"));
 
             thread = new Thread(new ThreadStart(() =>
             {
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
-                running = 
-                    new CancellationTokenSource();
 
-                
-                    while (!running.IsCancellationRequested)
+                    while (!CancelToken.IsCancellationRequested)
                     {
                         time = watch.Elapsed.TotalSeconds;
                         try
@@ -51,7 +47,7 @@ namespace Sketchball
                             Dispatcher.Invoke(() =>
                             {
                                 InvalidateVisual();
-                            }, DispatcherPriority.Render, running.Token);
+                            }, DispatcherPriority.Render, CancelToken);
                         }
                         catch (TaskCanceledException) { }
 
@@ -63,11 +59,7 @@ namespace Sketchball
                 
         }
 
-        
-        public void Exit()
-        {
-            running.Cancel();
-        }
+
         int i = 0;
         double time = 0;
         protected override void OnRender(DrawingContext g)

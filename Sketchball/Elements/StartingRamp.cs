@@ -31,6 +31,8 @@ namespace Sketchball.Elements
         private static Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 200);
         private static Image RampImage = Booster.OptimizeImage(Properties.Resources.Rampe, 500);
 
+        private static System.Windows.Media.ImageSource RampImageS = Booster.OptimizeWpfImage("Rampe.png");
+        private static System.Windows.Media.ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
 
 
 
@@ -116,6 +118,12 @@ namespace Sketchball.Elements
             g.DrawImage(PencilImage, 86f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback);
         } 
 
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            g.DrawImage(RampImageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+            g.DrawImage(PencilImageS, new System.Windows.Rect(86f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback, PencilImage.Width, PencilImage.Height));
+        }
+
         public void IntroduceBall(Ball ball) {
             Ball = ball;
 
@@ -162,5 +170,6 @@ namespace Sketchball.Elements
                 Tweener.Cancel();
             }
         }
+
     }
 }

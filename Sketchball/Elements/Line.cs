@@ -57,6 +57,12 @@ namespace Sketchball.Elements
             g.DrawLine(Pens.Red, p1, p2);
         }
 
-        
+
+
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            g.DrawLine(new System.Windows.Media.Pen(), new System.Windows.Point(p1.X, p1.Y), new System.Windows.Point(p2.X, p2.Y));
+
+        }
     }
 }

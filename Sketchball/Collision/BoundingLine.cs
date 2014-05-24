@@ -294,5 +294,11 @@ namespace Sketchball.Collision
             position = new Vector2(points[0].X, points[0].Y);
             target   = new Vector2(points[1].X, points[1].Y);
         }
+
+        public override void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen)
+        {
+            Vector2 pos = this.BoundingContainer.parentElement.getLocation();
+            g.DrawLine(pen, new System.Windows.Point((int)(this.position.X + pos.X), (int)(this.position.Y + pos.Y)), new System.Windows.Point((int)(this.target.X + pos.X), (int)(this.target.Y + pos.Y)));
+        }
     }
 }

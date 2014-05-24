@@ -13,8 +13,10 @@ namespace Sketchball.Elements
         public WormholeExit WormholeExit { get; set; }
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWomholeEntry);
 
+
         private static readonly Size size = new Size(30, 30);
         private static Image image = Booster.OptimizeImage(Properties.Resources.WormholeEntry, size.Width);
+        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("WormholeEntry.png");
 
         protected override Size BaseSize
         {
@@ -49,6 +51,11 @@ namespace Sketchball.Elements
         {
             b.Location = this.WormholeExit.Location + new Vector2(this.WormholeExit.Width / 2, this.WormholeExit.Height / 2);
             player.Play();
+        }
+
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
     }
 }
