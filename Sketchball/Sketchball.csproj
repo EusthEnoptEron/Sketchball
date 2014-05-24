@@ -69,7 +69,6 @@
     <Compile Include="Controls\ManagedWPFControl.xaml.cs">
       <DependentUpon>ManagedWPFControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Rect0.cs" />
     <Compile Include="Controls\ToolStripTrackBarItem.cs">
       <SubType>Component</SubType>
     </Compile>
