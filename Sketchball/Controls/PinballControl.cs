@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,8 +34,24 @@ namespace Sketchball.Controls
 
         protected override void OnRender(DrawingContext drawingContext)
         {
+            var text = new FormattedText("fps" + this.fps_debug.ToString(),
+              CultureInfo.GetCultureInfo("en-us"),
+              System.Windows.FlowDirection.LeftToRight,
+              new Typeface("Arial"),
+              36, System.Windows.Media.Brushes.BlueViolet);
+
             base.OnRender(drawingContext);
+            DateTime now = DateTime.Now;
+            TimeSpan delta = prev == DateTime.MinValue
+                ? new TimeSpan(0)
+                : now - prev;
+            prev = now;
+
             Draw(drawingContext);
+            drawingContext.DrawText(text, new System.Windows.Point(400, 400));
+
+
+            this.fps_debug = (int)(1 / delta.TotalSeconds);
         }
 
         private void PinballControl_Paint(object sender, PaintEventArgs e)

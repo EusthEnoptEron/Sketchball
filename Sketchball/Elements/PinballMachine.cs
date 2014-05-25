@@ -150,6 +150,19 @@ namespace Sketchball.Elements
             g.PushClip(new System.Windows.Media.RectangleGeometry(new System.Windows.Rect(0, 0, Width, Height)));
 
             // Draw contours
+            //TODO take away red border
+           System.Windows.Media.Pen pen = new System.Windows.Media.Pen(System.Windows.Media.Brushes.LightGray, 1);
+            for (int y = 0; y <= Height; y += 10)
+            {
+                g.DrawLine(pen, new System.Windows.Point(0, y), new System.Windows.Point(Width, y));
+            }
+
+            for (int x = 0; x <= Width; x += 10)
+            {
+                g.DrawLine(pen, new System.Windows.Point(x, 0), new System.Windows.Point(x, Height));
+            }
+
+
 
             foreach (PinballElement element in Elements)
             {
