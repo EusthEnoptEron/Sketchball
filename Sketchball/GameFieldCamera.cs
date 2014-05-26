@@ -61,7 +61,7 @@ namespace Sketchball
                 g.PushTransform(new TranslateTransform(Translocation.X, Translocation.Y));
             }
 
-            double scale = Height / (float)backgroundManager.Height;
+            double scale = Height / backgroundManager.Height;
             double dx    = (Width - backgroundManager.Width) / 2f - paddingRight; // Center
 
             pushes += 2;
@@ -78,8 +78,8 @@ namespace Sketchball
 
         private float CalculateRatio(float width, float height) 
         {
-            float widthRatio = (float)(width) / Game.Machine.Width;
-            float heightRatio = (float)(height) / Game.Machine.Height;
+            float widthRatio = (width) / Game.Machine.Width;
+            float heightRatio = (height) / Game.Machine.Height;
 
             return Math.Min(widthRatio, heightRatio);
         }

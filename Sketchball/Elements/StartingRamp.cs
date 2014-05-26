@@ -119,7 +119,7 @@ namespace Sketchball.Elements
         public void IntroduceBall(Ball ball) {
             Ball = ball;
 
-            Ball.X = X + (float)Ball.Width / 2;
+            Ball.X = X + Ball.Width / 2;
             Ball.Y = Y;
         }
 

@@ -20,7 +20,7 @@ namespace Sketchball.Elements
         public Keys Trigger { get; set; }
         protected Keys DebugTrigger;
 
-        public float RotationRange = (float)(Math.PI / 180 * 60);
+        public double RotationRange = (Math.PI / 180 * 60);
         private bool Animating = false;
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWormholeExit);
 
@@ -52,7 +52,7 @@ namespace Sketchball.Elements
         {
             get
             {
-                return new Vector(0, (float)this.Height);
+                return new Vector(0, this.Height);
             }
         }
 

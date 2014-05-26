@@ -95,8 +95,8 @@ namespace Sketchball.Controls
             if (Element.Height == 0) Element.Height = height;
 
             // Calculate ratios
-            var heightRatio = (float)height / Element.Height;
-            var widthRatio = (float)width / Element.Width;
+            var heightRatio = height / Element.Height;
+            var widthRatio = width / Element.Width;
             var ratio = Math.Min(heightRatio, widthRatio);
 
             g.PushClip(new RectangleGeometry(new Rect(0, 0, width, height)));

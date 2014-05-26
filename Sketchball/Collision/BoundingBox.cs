@@ -89,7 +89,7 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="rad">Amount of rad</param>
         /// <param name="center">Center of rotation</param>
-        public abstract void Rotate(float rad, Vector center);
+        public abstract void Rotate(double rad, Vector center);
 
         /// <summary>
         /// Submethod of intersect => checks for an intersection of this bounding box and a Bounding line

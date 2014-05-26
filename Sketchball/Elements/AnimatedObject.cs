@@ -14,13 +14,13 @@ namespace Sketchball.Elements
     public abstract class AnimatedObject : PinballElement, IAnimatedObject
     {
         [Browsable(false)]
-        public float Rotation { get; set; }
+        public double Rotation { get; set; }
         
         [Browsable(false)]
-        public float AngularVelocityPerFrame { get; private set; }
+        public double AngularVelocityPerFrame { get; private set; }
 
         [Browsable(false)]
-        public float AngularVelocity { get; private set; }
+        public double AngularVelocity { get; private set; }
 
         [Browsable(false)]
         public Vector CurrentRotationCenter { get; private set; }
@@ -31,14 +31,14 @@ namespace Sketchball.Elements
         {
         }
 
-        public GlideTween.Glide Rotate(float rad, Vector center, float time)
+        public GlideTween.Glide Rotate(double rad, Vector center, float time)
         {
             return Rotate(rad, center, time, null);
         }
 
-        public GlideTween.Glide Rotate(float rad, Vector center, float time, Action endRotation)
+        public GlideTween.Glide Rotate(double rad, Vector center, float time, Action endRotation)
         {
-            float degAbs = rad + this.Rotation;
+            double degAbs = rad + this.Rotation;
             this.CurrentRotationCenter = center;
             this.AngularVelocity = rad / time;
             
@@ -79,7 +79,6 @@ namespace Sketchball.Elements
            
             this.boundingContainer.Rotate(-this.Rotation, this.CurrentRotationCenter);
         }
-
 
     }
 }

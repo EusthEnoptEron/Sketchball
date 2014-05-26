@@ -31,8 +31,8 @@ namespace Sketchball.Editor
         {
 
             var pos = e.GetPosition(Control);
-            this.startPos = new Vector((float)pos.X, (float)pos.Y);
-            this.actualPos = new Vector((float)pos.X, (float)pos.Y);
+            this.startPos = new Vector(pos.X, pos.Y);
+            this.actualPos = new Vector(pos.X, pos.Y);
             this.drawing = true;
             this.Control.Invalidate();
         }
@@ -40,7 +40,7 @@ namespace Sketchball.Editor
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
             var pos = e.GetPosition(Control);
-            this.actualPos = new Vector((float)pos.X, (float)pos.Y);
+            this.actualPos = new Vector(pos.X, pos.Y);
 
             //Create Line
             var start = Control.PointToPinball(startPos);
@@ -57,8 +57,8 @@ namespace Sketchball.Editor
             if (this.drawing)
             {
                 var pos = e.GetPosition(Control);
-                this.actualPos.X = (float)pos.X;
-                this.actualPos.Y = (float)pos.Y;
+                this.actualPos.X = pos.X;
+                this.actualPos.Y = pos.Y;
 
                 this.Control.Invalidate();
             }

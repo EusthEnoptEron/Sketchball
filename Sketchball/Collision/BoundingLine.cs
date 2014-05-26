@@ -187,7 +187,7 @@ namespace Sketchball.Collision
             return t2;
         }
 
-        public override void Rotate(float rad, Vector center)
+        public override void Rotate(double rad, Vector center)
         {
             Matrix rotation = new Matrix();
             rotation.RotateAt((rad/Math.PI*180f), center.X, center.Y);
@@ -201,10 +201,10 @@ namespace Sketchball.Collision
             pts[1].Y = p2.Y;
 
             rotation.Transform(pts);
-            p1.X = (float)pts[0].X;
-            p1.Y = (float)pts[0].Y;
-            p2.X = (float)pts[1].X;
-            p2.Y = (float)pts[1].Y;
+            p1.X = pts[0].X;
+            p1.Y = pts[0].Y;
+            p2.X = pts[1].X;
+            p2.Y = pts[1].Y;
 
             this.Position = p1;
             this.target = p2;     
@@ -271,14 +271,14 @@ namespace Sketchball.Collision
             Point[] points = new Point[] { new Point(_originalPosition.X, _originalPosition.Y), new Point(_originalTarget.X, _originalTarget.Y) };
             matrix.Transform(points);
 
-            Position = new Vector((float)points[0].X, (float)points[0].Y);
-            target   = new Vector((float)points[1].X, (float)points[1].Y);
+            Position = new Vector(points[0].X, points[0].Y);
+            target   = new Vector(points[1].X, points[1].Y);
         }
 
         public override void DrawDebug(DrawingContext g, System.Windows.Media.Pen pen)
         {
             Vector pos = this.BoundingContainer.ParentElement.Location;
-            g.DrawLine(pen, new System.Windows.Point((int)(this.Position.X + pos.X), (int)(this.Position.Y + pos.Y)), new System.Windows.Point((int)(this.target.X + pos.X), (int)(this.target.Y + pos.Y)));
+            g.DrawLine(pen, new Point(this.Position.X + pos.X, this.Position.Y + pos.Y), new Point((this.target.X + pos.X), (this.target.Y + pos.Y)));
         }
     }
 }

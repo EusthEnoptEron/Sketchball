@@ -38,7 +38,7 @@ namespace Sketchball.Elements
 
         public override void notifyIntersection(Ball b)
         {
-            b.Location = this.WormholeExit.Location + new Vector((float)this.WormholeExit.Width / 2, (float)this.WormholeExit.Height / 2);
+            b.Location = this.WormholeExit.Location + new Vector(this.WormholeExit.Width / 2, this.WormholeExit.Height / 2);
             player.Play();
         }
 

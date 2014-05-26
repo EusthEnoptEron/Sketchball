@@ -58,7 +58,7 @@ namespace Sketchball.Editor
                 {
                     // Select
                     SelectedElement = element;
-                    this.delta = new Vector((float)pos.X, (float)pos.Y) - Control.PointToEditor(SelectedElement.Location);
+                    this.delta = new Vector(pos.X, pos.Y) - Control.PointToEditor(SelectedElement.Location);
                     startVector = SelectedElement.Location;
                 }
                 else
@@ -90,7 +90,7 @@ namespace Sketchball.Editor
             if (mouseIsDown && SelectedElement != null)
             {
                 var pos = e.GetPosition(Control);
-                var newPos = Control.PointToPinball(new Vector((float)pos.X, (float)pos.Y) - delta);
+                var newPos = Control.PointToPinball(new Vector(pos.X, pos.Y) - delta);
 
                 SelectedElement.Location = newPos;
 

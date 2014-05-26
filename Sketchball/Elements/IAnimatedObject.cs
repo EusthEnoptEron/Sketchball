@@ -9,9 +9,9 @@ namespace Sketchball.Elements
 {
     interface IAnimatedObject
     {
-        GlideTween.Glide Rotate(float rad, Vector center, float time);
-        GlideTween.Glide Rotate(float rad, Vector center, float time, Action endRotation);
+        GlideTween.Glide Rotate(double rad, Vector center, float time);
+        GlideTween.Glide Rotate(double rad, Vector center, float time, Action endRotation);
 
-        float Rotation { get; set; }
+        double Rotation { get; set; }
     }
 }

@@ -248,8 +248,8 @@ namespace Sketchball
         {
             var pos = e.GetPosition(PlayFieldEditor);
             var pinballPoint = PlayFieldEditor.PointToPinball(pos);
-            dragState.Element.Location = new Vector((float)(pinballPoint.X - dragState.Element.Width / 2),
-                                                     (float)(pinballPoint.Y - dragState.Element.Height / 2));
+            dragState.Element.Location = new Vector((pinballPoint.X - dragState.Element.Width / 2),
+                                                     (pinballPoint.Y - dragState.Element.Height / 2));
             PlayFieldEditor.Invalidate();
         }
 

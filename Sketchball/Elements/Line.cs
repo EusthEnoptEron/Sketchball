@@ -41,10 +41,10 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
-            float x0 = (float)p1.X;
-            float x1 = (float)p2.X;
-            float y0 = (float)p1.Y;
-            float y1 = (float)p2.Y;
+            double x0 = p1.X;
+            double x1 = p2.X;
+            double y0 = p1.Y;
+            double y1 = p2.Y;
 
             size = new Size((int)Math.Abs(x1 - x0), (int)Math.Abs(y1 - y0));
 

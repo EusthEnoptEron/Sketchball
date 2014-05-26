@@ -28,7 +28,7 @@ namespace Sketchball.Editor
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
             var pos = e.GetPosition(Control);
-            this.center = new Vector((float)pos.X, (float)pos.Y);
+            this.center = new Vector(pos.X, pos.Y);
             this.radius = 0;
 
             this.drawing = true;

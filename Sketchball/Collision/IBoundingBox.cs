@@ -91,7 +91,7 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="rad">Amount of roation in rad</param>
         /// <param name="center">Center of rotation relative to the parent coordinates</param>
-        void Rotate(float rad, Vector center);
+        void Rotate(double rad, Vector center);
 
         Vector ReflectManipulation(Vector newDirection, int energy = 0);
 

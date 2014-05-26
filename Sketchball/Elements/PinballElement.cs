@@ -291,9 +291,9 @@ namespace Sketchball.Elements
             {
                 origin.Y = 0;
             } else if ( (Origin & middle) != 0 ) {
-                origin.Y = (float)Height / 2f;
+                origin.Y = Height / 2f;
             } else {
-                origin.Y = (float)Height;
+                origin.Y = Height;
             }
 
             if ((Origin & left) != 0)
@@ -302,11 +302,11 @@ namespace Sketchball.Elements
             }
             else if ((Origin & center) != 0)
             {
-                origin.X = (float)Width / 2f;
+                origin.X = Width / 2f;
             }
             else
             {
-                origin.X = (float)Width;
+                origin.X = Width;
             }
 
             return origin;

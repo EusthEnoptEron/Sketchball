@@ -62,7 +62,7 @@ namespace Sketchball.Elements
             {
                 if (Properties.Settings.Default.Debug && (Balls[i].Y + Balls[i].Height) > Height)
                 {
-                    Balls[i].Y = (float)(Height - Balls[i].Height);
+                    Balls[i].Y = (Height - Balls[i].Height);
                     ((Ball)Balls[i]).Velocity *= -0.5f;
                 }
                 if (Balls[i].Y > Height)

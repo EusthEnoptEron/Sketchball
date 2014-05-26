@@ -73,8 +73,8 @@ namespace Sketchball.Elements
             _ramp = new StartingRamp();
             _elements.Add(_ramp);
 
-            _ramp.X = (float)( Width - _ramp.Width - 5 );
-            _ramp.Y = (float)( Height - _ramp.Height - 5 );
+            _ramp.X = ( Width - _ramp.Width - 5 );
+            _ramp.Y = ( Height - _ramp.Height - 5 );
 
 
 

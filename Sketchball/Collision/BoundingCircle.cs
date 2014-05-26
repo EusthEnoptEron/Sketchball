@@ -62,7 +62,7 @@ namespace Sketchball.Collision
             return (diameterBall / 1.9f) * vector;
         }
 
-        public override void Rotate(float rad, Vector center)
+        public override void Rotate(double rad, Vector center)
         {
             Matrix rotation = new Matrix();
             rotation.RotateAt((rad / Math.PI * 180f), center.X, center.Y);
@@ -74,8 +74,8 @@ namespace Sketchball.Collision
 
 
             rotation.Transform(pts);
-            p1.X = (float)pts[0].X;
-            p1.Y = (float)pts[0].Y;
+            p1.X = pts[0].X;
+            p1.Y = pts[0].Y;
           
             this.Position = p1;
         }

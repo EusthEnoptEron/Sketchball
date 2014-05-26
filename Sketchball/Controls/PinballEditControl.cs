@@ -191,7 +191,7 @@ namespace Sketchball.Controls
         public Vector PointToPinball(Vector p)
         {
             var point = PointToPinball(new Point((int)p.X, (int)p.Y));
-            return new Vector((float)point.X, (float)point.Y);
+            return new Vector(point.X, point.Y);
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace Sketchball.Controls
         public Vector PointToEditor(Vector p)
         {
             var point = PointToEditor(new Point(p.X, p.Y));
-            return new Vector((float)point.X, (float)point.Y);
+            return new Vector(point.X, point.Y);
         }
 
         /// <summary>

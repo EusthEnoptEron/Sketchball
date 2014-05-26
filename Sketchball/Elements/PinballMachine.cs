@@ -57,7 +57,7 @@ namespace Sketchball.Elements
         /// Tilt of the pinball machine in radians.
         /// </summary>
         [DataMember]
-        public float Angle = (float)(Math.PI / 180 * 10);
+        public double Angle = (Math.PI / 180 * 10);
 
        
         public PinballMachine() : this(new DefaultLayout()) {}
@@ -85,7 +85,7 @@ namespace Sketchball.Elements
         {
             get
             {
-                return new Vector(0, (float)Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
+                return new Vector(0, Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
             }
         }
 

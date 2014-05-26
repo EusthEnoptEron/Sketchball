@@ -18,7 +18,7 @@ namespace Sketchball.Collision
         /// <summary>
         /// Amount that this bounding container is rotated
         /// </summary>
-        public float Rotation { get; set; }
+        public double Rotation { get; set; }
 
         /// <summary>
         /// All bounding boxes of this container
@@ -47,7 +47,7 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="rad">Determines how much that is rotated in rad</param>
         /// <param name="center">Center of rotation</param>
-        public void Rotate(float rad, Vector center)
+        public void Rotate(double rad, Vector center)
         {
             foreach (IBoundingBox b in this.BoundingBoxes)
             {

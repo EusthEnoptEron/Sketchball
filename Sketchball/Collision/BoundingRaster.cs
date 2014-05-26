@@ -422,7 +422,7 @@ namespace Sketchball.Collision
 
                         Vector aniNorm = (hitPoint - rotationCenter).Normal();
 
-                        Vector h = -hitPoint + (ball.Location + new Vector((float)ball.Width / 2, (float)ball.Height / 2));
+                        Vector h = -hitPoint + (ball.Location + new Vector(ball.Width / 2, ball.Height / 2));
 
                         Vector turnspeed = aniO.AngularVelocity * aniNorm;
                         if (h.X * aniNorm.X < 0 || h.Y * aniNorm.Y < 0)
@@ -437,7 +437,7 @@ namespace Sketchball.Collision
 
                         outOfAreaPush += (aniO.AngularVelocityPerFrame) * aniNorm;        //push with the amout of the turn of animation until next update
 
-                        ball.Location = (hitPoint - new Vector((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
+                        ball.Location = (hitPoint - new Vector(ball.Width / 2, ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                         ball.Velocity = b.ReflectManipulation(newDirection);
                         this.hitPointDebug = hitPoint;
@@ -479,7 +479,7 @@ namespace Sketchball.Collision
                                         Vector newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
                                         Vector outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
-                                        ball.Location = (hitPoint - new Vector((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
+                                        ball.Location = (hitPoint - new Vector(ball.Width / 2, ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                                         ball.Velocity = b.ReflectManipulation(newDirection);
                                         this.hitPointDebug = hitPoint;
