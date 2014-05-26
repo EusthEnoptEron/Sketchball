@@ -30,7 +30,7 @@ namespace Collisiondetection_Test
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
             bCont.addBoundingBox(bL1);
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
@@ -61,7 +61,7 @@ namespace Collisiondetection_Test
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
             bCont.addBoundingBox(bL1);
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
@@ -93,7 +93,7 @@ namespace Collisiondetection_Test
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
             bCont.addBoundingBox(bL1);
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
@@ -124,7 +124,7 @@ namespace Collisiondetection_Test
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
             bCont.addBoundingBox(bL1);
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
@@ -155,7 +155,7 @@ namespace Collisiondetection_Test
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
             bCont.addBoundingBox(bL1);
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);

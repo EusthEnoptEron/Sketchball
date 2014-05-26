@@ -55,7 +55,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -91,7 +91,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -127,7 +127,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -163,7 +163,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -201,7 +201,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -237,7 +237,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -274,7 +274,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -311,7 +311,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -348,7 +348,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);
@@ -385,7 +385,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             //Operation
             isIntersec = bC2.intersec(bL1, out hitPoint);

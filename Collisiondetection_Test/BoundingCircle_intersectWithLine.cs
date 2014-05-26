@@ -52,7 +52,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = new Vector2(0, 0);
             parent.Width = 20;
             parent.Height = 0;
 
@@ -87,10 +87,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = new Vector2(0, 0);
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = new Vector2(0, 0);
             parent.Width = 40;
             parent.Height = 0;
 
@@ -127,10 +127,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = new Vector2(0, 0);
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = new Vector2(0, 0);
             parent.Width = 40;
             parent.Height = 0;
 
@@ -165,10 +165,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = new Vector2(0, 0);
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = new Vector2(0, 0);
             parent.Width = 40;
             parent.Height = 0;
 
@@ -203,10 +203,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -243,10 +243,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -284,10 +284,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -324,10 +324,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -362,10 +362,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -400,10 +400,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -438,10 +438,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 40;
             ball.Height = 40;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -476,10 +476,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -517,10 +517,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -555,10 +555,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -593,10 +593,10 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bL1);
             bCont2.addBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.setLocation(new Vector2(0, 0));
+            ball.Location = (new Vector2(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 

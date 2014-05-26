@@ -100,7 +100,7 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="bC">Container that holds bounding boxes to add</param>
         public void TakeOverBoundingContainer(BoundingContainer bC) {
-            Vector2 worldTrans = bC.parentElement.getLocation();
+            Vector2 worldTrans = bC.parentElement.Location;
 
             int x;
             int y;
@@ -417,11 +417,11 @@ namespace Sketchball.Collision
                     if (!aniO.pureIntersection)
                     {
                        
-                        Vector2 rotationCenter = aniO.currentRotationCenter + aniO.getLocation();
+                        Vector2 rotationCenter = aniO.currentRotationCenter + aniO.Location;
 
                         Vector2 aniNorm = (hitPoint - rotationCenter).Normal();
 
-                        Vector2 h = -hitPoint + (ball.getLocation() + new Vector2((float)ball.Width / 2, (float)ball.Height / 2));
+                        Vector2 h = -hitPoint + (ball.Location + new Vector2((float)ball.Width / 2, (float)ball.Height / 2));
 
                         Vector2 turnspeed = aniO.angularVelocity * aniNorm;
                         if (h.X * aniNorm.X < 0 || h.Y * aniNorm.Y < 0)
@@ -431,12 +431,12 @@ namespace Sketchball.Collision
 
                         ball.Velocity += -turnspeed;
 
-                        Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.getLocation() + ball.getBoundingContainer().getBoundingBoxes()[0].position);
-                        Vector2 outOfAreaPush = b.getOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.getLocation());
+                        Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().getBoundingBoxes()[0].position);
+                        Vector2 outOfAreaPush = b.getOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
                         outOfAreaPush += (aniO.angualrVelocityPerFrame) * aniNorm;        //push with the amout of the turn of animation until next update
 
-                        ball.setLocation((hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
+                        ball.Location = (hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                         ball.Velocity = b.reflectManipulation(newDirection);
                         this.hitPointDebug = hitPoint;
@@ -475,10 +475,10 @@ namespace Sketchball.Collision
                                     b.BoundingContainer.parentElement.notifyIntersection(ball);
                                     if (!b.BoundingContainer.parentElement.pureIntersection)
                                     {
-                                        Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.getLocation() + ball.getBoundingContainer().getBoundingBoxes()[0].position);
-                                        Vector2 outOfAreaPush = b.getOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.getLocation());
+                                        Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().getBoundingBoxes()[0].position);
+                                        Vector2 outOfAreaPush = b.getOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
-                                        ball.setLocation((hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
+                                        ball.Location = (hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                                         ball.Velocity = b.reflectManipulation(newDirection);
                                         this.hitPointDebug = hitPoint;

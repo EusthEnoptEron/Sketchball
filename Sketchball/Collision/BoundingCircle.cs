@@ -48,14 +48,14 @@ namespace Sketchball.Collision
             //=> normal to make reflection is from origin to hitpoint (hitpoint must be conferted to object space first)
             //TODO take position of bounding box into account
            
-            Vector2 normal = Vector2.Normalize(hitPoint-(this.BoundingContainer.parentElement.getLocation() +this.position));
+            Vector2 normal = Vector2.Normalize(hitPoint-(this.BoundingContainer.parentElement.Location +this.position));
             return Vector2.Reflect(vecIn, normal);
         }
 
         public override Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos)
         {
             //TODO take bounding box position into account
-            return (diameterBall / 1.9f) * Vector2.Normalize(hitPoint - (this.BoundingContainer.parentElement.getLocation() + this.position));
+            return (diameterBall / 1.9f) * Vector2.Normalize(hitPoint - (this.BoundingContainer.parentElement.Location + this.position));
         }
 
         public override void rotate(float rad, Vector2 center)
@@ -83,9 +83,9 @@ namespace Sketchball.Collision
 
             hitPoint = new Vector2(0, 0);
 
-            Vector2 bLWorldPos = bL.position + bL.BoundingContainer.parentElement.getLocation();
-            Vector2 bLWorldTar = bL.target + bL.BoundingContainer.parentElement.getLocation();
-            Vector2 thisWorldPos = this.position + this.BoundingContainer.parentElement.getLocation() ;
+            Vector2 bLWorldPos = bL.position + bL.BoundingContainer.parentElement.Location;
+            Vector2 bLWorldTar = bL.target + bL.BoundingContainer.parentElement.Location;
+            Vector2 thisWorldPos = this.position + this.BoundingContainer.parentElement.Location ;
             
             Vector2 centerOfCircle = thisWorldPos;
             Vector2 directionLine = bLWorldTar - bLWorldPos;
@@ -128,8 +128,8 @@ namespace Sketchball.Collision
         public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity)
         {
             
-            Vector2 thisWorldTras = this.BoundingContainer.parentElement.getLocation();
-            Vector2 bCWorldTrans = bC.BoundingContainer.parentElement.getLocation();
+            Vector2 thisWorldTras = this.BoundingContainer.parentElement.Location;
+            Vector2 bCWorldTrans = bC.BoundingContainer.parentElement.Location;
 
             if (Vector2.Distance(bC.position + bCWorldTrans, this.position + thisWorldTras) < (this.radius + bC.radius))    
             {
@@ -164,7 +164,7 @@ namespace Sketchball.Collision
 
         public override void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen)
         {
-            Vector2 pos = this.position+this.BoundingContainer.parentElement.getLocation();
+            Vector2 pos = this.position+this.BoundingContainer.parentElement.Location;
 
             g.DrawEllipse(null, pen, new System.Windows.Point((int)pos.X, (int)pos.Y ), (int)(this.radius), ((int)this.radius));
         }

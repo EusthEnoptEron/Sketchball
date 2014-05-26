@@ -30,7 +30,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bL1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -89,7 +89,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bL1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -148,7 +148,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bL1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -207,7 +207,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bL1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -267,7 +267,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bL1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -326,7 +326,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bL1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -385,7 +385,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bL1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -430,7 +430,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bL1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);

@@ -366,17 +366,6 @@ namespace Sketchball.Elements
             return this.boundingContainer;
         }
 
-        public Vector2 getLocation()
-        {
-            return this.Location;
-        }
-
-        public void setLocation(Vector2 newLoc)
-        {
-            this.Location.X = newLoc.X;
-            this.Location.Y = newLoc.Y;
-        }
-
 
         public Rect GetBounds()
         {

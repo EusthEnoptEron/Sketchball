@@ -31,7 +31,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
@@ -60,7 +60,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
@@ -89,7 +89,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
@@ -118,7 +118,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
@@ -147,7 +147,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
             pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion

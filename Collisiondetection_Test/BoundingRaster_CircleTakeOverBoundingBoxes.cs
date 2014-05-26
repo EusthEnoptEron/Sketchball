@@ -67,7 +67,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0,0));
+            parent1.Location = (new Vector2(0,0));
            
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -127,7 +127,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -187,7 +187,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -248,7 +248,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -308,7 +308,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -367,7 +367,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -426,7 +426,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -485,7 +485,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -544,7 +544,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -603,7 +603,7 @@ namespace Collisiondetection_Test
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            parent1.Location = (new Vector2(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);

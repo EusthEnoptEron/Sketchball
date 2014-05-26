@@ -31,7 +31,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -63,7 +63,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -95,7 +95,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -127,7 +127,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -159,7 +159,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -191,7 +191,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -223,7 +223,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -255,7 +255,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -287,7 +287,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -319,7 +319,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
@@ -353,7 +353,7 @@ namespace Collisiondetection_Test
             bCont.addBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector2(0, 0));
 
             reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
