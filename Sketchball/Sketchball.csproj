@@ -56,9 +56,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundManager.cs" />
+    <Compile Include="GameComponents\BackgroundManager.cs" />
     <Compile Include="Booster.cs" />
-    <Compile Include="Camera.cs" />
+    <Compile Include="GameComponents\Camera.cs" />
     <Compile Include="Collision\CollisionResult.cs" />
     <Compile Include="Collision\VectorExtensions.cs" />
     <Compile Include="Controls\ElementInspector.cs">
@@ -129,15 +129,15 @@
     <Compile Include="Elements\WormholeEntry.cs" />
     <Compile Include="Elements\WormholeExit.cs" />
     <Compile Include="FontManager.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Controls\GameHUD.cs" />
+    <Compile Include="GameComponents\Game.cs" />
+    <Compile Include="GameComponents\GameHUD.cs" />
     <Compile Include="GlideTween\Ease.cs" />
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />
     <Compile Include="Elements\PinballElement.cs" />
     <Compile Include="Editor\History.cs" />
-    <Compile Include="InputManager.cs" />
-    <Compile Include="GameFieldCamera.cs" />
+    <Compile Include="GameComponents\InputManager.cs" />
+    <Compile Include="GameComponents\GameFieldCamera.cs" />
     <Compile Include="PlayForm.cs">
       <SubType>Form</SubType>
     </Compile>

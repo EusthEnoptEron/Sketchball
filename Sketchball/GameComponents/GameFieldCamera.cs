@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 
-namespace Sketchball
+namespace Sketchball.GameComponents
 {
     public class GameFieldCamera : Camera
     {

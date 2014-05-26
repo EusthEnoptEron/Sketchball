@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Sketchball
+namespace Sketchball.GameComponents
 {
     public class GameHUD
     {
