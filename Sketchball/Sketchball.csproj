@@ -188,6 +188,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <None Include="Resources\TableSlim.png" />
+    <None Include="Resources\NewRamp.png" />
+    <None Include="Resources\Table1_resized.png" />
+    <None Include="Resources\Ramp_resized.png" />
     <None Include="Resources\Balloon Popping-SoundBible.com-1247261379.wav" />
     <None Include="Resources\Silencer-SoundBible.com-1632156458.wav" />
     <None Include="Resources\Pop Banner-SoundBible.com-641783855.wav" />

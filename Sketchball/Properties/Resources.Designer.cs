@@ -233,16 +233,6 @@ namespace Sketchball.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Notebook {
-            get {
-                object obj = ResourceManager.GetObject("Notebook", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Notebook_body {
             get {
                 object obj = ResourceManager.GetObject("Notebook_body", resourceCulture);
@@ -422,6 +412,16 @@ namespace Sketchball.Properties {
         internal static System.Drawing.Bitmap TableBackground {
             get {
                 object obj = ResourceManager.GetObject("TableBackground", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TableSlim {
+            get {
+                object obj = ResourceManager.GetObject("TableSlim", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
