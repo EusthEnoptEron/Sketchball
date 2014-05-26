@@ -135,7 +135,6 @@
     <Compile Include="Elements\TriangleTMP.cs" />
     <Compile Include="Elements\WormholeEntry.cs" />
     <Compile Include="Elements\WormholeExit.cs" />
-    <Compile Include="Experiment.cs" />
     <Compile Include="FontManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Controls\GameHUD.cs" />

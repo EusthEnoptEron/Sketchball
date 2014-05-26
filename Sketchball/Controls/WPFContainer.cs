@@ -17,18 +17,21 @@ namespace Sketchball.Controls
         {
             Child = Control = control;
 
-            Control.SizeChanged += (s,e) => {
-                if (Dock != System.Windows.Forms.DockStyle.Fill)
-                {
-                    updating = true;
-                    this.Width = (int)Control.Width;
-                    this.Height = (int)Control.Height;
-                    updating = false;
-                }
-            };
+            Control.SizeChanged += OnSizeChanged;
             Disposed += (s,e) => {
                 Control.Exit();
             };
+        }
+
+        private void OnSizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            if (Dock != System.Windows.Forms.DockStyle.Fill)
+            {
+                updating = true;
+                this.Width = (int)Control.Width;
+                this.Height = (int)Control.Height;
+                updating = false;
+            }
         }
 
         protected override void OnSizeChanged(EventArgs e)

@@ -23,12 +23,13 @@ namespace Sketchball.Controls
         /// <summary>
         /// The absolute maximum of FPS at any point in time.
         /// </summary>
-        private const int MAX_FPS = 40;
+        private const int MAX_FPS = 80;
 
         public Camera Camera{get; private set;}
         private GameHUD HUD;
 
         public Game Game;
+        private System.Windows.Forms.Timer timer;
 
         /// <summary>
         /// Creates a new PinballGameControl based on a machine template.
@@ -47,8 +48,11 @@ namespace Sketchball.Controls
 
             // Optimize control for performance
            // this.Effect = new System.Windows.Media.Effects.BlurEffect();
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 1000 / MAX_FPS;
+            timer.Tick += OnDraw;
+            timer.Start();
 
-            PinballGameControl_HandleCreated(this, null);
             KeyDown += HandleKeyDown;
             SizeChanged += ResizeCamera;
 
@@ -99,45 +103,12 @@ namespace Sketchball.Controls
 
         }
 
-
-        /// <summary>
-        /// Initializes the game loop.
-        /// </summary>
-        private void PinballGameControl_HandleCreated(object sender, EventArgs e)
+        private void OnDraw(object sender, EventArgs e)
         {
-            BackgroundWorker worker = new BackgroundWorker();
-            
-            worker.DoWork += DrawCycle;
-            worker.RunWorkerAsync();
-        }
-
-
-        /// <summary>
-        /// Method that repeatedly draws and updates the scene.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DrawCycle(object sender, DoWorkEventArgs e)
-        {
-            int msPerFrame = 1000 / MAX_FPS;
-            Stopwatch watch = new Stopwatch();
- 
-            try
-            {
-                while (!CancelToken.IsCancellationRequested)
-                {
-                    watch.Restart();
-                   
-                    Dispatcher.Invoke(() =>
-                    {
-                        InvalidateVisual();
-                    }, System.Windows.Threading.DispatcherPriority.Render);
-
-                    Thread.Sleep(Math.Max(10, msPerFrame - (int)watch.ElapsedMilliseconds));
-                }
-            }
-            catch (TaskCanceledException) { }
-        
+            if (isCancelled) 
+                timer.Dispose();
+            else
+                InvalidateVisual();
         }
 
         protected override void Draw(DrawingContext g)

@@ -21,18 +21,18 @@ namespace Sketchball.Controls
     /// </summary>
     public partial class ManagedWPFControl : UserControl
     {
-        private CancellationTokenSource cancelSource = new CancellationTokenSource();
-        protected CancellationToken CancelToken;
+        protected bool isCancelled = false;
 
         public ManagedWPFControl()
         {
-            CancelToken = cancelSource.Token;
             InitializeComponent();
         }
 
         public void Exit()
         {
-            cancelSource.Cancel();
+            isCancelled = true;
+            this.Width = 0;
+            this.Height = 0;
         }
     }
 }

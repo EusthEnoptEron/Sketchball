@@ -273,7 +273,7 @@ namespace Sketchball
                     while (Status != GameStatus.Playing)
                     {
                         Monitor.Wait(this);
-                        if (Disposed) break;
+                        if (Disposed) return;
                     }
 
                     this.Update(timePerPass);
