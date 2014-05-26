@@ -29,10 +29,10 @@ namespace Collisiondetection_Test
             int realCols = br.Cols;
             int realRows = br.Rows;
             int realWidth = br.Width;
-            int realHeight = br.Height;
+            int realHeight = br.height;
 
-            int realFieldHeight = br.getFieldHeight();
-            int realFieldWidth = br.getFieldWidth();
+            int realFieldHeight = br.FieldHeight;
+            int realFieldWidth = br.FieldWidth;
 
             //assertion
             Assert.IsNotNull(br);

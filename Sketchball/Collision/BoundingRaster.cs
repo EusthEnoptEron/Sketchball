@@ -27,7 +27,7 @@ namespace Sketchball.Collision
         /// <summary>
         /// Defines height of form (must be in sync with rows and fieldHeight)
         /// </summary>
-        public int Height { get; set; }
+        public int height { get; set; }
 
         /// <summary>
         /// List of all animated objects
@@ -79,10 +79,10 @@ namespace Sketchball.Collision
             this.Cols = cols;
 
             this.Width = width;
-            this.Height = height;
+            this.height = height;
 
             this.FieldWidth = this.Width / this.Cols;
-            this.FieldHeight = this.Height / this.Rows;
+            this.FieldHeight = this.height / this.Rows;
 
             for (int x = 0; x < this.Cols; x++)
             {
@@ -445,7 +445,7 @@ namespace Sketchball.Collision
             }
 
             int fieldWidth = this.Width / this.Cols;
-            int fieldHeight = this.Height / this.Rows;
+            int fieldHeight = this.height / this.Rows;
 
             int x = (int)(ball.X / fieldWidth);
             int y = (int)(ball.Y / fieldHeight);
