@@ -170,7 +170,7 @@ namespace Sketchball.Collision
         {
             Vector pos = this.Position+this.BoundingContainer.ParentElement.Location;
 
-            g.DrawEllipse(null, pen, new System.Windows.Point((int)pos.X, (int)pos.Y ), (int)(this.radius), ((int)this.radius));
+            g.DrawEllipse(null, pen, new System.Windows.Point(pos.X, pos.Y ), (this.radius), (this.radius));
         }
 
 
