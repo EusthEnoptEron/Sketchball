@@ -16,8 +16,6 @@ namespace Sketchball
         public int Height { get; set; }
 
         private ImageSource BG = Booster.OptimizeWpfImage("ScoreBG.png");
-        double times = 0;
-        int count = 0;
 
         public GameHUD(Game game)
         {
