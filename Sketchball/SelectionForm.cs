@@ -64,8 +64,6 @@ namespace Sketchball
             //{
             //    //TODO
             //    MessageBox.Show("machine load not implemented\n I want a cookie!");
-                PinballControl2 b = new PinballControl2();
-                Sketchball.Elements.PinballMachine pbm = b.getMachine();
 
                 OpenGame(new PinballMachine());
             //}

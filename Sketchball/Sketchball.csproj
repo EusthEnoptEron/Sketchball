@@ -82,12 +82,6 @@
     <Compile Include="Collision\BoundingRaster.cs" />
     <Compile Include="Collision\IBoundingBox.cs" />
     <Compile Include="Controls\PinballControl.cs" />
-    <Compile Include="Controls\PinballControl2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\PinballControl2.Designer.cs">
-      <DependentUpon>PinballControl2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\PinballEditControl.cs" />
     <Compile Include="Controls\GameView.cs" />
     <Compile Include="Editor\CreationChange.cs" />

@@ -94,57 +94,6 @@ namespace Sketchball.Elements
             }
         }
 
-        /// <summary>
-        /// Draws the pinball elements and all its components.
-        /// </summary>
-        /// <param name="g"></param>
-        public virtual void Draw(Graphics g)
-        {
-            GraphicsState gsave = g.Save();
-            try
-            {
-                g.IntersectClip(new Rectangle(0, 0, Width, Height));
- 
-                //TODO take away red border
-                for (int y = 0; y <= Height; y += 10)
-                {
-                    g.DrawLine(Pens.LightGray, 0, y, Width, y);
-                }
-
-                for (int x = 0; x <= Width; x += 10)
-                {
-                    g.DrawLine(Pens.LightGray, x, 0, x, Height);
-                }
-
-                for (int x = 0; x <= Width; x += (int)(this.Width * 1f / Ball.Size.Width))
-                {
-                    g.DrawLine(Pens.Blue, x, 0, x, Height);
-                }
-
-                for (int y = 0; y <= Height; y += (int)(this.Height * 1f / Ball.Size.Width))
-                {
-                    g.DrawLine(Pens.Blue, 0, y, Width,y );
-                }
-                // Draw contours
-
-                foreach (PinballElement element in Elements)
-                {
-                    GraphicsState gstate = g.Save();
-
-                    g.TranslateTransform(element.X, element.Y);
-                    element.Draw(g);
-
-                    g.Restore(gstate);
-                }
-
-
-            }
-            finally
-            {
-                g.Restore(gsave);
-            }
-        }
-
         public virtual void Draw(System.Windows.Media.DrawingContext g)
         {
             g.PushClip(new System.Windows.Media.RectangleGeometry(new System.Windows.Rect(0, 0, Width, Height)));
@@ -226,7 +175,10 @@ namespace Sketchball.Elements
             DynamicElements.Clear();
             Balls.Clear();
         }
-        
+
+
+#region Serialization
+
         public void Save(string path)
         {
             using (var stream = File.OpenWrite(path))
@@ -293,6 +245,9 @@ namespace Sketchball.Elements
             }
             return true;
         }
+
+#endregion
+
     }
 
 }
