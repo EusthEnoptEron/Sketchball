@@ -43,7 +43,7 @@ namespace Sketchball.Controls
             HUD = new GameHUD(Game);
 
             // Init camera
-            Camera.Size = new System.Drawing.Size((int)Width, (int)Height);
+            Camera.Size = new Size(Width, Height);
 
             // Optimize control for performance
            // this.Effect = new System.Windows.Media.Effects.BlurEffect();
@@ -57,7 +57,7 @@ namespace Sketchball.Controls
 
         private void ResizeCamera(object sender, System.Windows.SizeChangedEventArgs e)
         {
-            Camera.Size = new System.Drawing.Size((int)Width, (int)Height);
+            Camera.Size = new Size((int)Width, (int)Height);
         }
 
 

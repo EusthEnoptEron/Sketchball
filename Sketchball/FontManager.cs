@@ -15,17 +15,19 @@ namespace Sketchball
         private static FontManager _instance = null;
 
         private FontFamily courgette;
+        private System.Windows.Media.FontFamily courgetteWpf;
 
         private FontManager()
         {
             PrivateFontCollection fontCollection = new PrivateFontCollection();
 
-
             // Add fonts
             String path = (Path.Combine(Application.ExecutablePath, "..", "Resources", "Courgette-Regular.ttf"));
-            fontCollection.AddFontFile(path);
 
+            fontCollection.AddFontFile(path);
             courgette = fontCollection.Families[0];
+
+            courgetteWpf = new System.Windows.Media.FontFamily(new Uri("pack://application:,,,/"), "./Resources/#Courgette");
         }
 
         private static FontManager Instance()
@@ -39,6 +41,13 @@ namespace Sketchball
             get
             {
                 return Instance().courgette;
+            }
+        }
+
+        public static System.Windows.Media.FontFamily CourgetteWpf
+        {
+            get {
+                return Instance().courgetteWpf;
             }
         }
     }

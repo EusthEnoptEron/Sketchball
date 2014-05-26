@@ -14,22 +14,20 @@ namespace Sketchball
     {
         internal Game Game { get; set; }
 
-       // public readonly Size maximumSize;          //Max size that the book may have
-
         public BackgroundManager backgroundManager { get; private set; }
 
         public Vector2 Translocation { get; set; }
         public Vector2 Scale { get; set; }
 
 
-        public System.Drawing.Size Size
+        public Size Size
         {
             get;
             set;
         }
 
-        public int Width { get { return Size.Width; } }
-        public int Height { get { return Size.Height; } }
+        public double Width { get { return Size.Width; } }
+        public double Height { get { return Size.Height; } }
 
         public GameFieldCamera(Game game)
         {
@@ -63,8 +61,8 @@ namespace Sketchball
                 g.PushTransform(new TranslateTransform(Translocation.X, Translocation.Y));
             }
 
-            float scale = Height / (float)backgroundManager.Height;
-            float dx = (Width - backgroundManager.Width) / 2f - paddingRight; // Center
+            double scale = Height / (float)backgroundManager.Height;
+            double dx    = (Width - backgroundManager.Width) / 2f - paddingRight; // Center
 
             pushes += 2;
             g.PushTransform(new TranslateTransform(dx, 0));

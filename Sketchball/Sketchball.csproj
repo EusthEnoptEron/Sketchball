@@ -240,9 +240,9 @@
     <Resource Include="Resources\BackgroundextraScharf.png" />
     <Resource Include="Resources\WoodPattern.png" />
     <Resource Include="Resources\ScoreBG.png" />
-    <None Include="Resources\Courgette-Regular.ttf">
+    <Content Include="Resources\Courgette-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ManagedWPFControl.xaml">
