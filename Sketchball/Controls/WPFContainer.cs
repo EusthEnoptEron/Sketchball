@@ -21,6 +21,7 @@ namespace Sketchball.Controls
             Disposed += (s,e) => {
                 Control.Exit();
             };
+
         }
 
         private void OnSizeChanged(object sender, System.Windows.SizeChangedEventArgs e)

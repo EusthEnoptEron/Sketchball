@@ -40,8 +40,10 @@ namespace Sketchball.Controls
         {
             Game = game;
             Camera = new GameFieldCamera(Game);
-
             HUD = new GameHUD(Game);
+
+            Focusable = true;
+            Loaded += (s, e) => { Focus(); };
 
             // Init camera
             Camera.Size = new Size(Width, Height);
@@ -53,7 +55,8 @@ namespace Sketchball.Controls
             timer.Tick += OnDraw;
             timer.Start();
 
-            KeyDown += HandleKeyDown;
+            PreviewKeyDown += HandleKeyDown;
+            
             SizeChanged += ResizeCamera;
 
             SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
@@ -138,21 +141,14 @@ namespace Sketchball.Controls
             Brush brush = new SolidColorBrush(col);
             Brush solidBrush = new SolidColorBrush(color);
 
-            g.DrawRectangle(brush, null, new Rect(0, 0, Width, Height));
-
             var caption = Booster.GetText(title, new FontFamily("Impact"), 40, solidBrush);
             var text = Booster.GetText(msg, new FontFamily("Arial"), 13, solidBrush);
-
             double x = (Width - caption.Width) / 2;
 
+
+            g.DrawRectangle(brush, null, new Rect(0, 0, Width, Height));
             g.DrawText(caption, new Point( x, (Height - caption.Height) / 2 ));
             g.DrawText(text, new Point(x, (Height + caption.Height) / 2));
-/*
-            SizeF size = g.MeasureString(title, new Font("Impact", 40, System.Drawing.FontStyle.Regular));
-
-            g.DrawString(title, new Font("Impact", 40, System.Drawing.FontStyle.Regular), solidBrush, new PointF((int)Width / 2 - size.Width / 2, (int)Height / 2 - size.Height / 2));
-            g.DrawString(msg, new Font("Arial", 13, System.Drawing.FontStyle.Regular), solidBrush, new PointF((int)Width / 2 - size.Width / 2, (int)Height / 2 + size.Height / 2));
-*/             
         }
 
 

@@ -30,7 +30,6 @@ namespace Sketchball
             }
             set
             {
-                Console.WriteLine("ENABLED");
                 keyboardListener.Enabled = value;
             }
         }

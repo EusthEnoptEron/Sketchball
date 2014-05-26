@@ -139,8 +139,13 @@ namespace Sketchball
         /// </summary>
         public void Start()
         {
-             lock (this)
+            lock (this)
             {
+                if (Machine != null)
+                {
+                    Machine.Dispose();
+                }
+
                 Machine = new PinballGameMachine(OriginalMachine);
                 Machine.prepareForLaunch();
 
@@ -293,6 +298,7 @@ namespace Sketchball
             {
                 Monitor.PulseAll(this);
             }
+            Machine.Dispose();
         }
     }
 }

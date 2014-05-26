@@ -221,6 +221,7 @@ namespace Sketchball.Elements
         /// </summary>
         public void Dispose()
         {
+            StaticElements.Clear();
             DynamicElements.Clear();
             Balls.Clear();
         }
