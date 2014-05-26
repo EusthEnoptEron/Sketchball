@@ -27,7 +27,7 @@ namespace Sketchball.Elements
             this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width * 1f / Ball.Size.Width), (int)Math.Ceiling(Height * 1f / Ball.Size.Width), Width, Height);
             foreach (IBoundingBox b in anis)
             {
-                this.boundingRaster.addAnimatedObject(b);
+                this.boundingRaster.AddAnimatedObject(b);
             }
             this.boundingRaster.takeOverBoundingBoxes(StaticElements);
             this.boundingRaster.takeOverBoundingBoxes(DynamicElements);
@@ -87,7 +87,7 @@ namespace Sketchball.Elements
             List<CollisionResult> hits = new List<CollisionResult>(20);
             foreach (Ball b in this.Balls)
             {
-                hits.Add(boundingRaster.handleCollision(b));
+                hits.Add(boundingRaster.HandleCollision(b));
             }
 
             foreach (CollisionResult result in hits)

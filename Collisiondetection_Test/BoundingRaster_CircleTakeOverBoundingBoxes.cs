@@ -26,10 +26,10 @@ namespace Collisiondetection_Test
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
 
             //operation
-            int realCols = br.cols;
-            int realRows = br.rows;
-            int realWidth = br.width;
-            int realHeight = br.height;
+            int realCols = br.Cols;
+            int realRows = br.Rows;
+            int realWidth = br.Width;
+            int realHeight = br.Height;
 
             int realFieldHeight = br.getFieldHeight();
             int realFieldWidth = br.getFieldWidth();
@@ -80,7 +80,7 @@ namespace Collisiondetection_Test
                     if (x <= 1 && y <= 1)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -92,7 +92,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -140,7 +140,7 @@ namespace Collisiondetection_Test
                     if (x <= 6 && x >= 4 && y <= 6 && y >= 4)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -152,7 +152,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -200,7 +200,7 @@ namespace Collisiondetection_Test
                     if (x <= 1 && x >= 0 && y <= 1 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -212,7 +212,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -261,7 +261,7 @@ namespace Collisiondetection_Test
                     if (x <= 9 && x >= 9 && y <= 9 && y >= 9)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -273,7 +273,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -321,7 +321,7 @@ namespace Collisiondetection_Test
                     if (x <= 9 && x >= 0 && y <= 9 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -333,7 +333,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -380,7 +380,7 @@ namespace Collisiondetection_Test
                     if (x <= 9 && x >= 5 && y <= 9 && y >= 5)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -392,7 +392,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -439,7 +439,7 @@ namespace Collisiondetection_Test
                     if (x <= 5 && x >= 0 && y <= 9 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -451,7 +451,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -498,7 +498,7 @@ namespace Collisiondetection_Test
                     if (x <= 3 && x >= 0 && y <= 9 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -510,7 +510,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -557,7 +557,7 @@ namespace Collisiondetection_Test
                     if (x <= 9 && x >= 0 && y <= 3 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -569,7 +569,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -614,7 +614,7 @@ namespace Collisiondetection_Test
                 for (int y = 0; y < rows; y++)
                 {
 
-                    foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                    foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                     {
                         if (bC1.Equals(b))
                         {

@@ -12,22 +12,22 @@ namespace Sketchball.Collision
         /// <summary>
         /// Defines amount of rows (must be in sync with height and fieldHeight)
         /// </summary>
-        public int rows { get; private set; }
+        public int Rows { get; private set; }
 
         /// <summary>
         /// Defines amount of cols (must be in sync with width and fieldWidth)
         /// </summary>
-        public int cols { get; private set; }
+        public int Cols { get; private set; }
 
         /// <summary>
         /// Defines width of form (must be in sync with cols and fieldWidth)
         /// </summary>
-        public int width { get; set; }
+        public int Width { get; set; }
 
         /// <summary>
         /// Defines height of form (must be in sync with rows and fieldHeight)
         /// </summary>
-        public int height { get; set; }
+        public int Height { get; set; }
 
         /// <summary>
         /// List of all animated objects
@@ -40,14 +40,14 @@ namespace Sketchball.Collision
         private BoundingField[,] fields;
 
         /// <summary>
-        /// Width of one field
+        /// Gets the width of one field
         /// </summary>
-        private int fieldWidth;
+        public int FieldWidth { get; private set; }
 
         /// <summary>
-        /// Height of one field
+        /// Gets the height of one field
         /// </summary>
-        private int fieldHeight;
+        public int FieldHeight { get; private set; }
 
         public Vector2 hitPointDebug = new Vector2(0, 0);
 
@@ -75,18 +75,18 @@ namespace Sketchball.Collision
             this.animatedObjects = new LinkedList<IBoundingBox>();
             this.fields = new BoundingField[cols, rows];
 
-            this.rows = rows;
-            this.cols = cols;
+            this.Rows = rows;
+            this.Cols = cols;
 
-            this.width = width;
-            this.height = height;
+            this.Width = width;
+            this.Height = height;
 
-            this.fieldWidth = this.width / this.cols;
-            this.fieldHeight = this.height / this.rows;
+            this.FieldWidth = this.Width / this.Cols;
+            this.FieldHeight = this.Height / this.Rows;
 
-            for (int x = 0; x < this.cols; x++)
+            for (int x = 0; x < this.Cols; x++)
             {
-                for (int y = 0; y < this.rows; y++)
+                for (int y = 0; y < this.Rows; y++)
                 {
                     this.fields[x, y] = new BoundingField(x, y);
                 }
@@ -114,15 +114,15 @@ namespace Sketchball.Collision
                     BoundingCircle bCir = (BoundingCircle)b;
 
                     //position of the circle self (which field)
-                    x = ((int)(bCir.Position.X + worldTrans.X) / fieldWidth);        //TODO check if this is rounded down
-                    y = ((int)(bCir.Position.Y + worldTrans.Y) / fieldHeight);
+                    x = ((int)(bCir.Position.X + worldTrans.X) / FieldWidth);        //TODO check if this is rounded down
+                    y = ((int)(bCir.Position.Y + worldTrans.Y) / FieldHeight);
 
 
                     //amount of fields x and y (rounded up) 
                     //2*cicFieldsX + (1 where the ceneter is) will make the width of the square which includes the circle)
                     //2*cicFieldsY + (1 where the ceneter is) will make the height of the square which includes the circle)
-                    int circFieldsX = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldWidth));
-                    int circFieldsy = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldHeight));
+                    int circFieldsX = (int)Math.Ceiling((double)(bCir.radius * 1f / FieldWidth));
+                    int circFieldsy = (int)Math.Ceiling((double)(bCir.radius * 1f / FieldHeight));
 
                     if ((bCir.Position.X + worldTrans.X) < 0)
                     {
@@ -145,14 +145,14 @@ namespace Sketchball.Collision
                     //go from the left to the right of the square
                     for (int h = x - circFieldsX; h <= x + circFieldsX; h++)
                     {
-                        if (h < 0 || h >= this.cols)
+                        if (h < 0 || h >= this.Cols)
                         {
                             //if h is out of raster skip this
                             continue;
                         }
                         for (int ver = y - circFieldsy; ver <= y + circFieldsy; ver++)
                         {
-                            if (ver < 0 || ver >= this.rows)
+                            if (ver < 0 || ver >= this.Rows)
                             {
                                 //if ver is out of raster skip this
                                 continue;
@@ -171,8 +171,8 @@ namespace Sketchball.Collision
                     float posY = bL.Position.Y + worldTrans.Y;
 
                     //position of the line base (which field)
-                    x = ((int)posX / fieldWidth);
-                    y = ((int)posY / fieldHeight);
+                    x = ((int)posX / FieldWidth);
+                    y = ((int)posY / FieldHeight);
 
                     //add the start
                     if (IsWithinBounds(x, y))
@@ -196,7 +196,7 @@ namespace Sketchball.Collision
                     //that are all fields that are above the last x cross (like directly under the target)
 
 
-                    int endField = ((int)(bL.target.Y + worldTrans.Y) / fieldHeight);
+                    int endField = ((int)(bL.target.Y + worldTrans.Y) / FieldHeight);
 
                     if (unitV.Y > 0)        //heading down
                     {
@@ -233,7 +233,7 @@ namespace Sketchball.Collision
                     // Special treatment
                     foreach (BoundingBox bb in pE.boundingContainer.BoundingBoxes)
                     {
-                        this.addAnimatedObject(bb);
+                        this.AddAnimatedObject(bb);
                     }
                 }
                 else
@@ -256,7 +256,7 @@ namespace Sketchball.Collision
                 return;     //just y remains => the whole line is on one column
             }
 
-            float deltaRight = fieldWidth - (posX - fieldWidth * x);     //distance from right end of field to the position
+            float deltaRight = FieldWidth - (posX - FieldWidth * x);     //distance from right end of field to the position
             float factorToNextXCross = deltaRight / unitV.X;
 
             while (posX < (bL.target.X + worldTrans.X))
@@ -268,7 +268,7 @@ namespace Sketchball.Collision
                 float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
-                int newFieldYIdx = ((int)(nextXCrossY) / fieldHeight);
+                int newFieldYIdx = ((int)(nextXCrossY) / FieldHeight);
 
                 if (unitV.Y > 0)        //heading down
                 {
@@ -305,7 +305,7 @@ namespace Sketchball.Collision
                 posY = nextXCrossY;
 
                 //since we are at the border of a field the deltaRight will allways be the full field width
-                deltaRight = fieldWidth;
+                deltaRight = FieldWidth;
 
                 if (posX <= bL.target.X + worldTrans.X)
                 {
@@ -326,7 +326,7 @@ namespace Sketchball.Collision
                 return;     //just y remains => the whole line is on one column
             }
 
-            float deltaLeft = (posX - fieldWidth * x);     //distance from right end of field to the position
+            float deltaLeft = (posX - FieldWidth * x);     //distance from right end of field to the position
             float factorToNextXCross = deltaLeft / -unitV.X;
 
 
@@ -339,7 +339,7 @@ namespace Sketchball.Collision
                 float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
-                int newFieldYIdx = ((int)(nextXCrossY-1) / fieldHeight);
+                int newFieldYIdx = ((int)(nextXCrossY-1) / FieldHeight);
 
                 if (unitV.Y > 0)        //heading down
                 {
@@ -376,7 +376,7 @@ namespace Sketchball.Collision
                 posY = nextXCrossY;
 
                 //since we are at the border of a field the deltaRight will allways be the full field width
-                deltaLeft = fieldWidth;
+                deltaLeft = FieldWidth;
                 if (x >= 0)
                 {
                     if (IsWithinBounds(x, newFieldYIdx))
@@ -388,14 +388,14 @@ namespace Sketchball.Collision
 
         private bool IsWithinBounds(int x, int y)
         {
-            return x >= 0 && x < cols && y >= 0 && y < rows;
+            return x >= 0 && x < Cols && y >= 0 && y < Rows;
         }
 
         /// <summary>
         /// This method takes a ball and handles the collision of it with all other bounding boxes in this raster
         /// </summary>
         /// <param name="ball">Ball that causes collisions</param>
-        public CollisionResult handleCollision(Ball ball)
+        public CollisionResult HandleCollision(Ball ball)
         {
             //Collide first with animated object then with object around ball self
             LinkedList<IBoundingBox> history = new LinkedList<IBoundingBox>();
@@ -444,8 +444,8 @@ namespace Sketchball.Collision
                 }
             }
 
-            int fieldWidth = this.width / this.cols;
-            int fieldHeight = this.height / this.rows;
+            int fieldWidth = this.Width / this.Cols;
+            int fieldHeight = this.Height / this.Rows;
 
             int x = (int)(ball.X / fieldWidth);
             int y = (int)(ball.Y / fieldHeight);
@@ -454,11 +454,11 @@ namespace Sketchball.Collision
 
             for (int x1 = x - 1; x1 <= x + 1; x1++)
             {
-                if (x1 >= 0 && x1 < this.cols)
+                if (x1 >= 0 && x1 < this.Cols)
                 {
                     for (int y1 = y - 1; y1 <= y + 1; y1++)
                     {
-                        if (y1 >= 0 && y1 < this.rows)
+                        if (y1 >= 0 && y1 < this.Rows)
                         {
                             foreach (IBoundingBox b in this.fields[x1, y1].getReferences())
                             {
@@ -498,7 +498,7 @@ namespace Sketchball.Collision
         /// Adds an animated object to the raster (no need to call take over bounding boxes on this.
         /// </summary>
         /// <param name="aO">Element to add</param>
-        public void addAnimatedObject(IBoundingBox aO)
+        public void AddAnimatedObject(IBoundingBox aO)
         {
             this.animatedObjects.AddLast(aO);
         }
@@ -515,30 +515,13 @@ namespace Sketchball.Collision
         /// Removes an animated object
         /// </summary>
         /// <param name="aO">The object to be removed</param>
-        public void removeAnimatedObject(IBoundingBox aO)
+        public void RemoveAnimatedObject(IBoundingBox aO)
         {
             this.animatedObjects.Remove(aO);
         }
 
-        /// <summary>
-        /// Returns the fieldWidth // for test purposes
-        /// </summary>
-        /// <returns>fieldWidth</returns>
-        public int getFieldWidth()
-        {
-            return this.fieldWidth;
-        }
 
-        /// <summary>
-        /// Returns the fieldHeight // for test purposes
-        /// </summary>
-        /// <returns>fieldHeight</returns>
-        public int getFieldHeight()
-        {
-            return this.fieldHeight;
-        }
-
-        public BoundingField getBoundingField(int x, int y)
+        public BoundingField GetBoundingField(int x, int y)
         {
             return this.fields[x, y];
         }
