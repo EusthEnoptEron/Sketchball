@@ -57,5 +57,7 @@ namespace Sketchball
             return new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, 22, Brushes.Black);
         }
 
+       
+
     }
 }

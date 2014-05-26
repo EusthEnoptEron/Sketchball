@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Sketchball
@@ -18,22 +21,22 @@ namespace Sketchball
         /// </summary>
         /// <param name="src"></param>
         /// <returns></returns>
-        public static Bitmap OptimizeImage(Image src)
+        public static System.Drawing.Bitmap OptimizeImage(System.Drawing.Image src)
         {
             return OptimizeImage(src, src.Width, src.Height);
         }
 
-        public static Bitmap OptimizeImage(Image src, int width)
+        public static System.Drawing.Bitmap OptimizeImage(System.Drawing.Image src, int width)
         {
             return OptimizeImage(src, width, (int)((float)src.Height / src.Width * width));
         }
 
-        public static Bitmap OptimizeImage(Image src, int width, int height)
+        public static System.Drawing.Bitmap OptimizeImage(System.Drawing.Image src, int width, int height)
         {
             try
             {
-                var img = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-                using (Graphics g = Graphics.FromImage(img))
+                var img = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                using (var g = System.Drawing.Graphics.FromImage(img))
                 {
                     g.DrawImage(src, 0, 0, width, height);
                 }
@@ -47,19 +50,19 @@ namespace Sketchball
 
         }
 
-        private static System.Windows.Controls.Image GetWpfImage(string path)
+        private static Image GetWpfImage(string path)
         {
-            var img = new System.Windows.Controls.Image();
+            var img = new Image();
             img.Source = new BitmapImage(new Uri(@"pack://application:,,,/Sketchball;component/Resources/" + path));
             return img;
         }
 
-        public static System.Windows.Media.ImageSource OptimizeWpfImage(string path)
+        public static ImageSource OptimizeWpfImage(string path)
         {
             return GetWpfImage(path).Source;
             
         }
-        public static System.Windows.Media.ImageSource OptimizeWpfImage(string path, int width)
+        public static ImageSource OptimizeWpfImage(string path, int width)
         {
             var img = GetWpfImage(path);
             var height = width / img.Width * img.Height;
@@ -69,7 +72,7 @@ namespace Sketchball
             return img.Source;
         }
 
-        public static System.Windows.Media.ImageSource OptimizeWpfImage(string path, int width, int height)
+        public static ImageSource OptimizeWpfImage(string path, int width, int height)
         {
             var img = GetWpfImage(path);
             img.Width = width;
@@ -77,5 +80,13 @@ namespace Sketchball
 
             return img.Source;
         }
+
+        public static FormattedText GetText(string text, FontFamily family, double size, Brush color)
+        {
+            Typeface typeface = new Typeface(family, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal, new FontFamily("Arial"));
+            return new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, size, color);
+        }
+
+
     }
 }

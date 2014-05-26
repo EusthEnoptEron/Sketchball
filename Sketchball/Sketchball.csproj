@@ -88,9 +88,7 @@
     <Compile Include="Controls\PinballControl2.Designer.cs">
       <DependentUpon>PinballControl2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PinballEditControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controls\PinballEditControl.cs" />
     <Compile Include="Controls\GameView.cs" />
     <Compile Include="Editor\CreationChange.cs" />
     <Compile Include="Editor\DeletionChange.cs" />

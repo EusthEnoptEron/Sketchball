@@ -133,12 +133,20 @@ namespace Sketchball.Controls
 
         private void DrawOverlay(DrawingContext g, Color color, string title, string msg)
         {
-            var col = Color.FromArgb(color.R, color.G, color.B, 150);
+            var col = Color.FromArgb(150, color.R, color.G, color.B);
 
             Brush brush = new SolidColorBrush(col);
             Brush solidBrush = new SolidColorBrush(color);
 
             g.DrawRectangle(brush, null, new Rect(0, 0, Width, Height));
+
+            var caption = Booster.GetText(title, new FontFamily("Impact"), 40, solidBrush);
+            var text = Booster.GetText(msg, new FontFamily("Arial"), 13, solidBrush);
+
+            double x = (Width - caption.Width) / 2;
+
+            g.DrawText(caption, new Point( x, (Height - caption.Height) / 2 ));
+            g.DrawText(text, new Point(x, (Height + caption.Height) / 2));
 /*
             SizeF size = g.MeasureString(title, new Font("Impact", 40, System.Drawing.FontStyle.Regular));
 
