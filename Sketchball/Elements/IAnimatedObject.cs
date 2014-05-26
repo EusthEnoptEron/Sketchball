@@ -8,8 +8,8 @@ namespace Sketchball.Elements
 {
     interface IAnimatedObject
     {
-        GlideTween.Glide rotate(float rad, Vector2 center, float time);
-        GlideTween.Glide rotate(float rad, Vector2 center, float time, Action endRotation);
+        GlideTween.Glide Rotate(float rad, Vector2 center, float time);
+        GlideTween.Glide Rotate(float rad, Vector2 center, float time, Action endRotation);
 
         float Rotation { get; set; }
     }

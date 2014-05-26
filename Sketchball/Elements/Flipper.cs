@@ -67,10 +67,10 @@ namespace Sketchball.Elements
                 Animating = true;
 
                 Action endRot = () => {
-                    this.rotate(-Rotation, Origin, 0.05f, () => { Animating = false; }); 
+                    this.Rotate(-Rotation, Origin, 0.05f, () => { Animating = false; }); 
                 };
 
-                this.rotate(RotationRange, Origin, speed, null);
+                this.Rotate(RotationRange, Origin, speed, null);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Sketchball.Elements
             {
                 var speed = e.KeyCode == Trigger ? 0.1f : 4f;
 
-                this.rotate(-Rotation, Origin, 0.1f, () => { Animating = false; });
+                this.Rotate(-Rotation, Origin, 0.1f, () => { Animating = false; });
             }
         }
 

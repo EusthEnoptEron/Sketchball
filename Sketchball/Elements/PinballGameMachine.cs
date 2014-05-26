@@ -82,7 +82,7 @@ namespace Sketchball.Elements
             }
         }
 
-        public void handleCollision()
+        private void handleCollision()
         {
             List<CollisionResult> hits = new List<CollisionResult>(20);
             foreach (Ball b in this.Balls)
@@ -92,25 +92,25 @@ namespace Sketchball.Elements
 
             foreach (CollisionResult result in hits)
             {
-                AnalyzeCollisions(result);
+                analyzeCollisions(result);
             }
         }
 
-        private void AnalyzeCollisions(CollisionResult result)
+        private void analyzeCollisions(CollisionResult result)
         {
             foreach (PinballElement element in result)
             {
-                RaiseCollision(element);
+                raiseCollision(element);
             }
         }
 
-        internal bool HasBall()
+        public bool HasBall()
         {
             //throw new NotImplementedException();
             return Balls.Count > 0;
         }
 
-        internal void IntroduceBall()
+        public void IntroduceBall()
         {
             Ball ball = new Ball();
 
@@ -119,7 +119,7 @@ namespace Sketchball.Elements
             this.Balls.Add(ball);
         }
 
-        private void RaiseCollision(PinballElement element)
+        private void raiseCollision(PinballElement element)
         {
             var handlers = Collision;
             if (handlers != null)

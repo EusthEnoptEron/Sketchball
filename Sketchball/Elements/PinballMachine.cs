@@ -155,11 +155,6 @@ namespace Sketchball.Elements
             return machine;
         }
 
-        public void addBall(Ball b)
-        {
-            this.Balls.Add(b);
-        }
-
 
         /// <summary>
         /// Disposes the pinball machine and frees all resources used by it.

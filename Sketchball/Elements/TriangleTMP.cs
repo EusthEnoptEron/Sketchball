@@ -47,7 +47,7 @@ namespace Sketchball.Elements
         {
             Vector2 drawCenter = new Vector2(100, 0);
           
-            this.rotate(((float)(360 / 180f * Math.PI)), drawCenter, 5f, new Action(turnaround));
+            this.Rotate(((float)(360 / 180f * Math.PI)), drawCenter, 5f, new Action(turnaround));
         }
 
 
