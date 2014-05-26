@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,9 +21,9 @@ namespace Sketchball.Controls
     {
 
         /// <summary>
-        /// The absolute minimum of FPS at any point in time.
+        /// The absolute maximum of FPS at any point in time.
         /// </summary>
-        private const int MIN_FPS = 10;
+        private const int MAX_FPS = 40;
 
         public Camera Camera{get; private set;}
         private GameHUD HUD;
@@ -45,7 +46,7 @@ namespace Sketchball.Controls
             Camera.Size = new System.Drawing.Size((int)Width, (int)Height);
 
             // Optimize control for performance
-
+           // this.Effect = new System.Windows.Media.Effects.BlurEffect();
 
             PinballGameControl_HandleCreated(this, null);
             KeyDown += HandleKeyDown;
@@ -118,39 +119,21 @@ namespace Sketchball.Controls
         /// <param name="e"></param>
         private void DrawCycle(object sender, DoWorkEventArgs e)
         {
-            DateTime prev = DateTime.Now;
-            DateTime now;
-
-            int counter = 1;
-
-
+            int msPerFrame = 1000 / MAX_FPS;
+            Stopwatch watch = new Stopwatch();
+ 
             try
             {
                 while (!CancelToken.IsCancellationRequested)
                 {
-                    now = DateTime.Now;
-
-                    if (Game.Status == GameStatus.Playing || counter-- > 0)
+                    watch.Restart();
+                   
+                    Dispatcher.Invoke(() =>
                     {
-                        // Make sure that we draw the scene once more after status change
-                        if (Game.Status == GameStatus.Playing) counter = 1;
+                        InvalidateVisual();
+                    }, System.Windows.Threading.DispatcherPriority.Render);
 
-                        // Redraw scene
-
-                        Dispatcher.Invoke(() =>
-                        {
-                            InvalidateVisual();
-                        }, System.Windows.Threading.DispatcherPriority.Render);
-
-                        // Give some time for input processing
-                        Thread.Sleep(10);
-                    }
-                    else
-                    {
-                        Thread.Sleep(10);
-                    }
-
-                    prev = now;
+                    Thread.Sleep(Math.Max(10, msPerFrame - (int)watch.ElapsedMilliseconds));
                 }
             }
             catch (TaskCanceledException) { }

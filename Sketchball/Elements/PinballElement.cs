@@ -181,7 +181,7 @@ namespace Sketchball.Elements
             }
             set
             {
-                if (value < 1) value = 1;
+                if (value < 0.1f) value = 0.1f;
                 if (value > 5) value = 5;
                 _bounceFactor = value;
             }
@@ -257,6 +257,7 @@ namespace Sketchball.Elements
 
         public virtual void Draw(System.Windows.Media.DrawingContext g)
         {
+
             g.PushTransform(new System.Windows.Media.MatrixTransform(WpfTransform));
 
             OnDraw(g);
