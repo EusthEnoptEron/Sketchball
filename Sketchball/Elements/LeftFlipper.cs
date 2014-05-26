@@ -65,12 +65,6 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bL4);
         }
 
-        protected override void OnDraw(System.Drawing.Graphics g)
-        {
-            base.OnDraw(g);
-            g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
-        }
-
         protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
             base.OnDraw(g);

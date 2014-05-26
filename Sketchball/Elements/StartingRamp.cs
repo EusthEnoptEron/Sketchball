@@ -1,12 +1,13 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GlideTween;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -27,12 +28,9 @@ namespace Sketchball.Elements
         private readonly int PencilPullback = 50;
         private readonly int PencilOffsetY = -100;
 
-
-        private static Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 200);
-        private static Image RampImage = Booster.OptimizeImage(Properties.Resources.Rampe, 500);
-
-        private static System.Windows.Media.ImageSource RampImageS = Booster.OptimizeWpfImage("Rampe.png");
-        private static System.Windows.Media.ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
+        private static System.Drawing.Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 200);
+        private static ImageSource RampImageS = Booster.OptimizeWpfImage("Rampe.png");
+        private static ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
 
 
 
@@ -112,13 +110,7 @@ namespace Sketchball.Elements
             machine.Input.KeyUp -= Discharge;
         }
 
-        protected override void OnDraw(System.Drawing.Graphics g)
-        {
-            g.DrawImage(RampImage, 0, 0, BaseWidth, BaseHeight);
-            g.DrawImage(PencilImage, 86f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback);
-        } 
-
-        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        protected override void OnDraw(DrawingContext g)
         {
             g.DrawImage(RampImageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
             g.DrawImage(PencilImageS, new System.Windows.Rect(86f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback, PencilImage.Width, PencilImage.Height));
@@ -127,7 +119,7 @@ namespace Sketchball.Elements
         public void IntroduceBall(Ball ball) {
             Ball = ball;
 
-            Ball.X = X + Ball.Width / 2;
+            Ball.X = X + (float)Ball.Width / 2;
             Ball.Y = Y;
         }
 

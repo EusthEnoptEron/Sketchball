@@ -1,18 +1,15 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sketchball.Elements
 {
     public class SlingshotRight : PinballElement
     {
-
-        private static Image image = Booster.OptimizeImage(Properties.Resources.SlingshotRight, 150);
-
         private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("SlingshotRight.png");
 
         private static readonly Size size = new Size(110, 110);
@@ -25,12 +22,6 @@ namespace Sketchball.Elements
 
         public SlingshotRight()
         {
-        }
-
-
-        protected override void OnDraw(System.Drawing.Graphics g)
-        {
-            g.DrawImage(image, 0, 0, BaseWidth, BaseHeight);
         }
 
         protected override void Init()
@@ -66,7 +57,7 @@ namespace Sketchball.Elements
 
         protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
-            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+            g.DrawImage(imageS, new Rect(0, 0, BaseWidth, BaseHeight));
         }
     }
 }

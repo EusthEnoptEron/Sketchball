@@ -1,10 +1,11 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -34,20 +35,11 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bc);
         }
 
-        protected override void OnDraw(System.Drawing.Graphics g)
-        {
-            g.TranslateTransform(-X, -Y);
-
-            g.DrawEllipse(Pens.Red, (int)this.Location.X, (int)this.Location.Y, (int)(this.radius * 2), ((int)this.radius * 2));
-
-            g.TranslateTransform(X, Y);
-        }
-
         protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
-            g.DrawEllipse(null, new System.Windows.Media.Pen(System.Windows.Media.Brushes.Red, 1), new System.Windows.Point(radius, radius), radius, radius);
-
+            g.DrawEllipse(null, new Pen(Brushes.Red, 1), new Point(radius, radius), radius, radius);
         }
+
 
         protected override Size BaseSize
         {

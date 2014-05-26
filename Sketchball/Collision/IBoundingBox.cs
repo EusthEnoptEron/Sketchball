@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Collision
 {
@@ -99,15 +100,11 @@ namespace Sketchball.Collision
         /// <param name="moveVec">Distance and direction to move</param>
         void move(Vector2 moveVec);
 
-        void drawDEBUG(System.Drawing.Graphics g, System.Drawing.Pen p);
-
         Vector2 reflectManipulation(Vector2 newDirection, int energy = 0);
 
         IBoundingBox Clone();
 
-        System.Drawing.Rectangle GetBounds();
-
-        void Sync(System.Drawing.Drawing2D.Matrix matrix);
+        void Sync(Matrix matrix);
 
         void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen);
     }

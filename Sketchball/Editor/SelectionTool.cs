@@ -1,10 +1,10 @@
 ﻿using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Sketchball.Editor
@@ -51,7 +51,7 @@ namespace Sketchball.Editor
             {
                 mouseIsDown = true;
                 var pos = e.GetPosition(Control);
-                Point loc = Control.PointToPinball(new System.Drawing.Point((int)pos.X, (int)pos.Y));
+                Point loc = Control.PointToPinball(pos);
 
                 PinballElement element = FindElement(loc);
                 if (element != null)

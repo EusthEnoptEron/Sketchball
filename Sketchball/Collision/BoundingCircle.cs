@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Collision
 {
@@ -61,18 +61,17 @@ namespace Sketchball.Collision
         public override void rotate(float rad, Vector2 center)
         {
             Matrix rotation = new Matrix();
-            System.Drawing.PointF ptCenter = new System.Drawing.PointF(center.X, center.Y);
-            rotation.RotateAt((float)(rad / Math.PI * 180f), ptCenter);
+            rotation.RotateAt((rad / Math.PI * 180f), center.X, center.Y);
 
-            System.Drawing.PointF[] pts = new System.Drawing.PointF[2];
+            Point[] pts = new Point[2];
             Vector2 p1 = this.position;
             pts[0].X = p1.X;
             pts[0].Y = p1.Y;
 
 
-            rotation.TransformPoints(pts);
-            p1.X = pts[0].X;
-            p1.Y = pts[0].Y;
+            rotation.Transform(pts);
+            p1.X = (float)pts[0].X;
+            p1.Y = (float)pts[0].Y;
           
             this.position = p1;
         }
@@ -163,14 +162,6 @@ namespace Sketchball.Collision
             return false;
         }
 
-        public override void drawDEBUG(System.Drawing.Graphics g, Pen p)
-        {
-            Vector2 pos = this.position+this.BoundingContainer.parentElement.getLocation()-new Vector2(this.radius,this.radius);
-
-            g.DrawEllipse(p, (int)pos.X, (int)pos.Y, (int)(this.radius * 2), ((int)this.radius * 2));
-            
-        }
-
         public override void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen)
         {
             Vector2 pos = this.position+this.BoundingContainer.parentElement.getLocation();
@@ -186,13 +177,6 @@ namespace Sketchball.Collision
             return bL;
         }
 
-        public override Rectangle GetBounds()
-        {
-            return new Rectangle((int)(position.X - radius + BoundingContainer.parentElement.X), 
-                                 (int)(position.Y - radius + BoundingContainer.parentElement.Y), 
-                                 radius*2, radius*2);
-        }
-
         public override void clearRotation()
         {
             this.position = _originalPosition;
@@ -200,14 +184,14 @@ namespace Sketchball.Collision
 
         public override void Sync(Matrix matrix)
         {
-            PointF[] points = new PointF[] { new PointF(_originalPosition.X, _originalPosition.Y) };
-            matrix.TransformPoints(points);
-            position = new Vector2(points[0].X, points[0].Y);
+            Point[] points = new Point[] { new Point(_originalPosition.X, _originalPosition.Y) };
+            matrix.Transform(points);
+            position = new Vector2((float)points[0].X, (float)points[0].Y);
 
 
-            points = new PointF[] { new PointF( _originalRadius, 0 ) };
-            matrix.TransformVectors(points);
-            radius = (int)new Vector2(points[0].X, points[0].Y).Length();
+            var vectors = new Vector[] { new Vector(_originalRadius, 0) };
+            matrix.Transform(vectors);
+            radius = (int)new Vector2((float)vectors[0].X, (float)vectors[0].Y).Length();
         }
 
 

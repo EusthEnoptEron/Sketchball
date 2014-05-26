@@ -1,11 +1,12 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -25,8 +26,8 @@ namespace Sketchball.Elements
 
             protected override void Init()
             {
-                var totalWidth = this.Width;
-                int totalHeight = this.Height;
+                var totalWidth = (int)this.Width;
+                int totalHeight = (int)this.Height;
 
 
                 boundingContainer.AddPolygon(
@@ -43,14 +44,6 @@ namespace Sketchball.Elements
                );
             }
 
-            protected override void OnDraw(Graphics g)
-            {
-                boundingContainer.boundingBoxes.ForEach((e) =>
-                {
-                    e.drawDEBUG(g, Pens.Black);
-                });
-            }
-
             protected override Size BaseSize
             {
                 get { return size; }
@@ -60,7 +53,7 @@ namespace Sketchball.Elements
             {
                  boundingContainer.boundingBoxes.ForEach((e) =>
                 {
-                    e.drawDEBUG(g, new System.Windows.Media.Pen(System.Windows.Media.Brushes.Red, 1));
+                    e.drawDEBUG(g, new Pen(Brushes.Red, 1));
                 });
             }
         }
@@ -80,8 +73,8 @@ namespace Sketchball.Elements
             _ramp = new StartingRamp();
             _elements.Add(_ramp);
 
-            _ramp.X = Width - _ramp.Width - 5;
-            _ramp.Y = Height - _ramp.Height - 5;
+            _ramp.X = (float)( Width - _ramp.Width - 5 );
+            _ramp.Y = (float)( Height - _ramp.Height - 5 );
 
 
 

@@ -421,7 +421,7 @@ namespace Sketchball.Collision
 
                         Vector2 aniNorm = (hitPoint - rotationCenter).Normal();
 
-                        Vector2 h = -hitPoint + (ball.getLocation() + new Vector2(ball.Width / 2, ball.Height / 2));
+                        Vector2 h = -hitPoint + (ball.getLocation() + new Vector2((float)ball.Width / 2, (float)ball.Height / 2));
 
                         Vector2 turnspeed = aniO.angularVelocity * aniNorm;
                         if (h.X * aniNorm.X < 0 || h.Y * aniNorm.Y < 0)
@@ -432,11 +432,11 @@ namespace Sketchball.Collision
                         ball.Velocity += -turnspeed;
 
                         Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.getLocation() + ball.getBoundingContainer().getBoundingBoxes()[0].position);
-                        Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection, ball.getLocation());
+                        Vector2 outOfAreaPush = b.getOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.getLocation());
 
                         outOfAreaPush += (aniO.angualrVelocityPerFrame) * aniNorm;        //push with the amout of the turn of animation until next update
 
-                        ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
+                        ball.setLocation((hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
 
                         ball.Velocity = b.reflectManipulation(newDirection);
                         this.hitPointDebug = hitPoint;
@@ -476,9 +476,9 @@ namespace Sketchball.Collision
                                     if (!b.BoundingContainer.parentElement.pureIntersection)
                                     {
                                         Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.getLocation() + ball.getBoundingContainer().getBoundingBoxes()[0].position);
-                                        Vector2 outOfAreaPush = b.getOutOfAreaPush(ball.Width, hitPoint, newDirection, ball.getLocation());
+                                        Vector2 outOfAreaPush = b.getOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.getLocation());
 
-                                        ball.setLocation((hitPoint - new Vector2(ball.Width / 2, ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
+                                        ball.setLocation((hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush);     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.getLocation()))
 
                                         ball.Velocity = b.reflectManipulation(newDirection);
                                         this.hitPointDebug = hitPoint;

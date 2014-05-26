@@ -136,9 +136,9 @@ namespace Sketchball.Controls
 
                 var point = new Point(bounds.Location.X, bounds.Location.Y);
                 var pRes = PointToEditor(point);
-                bounds.Location = new System.Drawing.Point((int)pRes.X, (int)pRes.Y);
-                bounds.Width = (int)LengthToEditor(bounds.Width);
-                bounds.Height = (int)LengthToEditor(bounds.Height);
+                bounds.Location = new Point(pRes.X, pRes.Y);
+                bounds.Width =  LengthToEditor(bounds.Width);
+                bounds.Height =  LengthToEditor(bounds.Height);
                 origin.X = LengthToEditor(origin.X);
                 origin.Y = LengthToEditor(origin.Y);
 
@@ -216,9 +216,14 @@ namespace Sketchball.Controls
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public float LengthToEditor(float val)
+        public double LengthToEditor(double val)
         {
             return val * ScaleFactor;
+        }
+        
+        public float LengthToEditor(float val)
+        {
+            return (float)LengthToEditor((double)val);
         }
 
         /// <summary>

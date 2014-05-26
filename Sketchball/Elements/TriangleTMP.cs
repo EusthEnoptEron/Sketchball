@@ -1,10 +1,10 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sketchball.Elements
 {
@@ -54,17 +54,6 @@ namespace Sketchball.Elements
         public override void Update(long delta)
         {
             base.Update(delta);
-        }
-
-        protected override void OnDraw(System.Drawing.Graphics g)
-        {
-            Point p1 = new Point(0, 200);
-            Point p2 = new Point(100, 0);
-            Point p3 = new Point(200, 200);
-
-            g.DrawLine(Pens.Red, p1, p2);
-            g.DrawLine(Pens.Red, p2, p3);
-            g.DrawLine(Pens.Red, p3, p1);
         }
 
         protected override void OnDraw(System.Windows.Media.DrawingContext g)

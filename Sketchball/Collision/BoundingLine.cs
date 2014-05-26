@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Collision
 {
@@ -189,10 +189,9 @@ namespace Sketchball.Collision
         public override void rotate(float rad, Vector2 center)
         {
             Matrix rotation = new Matrix();
-            System.Drawing.PointF ptCenter = new System.Drawing.PointF(center.X, center.Y);
-            rotation.RotateAt((float)(rad/Math.PI*180f), ptCenter);
+            rotation.RotateAt((rad/Math.PI*180f), center.X, center.Y);
 
-            System.Drawing.PointF[] pts = new System.Drawing.PointF[2];
+            Point[] pts = new Point[2];
             Vector2 p1 = this.position;
             Vector2 p2 = this.target;
             pts[0].X = p1.X;
@@ -200,11 +199,11 @@ namespace Sketchball.Collision
             pts[1].X = p2.X;
             pts[1].Y = p2.Y;
 
-            rotation.TransformPoints(pts);
-            p1.X = pts[0].X;
-            p1.Y = pts[0].Y;
-            p2.X = pts[1].X;
-            p2.Y = pts[1].Y;
+            rotation.Transform(pts);
+            p1.X = (float)pts[0].X;
+            p1.Y = (float)pts[0].Y;
+            p2.X = (float)pts[1].X;
+            p2.Y = (float)pts[1].Y;
 
             this.position = p1;
             this.target = p2;     
@@ -259,25 +258,11 @@ namespace Sketchball.Collision
            
         }
 
-        public override void drawDEBUG(System.Drawing.Graphics g, System.Drawing.Pen p)
-        {
-            Vector2 pos = this.BoundingContainer.parentElement.getLocation();
-            g.DrawLine(p, (int)(this.position.X + pos.X), (int)(this.position.Y + pos.Y), (int)(this.target.X + pos.X), (int)(this.target.Y + pos.Y));
-        }
-
         public override IBoundingBox Clone()
         {
             BoundingLine bL =  new BoundingLine(new Vector2(this.position.X, this.position.Y), new Vector2(this.target.X, this.target.Y));
             //do not forget to assinge BoundingContainer after clone
             return bL;
-        }
-
-        public override Rectangle GetBounds()
-        {
-            return new Rectangle((int)(Math.Min(position.X, target.X) + BoundingContainer.parentElement.X), 
-                                 (int)(Math.Min(position.Y, target.Y) + BoundingContainer.parentElement.Y), 
-                                 (int)(Math.Max(position.X, target.X)), 
-                                 (int)(Math.Max(position.Y, target.Y)));
         }
 
         public override void clearRotation()
@@ -288,14 +273,14 @@ namespace Sketchball.Collision
 
         public override void Sync(Matrix matrix)
         {
-            PointF[] points = new PointF[] { new PointF(_originalPosition.X, _originalPosition.Y), new PointF(_originalTarget.X, _originalTarget.Y) };
-            matrix.TransformPoints(points);
+            Point[] points = new Point[] { new Point(_originalPosition.X, _originalPosition.Y), new Point(_originalTarget.X, _originalTarget.Y) };
+            matrix.Transform(points);
 
-            position = new Vector2(points[0].X, points[0].Y);
-            target   = new Vector2(points[1].X, points[1].Y);
+            position = new Vector2((float)points[0].X, (float)points[0].Y);
+            target   = new Vector2((float)points[1].X, (float)points[1].Y);
         }
 
-        public override void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen)
+        public override void drawDEBUG(DrawingContext g, System.Windows.Media.Pen pen)
         {
             Vector2 pos = this.BoundingContainer.parentElement.getLocation();
             g.DrawLine(pen, new System.Windows.Point((int)(this.position.X + pos.X), (int)(this.position.Y + pos.Y)), new System.Windows.Point((int)(this.target.X + pos.X), (int)(this.target.Y + pos.Y)));

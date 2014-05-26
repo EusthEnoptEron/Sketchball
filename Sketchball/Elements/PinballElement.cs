@@ -3,14 +3,16 @@ using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Sketchball.Elements
 {
@@ -59,26 +61,26 @@ namespace Sketchball.Elements
         /// Gets the original width of the element.
         /// </summary>
         [Browsable(false)]
-        protected int BaseWidth { get { return BaseSize.Width; } }
+        protected double BaseWidth { get { return BaseSize.Width; } }
 
 
         /// <summary>
         /// Gets the original height of the element.
         /// </summary>
         [Browsable(false)]
-        protected int BaseHeight { get { return BaseSize.Height; } }
+        protected double BaseHeight { get { return BaseSize.Height; } }
 
         /// <summary>
         /// Gets or sets the effective width of the element.
         /// </summary>
         [Category("Position"), Browsable(false)]
-        public int Width { get { return (int)(BaseWidth * Scale); } set { Scale = Scale / Width * value; } }
+        public double Width { get { return BaseWidth * Scale; } set { Scale = Scale / Width * value; } }
 
         /// <summary>
         /// Gets or sets the effective height of the element.
         /// </summary>
         [Category("Position"), Browsable(false)]
-        public int Height { get { return (int)(BaseHeight * Scale); } set { Scale = Scale / Height * value; } }
+        public double Height { get { return (int)(BaseHeight * Scale); } set { Scale = Scale / Height * value; } }
 
         /// <summary>
         /// Gets or sets the X position of the element.
@@ -122,7 +124,7 @@ namespace Sketchball.Elements
         /// Sets or gets the scale of this element.
         /// </summary>
         [Category("Position"), DefaultValue(1.0f)]
-        public float Scale
+        public double Scale
         {
             get { return _scale; }
             set
@@ -135,7 +137,7 @@ namespace Sketchball.Elements
             }
         }
         [DataMember]
-        private float _scale = 1.0f;
+        private double _scale = 1.0f;
 
         /// <summary>
         /// Gets whether or not this element reflects the ball.
@@ -198,6 +200,10 @@ namespace Sketchball.Elements
         [DataMember]
         public int Value { get; set; }
 
+        [Browsable(false)]
+        public Matrix Transform = new Matrix();
+
+
         #endregion
 
         public PinballElement() : this(0, 0)
@@ -216,8 +222,7 @@ namespace Sketchball.Elements
 
         private void init()
         {
-            Transform = new Matrix();
-            WpfTransform = System.Windows.Media.Matrix.Identity;
+            Transform = Matrix.Identity;
             
             pureIntersection = false;
             boundingContainer = new BoundingContainer(this);
@@ -231,43 +236,19 @@ namespace Sketchball.Elements
             init();
         }
 
-
-        public void Draw(Graphics g)
-        {
-            var state = g.Save();
-
-            g.MultiplyTransform(Transform, MatrixOrder.Prepend);
-
-            OnDraw(g);
-
-            g.Restore(state);
-
-            g.TranslateTransform(-X, -Y);
-            // Debug draw
-            if (Properties.Settings.Default.Debug)
-            {
-                foreach (var box in boundingContainer.boundingBoxes)
-                {
-                    box.drawDEBUG(g, Pens.Red);
-                }
-            }
-            g.TranslateTransform(X, Y);
-        }
-
-
-        public virtual void Draw(System.Windows.Media.DrawingContext g)
+        public virtual void Draw(DrawingContext g)
         {
 
-            g.PushTransform(new System.Windows.Media.MatrixTransform(WpfTransform));
+            g.PushTransform(new MatrixTransform(Transform));
 
             OnDraw(g);
 
             g.Pop();
 
             if (Properties.Settings.Default.Debug) {
-                g.PushTransform(new System.Windows.Media.TranslateTransform(-X, -Y));
+                g.PushTransform(new TranslateTransform(-X, -Y));
 
-                System.Windows.Media.Pen pen = new System.Windows.Media.Pen(System.Windows.Media.Brushes.Red, 1);
+                var pen = new Pen(Brushes.Red, 1);
                 foreach (var box in boundingContainer.boundingBoxes)
                 {
                     box.drawDEBUG(g, pen);
@@ -278,24 +259,14 @@ namespace Sketchball.Elements
 
         }
 
-
-        public Matrix Transform { get; private set; }
-        public System.Windows.Media.Matrix WpfTransform = new System.Windows.Media.Matrix();
-
         private void RebuildMatrix()
         {
-            var vOrigin = GetRotationOrigin();
-            var origin = new PointF(vOrigin.X, vOrigin.Y);
+            var origin = GetRotationOrigin();
 
-            Transform = new Matrix();
-            Transform.RotateAt(BaseRotation, origin);
+            Transform = Matrix.Identity;
+
+            Transform.RotateAt(BaseRotation, origin.X, origin.Y);
             Transform.Scale(Scale, Scale);
-
-
-            WpfTransform = new System.Windows.Media.Matrix();
-
-            WpfTransform.RotateAt(BaseRotation, vOrigin.X, vOrigin.Y);
-            WpfTransform.Scale(Scale, Scale);
             
             Sync();
         }
@@ -320,9 +291,9 @@ namespace Sketchball.Elements
             {
                 origin.Y = 0;
             } else if ( (Origin & middle) != 0 ) {
-                origin.Y = Height / 2f;
+                origin.Y = (float)Height / 2f;
             } else {
-                origin.Y = Height;
+                origin.Y = (float)Height;
             }
 
             if ((Origin & left) != 0)
@@ -331,11 +302,11 @@ namespace Sketchball.Elements
             }
             else if ((Origin & center) != 0)
             {
-                origin.X = Width / 2f;
+                origin.X = (float)Width / 2f;
             }
             else
             {
-                origin.X = Width;
+                origin.X = (float)Width;
             }
 
             return origin;
@@ -343,30 +314,34 @@ namespace Sketchball.Elements
 
         public virtual bool Contains(Point point)
         {
-            using (Bitmap bm = new Bitmap(World.Width, World.Height))
-            {
-                using (Graphics g = Graphics.FromImage(bm))
-                {
-                    g.TranslateTransform(X, Y);
-                    Draw(g);
-                }
+            var drawing = new DrawingGroup();
+            var g = drawing.Open();
 
+            g.DrawRectangle(Brushes.Blue, null, new Rect(0, 0, World.Width, World.Height));
+            g.PushTransform(new TranslateTransform(X, Y));
+            Draw(g);
+            g.Pop();
+            g.Close();
+
+            using(var bmp = Booster.DrawingToBitmap(drawing, (int)World.Width, (int)World.Height)) {
                 for (int dx = -SELECTION_PADDING; dx <= SELECTION_PADDING; dx++)
                 {
-                    int x = point.X + dx;
+                    int x = (int)point.X + dx;
                     int y = 0;
 
-                    if (x < 0 || x >= bm.Width) continue;
+                    if (x < 0 || x >= bmp.Width) continue;
                     for (int dy = -SELECTION_PADDING; dy <= SELECTION_PADDING; dy++)
                     {
-                        y = point.Y + dy;
-                        if (y < 0 || y >= bm.Height) continue;
+                        y = (int)point.Y + dy;
+                        if (y < 0 || y >= bmp.Height) continue;
 
-                        Color pixel = bm.GetPixel(x, y);
-                        if (pixel.A > 0) return true;
+                        var pixel = bmp.GetPixel(x, y);
+                        if (pixel.R != 0 || pixel.G != 0 || pixel.B != 255) return true;
                     }
                 }
+
             }
+
             return false;
         }
 
@@ -403,16 +378,15 @@ namespace Sketchball.Elements
         }
 
 
-        public Rectangle GetBounds()
+        public Rect GetBounds()
         {
-            return new Rectangle((int)X, (int)Y, Width, Height);
+            return new Rect(X, Y, Width, Height);
         }
 
 
 #region Implementables
 
         protected abstract void Init();
-        protected abstract void OnDraw(Graphics g);
         protected abstract void OnDraw(System.Windows.Media.DrawingContext g);
 
         public virtual void Update(long delta) { }

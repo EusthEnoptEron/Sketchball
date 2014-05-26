@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 using Sketchball.Collision;
 using System.Runtime.Serialization;
+using System.Windows;
 
 namespace Sketchball.Elements
 {
@@ -53,7 +52,7 @@ namespace Sketchball.Elements
         {
             get
             {
-                return new Vector2(0, this.Height);
+                return new Vector2(0, (float)this.Height);
             }
         }
 

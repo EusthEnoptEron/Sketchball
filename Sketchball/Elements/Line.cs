@@ -1,11 +1,12 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -14,7 +15,7 @@ namespace Sketchball.Elements
     public class Line : PinballElement
     {
         [DataMember]
-        PointF p1, p2;
+        Point p1, p2;
 
 
         public Line()
@@ -34,16 +35,16 @@ namespace Sketchball.Elements
             X = Math.Min(x0, x1);
             Y = Math.Min(y0, y1);
 
-            p1 = new PointF(x0 - X, y0 - Y);
-            p2 = new PointF(x1 - X, y1 - Y);
+            p1 = new Point(x0 - X, y0 - Y);
+            p2 = new Point(x1 - X, y1 - Y);
         }
 
         protected override void Init()
         {
-            var x0 = p1.X;
-            var x1 = p2.X;
-            var y0 = p1.Y;
-            var y1 = p2.Y;
+            float x0 = (float)p1.X;
+            float x1 = (float)p2.X;
+            float y0 = (float)p1.Y;
+            float y1 = (float)p2.Y;
 
             size = new Size((int)Math.Abs(x1 - x0), (int)Math.Abs(y1 - y0));
 
@@ -52,16 +53,10 @@ namespace Sketchball.Elements
             this.boundingContainer.addBoundingBox(bL);
         }
 
-        protected override void OnDraw(System.Drawing.Graphics g)
+
+        protected override void OnDraw(DrawingContext g)
         {
-            g.DrawLine(Pens.Red, p1, p2);
-        }
-
-
-
-        protected override void OnDraw(System.Windows.Media.DrawingContext g)
-        {
-            g.DrawLine(new System.Windows.Media.Pen(System.Windows.Media.Brushes.Black, 1), new System.Windows.Point(p1.X, p1.Y), new System.Windows.Point(p2.X, p2.Y));
+            g.DrawLine(new Pen(Brushes.Black, 1), new Point(p1.X, p1.Y), new Point(p2.X, p2.Y));
 
         }
     }

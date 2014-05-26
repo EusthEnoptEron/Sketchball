@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Sketchball.Collision
 {
@@ -106,15 +106,6 @@ namespace Sketchball.Collision
         /// <param name="velocity">Speed of the object intersecting</param>
         /// <returns></returns>
         public abstract bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity);
-
-
-        /// <summary>
-        /// Debug method
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="p"></param>
-        public abstract void drawDEBUG(System.Drawing.Graphics g,System.Drawing.Pen p);
-
         public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
         {
             return newDirection * bounceFactor * BoundingContainer.parentElement.BounceFactor;
@@ -122,9 +113,6 @@ namespace Sketchball.Collision
 
 
         public abstract IBoundingBox Clone();
-
-
-        public abstract System.Drawing.Rectangle GetBounds();
 
 
         public abstract void clearRotation();

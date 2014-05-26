@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,6 +86,25 @@ namespace Sketchball
         {
             Typeface typeface = new Typeface(family, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal, new FontFamily("Arial"));
             return new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, size, color);
+        }
+
+        public static System.Drawing.Bitmap DrawingToBitmap(Drawing drawing, int width, int height)
+        {
+            var encoder = new PngBitmapEncoder();
+            var drawingImage = new DrawingImage(drawing);
+
+            var image = new Image() { Source = drawingImage };
+            image.Arrange(new Rect(0, 0, width, height));
+
+            var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            bitmap.Render(image);
+
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+            var stream = new MemoryStream();
+            encoder.Save(stream);
+
+            return new System.Drawing.Bitmap(stream);
         }
 
 

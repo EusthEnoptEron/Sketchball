@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -9,6 +8,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sketchball.Elements;
 using System.Drawing.Drawing2D;
+using System.Windows.Media;
+using System.Windows;
+
+using Graphics = System.Drawing.Graphics;
+using Image = System.Drawing.Image;
+using Color = System.Drawing.Color;
+using Brush = System.Drawing.Brush;
+using Font = System.Drawing.Font;
 
 namespace Sketchball.Controls
 {
@@ -28,6 +35,8 @@ namespace Sketchball.Controls
         PinballElement Element;
         Font ElementFont;
         string Label;
+        private Image thumb;
+
 
         /// <summary>
         /// Creates a new ElementControl that can create clones of el.
@@ -47,9 +56,16 @@ namespace Sketchball.Controls
             Width = 200;
 
             // Add event listeners
-            Paint += (s, e) => { Draw(e.Graphics); };
-            MouseEnter += (s, e) => { BackColor = SystemColors.Highlight; ForeColor = Color.White; };
-            MouseLeave += (s, e) => { BackColor = SystemColors.Control; ForeColor = Color.Black; };
+            MouseEnter += (s, e) => { BackColor = System.Drawing.SystemColors.Highlight; ForeColor = Color.White; };
+            MouseLeave += (s, e) => { BackColor = System.Drawing.SystemColors.Control; ForeColor = Color.Black; };
+
+            thumb = GetImage();
+
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            Draw(e.Graphics);
         }
 
         
@@ -61,9 +77,9 @@ namespace Sketchball.Controls
         {
             Brush bgBrush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.LightGray);
             g.FillRectangle(bgBrush, 0, 0, THUMB_WIDTH, THUMB_HEIGHT);
-            DrawThumb(g, THUMB_WIDTH, THUMB_HEIGHT);
 
-            g.DrawString(Label, ElementFont, new SolidBrush(ForeColor), THUMB_WIDTH + 5, 10);
+            g.DrawImage(thumb, 0, 0);
+            g.DrawString(Label, ElementFont, new System.Drawing.SolidBrush(ForeColor), THUMB_WIDTH + 5, 10);
         }
 
         /// <summary>
@@ -72,7 +88,7 @@ namespace Sketchball.Controls
         /// <param name="g">Graphics object to draw to</param>
         /// <param name="width">Max width of the thumb</param>
         /// <param name="height">Max height of the thumb</param>
-        private void DrawThumb(Graphics g, int width, int height)
+        private void DrawThumb(DrawingContext g, int width, int height)
         {
             // Prevent division by zero
             if (Element.Width == 0) Element.Width = width;
@@ -83,27 +99,23 @@ namespace Sketchball.Controls
             var widthRatio = (float)width / Element.Width;
             var ratio = Math.Min(heightRatio, widthRatio);
 
-            GraphicsState state = g.Save();
-            try
-            {
-                g.IntersectClip(new Rectangle(0, 0, width, height));
-
-                // Scale to the right dimension
-                g.ScaleTransform(ratio, ratio);
+            g.PushClip(new RectangleGeometry(new Rect(0, 0, width, height)));
+            
+            // Scale to the right dimension
+            g.PushTransform(new ScaleTransform(ratio, ratio));
                 
-                // Move to center
-                if (heightRatio < widthRatio)
-                    g.TranslateTransform(width - (Element.Width * ratio), 0);
-                else
-                    g.TranslateTransform(0, height - (Element.Height * ratio));
+            // Move to center
+            if (heightRatio < widthRatio)
+                g.PushTransform( new TranslateTransform(width - (Element.Width * ratio), 0));
+            else
+                g.PushTransform( new TranslateTransform(0, height - (Element.Height * ratio)));
 
-                // Draw
-                Element.Draw(g);
-            }
-            finally
-            {
-                g.Restore(state);
-            }
+            // Draw
+            Element.Draw(g);
+
+            g.Pop(); // Translate
+            g.Pop(); // Scale
+            g.Pop(); // Clip
         }
 
         /// <summary>
@@ -113,14 +125,14 @@ namespace Sketchball.Controls
         /// <param name="height">Required height of the bitmap</param>
         /// <returns>The bitmap depicting the thumbnail.</returns>
         public Image GetImage(int width = THUMB_WIDTH, int height = THUMB_HEIGHT) {
-           Bitmap bm = new Bitmap(width, height);
+            var drawing = new DrawingGroup();
+            drawing.SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
+            using (var context = drawing.Open())
+            {
+                DrawThumb(context, width, height);
+            }
 
-           using (Graphics g = Graphics.FromImage(bm))
-           {
-               DrawThumb(g, width, height);
-           }
-
-           return bm;
+            return Booster.DrawingToBitmap(drawing, width, height);
         }
 
         /// <summary>
