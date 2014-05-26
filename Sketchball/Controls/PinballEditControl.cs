@@ -13,6 +13,8 @@ namespace Sketchball.Controls
 {
     public class PinballEditControl : PinballControl
     {
+        private const int PADDING = 15;
+
         public readonly History History = new History();
         private Pen SelectionPen;
 
@@ -31,6 +33,7 @@ namespace Sketchball.Controls
 
                     if (SelectedElement != null)
                     {
+                        // Re-Add the element to bring it to front
                         PinballMachine.Remove(SelectedElement);
                         PinballMachine.Add(SelectedElement);
                     }
@@ -66,8 +69,8 @@ namespace Sketchball.Controls
 
         private void UpdateSize()
         {
-            Width = (int)(PinballMachine.Width * ScaleFactor);
-            Height = (int)(PinballMachine.Height * ScaleFactor);
+            Width = (int)(PinballMachine.Width * ScaleFactor) + PADDING;
+            Height = (int)(PinballMachine.Height * ScaleFactor) + PADDING;
 
           //  Invalidate();
         }
@@ -116,11 +119,8 @@ namespace Sketchball.Controls
 
         protected override void Draw(DrawingContext g)
         {
-            //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
-            /*Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
-            g.FillRectangle(brush, 0, 0, base.Width, base.Height);
-            */
-            g.DrawRectangle(Brushes.White, null, new Rect(0, 0, Width, Height));
+            // Clear rectangle (needed, because otherwise it will not react to click events)
+           // g.DrawRectangle(Brushes.White, null, new Rect(0, 0, Width, Height));
 
 
             g.PushTransform(new MatrixTransform(Transform));
@@ -160,7 +160,7 @@ namespace Sketchball.Controls
             get
             {
                 Matrix m  = new Matrix();
-                m.Translate(15, 15);
+                m.Translate(PADDING, PADDING);
                 m.Scale(ScaleFactor, ScaleFactor);
                 //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
 
@@ -207,7 +207,7 @@ namespace Sketchball.Controls
 
         public Vector2 PointToEditor(Vector2 p)
         {
-            var point = PointToEditor(new Point((int)p.X, (int)p.Y));
+            var point = PointToEditor(new Point(p.X, p.Y));
             return new Vector2((float)point.X, (float)point.Y);
         }
 

@@ -104,7 +104,7 @@ namespace Sketchball.Elements
             try
             {
                 g.IntersectClip(new Rectangle(0, 0, Width, Height));
-                
+ 
                 //TODO take away red border
                 for (int y = 0; y <= Height; y += 10)
                 {
@@ -148,6 +148,7 @@ namespace Sketchball.Elements
         public virtual void Draw(System.Windows.Media.DrawingContext g)
         {
             g.PushClip(new System.Windows.Media.RectangleGeometry(new System.Windows.Rect(0, 0, Width, Height)));
+            g.DrawRectangle(System.Windows.Media.Brushes.White, null, new System.Windows.Rect(0, 0, Width, Height));
 
             // Draw contours
             //TODO take away red border
