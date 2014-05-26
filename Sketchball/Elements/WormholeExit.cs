@@ -29,7 +29,7 @@ namespace Sketchball.Elements
         {
             this.pureIntersection = true;
 
-            BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
+            BoundingCircle bC = new BoundingCircle(15, new Vector(0, 0));
             this.boundingContainer.AddBoundingBox(bC);
             bC.AssignToContainer(this.boundingContainer);
             this.pureIntersection = true;

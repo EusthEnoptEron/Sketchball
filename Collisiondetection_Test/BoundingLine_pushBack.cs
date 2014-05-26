@@ -3,6 +3,7 @@ using Sketchball.Collision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
+using System.Windows;
 
 namespace Collisiondetection_Test
 {
@@ -13,16 +14,16 @@ namespace Collisiondetection_Test
         public void TestPushBackPushDownFromAbove()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(20, 0);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(20, 0);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint= new Vector2(20,50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = new Vector2(0,-1);
+            Vector hitPoint= new Vector(20,50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = new Vector(0,-1);
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -31,7 +32,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -45,16 +46,16 @@ namespace Collisiondetection_Test
         public void TestPushBackPushUpFromBelow()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(20,100);
-            Vector2 ballSpeed = new Vector2(0, -5);
+            Vector center2 = new Vector(20,100);
+            Vector ballSpeed = new Vector(0, -5);
 
-            Vector2 hitPoint = new Vector2(20, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = new Vector2(0, 1);
+            Vector hitPoint = new Vector(20, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = new Vector(0, 1);
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -63,7 +64,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -77,16 +78,16 @@ namespace Collisiondetection_Test
         public void TestPushBackFromLeft()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-20, 30);
-            Vector2 ballSpeed = new Vector2(5, 0);
+            Vector center2 = new Vector(-20, 30);
+            Vector ballSpeed = new Vector(5, 0);
 
-            Vector2 hitPoint = new Vector2(0, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = new Vector2(-1, 0);
+            Vector hitPoint = new Vector(0, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = new Vector(-1, 0);
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -95,7 +96,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -109,16 +110,16 @@ namespace Collisiondetection_Test
         public void TestPushBackFromRight()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(70, 30);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(70, 30);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint = new Vector2(50, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = new Vector2(1, 0);
+            Vector hitPoint = new Vector(50, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = new Vector(1, 0);
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -127,7 +128,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -141,16 +142,16 @@ namespace Collisiondetection_Test
         public void TestIPushBackTopRightToCenter()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(25, 45);
-            Vector2 ballSpeed = new Vector2(-5, 5);
+            Vector center2 = new Vector(25, 45);
+            Vector ballSpeed = new Vector(-5, 5);
 
-            Vector2 hitPoint = new Vector2(20, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = new Vector2(0,-1);
+            Vector hitPoint = new Vector(20, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = new Vector(0,-1);
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -159,7 +160,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -173,16 +174,16 @@ namespace Collisiondetection_Test
         public void TestPushBackBotRightToCenter()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(25, 55);
-            Vector2 ballSpeed = new Vector2(-5, -5);
+            Vector center2 = new Vector(25, 55);
+            Vector ballSpeed = new Vector(-5, -5);
 
-            Vector2 hitPoint = new Vector2(20, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = new Vector2(0, 1);
+            Vector hitPoint = new Vector(20, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = new Vector(0, 1);
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -191,7 +192,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -205,16 +206,16 @@ namespace Collisiondetection_Test
         public void TestPushBackFromTopRightToEnd()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(35, 25);
-            Vector2 ballSpeed = new Vector2(-5, 5);
+            Vector center2 = new Vector(35, 25);
+            Vector ballSpeed = new Vector(-5, 5);
 
-            Vector2 hitPoint = new Vector2(50, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = -ballSpeed;
+            Vector hitPoint = new Vector(50, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = -ballSpeed;
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -223,7 +224,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -238,16 +239,16 @@ namespace Collisiondetection_Test
         public void TestPushBackFromBotRightToEnd()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(55, 55);
-            Vector2 ballSpeed = new Vector2(-5, -5);
+            Vector center2 = new Vector(55, 55);
+            Vector ballSpeed = new Vector(-5, -5);
 
-            Vector2 hitPoint = new Vector2(50, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = -ballSpeed;
+            Vector hitPoint = new Vector(50, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = -ballSpeed;
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -256,7 +257,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -271,16 +272,16 @@ namespace Collisiondetection_Test
         public void TestPushBackFromBotLeftToEnd()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(25, 35);
-            Vector2 ballSpeed = new Vector2(5, -5);
+            Vector center2 = new Vector(25, 35);
+            Vector ballSpeed = new Vector(5, -5);
 
-            Vector2 hitPoint = new Vector2(50, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = -ballSpeed;
+            Vector hitPoint = new Vector(50, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = -ballSpeed;
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -289,7 +290,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);
@@ -304,16 +305,16 @@ namespace Collisiondetection_Test
         public void TestPushBackFromTopLeftToEnd()
         {
             //Preconfig
-            Vector2 position1 = new Vector2(0f, 50f);
-            Vector2 target1 = new Vector2(50f, 50f);
+            Vector position1 = new Vector(0f, 50f);
+            Vector target1 = new Vector(50f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(25, 25);
-            Vector2 ballSpeed = new Vector2(5, 5);
+            Vector center2 = new Vector(25, 25);
+            Vector ballSpeed = new Vector(5, 5);
 
-            Vector2 hitPoint = new Vector2(50, 50);
-            Vector2 pushBackVec;
-            Vector2 estimatedPushBackVec = -ballSpeed;
+            Vector hitPoint = new Vector(50, 50);
+            Vector pushBackVec;
+            Vector estimatedPushBackVec = -ballSpeed;
             estimatedPushBackVec.Normalize();
 
             //Creation
@@ -322,7 +323,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
 
             bCont.AddBoundingBox(bL1);
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
             //Operation
             pushBackVec = bL1.GetOutOfAreaPush(radius2 * 2, hitPoint, -ballSpeed, center2);

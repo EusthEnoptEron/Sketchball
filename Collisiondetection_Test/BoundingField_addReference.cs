@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Collisiondetection_Test
 {
@@ -15,7 +16,7 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
 
 
             //Creation
@@ -51,7 +52,7 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
 
 
             //Creation
@@ -88,7 +89,7 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
 
 
             //Creation

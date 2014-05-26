@@ -20,7 +20,7 @@ namespace Sketchball.Elements
         }
        
 
-        public Vector2 Velocity
+        public Vector Velocity
         {
             get;
             set;
@@ -28,12 +28,12 @@ namespace Sketchball.Elements
 
         public Ball() : base()
         {
-            Velocity = new Vector2(0,0);
+            Velocity = new Vector(0,0);
         }
 
         protected override void Init()
         {
-            BoundingCircle bC = new BoundingCircle(10, new Vector2(0, 0));
+            BoundingCircle bC = new BoundingCircle(10, new Vector(0, 0));
             this.boundingContainer.AddBoundingBox(bC);
         }
 
@@ -46,7 +46,7 @@ namespace Sketchball.Elements
         {
             base.Update(delta);
             Velocity += World.Acceleration * (delta / 1000f);
-            float prev = Location.Y;
+            double prev = Location.Y;
             Location += Velocity * (delta / 1000f);
         }
 

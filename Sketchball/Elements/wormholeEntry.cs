@@ -31,14 +31,14 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
-            BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
+            BoundingCircle bC = new BoundingCircle(15, new Vector(0, 0));
             this.boundingContainer.AddBoundingBox(bC);
             bC.AssignToContainer(this.boundingContainer);
         }
 
         public override void notifyIntersection(Ball b)
         {
-            b.Location = this.WormholeExit.Location + new Vector2((float)this.WormholeExit.Width / 2, (float)this.WormholeExit.Height / 2);
+            b.Location = this.WormholeExit.Location + new Vector((float)this.WormholeExit.Width / 2, (float)this.WormholeExit.Height / 2);
             player.Play();
         }
 

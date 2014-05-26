@@ -23,7 +23,7 @@ namespace Sketchball.Collision
         /// <summary>
         /// Position of the bounding box
         /// </summary>
-        Vector2 Position { get; set; }
+        Vector Position { get; set; }
 
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Sketchball.Collision
         /// <param name="bB">Bounding box to check for intersection with this</param>
         /// <param name="hitPoint">Point where those two boxes might have intersected the first time</param>
         /// <returns>true if intersection</returns>
-        bool Intersect(IBoundingBox bB, out Vector2 hitPoint);
+        bool Intersect(IBoundingBox bB, out Vector hitPoint);
        
         /// <summary>
         /// Checks for an intersection of this element with bB and saves the estimated hitpoint to hitPoint)
@@ -48,7 +48,7 @@ namespace Sketchball.Collision
         /// <param name="hitPoint">Point where those two boxes might have intersected the first time</param>
         /// <param name="velocity">Velocity of an object intersecting</param>
         /// <returns>true if intersection</returns>
-        bool Intersect(IBoundingBox bB, out Vector2 hitPoint, Vector2 velocity);
+        bool Intersect(IBoundingBox bB, out Vector hitPoint, Vector velocity);
 
         /// <summary>
         /// Intersec for lines (more specific version)
@@ -56,7 +56,7 @@ namespace Sketchball.Collision
         /// <param name="bL">Bounding box to check for intersection with this</param>
         /// <param name="hitPoint">Point where those two boxes might have intersected the first time</param>
         /// <returns>true if intersection</returns>
-        bool LineIntersect(BoundingLine bL, out Vector2 hitPoint);
+        bool LineIntersect(BoundingLine bL, out Vector hitPoint);
 
         /// <summary>
         /// Intersec for circles (more specific version)
@@ -65,7 +65,7 @@ namespace Sketchball.Collision
         /// <param name="hitPoint">Point where those two boxes might have intersected the first time</param>
         /// <param name="velocity">Speed of the object intersecting</param>
         /// <returns>true if intersection</returns>
-        bool CircleIntersect(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity);
+        bool CircleIntersect(BoundingCircle bC, out Vector hitPoint, Vector velocity);
 
         /// <summary>
         /// Calculates reflection of an round object on this bounding box
@@ -74,7 +74,7 @@ namespace Sketchball.Collision
         /// <param name="hitPoint">Point of first intersection</param>
         /// <param name="ballpos">Position of the object</param>
         /// <returns>Velocity after reflection</returns>
-        Vector2 Reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos);
+        Vector Reflect(Vector vecIn, Vector hitPoint, Vector ballpos);
 
         /// <summary>
         /// Calculates the vector to push an element out of area
@@ -84,16 +84,16 @@ namespace Sketchball.Collision
         /// <param name="velocity">Velocity of ball</param>
         /// <param name="ballPos">Position of ball</param>
         /// <returns>Vector that represents push of object out of crictical zone</returns>
-        Vector2 GetOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity,Vector2 ballPos);
+        Vector GetOutOfAreaPush(int diameterBall, Vector hitPoint, Vector velocity,Vector ballPos);
         
         /// <summary>
         /// Rotation for this bounding box
         /// </summary>
         /// <param name="rad">Amount of roation in rad</param>
         /// <param name="center">Center of rotation relative to the parent coordinates</param>
-        void Rotate(float rad, Vector2 center);
+        void Rotate(float rad, Vector center);
 
-        Vector2 ReflectManipulation(Vector2 newDirection, int energy = 0);
+        Vector ReflectManipulation(Vector newDirection, int energy = 0);
 
         IBoundingBox Clone();
 

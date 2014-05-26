@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sketchball
 {
@@ -13,7 +14,7 @@ namespace Sketchball
         private int dy;
         private PinballElement element;
 
-        public TranslationChange(PinballElement element, Vector2 vector) : this(element, (int)vector.X, (int)vector.Y)
+        public TranslationChange(PinballElement element, Vector vector) : this(element, (int)vector.X, (int)vector.Y)
         {
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using Sketchball.Elements;
 using System.Drawing;
+using System.Windows;
 
 namespace Sketchball.Collision
 {
@@ -46,7 +47,7 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="rad">Determines how much that is rotated in rad</param>
         /// <param name="center">Center of rotation</param>
-        public void Rotate(float rad, Vector2 center)
+        public void Rotate(float rad, Vector center)
         {
             foreach (IBoundingBox b in this.BoundingBoxes)
             {
@@ -59,7 +60,7 @@ namespace Sketchball.Collision
         /// Moves all bounding boxes
         /// </summary>
         /// <param name="moveVec">Direction and distance to be moved</param>
-        public void move(Vector2 moveVec)
+        public void move(Vector moveVec)
         {
             throw new NotImplementedException("Move is not supported anymore. Use a matrix if needed");
            /* foreach (IBoundingBox b in this.boundingBoxes)
@@ -95,14 +96,14 @@ namespace Sketchball.Collision
         /// <param name="coords">points that define the polygon</param>
         public void AddPolygon(params float[] coords)
         {
-            Vector2 prev = new Vector2();
+            Vector prev = new Vector();
 
             for (int i = 0; i+1 < coords.Length; i += 2)
             {
                 var x = coords[i];
                 var y = coords[i + 1];
 
-                var v = new Vector2(x, y);
+                var v = new Vector(x, y);
 
                 if (i > 0)
                 {

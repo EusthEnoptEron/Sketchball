@@ -15,7 +15,7 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private Vector2 MaxVelocity = new Vector2(5, -1000f);
+        private Vector MaxVelocity = new Vector(5, -1000f);
 
         private Ball Ball = null;
         private bool Charging = false;
@@ -41,21 +41,21 @@ namespace Sketchball.Elements
         protected override void Init()
         {
 
-            Vector2 p1 = new Vector2(7,1874);
-            Vector2 p2 = new Vector2(7, 403);
-            Vector2 p3 = new Vector2(44, 270);
-            Vector2 p4 = new Vector2(85, 403);
-            Vector2 p5 = new Vector2(85, 1874);
+            Vector p1 = new Vector(7,1874);
+            Vector p2 = new Vector(7, 403);
+            Vector p3 = new Vector(44, 270);
+            Vector p4 = new Vector(85, 403);
+            Vector p5 = new Vector(85, 1874);
 
-            Vector2 p21 = new Vector2(222, 1843);
-            Vector2 p22 = new Vector2(224, 405);
-            Vector2 p23 = new Vector2(176, 45);
-            Vector2 p24 = new Vector2(215, 16);
-            Vector2 p25 = new Vector2(267, 397);
-            Vector2 p26 = new Vector2(264, 1888);
+            Vector p21 = new Vector(222, 1843);
+            Vector p22 = new Vector(224, 405);
+            Vector p23 = new Vector(176, 45);
+            Vector p24 = new Vector(215, 16);
+            Vector p25 = new Vector(267, 397);
+            Vector p26 = new Vector(264, 1888);
 
-            Vector2 pPs = new Vector2(84, 1800 + PencilOffsetY);
-            Vector2 pPe = new Vector2(223, 1800 + PencilOffsetY);
+            Vector pPs = new Vector(84, 1800 + PencilOffsetY);
+            Vector pPe = new Vector(223, 1800 + PencilOffsetY);
 
 
             BoundingLine bL1 = new BoundingLine(p1, p2);

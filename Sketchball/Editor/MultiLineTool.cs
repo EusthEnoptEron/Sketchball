@@ -14,8 +14,8 @@ namespace Sketchball.Editor
 {
     public class MultiLineTool : Tool
     {
-        private Vector2 startPos;
-        private Vector2 actualPos;
+        private Vector startPos;
+        private Vector actualPos;
         private bool drawing = false;
 
 
@@ -31,8 +31,8 @@ namespace Sketchball.Editor
             if (drawing == false)
             {
                 var pos = e.GetPosition(Control);
-                this.startPos = new Vector2((float)pos.X, (float)pos.Y);
-                this.actualPos = new Vector2((float)pos.X, (float)pos.Y);
+                this.startPos = new Vector((float)pos.X, (float)pos.Y);
+                this.actualPos = new Vector((float)pos.X, (float)pos.Y);
                 this.drawing = true;
                 this.Control.Invalidate();
             }
@@ -52,7 +52,7 @@ namespace Sketchball.Editor
         {
 
             var pos = e.GetPosition(Control);
-            this.actualPos = new Vector2((float)pos.X, (float)pos.Y);
+            this.actualPos = new Vector((float)pos.X, (float)pos.Y);
 
             var end = Control.PointToPinball(actualPos);
             var start = Control.PointToPinball(startPos);

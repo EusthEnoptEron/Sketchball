@@ -60,6 +60,7 @@
     <Compile Include="Booster.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Collision\CollisionResult.cs" />
+    <Compile Include="Collision\VectorExtensions.cs" />
     <Compile Include="Controls\ElementInspector.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -152,7 +153,6 @@
       <DependentUpon>SelectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\TranslationChange.cs" />
-    <Compile Include="Vector2.cs" />
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>

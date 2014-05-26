@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sketchball.Collision
 {
@@ -49,7 +50,7 @@ namespace Sketchball.Collision
         /// </summary>
         public int FieldHeight { get; private set; }
 
-        public Vector2 hitPointDebug = new Vector2(0, 0);
+        public Vector hitPointDebug = new Vector(0, 0);
 
         /// <summary>
         /// Constructor
@@ -100,7 +101,7 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="bC">Container that holds bounding boxes to add</param>
         public void TakeOverBoundingContainer(BoundingContainer bC) {
-            Vector2 worldTrans = bC.ParentElement.Location;
+            Vector worldTrans = bC.ParentElement.Location;
 
             int x;
             int y;
@@ -167,8 +168,8 @@ namespace Sketchball.Collision
                     //line
                     BoundingLine bL = (BoundingLine)b;
 
-                    float posX = bL.Position.X + worldTrans.X;
-                    float posY = bL.Position.Y + worldTrans.Y;
+                    double posX = bL.Position.X + worldTrans.X;
+                    double posY = bL.Position.Y + worldTrans.Y;
 
                     //position of the line base (which field)
                     x = ((int)posX / FieldWidth);
@@ -179,7 +180,7 @@ namespace Sketchball.Collision
                         this.fields[x, y].addReference(bL);     //duplicate entries will be neglected
 
                     //define unitvector from position to target
-                    Vector2 unitV = bL.target - bL.Position;
+                    Vector unitV = bL.target - bL.Position;
                     unitV.Normalize();
 
 
@@ -249,23 +250,23 @@ namespace Sketchball.Collision
         /// <summary>
         /// Submethod to TakeOverBoundingContainer - not intended to be called outside of TakeOverBoundingContainer
         /// </summary>
-        private void takeOverBoundingLineLeftToRight(Vector2 unitV, float posX, float posY,ref int x,ref int y, BoundingLine bL, Vector2 worldTrans)
+        private void takeOverBoundingLineLeftToRight(Vector unitV, double posX, double posY, ref int x, ref int y, BoundingLine bL, Vector worldTrans)
         {
             if (unitV.X == 0)
             {
                 return;     //just y remains => the whole line is on one column
             }
 
-            float deltaRight = FieldWidth - (posX - FieldWidth * x);     //distance from right end of field to the position
-            float factorToNextXCross = deltaRight / unitV.X;
+            double deltaRight = FieldWidth - (posX - FieldWidth * x);     //distance from right end of field to the position
+            double factorToNextXCross = deltaRight / unitV.X;
 
             while (posX < (bL.target.X + worldTrans.X))
             {
                 factorToNextXCross = deltaRight / unitV.X;
 
                 //direction left to right
-                float nextXCross = posX + deltaRight;
-                float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
+                double nextXCross = posX + deltaRight;
+                double nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
                 int newFieldYIdx = ((int)(nextXCrossY) / FieldHeight);
@@ -319,15 +320,15 @@ namespace Sketchball.Collision
         /// <summary>
         /// Submethod to TakeOverBoundingContainer - not intended to be called outside of TakeOverBoundingContainer
         /// </summary>
-        private void takeOverBoundingLineRightToLeft(Vector2 unitV, float posX, float posY,ref int x,ref int y, BoundingLine bL, Vector2 worldTrans)
+        private void takeOverBoundingLineRightToLeft(Vector unitV, double posX, double posY, ref int x, ref int y, BoundingLine bL, Vector worldTrans)
         {
             if (unitV.X == 0)
             {
                 return;     //just y remains => the whole line is on one column
             }
 
-            float deltaLeft = (posX - FieldWidth * x);     //distance from right end of field to the position
-            float factorToNextXCross = deltaLeft / -unitV.X;
+            double deltaLeft = (posX - FieldWidth * x);     //distance from right end of field to the position
+            double factorToNextXCross = deltaLeft / -unitV.X;
 
 
             while (posX > (bL.target.X + worldTrans.X))
@@ -335,8 +336,8 @@ namespace Sketchball.Collision
                 factorToNextXCross = deltaLeft / -unitV.X;
 
                 //direction left to right
-                float nextXCross = posX - deltaLeft;
-                float nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
+                double nextXCross = posX - deltaLeft;
+                double nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
                 int newFieldYIdx = ((int)(nextXCrossY-1) / FieldHeight);
@@ -408,7 +409,7 @@ namespace Sketchball.Collision
                     continue;
                 }
 
-                Vector2 hitPoint = new Vector2(0, 0);
+                Vector hitPoint = new Vector(0, 0);
                 if (b.Intersect(ball.getBoundingContainer().BoundingBoxes[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                 {
                     history.AddFirst(b);
@@ -417,13 +418,13 @@ namespace Sketchball.Collision
                     if (!aniO.pureIntersection)
                     {
                        
-                        Vector2 rotationCenter = aniO.CurrentRotationCenter + aniO.Location;
+                        Vector rotationCenter = aniO.CurrentRotationCenter + aniO.Location;
 
-                        Vector2 aniNorm = (hitPoint - rotationCenter).Normal();
+                        Vector aniNorm = (hitPoint - rotationCenter).Normal();
 
-                        Vector2 h = -hitPoint + (ball.Location + new Vector2((float)ball.Width / 2, (float)ball.Height / 2));
+                        Vector h = -hitPoint + (ball.Location + new Vector((float)ball.Width / 2, (float)ball.Height / 2));
 
-                        Vector2 turnspeed = aniO.AngularVelocity * aniNorm;
+                        Vector turnspeed = aniO.AngularVelocity * aniNorm;
                         if (h.X * aniNorm.X < 0 || h.Y * aniNorm.Y < 0)
                         {
                             aniNorm = -aniNorm;
@@ -431,12 +432,12 @@ namespace Sketchball.Collision
 
                         ball.Velocity += -turnspeed;
 
-                        Vector2 newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
-                        Vector2 outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
+                        Vector newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
+                        Vector outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
                         outOfAreaPush += (aniO.AngularVelocityPerFrame) * aniNorm;        //push with the amout of the turn of animation until next update
 
-                        ball.Location = (hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
+                        ball.Location = (hitPoint - new Vector((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                         ball.Velocity = b.ReflectManipulation(newDirection);
                         this.hitPointDebug = hitPoint;
@@ -467,7 +468,7 @@ namespace Sketchball.Collision
                                     continue;
                                 }
 
-                                Vector2 hitPoint = new Vector2(0, 0);
+                                Vector hitPoint = new Vector(0, 0);
                                 if (b.Intersect(ball.getBoundingContainer().BoundingBoxes[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                                 {
                                     history.AddFirst(b);
@@ -475,10 +476,10 @@ namespace Sketchball.Collision
                                     b.BoundingContainer.ParentElement.notifyIntersection(ball);
                                     if (!b.BoundingContainer.ParentElement.pureIntersection)
                                     {
-                                        Vector2 newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
-                                        Vector2 outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
+                                        Vector newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
+                                        Vector outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
-                                        ball.Location = (hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
+                                        ball.Location = (hitPoint - new Vector((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                                         ball.Velocity = b.ReflectManipulation(newDirection);
                                         this.hitPointDebug = hitPoint;

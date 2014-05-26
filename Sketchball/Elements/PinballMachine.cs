@@ -81,11 +81,11 @@ namespace Sketchball.Elements
         /// <summary>
         /// Gets the calculated acceleration based on the gravity and the angle.
         /// </summary>
-        public Vector2 Acceleration
+        public Vector Acceleration
         {
             get
             {
-                return new Vector2(0, (float)Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
+                return new Vector(0, (float)Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
             }
         }
 

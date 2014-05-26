@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sketchball.Elements
 {
@@ -22,7 +23,7 @@ namespace Sketchball.Elements
         public float AngularVelocity { get; private set; }
 
         [Browsable(false)]
-        public Vector2 CurrentRotationCenter { get; private set; }
+        public Vector CurrentRotationCenter { get; private set; }
 
         protected Glide Tweener = new Glide();
 
@@ -30,12 +31,12 @@ namespace Sketchball.Elements
         {
         }
 
-        public GlideTween.Glide Rotate(float rad, Vector2 center, float time)
+        public GlideTween.Glide Rotate(float rad, Vector center, float time)
         {
             return Rotate(rad, center, time, null);
         }
 
-        public GlideTween.Glide Rotate(float rad, Vector2 center, float time, Action endRotation)
+        public GlideTween.Glide Rotate(float rad, Vector center, float time, Action endRotation)
         {
             float degAbs = rad + this.Rotation;
             this.CurrentRotationCenter = center;

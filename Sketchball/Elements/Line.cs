@@ -29,7 +29,7 @@ namespace Sketchball.Elements
             get { return size; }
         }
 
-        public Line(float x0, float y0, float x1, float y1)
+        public Line(double x0, double y0, double x1, double y1)
             : base()
         {
             X = Math.Min(x0, x1);
@@ -49,7 +49,7 @@ namespace Sketchball.Elements
             size = new Size((int)Math.Abs(x1 - x0), (int)Math.Abs(y1 - y0));
 
             //set up of bounding box
-            BoundingLine bL = new BoundingLine(new Vector2(x0, y0), new Vector2(x1, y1));
+            BoundingLine bL = new BoundingLine(new Vector(x0, y0), new Vector(x1, y1));
             this.boundingContainer.AddBoundingBox(bL);
         }
 

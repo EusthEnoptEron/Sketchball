@@ -3,6 +3,7 @@ using Sketchball.Collision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
+using System.Windows;
 namespace Collisiondetection_Test
 {
     [TestClass]
@@ -20,8 +21,8 @@ namespace Collisiondetection_Test
             int expectedFieldHeight = height / rows;
             int expectedFieldWidth = width / cols;
 
-            Vector2 position1 = new Vector2(0, 0);
-            Vector2 target1 = new Vector2(50,0);
+            Vector position1 = new Vector(0, 0);
+            Vector target1 = new Vector(50,0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -30,7 +31,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.AddBoundingBox(bL1);
-            parent1.Location = (new Vector2(0, 0));
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -79,8 +80,8 @@ namespace Collisiondetection_Test
             int expectedFieldHeight = height / rows;
             int expectedFieldWidth = width / cols;
 
-            Vector2 position1 = new Vector2(50, 0);
-            Vector2 target1 =  new Vector2(0, 0);
+            Vector position1 = new Vector(50, 0);
+            Vector target1 =  new Vector(0, 0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -89,7 +90,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.AddBoundingBox(bL1);
-            parent1.Location = (new Vector2(0, 0));
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -138,8 +139,8 @@ namespace Collisiondetection_Test
             int expectedFieldHeight = height / rows;
             int expectedFieldWidth = width / cols;
 
-            Vector2 position1 = new Vector2(0, 0);
-            Vector2 target1 = new Vector2(0, 50);
+            Vector position1 = new Vector(0, 0);
+            Vector target1 = new Vector(0, 50);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -148,7 +149,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.AddBoundingBox(bL1);
-            parent1.Location = (new Vector2(0, 0));
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -197,8 +198,8 @@ namespace Collisiondetection_Test
             int expectedFieldHeight = height / rows;
             int expectedFieldWidth = width / cols;
 
-            Vector2 position1 = new Vector2(0, 50);
-            Vector2 target1 = new Vector2(0, 0);
+            Vector position1 = new Vector(0, 50);
+            Vector target1 = new Vector(0, 0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -207,7 +208,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.AddBoundingBox(bL1);
-            parent1.Location = (new Vector2(0, 0));
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -257,8 +258,8 @@ namespace Collisiondetection_Test
             int expectedFieldHeight = height / rows;
             int expectedFieldWidth = width / cols;
 
-            Vector2 position1 = new Vector2(0, 0);
-            Vector2 target1 = new Vector2(50, 50);
+            Vector position1 = new Vector(0, 0);
+            Vector target1 = new Vector(50, 50);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -267,7 +268,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.AddBoundingBox(bL1);
-            parent1.Location = (new Vector2(0, 0));
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -316,8 +317,8 @@ namespace Collisiondetection_Test
             int expectedFieldHeight = height / rows;
             int expectedFieldWidth = width / cols;
 
-            Vector2 position1 = new Vector2(55, 55);
-            Vector2 target1 = new Vector2(0, 0);
+            Vector position1 = new Vector(55, 55);
+            Vector target1 = new Vector(0, 0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -326,7 +327,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.AddBoundingBox(bL1);
-            parent1.Location = (new Vector2(0, 0));
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -375,8 +376,8 @@ namespace Collisiondetection_Test
             int expectedFieldHeight = height / rows;
             int expectedFieldWidth = width / cols;
 
-            Vector2 position1 = new Vector2(-20, -20);
-            Vector2 target1 = new Vector2(-50, -50);
+            Vector position1 = new Vector(-20, -20);
+            Vector target1 = new Vector(-50, -50);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -385,7 +386,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.AddBoundingBox(bL1);
-            parent1.Location = (new Vector2(0, 0));
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -420,8 +421,8 @@ namespace Collisiondetection_Test
             int expectedFieldHeight = height / rows;
             int expectedFieldWidth = width / cols;
 
-            Vector2 position1 = new Vector2(0, 20);
-            Vector2 target1 = new Vector2(0, -50);
+            Vector position1 = new Vector(0, 20);
+            Vector target1 = new Vector(0, -50);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -430,7 +431,7 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
             bCont1.AddBoundingBox(bL1);
-            parent1.Location = (new Vector2(0, 0));
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);

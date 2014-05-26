@@ -188,10 +188,10 @@ namespace Sketchball.Controls
             return pArray[0];
         }
 
-        public Vector2 PointToPinball(Vector2 p)
+        public Vector PointToPinball(Vector p)
         {
             var point = PointToPinball(new Point((int)p.X, (int)p.Y));
-            return new Vector2((float)point.X, (float)point.Y);
+            return new Vector((float)point.X, (float)point.Y);
         }
 
         /// <summary>
@@ -208,10 +208,10 @@ namespace Sketchball.Controls
             return pArray[0];
         }
 
-        public Vector2 PointToEditor(Vector2 p)
+        public Vector PointToEditor(Vector p)
         {
             var point = PointToEditor(new Point(p.X, p.Y));
-            return new Vector2((float)point.X, (float)point.Y);
+            return new Vector((float)point.X, (float)point.Y);
         }
 
         /// <summary>
@@ -234,8 +234,14 @@ namespace Sketchball.Controls
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public float LengthToPinball(float val) {
+        public double LengthToPinball(double val)
+        {
             return val / ScaleFactor;
+        }
+
+        public float LengthToPinball(float val)
+        {
+            return (float)LengthToPinball((double)val);
         }
 
         public void LoadMachine(PinballMachine machine) {

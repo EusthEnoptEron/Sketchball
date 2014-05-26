@@ -3,6 +3,7 @@ using Sketchball.Collision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
+using System.Windows;
 
 namespace Collisiondetection_Test
 {
@@ -14,15 +15,15 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius = 20;
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(120, 80);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(120, 80);
 
-            Vector2 ballSpeed = new Vector2(120, 100) - ballPos;
+            Vector ballSpeed = new Vector(120, 100) - ballPos;
 
-            Vector2 hitPoint = new Vector2(120, 100);
-            Vector2 expectedPushBack = (radius * 2 / 1.9f) * Vector2.Normalize((hitPoint - (position + new Vector2(radius, radius))));
+            Vector hitPoint = new Vector(120, 100);
+            Vector expectedPushBack = (radius * 2 / 1.9f) * ((hitPoint - (position + new Vector(radius, radius)))).AsNormalized();
 
-            Vector2 pushBackVec;
+            Vector pushBackVec;
 
             //Creation
             Bumper parent = new Bumper();
@@ -31,7 +32,7 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
@@ -43,15 +44,15 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius = 20;
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(150, 120);
-            Vector2 hitPoint = new Vector2(140, 120);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(150, 120);
+            Vector hitPoint = new Vector(140, 120);
 
-            Vector2 ballSpeed = hitPoint - ballPos;
+            Vector ballSpeed = hitPoint - ballPos;
 
-            Vector2 expectedPushBack = (radius * 2 / 1.9f) * Vector2.Normalize((hitPoint - (position + new Vector2(radius, radius))));
+            Vector expectedPushBack = (radius * 2 / 1.9f) * ((hitPoint - (position + new Vector(radius, radius))).AsNormalized());
 
-            Vector2 pushBackVec;
+            Vector pushBackVec;
 
             //Creation
             Bumper parent = new Bumper();
@@ -60,7 +61,7 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
@@ -72,15 +73,15 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius = 20;
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(120, 150);
-            Vector2 hitPoint = new Vector2(120, 140);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(120, 150);
+            Vector hitPoint = new Vector(120, 140);
 
-            Vector2 ballSpeed = hitPoint - ballPos;
+            Vector ballSpeed = hitPoint - ballPos;
 
-            Vector2 expectedPushBack = (radius * 2 / 1.9f) * Vector2.Normalize((hitPoint - (position + new Vector2(radius, radius))));
+            Vector expectedPushBack = (radius * 2 / 1.9f) * (hitPoint - (position + new Vector(radius, radius))).AsNormalized();
 
-            Vector2 pushBackVec;
+            Vector pushBackVec;
 
             //Creation
             Bumper parent = new Bumper();
@@ -89,7 +90,7 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
@@ -101,15 +102,15 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius = 20;
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(90, 120);
-            Vector2 hitPoint = new Vector2(100, 120);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(90, 120);
+            Vector hitPoint = new Vector(100, 120);
 
-            Vector2 ballSpeed = hitPoint - ballPos;
+            Vector ballSpeed = hitPoint - ballPos;
 
-            Vector2 expectedPushBack = (radius * 2 / 1.9f) * Vector2.Normalize((hitPoint - (position + new Vector2(radius, radius))));
+            Vector expectedPushBack = (radius * 2 / 1.9f) * ((hitPoint - (position + new Vector(radius, radius)))).AsNormalized();
 
-            Vector2 pushBackVec;
+            Vector pushBackVec;
 
             //Creation
             Bumper parent = new Bumper();
@@ -118,7 +119,7 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
@@ -130,15 +131,15 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius = 20;
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(100, 100);
-            Vector2 hitPoint = new Vector2(120 - 14.1421f, 120 - 14.1421f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(100, 100);
+            Vector hitPoint = new Vector(120 - 14.1421f, 120 - 14.1421f);
 
-            Vector2 ballSpeed = hitPoint - ballPos;
+            Vector ballSpeed = hitPoint - ballPos;
 
-            Vector2 expectedPushBack = (radius * 2 / 1.9f) * Vector2.Normalize((hitPoint - (position + new Vector2(radius, radius))));
+            Vector expectedPushBack = (radius * 2 / 1.9f) * ((hitPoint - (position + new Vector(radius, radius)))).AsNormalized();
 
-            Vector2 pushBackVec;
+            Vector pushBackVec;
 
             //Creation
             Bumper parent = new Bumper();
@@ -147,7 +148,7 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion

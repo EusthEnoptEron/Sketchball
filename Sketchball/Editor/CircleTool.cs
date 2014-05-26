@@ -13,8 +13,8 @@ namespace Sketchball.Editor
 {
     public class CircleTool : Tool
     {
-        private Vector2 center;
-        private float radius;
+        private Vector center;
+        private double radius;
         private bool drawing = false;
         
 
@@ -28,7 +28,7 @@ namespace Sketchball.Editor
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
             var pos = e.GetPosition(Control);
-            this.center = new Vector2((float)pos.X, (float)pos.Y);
+            this.center = new Vector((float)pos.X, (float)pos.Y);
             this.radius = 0;
 
             this.drawing = true;
@@ -39,12 +39,12 @@ namespace Sketchball.Editor
         {
             var position = e.GetPosition(Control);
 
-            this.radius = Control.LengthToPinball((new Vector2((float)position.X, (float)position.Y) - this.center).Length());
+            this.radius = Control.LengthToPinball((new Vector(position.X, position.Y) - this.center).Length);
             var center = Control.PointToPinball(this.center);
             
 
             //Create Circle
-            Circle c = new Circle(center.X - this.radius, center.Y - this.radius, this.radius);
+            Circle c = new Circle(center.X - this.radius,  center.Y - this.radius, this.radius);
             this.Control.AddElement(c);
 
             this.drawing = false;
@@ -56,7 +56,7 @@ namespace Sketchball.Editor
             if (this.drawing)
             {
                 var position = e.GetPosition(Control);
-                this.radius = (new Vector2((float)position.X, (float)position.Y) - this.center).Length();
+                this.radius = (new Vector(position.X, position.Y) - this.center).Length;
                 this.Control.Invalidate();
             }
         }

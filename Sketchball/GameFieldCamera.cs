@@ -16,8 +16,8 @@ namespace Sketchball
 
         public BackgroundManager backgroundManager { get; private set; }
 
-        public Vector2 Translocation { get; set; }
-        public Vector2 Scale { get; set; }
+        public Vector Translocation { get; set; }
+        public Vector Scale { get; set; }
 
 
         public Size Size
@@ -32,8 +32,8 @@ namespace Sketchball
         public GameFieldCamera(Game game)
         {
             Game = game;
-            this.Translocation = new Vector2(0, 0);
-            this.Scale = new Vector2(0, 0);
+            this.Translocation = new Vector(0, 0);
+            this.Scale = new Vector(0, 0);
             //this.maximumSize = new Size(Screen.PrimaryScreen.Bounds.Width - this.offsetRight, (Screen.PrimaryScreen.Bounds.Height - offsetTopYAbs) / 100 * (100 - this.offsetY));
             this.backgroundManager = new BackgroundManager(game);
         }
@@ -92,18 +92,18 @@ namespace Sketchball
             //    this.Scale *= factor;
             //    if (Scale.X < 1||Scale.Y < 1)
             //    {
-            //        Scale = new Vector2(1, 1);
+            //        Scale = new Vector(1, 1);
             //    }
             //    this.backgroundManager.scaleMainBackground(this.Scale);
             //}
         }
 
-        public void moveRel(Vector2 relativ)
+        public void moveRel(Vector relativ)
         {
             //this.Translocation += relativ;
         }
 
-        public void moveAbs(Vector2 absPos)
+        public void moveAbs(Vector absPos)
         {
             //this.Translocation = absPos;
         }

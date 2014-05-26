@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Vector = System.Windows.Vector;
+
 namespace Sketchball
 {
     /// <summary>
@@ -145,7 +147,7 @@ namespace Sketchball
             if (Properties.Settings.Default.Debug && e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 game.Machine.IntroduceBall();
-                game.Machine.Balls.Last().Location = new Vector2(e.X * 0.4f, e.Y * 0.4f);
+                game.Machine.Balls.Last().Location = new Vector(e.X * 0.4f, e.Y * 0.4f);
             }
         }
 

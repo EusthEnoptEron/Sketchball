@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Vector = System.Windows.Vector;
+
 namespace Sketchball
 {
 
@@ -246,7 +248,7 @@ namespace Sketchball
         {
             var pos = e.GetPosition(PlayFieldEditor);
             var pinballPoint = PlayFieldEditor.PointToPinball(pos);
-            dragState.Element.Location = new Vector2((float)(pinballPoint.X - dragState.Element.Width / 2),
+            dragState.Element.Location = new Vector((float)(pinballPoint.X - dragState.Element.Width / 2),
                                                      (float)(pinballPoint.Y - dragState.Element.Height / 2));
             PlayFieldEditor.Invalidate();
         }

@@ -49,7 +49,7 @@ namespace Sketchball.Elements
         /// Gets or sets the current location of the element in internal coordinates.
         /// </summary>
         [DataMember]
-        public Vector2 Location = new Vector2();
+        public Vector Location = new Vector();
 
         /// <summary>
         /// Gets the original size of the element.
@@ -86,13 +86,13 @@ namespace Sketchball.Elements
         /// Gets or sets the X position of the element.
         /// </summary>
         [Category("Position")]
-        public float X { get { return Location.X; } set { Location.X = value; } }
+        public double X { get { return Location.X; } set { Location.X = value; } }
        
         /// <summary>
         /// Gets or sets the Y position of the element.
         /// </summary>
         [Category("Position")]
-        public float Y { get { return Location.Y; } set { Location.Y = value; } }
+        public double Y { get { return Location.Y; } set { Location.Y = value; } }
 
         
         /// <summary>
@@ -275,7 +275,7 @@ namespace Sketchball.Elements
         /// Returns the exact coordinates of the origin where the element is to be rotated.
         /// </summary>
         /// <returns></returns>
-        public Vector2 GetRotationOrigin()
+        public Vector GetRotationOrigin()
         {
             var top = (RotationOrigin.TopLeft | RotationOrigin.TopCenter | RotationOrigin.TopRight);
             var middle = (RotationOrigin.MiddleLeft | RotationOrigin.MiddleCenter | RotationOrigin.MiddleRight);
@@ -286,7 +286,7 @@ namespace Sketchball.Elements
             //var right = (RotationOrigin.TopRight | RotationOrigin.MiddleRight | RotationOrigin.BottomRight);
 
 
-            Vector2 origin = new Vector2();
+            Vector origin = new Vector();
             if ( (Origin & top) != 0)
             {
                 origin.Y = 0;

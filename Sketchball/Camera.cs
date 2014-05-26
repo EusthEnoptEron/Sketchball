@@ -13,11 +13,11 @@ namespace Sketchball
         Size Size { get; set; }
         void Draw(DrawingContext g);
         void zoom(float factor);
-        void moveRel(Vector2 relMove);
-        void moveAbs(Vector2 relAbs);
+        void moveRel(Vector relMove);
+        void moveAbs(Vector relAbs);
 
-        Vector2 Scale { get; }
-        Vector2 Translocation { get; }
+        Vector Scale { get; }
+        Vector Translocation { get; }
         BackgroundManager backgroundManager { get; }
     }
 }

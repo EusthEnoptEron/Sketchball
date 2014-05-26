@@ -27,10 +27,10 @@ namespace Sketchball.Elements
         protected override void Init()
         {
             //Todo: Correct
-            Vector2 p1 = new Vector2(311, 59);
-            Vector2 p2 = new Vector2(353, 239);
-            Vector2 p3 = new Vector2(123, 367);
-            Vector2 p4 = new Vector2(72, 337);
+            Vector p1 = new Vector(311, 59);
+            Vector p2 = new Vector(353, 239);
+            Vector p3 = new Vector(123, 367);
+            Vector p4 = new Vector(72, 337);
 
             p1 /= 4;
             p2 /= 4;

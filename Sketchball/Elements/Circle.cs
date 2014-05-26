@@ -18,7 +18,8 @@ namespace Sketchball.Elements
         {
         }
 
-        public Circle(float x0, float y0, float radius) : base()
+        public Circle(double x0, double y0, double radius)
+            : base()
         {
             Width = (int)(2 * radius);
             Height = (int)(2 * radius);
@@ -31,7 +32,7 @@ namespace Sketchball.Elements
         protected override void Init()
         {
             //set up of bounding box
-            BoundingCircle bc = new BoundingCircle(this.radius, new Vector2(0, 0));
+            BoundingCircle bc = new BoundingCircle(this.radius, new Vector(0, 0));
             this.boundingContainer.AddBoundingBox(bc);
         }
 

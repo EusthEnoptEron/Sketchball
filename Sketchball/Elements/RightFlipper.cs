@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace Sketchball.Elements
@@ -28,17 +29,17 @@ namespace Sketchball.Elements
             RotationRange = -RotationRange;
 
 
-            Vector2 offset = new Vector2(-10, -10);
+            Vector offset = new Vector(-10, -10);
             int r1 = 70;
             int r2 = 16;
-            Vector2 mitteKreis = new Vector2(-(140 - 400) + 400, 295) + offset;
-            Vector2 obenKreisLinie = new Vector2(-(180 - 400) + 400, 241) + offset;
-            Vector2 p3 = new Vector2(-(678 - 400) + 400, 505) + offset;
-            Vector2 p4 = new Vector2(-(700 - 400) + 400, 534) + offset;
-            Vector2 circle2 = new Vector2(-(692 - 400) + 400, 546) + offset;
-            Vector2 p5 = new Vector2(-(692 - 400) + 400, 561) + offset;
-            Vector2 p6 = new Vector2(-(645 - 400) + 400, 566) + offset;
-            Vector2 p7 = new Vector2(-(116 - 400) + 400, 355) + offset;
+            Vector mitteKreis = new Vector(-(140 - 400) + 400, 295) + offset;
+            Vector obenKreisLinie = new Vector(-(180 - 400) + 400, 241) + offset;
+            Vector p3 = new Vector(-(678 - 400) + 400, 505) + offset;
+            Vector p4 = new Vector(-(700 - 400) + 400, 534) + offset;
+            Vector circle2 = new Vector(-(692 - 400) + 400, 546) + offset;
+            Vector p5 = new Vector(-(692 - 400) + 400, 561) + offset;
+            Vector p6 = new Vector(-(645 - 400) + 400, 566) + offset;
+            Vector p7 = new Vector(-(116 - 400) + 400, 355) + offset;
 
           
             r1 = (int)(r1 / factor);
@@ -52,10 +53,10 @@ namespace Sketchball.Elements
             p6 /= factor;
             p7 /= factor;
 
-            BoundingCircle bC1 = new BoundingCircle(r1, mitteKreis - new Vector2(r1, r1));
+            BoundingCircle bC1 = new BoundingCircle(r1, mitteKreis - new Vector(r1, r1));
             BoundingLine bL1 = new BoundingLine(obenKreisLinie, p3);
             BoundingLine bL2 = new BoundingLine(p3, p4);
-            BoundingCircle bC2 = new BoundingCircle(r2, circle2 - new Vector2(r2, r2));
+            BoundingCircle bC2 = new BoundingCircle(r2, circle2 - new Vector(r2, r2));
             BoundingLine bL3 = new BoundingLine(p5, p6);
             BoundingLine bL4 = new BoundingLine(p6, p7);
 
@@ -68,11 +69,11 @@ namespace Sketchball.Elements
             this.boundingContainer.AddBoundingBox(bL4);
         }
 
-        protected override Vector2 Origin
+        protected override Vector Origin
         {
             get
             {
-                Vector2 pictureRotPos = new Vector2(-(157 - 400) + 400, 304);
+                Vector pictureRotPos = new Vector(-(157 - 400) + 400, 304);
 
                 return pictureRotPos / factor;
             }

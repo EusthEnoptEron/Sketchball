@@ -27,9 +27,9 @@ namespace Sketchball.Elements
         protected override void Init()
         {
             //set up of bounding box
-            BoundingLine bL1 = new BoundingLine(new Vector2(0, 200), new Vector2(100, 0));
-            BoundingLine bL2 = new BoundingLine(new Vector2(100, 0), new Vector2(200, 200));
-            BoundingLine bL3 = new BoundingLine(new Vector2(200, 200), new Vector2(0, 200));
+            BoundingLine bL1 = new BoundingLine(new Vector(0, 200), new Vector(100, 0));
+            BoundingLine bL2 = new BoundingLine(new Vector(100, 0), new Vector(200, 200));
+            BoundingLine bL3 = new BoundingLine(new Vector(200, 200), new Vector(0, 200));
 
             this.boundingContainer.AddBoundingBox(bL1);
             this.boundingContainer.AddBoundingBox(bL2);
@@ -45,7 +45,7 @@ namespace Sketchball.Elements
 
         private void turnaround()
         {
-            Vector2 drawCenter = new Vector2(100, 0);
+            Vector drawCenter = new Vector(100, 0);
           
             this.Rotate(((float)(360 / 180f * Math.PI)), drawCenter, 5f, new Action(turnaround));
         }

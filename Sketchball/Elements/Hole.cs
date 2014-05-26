@@ -20,7 +20,7 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
-            BoundingCircle bC = new BoundingCircle(25, new Vector2(0, 0));
+            BoundingCircle bC = new BoundingCircle(25, new Vector(0, 0));
             this.boundingContainer.AddBoundingBox(bC);
             bC.AssignToContainer(this.boundingContainer);
         }

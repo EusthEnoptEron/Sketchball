@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace Sketchball.Elements
@@ -28,14 +29,14 @@ namespace Sketchball.Elements
         {
             int r1 = 70;
             int r2 = 16;
-            Vector2 mitteKreis = new Vector2(140, 295);
-            Vector2 obenKreisLinie = new Vector2(180, 241);
-            Vector2 p3 = new Vector2(678, 505);
-            Vector2 p4 = new Vector2(700, 534);
-            Vector2 circle2 = new Vector2(692,546);
-            Vector2 p5 = new Vector2(692, 561);
-            Vector2 p6 = new Vector2(645, 566);
-            Vector2 p7 = new Vector2(116, 355);
+            Vector mitteKreis = new Vector(140, 295);
+            Vector obenKreisLinie = new Vector(180, 241);
+            Vector p3 = new Vector(678, 505);
+            Vector p4 = new Vector(700, 534);
+            Vector circle2 = new Vector(692,546);
+            Vector p5 = new Vector(692, 561);
+            Vector p6 = new Vector(645, 566);
+            Vector p7 = new Vector(116, 355);
            
 
             r1 = (int)(r1/factor);
@@ -49,10 +50,10 @@ namespace Sketchball.Elements
             p6 /= factor;
             p7 /= factor;
 
-            BoundingCircle bC1 = new BoundingCircle(r1, mitteKreis- new Vector2(r1,r1));
+            BoundingCircle bC1 = new BoundingCircle(r1, mitteKreis- new Vector(r1,r1));
             BoundingLine bL1 = new BoundingLine(obenKreisLinie, p3);
             BoundingLine bL2 = new BoundingLine(p3, p4);
-            BoundingCircle bC2 = new BoundingCircle(r2, circle2 - new Vector2(r2, r2));
+            BoundingCircle bC2 = new BoundingCircle(r2, circle2 - new Vector(r2, r2));
             BoundingLine bL3 = new BoundingLine(p5, p6);
             BoundingLine bL4 = new BoundingLine(p6, p7);
 
@@ -71,11 +72,11 @@ namespace Sketchball.Elements
             g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
 
-        protected override Vector2 Origin
+        protected override Vector Origin
         {
             get
             {
-                Vector2 pictureRotPos = new Vector2(157, 304);
+                Vector pictureRotPos = new Vector(157, 304);
                 return pictureRotPos / factor;
             }
         }

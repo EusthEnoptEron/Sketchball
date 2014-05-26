@@ -3,6 +3,7 @@ using Sketchball.Collision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
+using System.Windows;
 
 namespace Collisiondetection_Test
 {
@@ -14,7 +15,7 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius = 20;
-            Vector2 center = new Vector2(0f, 0f);
+            Vector center = new Vector(0f, 0f);
 
             //Creation
             BoundingCircle bC = new BoundingCircle(radius, center);
@@ -23,7 +24,7 @@ namespace Collisiondetection_Test
 
             //Assertion
             Assert.IsNotNull(bC);
-            Assert.AreEqual(bC.Position, center + new Vector2(radius, radius));
+            Assert.AreEqual(bC.Position, center + new Vector(radius, radius));
             Assert.AreEqual(bC.radius, radius);
         }
 
@@ -32,14 +33,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectNone()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(20, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(20, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(10, 0f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(10, 0f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -52,7 +53,7 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.Location = new Vector2(0, 0);
+            parent.Location = new Vector(0, 0);
             parent.Width = 20;
             parent.Height = 0;
 
@@ -67,14 +68,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectNormal()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0, 30f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(0, 30f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -87,10 +88,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = new Vector2(0, 0);
+            ball.Location = new Vector(0, 0);
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = new Vector2(0, 0);
+            parent.Location = new Vector(0, 0);
             parent.Width = 40;
             parent.Height = 0;
 
@@ -107,14 +108,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectNear1pxTop()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0, 9f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(0, 9f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -127,10 +128,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = new Vector2(0, 0);
+            ball.Location = new Vector(0, 0);
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = new Vector2(0, 0);
+            parent.Location = new Vector(0, 0);
             parent.Width = 40;
             parent.Height = 0;
 
@@ -145,14 +146,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectTouchTop()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0, 10f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(0, 10f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -165,10 +166,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = new Vector2(0, 0);
+            ball.Location = new Vector(0, 0);
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = new Vector2(0, 0);
+            parent.Location = new Vector(0, 0);
             parent.Width = 40;
             parent.Height = 0;
 
@@ -183,14 +184,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectOverlap1pxTop()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0, 11f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(0, 11f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -203,10 +204,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -223,14 +224,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectNormalTop2()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0, 30f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(0, 30f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -243,10 +244,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -264,14 +265,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectOverHalfwayThrough()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0, 40f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(0, 40f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -284,10 +285,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -304,14 +305,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectToFarStillTouchBot()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 0f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 0f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0, 50f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(0, 50f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -324,10 +325,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -342,14 +343,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectTooFar1pxAwayBot()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0, 51f);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(0, 51f);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -362,10 +363,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -380,14 +381,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectLeft1pxTooFarAway()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-41, 30);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(-41, 30);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -400,10 +401,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -418,14 +419,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectLeftTouch()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-20, 50);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(-20, 50);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -438,10 +439,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 40;
             ball.Height = 40;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -456,14 +457,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectleft1pxOverlap()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-39, 30);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(-39, 30);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -476,10 +477,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -497,14 +498,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectRight1pxTooFarAway()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(41, 30);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(41, 30);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -517,10 +518,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -535,14 +536,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectRightTouch()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(40, 30);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(40, 30);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -555,10 +556,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 
@@ -573,14 +574,14 @@ namespace Collisiondetection_Test
         public void TestIntersectIntersectRight1pxOverlap()
         {
             //Preconfig
-            Vector2 target1 = new Vector2(40, 50);
-            Vector2 position1 = new Vector2(0f, 50f);
+            Vector target1 = new Vector(40, 50);
+            Vector position1 = new Vector(0f, 50f);
 
             int radius2 = 20;
-            Vector2 center2 = new Vector2(39, 30);
-            Vector2 ballSpeed = new Vector2(0, 5);
+            Vector center2 = new Vector(39, 30);
+            Vector ballSpeed = new Vector(0, 5);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -593,10 +594,10 @@ namespace Collisiondetection_Test
             bCont.AddBoundingBox(bL1);
             bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            ball.Location = (new Vector2(0, 0));
+            ball.Location = (new Vector(0, 0));
             ball.Width = 20;
             ball.Height = 20;
-            parent.Location = (new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 40;
             parent.Height = 0;
 

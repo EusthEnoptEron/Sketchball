@@ -48,11 +48,11 @@ namespace Sketchball.Elements
             machine.Input.KeyUp -= OnKeyUp;
         }
 
-        protected virtual Vector2 Origin
+        protected virtual Vector Origin
         {
             get
             {
-                return new Vector2(0, (float)this.Height);
+                return new Vector(0, (float)this.Height);
             }
         }
 
