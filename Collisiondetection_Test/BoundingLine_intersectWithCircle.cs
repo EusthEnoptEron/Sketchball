@@ -23,7 +23,7 @@ namespace Collisiondetection_Test
 
             //Assertion
             Assert.IsNotNull(bL);
-            Assert.AreEqual(bL.position, position1);
+            Assert.AreEqual(bL.Position, position1);
             Assert.AreEqual(bL.target, target1);
         }
 
@@ -52,13 +52,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1,target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);
@@ -88,13 +88,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);
@@ -124,13 +124,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);
@@ -160,13 +160,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);
@@ -198,13 +198,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);
@@ -234,13 +234,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
             
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsTrue(isIntersec);
@@ -271,13 +271,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsTrue(isIntersec);
@@ -308,13 +308,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsTrue(isIntersec);
@@ -345,13 +345,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsTrue(isIntersec);
@@ -382,13 +382,13 @@ namespace Collisiondetection_Test
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
 
-            bCont.addBoundingBox(bL1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bL1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            isIntersec = bC2.intersec(bL1, out hitPoint);
+            isIntersec = bC2.Intersect(bL1, out hitPoint);
 
             //Assertion
             Assert.IsTrue(isIntersec);

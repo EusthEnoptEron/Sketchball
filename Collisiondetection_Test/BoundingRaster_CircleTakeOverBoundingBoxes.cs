@@ -66,7 +66,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0,0));
            
             //operation
@@ -126,7 +126,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -186,7 +186,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -247,7 +247,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -307,7 +307,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -366,7 +366,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -425,7 +425,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -484,7 +484,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -543,7 +543,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -602,7 +602,7 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
+            bCont1.AddBoundingBox(bC1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation

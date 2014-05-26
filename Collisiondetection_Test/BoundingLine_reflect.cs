@@ -29,11 +29,11 @@ namespace Collisiondetection_Test
             Line parent = new Line();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
-            bCont.addBoundingBox(bL1);
+            bCont.AddBoundingBox(bL1);
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bL1.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -60,11 +60,11 @@ namespace Collisiondetection_Test
             Line parent = new Line();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
-            bCont.addBoundingBox(bL1);
+            bCont.AddBoundingBox(bL1);
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bL1.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -92,11 +92,11 @@ namespace Collisiondetection_Test
             Line parent = new Line();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
-            bCont.addBoundingBox(bL1);
+            bCont.AddBoundingBox(bL1);
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bL1.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -123,11 +123,11 @@ namespace Collisiondetection_Test
             Line parent = new Line();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
-            bCont.addBoundingBox(bL1);
+            bCont.AddBoundingBox(bL1);
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bL1.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -154,11 +154,11 @@ namespace Collisiondetection_Test
             Line parent = new Line();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingLine bL1 = new BoundingLine(position1, target1);
-            bCont.addBoundingBox(bL1);
+            bCont.AddBoundingBox(bL1);
             parent.Location = (new Vector2(0, 0));
 
             //Operation
-            reflection = bL1.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bL1.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion

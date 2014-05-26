@@ -50,7 +50,7 @@ namespace Sketchball.Elements
 
             //set up of bounding box
             BoundingLine bL = new BoundingLine(new Vector2(x0, y0), new Vector2(x1, y1));
-            this.boundingContainer.addBoundingBox(bL);
+            this.boundingContainer.AddBoundingBox(bL);
         }
 
 

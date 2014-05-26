@@ -23,7 +23,7 @@ namespace Sketchball.Collision
 
         public BoundingLine(Vector2 from, Vector2 target)
         {
-            this.position = from;
+            this.Position = from;
             this.target = target;
 
             _originalPosition = from;
@@ -31,30 +31,30 @@ namespace Sketchball.Collision
         }
 
 
-        public override bool intersec(IBoundingBox bB, out Vector2 hitPoint)
+        public override bool Intersect(IBoundingBox bB, out Vector2 hitPoint)
         {
-            return bB.lineIntersec(this, out hitPoint);
+            return bB.LineIntersect(this, out hitPoint);
         }
 
-        public override bool intersec(IBoundingBox bB, out Vector2 hitPoint, Vector2 velocity)
+        public override bool Intersect(IBoundingBox bB, out Vector2 hitPoint, Vector2 velocity)
         {
-            return bB.lineIntersec(this, out hitPoint);
+            return bB.LineIntersect(this, out hitPoint);
         }
 
-        public override Vector2 reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos)
+        public override Vector2 Reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos)
         {
 
-            Vector2 dLine = this.target - this.position;
+            Vector2 dLine = this.target - this.Position;
             Vector2 normal = new Vector2(-dLine.Y,dLine.X);     
 
-            if (hitPoint == this.position + this.BoundingContainer.parentElement.Location)
+            if (hitPoint == this.Position + this.BoundingContainer.ParentElement.Location)
             {
-                normal = ballpos - (this.position + this.BoundingContainer.parentElement.Location);
+                normal = ballpos - (this.Position + this.BoundingContainer.ParentElement.Location);
             }
 
-            if (hitPoint == this.target + this.BoundingContainer.parentElement.Location)
+            if (hitPoint == this.target + this.BoundingContainer.ParentElement.Location)
             {
-                normal = ballpos - (this.target + this.BoundingContainer.parentElement.Location);
+                normal = ballpos - (this.target + this.BoundingContainer.ParentElement.Location);
             }
 
             normal.Normalize();
@@ -62,12 +62,12 @@ namespace Sketchball.Collision
             return Vector2.Reflect(vecIn, normal);
         }
 
-        public override Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos)
+        public override Vector2 GetOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos)
         {
             //check if hit at the end (corner reflection must be handled with less simplification
-            if (hitPoint == this.position + this.BoundingContainer.parentElement.Location)
+            if (hitPoint == this.Position + this.BoundingContainer.ParentElement.Location)
             {
-                Vector2 t = ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.position + this.BoundingContainer.parentElement.Location);
+                Vector2 t = ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.Position + this.BoundingContainer.ParentElement.Location);
                 if (t.X == 0 && t.Y == 0)
                 {
                     return Vector2.Normalize(velocity) * (diameterBall / pushBackByPointsCoefficient);
@@ -75,9 +75,9 @@ namespace Sketchball.Collision
                 return (diameterBall / pushBackByPointsCoefficient) * Vector2.Normalize(t);
             }
 
-            if (hitPoint == this.target + this.BoundingContainer.parentElement.Location)
+            if (hitPoint == this.target + this.BoundingContainer.ParentElement.Location)
             {
-                Vector2 t = Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.target + this.BoundingContainer.parentElement.Location));
+                Vector2 t = Vector2.Normalize(ballPos + new Vector2(diameterBall / 2f, diameterBall / 2f) - (this.target + this.BoundingContainer.ParentElement.Location));
                 if (t.X == 0 && t.Y == 0)
                 {
                     return Vector2.Normalize(velocity) * (diameterBall / pushBackByPointsCoefficient);
@@ -86,8 +86,8 @@ namespace Sketchball.Collision
             }
 
             //now check which normal we have to take (depends on velocity)
-            Vector2 norm = Vector2.Normalize((this.target - this.position).Normal());
-            Vector2 dLine = this.target - this.position;
+            Vector2 norm = Vector2.Normalize((this.target - this.Position).Normal());
+            Vector2 dLine = this.target - this.Position;
 
             float d = Vector2.Dot((velocity), Vector2.Normalize(dLine));    //distance on dLine from pos to the point where the normal from velocity hits
           
@@ -122,16 +122,16 @@ namespace Sketchball.Collision
         }
 
         //TODO: UNTESTED
-        public override bool lineIntersec(BoundingLine bL, out Vector2 hitPoint)
+        public override bool LineIntersect(BoundingLine bL, out Vector2 hitPoint)
         {
             throw new MissingMethodException();
-            Vector2 thisWorldTras = this.BoundingContainer.parentElement.Location;
-            Vector2 bLWorldTrans = bL.BoundingContainer.parentElement.Location;
+            Vector2 thisWorldTras = this.BoundingContainer.ParentElement.Location;
+            Vector2 bLWorldTrans = bL.BoundingContainer.ParentElement.Location;
 
-            Vector2 bLWorldPos = bL.position + bLWorldTrans;
+            Vector2 bLWorldPos = bL.Position + bLWorldTrans;
             Vector2 bLWorldTar = bL.target + bLWorldTrans;
             Vector2 thisWorldTar = this.target + thisWorldTras;
-            Vector2 thisWorldPos = this.position + thisWorldTras;
+            Vector2 thisWorldPos = this.Position + thisWorldTras;
 
 
             float A1 = thisWorldTar.Y - thisWorldPos.Y;
@@ -186,13 +186,13 @@ namespace Sketchball.Collision
             return t2;
         }
 
-        public override void rotate(float rad, Vector2 center)
+        public override void Rotate(float rad, Vector2 center)
         {
             Matrix rotation = new Matrix();
             rotation.RotateAt((rad/Math.PI*180f), center.X, center.Y);
 
             Point[] pts = new Point[2];
-            Vector2 p1 = this.position;
+            Vector2 p1 = this.Position;
             Vector2 p2 = this.target;
             pts[0].X = p1.X;
             pts[0].Y = p1.Y;
@@ -205,20 +205,20 @@ namespace Sketchball.Collision
             p2.X = (float)pts[1].X;
             p2.Y = (float)pts[1].Y;
 
-            this.position = p1;
+            this.Position = p1;
             this.target = p2;     
         }
 
-        public override bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity)
+        public override bool CircleIntersect(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity)
         {
             //strategy: connect center of ball with start of line. calc where the normal from center of ball on line hits (pointNormalDirectionPice). If len from center of ball to this point
             //is smaller then radius then it is a hit. Should pointNormalDirectionPice be smaller then start - radius of ball or bigger then end+ radius of ball => ignore
 
             hitPoint = new Vector2(0, 0);
 
-            Vector2 bLWorldPos = this.position + this.BoundingContainer.parentElement.Location;
-            Vector2 bLWorldTar = this.target + this.BoundingContainer.parentElement.Location;
-            Vector2 thisWorldPos = bC.position + bC.BoundingContainer.parentElement.Location;
+            Vector2 bLWorldPos = this.Position + this.BoundingContainer.ParentElement.Location;
+            Vector2 bLWorldTar = this.target + this.BoundingContainer.ParentElement.Location;
+            Vector2 thisWorldPos = bC.Position + bC.BoundingContainer.ParentElement.Location;
 
             Vector2 centerOfCircle = thisWorldPos;
             Vector2 directionLine = bLWorldTar - bLWorldPos;
@@ -260,15 +260,9 @@ namespace Sketchball.Collision
 
         public override IBoundingBox Clone()
         {
-            BoundingLine bL =  new BoundingLine(new Vector2(this.position.X, this.position.Y), new Vector2(this.target.X, this.target.Y));
+            BoundingLine bL =  new BoundingLine(new Vector2(this.Position.X, this.Position.Y), new Vector2(this.target.X, this.target.Y));
             //do not forget to assinge BoundingContainer after clone
             return bL;
-        }
-
-        public override void clearRotation()
-        {
-            position = _originalPosition;
-            target   = _originalTarget;
         }
 
         public override void Sync(Matrix matrix)
@@ -276,14 +270,14 @@ namespace Sketchball.Collision
             Point[] points = new Point[] { new Point(_originalPosition.X, _originalPosition.Y), new Point(_originalTarget.X, _originalTarget.Y) };
             matrix.Transform(points);
 
-            position = new Vector2((float)points[0].X, (float)points[0].Y);
+            Position = new Vector2((float)points[0].X, (float)points[0].Y);
             target   = new Vector2((float)points[1].X, (float)points[1].Y);
         }
 
-        public override void drawDEBUG(DrawingContext g, System.Windows.Media.Pen pen)
+        public override void DrawDebug(DrawingContext g, System.Windows.Media.Pen pen)
         {
-            Vector2 pos = this.BoundingContainer.parentElement.Location;
-            g.DrawLine(pen, new System.Windows.Point((int)(this.position.X + pos.X), (int)(this.position.Y + pos.Y)), new System.Windows.Point((int)(this.target.X + pos.X), (int)(this.target.Y + pos.Y)));
+            Vector2 pos = this.BoundingContainer.ParentElement.Location;
+            g.DrawLine(pen, new System.Windows.Point((int)(this.Position.X + pos.X), (int)(this.Position.Y + pos.Y)), new System.Windows.Point((int)(this.target.X + pos.X), (int)(this.target.Y + pos.Y)));
         }
     }
 }

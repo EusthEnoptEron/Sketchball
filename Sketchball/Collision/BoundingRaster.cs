@@ -100,12 +100,12 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="bC">Container that holds bounding boxes to add</param>
         public void TakeOverBoundingContainer(BoundingContainer bC) {
-            Vector2 worldTrans = bC.parentElement.Location;
+            Vector2 worldTrans = bC.ParentElement.Location;
 
             int x;
             int y;
 
-            foreach (IBoundingBox b in bC.boundingBoxes)
+            foreach (IBoundingBox b in bC.BoundingBoxes)
             {
 
                 if (b.GetType() == typeof(BoundingCircle))
@@ -114,8 +114,8 @@ namespace Sketchball.Collision
                     BoundingCircle bCir = (BoundingCircle)b;
 
                     //position of the circle self (which field)
-                    x = ((int)(bCir.position.X + worldTrans.X) / fieldWidth);        //TODO check if this is rounded down
-                    y = ((int)(bCir.position.Y + worldTrans.Y) / fieldHeight);
+                    x = ((int)(bCir.Position.X + worldTrans.X) / fieldWidth);        //TODO check if this is rounded down
+                    y = ((int)(bCir.Position.Y + worldTrans.Y) / fieldHeight);
 
 
                     //amount of fields x and y (rounded up) 
@@ -124,7 +124,7 @@ namespace Sketchball.Collision
                     int circFieldsX = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldWidth));
                     int circFieldsy = (int)Math.Ceiling((double)(bCir.radius * 1f / fieldHeight));
 
-                    if ((bCir.position.X + worldTrans.X) < 0)
+                    if ((bCir.Position.X + worldTrans.X) < 0)
                     {
                         x = (x - 1);
                         if (circFieldsX + x > 0)
@@ -133,7 +133,7 @@ namespace Sketchball.Collision
                         }
                     }
 
-                    if ((bCir.position.Y + worldTrans.Y) < 0)
+                    if ((bCir.Position.Y + worldTrans.Y) < 0)
                     {
                         y = (y - 1);
                         if (circFieldsy + y > 0)
@@ -167,8 +167,8 @@ namespace Sketchball.Collision
                     //line
                     BoundingLine bL = (BoundingLine)b;
 
-                    float posX = bL.position.X + worldTrans.X;
-                    float posY = bL.position.Y + worldTrans.Y;
+                    float posX = bL.Position.X + worldTrans.X;
+                    float posY = bL.Position.Y + worldTrans.Y;
 
                     //position of the line base (which field)
                     x = ((int)posX / fieldWidth);
@@ -179,7 +179,7 @@ namespace Sketchball.Collision
                         this.fields[x, y].addReference(bL);     //duplicate entries will be neglected
 
                     //define unitvector from position to target
-                    Vector2 unitV = bL.target - bL.position;
+                    Vector2 unitV = bL.target - bL.Position;
                     unitV.Normalize();
 
 
@@ -231,7 +231,7 @@ namespace Sketchball.Collision
                 if (pE is AnimatedObject)
                 {
                     // Special treatment
-                    foreach (BoundingBox bb in pE.boundingContainer.boundingBoxes)
+                    foreach (BoundingBox bb in pE.boundingContainer.BoundingBoxes)
                     {
                         this.addAnimatedObject(bb);
                     }
@@ -409,10 +409,10 @@ namespace Sketchball.Collision
                 }
 
                 Vector2 hitPoint = new Vector2(0, 0);
-                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
+                if (b.Intersect(ball.getBoundingContainer().BoundingBoxes[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                 {
                     history.AddFirst(b);
-                    AnimatedObject aniO = ((AnimatedObject)b.BoundingContainer.parentElement);
+                    AnimatedObject aniO = ((AnimatedObject)b.BoundingContainer.ParentElement);
                     aniO.notifyIntersection(ball);
                     if (!aniO.pureIntersection)
                     {
@@ -431,14 +431,14 @@ namespace Sketchball.Collision
 
                         ball.Velocity += -turnspeed;
 
-                        Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().getBoundingBoxes()[0].position);
-                        Vector2 outOfAreaPush = b.getOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
+                        Vector2 newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
+                        Vector2 outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
                         outOfAreaPush += (aniO.angualrVelocityPerFrame) * aniNorm;        //push with the amout of the turn of animation until next update
 
                         ball.Location = (hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
-                        ball.Velocity = b.reflectManipulation(newDirection);
+                        ball.Velocity = b.ReflectManipulation(newDirection);
                         this.hitPointDebug = hitPoint;
                     }
                 }
@@ -468,19 +468,19 @@ namespace Sketchball.Collision
                                 }
 
                                 Vector2 hitPoint = new Vector2(0, 0);
-                                if (b.intersec(ball.getBoundingContainer().getBoundingBoxes()[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
+                                if (b.Intersect(ball.getBoundingContainer().BoundingBoxes[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                                 {
                                     history.AddFirst(b);
                                     //collision
-                                    b.BoundingContainer.parentElement.notifyIntersection(ball);
-                                    if (!b.BoundingContainer.parentElement.pureIntersection)
+                                    b.BoundingContainer.ParentElement.notifyIntersection(ball);
+                                    if (!b.BoundingContainer.ParentElement.pureIntersection)
                                     {
-                                        Vector2 newDirection = b.reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().getBoundingBoxes()[0].position);
-                                        Vector2 outOfAreaPush = b.getOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
+                                        Vector2 newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
+                                        Vector2 outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
                                         ball.Location = (hitPoint - new Vector2((float)ball.Width / 2, (float)ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector2.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
-                                        ball.Velocity = b.reflectManipulation(newDirection);
+                                        ball.Velocity = b.ReflectManipulation(newDirection);
                                         this.hitPointDebug = hitPoint;
                                     }
                                 }

@@ -28,11 +28,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
-            pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
+            pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
             Assert.AreEqual(expectedPushBack, pushBackVec);
@@ -57,11 +57,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
-            pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
+            pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
             Assert.AreEqual(expectedPushBack, pushBackVec);
@@ -86,11 +86,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
-            pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
+            pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
             Assert.AreEqual(expectedPushBack, pushBackVec);
@@ -115,11 +115,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
-            pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
+            pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
             Assert.AreEqual(expectedPushBack, pushBackVec);
@@ -144,11 +144,11 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
-            pushBackVec = bC2.getOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
+            pushBackVec = bC2.GetOutOfAreaPush(radius * 2, hitPoint, ballSpeed, ballPos);
 
             //Assertion
             Assert.AreEqual(expectedPushBack, pushBackVec);

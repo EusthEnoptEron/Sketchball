@@ -22,12 +22,12 @@ namespace Sketchball.Collision
         /// <summary>
         /// All bounding boxes of this container
         /// </summary>
-        public List<IBoundingBox> boundingBoxes { get; private set; }
+        public List<IBoundingBox> BoundingBoxes { get; private set; }
 
         /// <summary>
         /// Reference to the Pinball element which belongs to this bounding container
         /// </summary>
-        public PinballElement parentElement { get; private set; }
+        public PinballElement ParentElement { get; private set; }
 
         /// <summary>
         /// Construtor to create new bounding container
@@ -35,18 +35,9 @@ namespace Sketchball.Collision
         /// <param name="parent">Parent of this container</param>
         public BoundingContainer(PinballElement parent)
         {
-            this.boundingBoxes = new List<IBoundingBox>();
-            this.parentElement = parent;
+            this.BoundingBoxes = new List<IBoundingBox>();
+            this.ParentElement = parent;
             this.Rotation = 0;
-        }
-
-        /// <summary>
-        /// Returns a list of all bounding boxes
-        /// </summary>
-        /// <returns>The list of all bounding boxes of this container</returns>
-        public List<IBoundingBox> getBoundingBoxes()
-        {
-            return this.boundingBoxes;
         }
 
         //center must be object space orientated!
@@ -55,21 +46,13 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="rad">Determines how much that is rotated in rad</param>
         /// <param name="center">Center of rotation</param>
-        public void rotate(float rad, Vector2 center)
+        public void Rotate(float rad, Vector2 center)
         {
-            foreach (IBoundingBox b in this.boundingBoxes)
+            foreach (IBoundingBox b in this.BoundingBoxes)
             {
-                b.rotate(rad - Rotation, center);
+                b.Rotate(rad - Rotation, center);
             }
             this.Rotation = rad;
-        }
-
-        public void clearRotation()
-        {
-            foreach (IBoundingBox b in this.boundingBoxes)
-            {
-                b.clearRotation();
-            }
         }
 
         /// <summary>
@@ -78,10 +61,11 @@ namespace Sketchball.Collision
         /// <param name="moveVec">Direction and distance to be moved</param>
         public void move(Vector2 moveVec)
         {
-            foreach (IBoundingBox b in this.boundingBoxes)
+            throw new NotImplementedException("Move is not supported anymore. Use a matrix if needed");
+           /* foreach (IBoundingBox b in this.boundingBoxes)
             {
                 b.move(moveVec);
-            }
+            }*/
         }
 
         /// <summary>
@@ -89,9 +73,9 @@ namespace Sketchball.Collision
         /// </summary>
         public void Sync()
         {
-            foreach (IBoundingBox b in this.boundingBoxes)
+            foreach (IBoundingBox b in this.BoundingBoxes)
             {
-                b.Sync(parentElement.Transform);
+                b.Sync(ParentElement.Transform);
             }
         }
 
@@ -99,10 +83,10 @@ namespace Sketchball.Collision
         /// Adds a bounding box to this container
         /// </summary>
         /// <param name="bL">The bounding box to add</param>
-        public void addBoundingBox(IBoundingBox bL)
+        public void AddBoundingBox(IBoundingBox bL)
         {
-            this.boundingBoxes.Add(bL);
-            bL.assigneToContainer(this);
+            this.BoundingBoxes.Add(bL);
+            bL.AssignToContainer(this);
         }
 
         /// <summary>
@@ -122,7 +106,7 @@ namespace Sketchball.Collision
 
                 if (i > 0)
                 {
-                    addBoundingBox(new BoundingLine(
+                    AddBoundingBox(new BoundingLine(
                         prev,
                         v
                     ));

@@ -32,7 +32,7 @@ namespace Sketchball.Elements
         {
             //set up of bounding box
             BoundingCircle bc = new BoundingCircle(this.radius, new Vector2(0, 0));
-            this.boundingContainer.addBoundingBox(bc);
+            this.boundingContainer.AddBoundingBox(bc);
         }
 
         protected override void OnDraw(System.Windows.Media.DrawingContext g)

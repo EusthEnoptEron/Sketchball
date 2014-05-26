@@ -73,7 +73,7 @@ namespace Sketchball.Elements
             base.Update(delta);
             Tweener.Update(delta / 1000f);
            
-            this.boundingContainer.rotate(-this.Rotation, this.currentRotationCenter);
+            this.boundingContainer.Rotate(-this.Rotation, this.currentRotationCenter);
         }
 
 

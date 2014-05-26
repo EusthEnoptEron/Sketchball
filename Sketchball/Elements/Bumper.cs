@@ -23,8 +23,8 @@ namespace Sketchball.Elements
         protected override void Init()
         {
             BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
-            this.boundingContainer.addBoundingBox(bC);
-            bC.assigneToContainer(this.boundingContainer);
+            this.boundingContainer.AddBoundingBox(bC);
+            bC.AssignToContainer(this.boundingContainer);
         }
 
         protected override Size BaseSize

@@ -42,11 +42,11 @@ namespace Sketchball.Elements
             BoundingLine bL3 = new BoundingLine(p3, p4);
             BoundingLine bL4 = new BoundingLine(p4, p1);
 
-            bL1.bounceFactor = 2;
-            this.boundingContainer.addBoundingBox(bL1);
-            this.boundingContainer.addBoundingBox(bL2);
-            this.boundingContainer.addBoundingBox(bL3);
-            this.boundingContainer.addBoundingBox(bL4);
+            bL1.BounceFactor = 2;
+            this.boundingContainer.AddBoundingBox(bL1);
+            this.boundingContainer.AddBoundingBox(bL2);
+            this.boundingContainer.AddBoundingBox(bL3);
+            this.boundingContainer.AddBoundingBox(bL4);
 
         }
 

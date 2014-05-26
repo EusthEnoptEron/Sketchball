@@ -51,9 +51,9 @@ namespace Sketchball.Elements
 
             protected override void OnDraw(System.Windows.Media.DrawingContext g)
             {
-                 boundingContainer.boundingBoxes.ForEach((e) =>
+                 boundingContainer.BoundingBoxes.ForEach((e) =>
                 {
-                    e.drawDEBUG(g, new Pen(Brushes.Red, 1));
+                    e.DrawDebug(g, new Pen(Brushes.Red, 1));
                 });
             }
         }

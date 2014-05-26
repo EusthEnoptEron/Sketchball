@@ -22,7 +22,7 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
-            bCont.addBoundingBox(bC1);
+            bCont.AddBoundingBox(bC1);
 
             BoundingField bf = new BoundingField(0, 0);
 
@@ -58,7 +58,7 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
-            bCont.addBoundingBox(bC1);
+            bCont.AddBoundingBox(bC1);
 
             BoundingField bf = new BoundingField(0, 0);
 
@@ -96,8 +96,8 @@ namespace Collisiondetection_Test
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius1, center1);
-            bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont.AddBoundingBox(bC2);
 
             BoundingField bf = new BoundingField(0, 0);
 

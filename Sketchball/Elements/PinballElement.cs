@@ -249,9 +249,9 @@ namespace Sketchball.Elements
                 g.PushTransform(new TranslateTransform(-X, -Y));
 
                 var pen = new Pen(Brushes.Red, 1);
-                foreach (var box in boundingContainer.boundingBoxes)
+                foreach (var box in boundingContainer.BoundingBoxes)
                 {
-                    box.drawDEBUG(g, pen);
+                    box.DrawDebug(g, pen);
                 }
 
                 g.Pop();

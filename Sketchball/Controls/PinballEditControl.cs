@@ -84,7 +84,7 @@ namespace Sketchball.Controls
             PinballMachine = new PinballMachine();
 
             SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
-            Effect = new DropShadowEffect();
+            //Effect = new DropShadowEffect();
 
             SelectionPen = new Pen(Brushes.Black, 1);
             SelectionPen.DashStyle = DashStyles.Dash;

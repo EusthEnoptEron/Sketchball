@@ -28,12 +28,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -60,12 +60,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -92,12 +92,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -124,12 +124,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -156,12 +156,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -188,12 +188,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -220,12 +220,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -252,12 +252,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -284,12 +284,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -316,12 +316,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -350,12 +350,12 @@ namespace Collisiondetection_Test
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
             parent.Location = (new Vector2(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion

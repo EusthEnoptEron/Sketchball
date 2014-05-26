@@ -57,12 +57,12 @@ namespace Sketchball.Elements
             BoundingLine bL4 = new BoundingLine(p6, p7);
 
             //bL1.bounceFactor = 2;
-            this.boundingContainer.addBoundingBox(bC1);
-            this.boundingContainer.addBoundingBox(bL1);
-            this.boundingContainer.addBoundingBox(bL2);
-            this.boundingContainer.addBoundingBox(bC2);
-            this.boundingContainer.addBoundingBox(bL3);
-            this.boundingContainer.addBoundingBox(bL4);
+            this.boundingContainer.AddBoundingBox(bC1);
+            this.boundingContainer.AddBoundingBox(bL1);
+            this.boundingContainer.AddBoundingBox(bL2);
+            this.boundingContainer.AddBoundingBox(bC2);
+            this.boundingContainer.AddBoundingBox(bL3);
+            this.boundingContainer.AddBoundingBox(bL4);
         }
 
         protected override void OnDraw(System.Windows.Media.DrawingContext g)

@@ -29,7 +29,7 @@ namespace Collisiondetection_Test
             Line parent1 = new Line();
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bL1);
+            bCont1.AddBoundingBox(bL1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -88,7 +88,7 @@ namespace Collisiondetection_Test
             Line parent1 = new Line();
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bL1);
+            bCont1.AddBoundingBox(bL1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -147,7 +147,7 @@ namespace Collisiondetection_Test
             Line parent1 = new Line();
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bL1);
+            bCont1.AddBoundingBox(bL1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -206,7 +206,7 @@ namespace Collisiondetection_Test
             Line parent1 = new Line();
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bL1);
+            bCont1.AddBoundingBox(bL1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -266,7 +266,7 @@ namespace Collisiondetection_Test
             Line parent1 = new Line();
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bL1);
+            bCont1.AddBoundingBox(bL1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -325,7 +325,7 @@ namespace Collisiondetection_Test
             Line parent1 = new Line();
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bL1);
+            bCont1.AddBoundingBox(bL1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -384,7 +384,7 @@ namespace Collisiondetection_Test
             Line parent1 = new Line();
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bL1);
+            bCont1.AddBoundingBox(bL1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation
@@ -429,7 +429,7 @@ namespace Collisiondetection_Test
             Line parent1 = new Line();
             BoundingLine bL1 = new BoundingLine(position1, target1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bL1);
+            bCont1.AddBoundingBox(bL1);
             parent1.Location = (new Vector2(0, 0));
 
             //operation

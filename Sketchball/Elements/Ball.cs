@@ -34,7 +34,7 @@ namespace Sketchball.Elements
         protected override void Init()
         {
             BoundingCircle bC = new BoundingCircle(10, new Vector2(0, 0));
-            this.boundingContainer.addBoundingBox(bC);
+            this.boundingContainer.AddBoundingBox(bC);
         }
 
         protected override void OnDraw(DrawingContext g)

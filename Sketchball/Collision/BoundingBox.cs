@@ -19,15 +19,15 @@ namespace Sketchball.Collision
 
         public BoundingBox()
         {
-            this.bounceFactor = 0.9f;
+            this.BounceFactor = 0.9f;
         }
         /// <summary>
         /// Defines how hard something is reflected
         /// </summary>
-        public float bounceFactor { get; set; }
+        public float BounceFactor { get; set; }
 
         //position object space: from pinball element pos out
-        public Vector2 position{ get; set; }
+        public Vector2 Position{ get; set; }
 
         /// <summary>
         /// Move the bounding box in this direction
@@ -35,14 +35,14 @@ namespace Sketchball.Collision
         /// <param name="moveVec">direction and distance to move</param>
         public void move(Vector2 moveVec)
         {
-            this.position += moveVec;
+            this.Position += moveVec;
         }
 
         /// <summary>
         /// assigne this bounding box to a container
         /// </summary>
         /// <param name="bc">The container which this bounding box shall be assigned to</param>
-        public void assigneToContainer(BoundingContainer bc)
+        public void AssignToContainer(BoundingContainer bc)
         {
             this.BoundingContainer = bc;
         }
@@ -53,7 +53,7 @@ namespace Sketchball.Collision
         /// <param name="bB">Bounding box to check intersection</param>
         /// <param name="hitPoint">the point where bB and this bounding box intersected the first time</param>
         /// <returns>true if intersection</returns>
-        public abstract bool intersec(IBoundingBox bB, out Vector2 hitPoint);
+        public abstract bool Intersect(IBoundingBox bB, out Vector2 hitPoint);
 
         /// <summary>
         /// Finds out if this bounding box intersects with bB and saves the estimated hitPoint in hitPoint
@@ -62,7 +62,7 @@ namespace Sketchball.Collision
         /// <param name="hitPoint">the point where bB and this bounding box intersected the first time</param>
         /// <param name="velocity">Speed of the object intersecting</param>
         /// <returns>true if intersection</returns>
-        public abstract bool intersec(IBoundingBox bB, out Vector2 hitPoint, Vector2 velocity);
+        public abstract bool Intersect(IBoundingBox bB, out Vector2 hitPoint, Vector2 velocity);
 
         /// <summary>
         /// Method that calculated a reflection of a ball
@@ -71,7 +71,7 @@ namespace Sketchball.Collision
         /// <param name="hitPoint">Point where the ball hits this bounding box</param>
         /// <param name="ballpos">Position of the ball</param>
         /// <returns>Reflection vector</returns>
-        public abstract Vector2 reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos);
+        public abstract Vector2 Reflect(Vector2 vecIn, Vector2 hitPoint, Vector2 ballpos);
 
         /// <summary>
         /// Calculates a push back vector that assures that the ball does not still intersect the same element after reflection
@@ -81,14 +81,14 @@ namespace Sketchball.Collision
         /// <param name="velocity">Velocity of the ball (after reflection)</param>
         /// <param name="ballPos">Position of the ball</param>
         /// <returns>Push back vector</returns>
-        public abstract Vector2 getOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos);
+        public abstract Vector2 GetOutOfAreaPush(int diameterBall, Vector2 hitPoint, Vector2 velocity, Vector2 ballPos);
 
         /// <summary>
         /// Rotates this bounding box
         /// </summary>
         /// <param name="rad">Amount of rad</param>
         /// <param name="center">Center of rotation</param>
-        public abstract void rotate(float rad, Vector2 center);
+        public abstract void Rotate(float rad, Vector2 center);
 
         /// <summary>
         /// Submethod of intersect => checks for an intersection of this bounding box and a Bounding line
@@ -96,7 +96,7 @@ namespace Sketchball.Collision
         /// <param name="bL">Bounding line which might intersect this bounding box</param>
         /// <param name="hitPoint">Point where this bounding box intersects with bL</param>
         /// <returns>true if intersection</returns>
-        public abstract bool lineIntersec(BoundingLine bL, out Vector2 hitPoint);
+        public abstract bool LineIntersect(BoundingLine bL, out Vector2 hitPoint);
 
         /// <summary>
         /// Submethod of intersect => checks for an intersection of this bounding box and a Bounding circle
@@ -105,22 +105,14 @@ namespace Sketchball.Collision
         /// <param name="hitPoint">Point where this bounding box intersects with bC</param>
         /// <param name="velocity">Speed of the object intersecting</param>
         /// <returns></returns>
-        public abstract bool circleIntersec(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity);
-        public Vector2 reflectManipulation(Vector2 newDirection, int energy = 0)
+        public abstract bool CircleIntersect(BoundingCircle bC, out Vector2 hitPoint, Vector2 velocity);
+        public Vector2 ReflectManipulation(Vector2 newDirection, int energy = 0)
         {
-            return newDirection * bounceFactor * BoundingContainer.parentElement.BounceFactor;
+            return newDirection * BounceFactor * BoundingContainer.ParentElement.BounceFactor;
         }
 
-
         public abstract IBoundingBox Clone();
-
-
-        public abstract void clearRotation();
-
-
         public abstract void Sync(Matrix matrix);
-
-
-        public abstract void drawDEBUG(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen);
+        public abstract void DrawDebug(System.Windows.Media.DrawingContext g, System.Windows.Media.Pen pen);
     }
 }
