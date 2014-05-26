@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 
 namespace Sketchball.Controls
 {
@@ -82,6 +83,8 @@ namespace Sketchball.Controls
         {
             PinballMachine = new PinballMachine();
 
+            SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
+            Effect = new DropShadowEffect();
 
             SelectionPen = new Pen(Brushes.Black, 1);
             SelectionPen.DashStyle = DashStyles.Dash;

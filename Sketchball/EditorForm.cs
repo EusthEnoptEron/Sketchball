@@ -100,9 +100,6 @@ namespace Sketchball
             
             FileName = null;
 
-
-        
-
             // PlayFieldEditor
             //EditorContainer.AllowDrop = true;
             PlayFieldEditor.AllowDrop = true;
@@ -193,7 +190,6 @@ namespace Sketchball
                 c.MouseDown += StartDragAndDrop;
             }
 
-            EditorContainer.Controls.Add(dragThumb);
         }
 
         private void EditorForm_Load(object sender, EventArgs e)
@@ -217,6 +213,7 @@ namespace Sketchball
 
         private void OnDragDrop(object sender, System.Windows.DragEventArgs e)
         {
+            PlayFieldEditor.PinballMachine.Remove(dragState.Element);
             PlayFieldEditor.AddElement(dragState.Element);
             if( dragState.Element.GetType() == typeof(WormholeEntry))
             {
@@ -236,22 +233,22 @@ namespace Sketchball
         private void OnDragEnter(object sender, System.Windows.DragEventArgs e)
         {
             e.Effects = System.Windows.DragDropEffects.Move;
-            dragThumb.Visible = true;
+
+            PlayFieldEditor.PinballMachine.Add(dragState.Element);
         }
 
         private void OnDragLeave(object sender, EventArgs e)
         {
-            dragThumb.Visible = false;
+            PlayFieldEditor.PinballMachine.Remove(dragState.Element);
         }
 
         private void OnDragOver(object sender, System.Windows.DragEventArgs e)
         {
             var pos = e.GetPosition(PlayFieldEditor);
-            dragThumb.Location = new Point((int)pos.X + 1, (int)pos.Y + 1);
-
-            var pinballPoint = PlayFieldEditor.PointToPinball(dragThumb.Location);
-            dragState.Element.Location = new Vector2(pinballPoint.X, pinballPoint.Y);
-            dragThumb.Visible = true;
+            var pinballPoint = PlayFieldEditor.PointToPinball(pos);
+            dragState.Element.Location = new Vector2((float)(pinballPoint.X - dragState.Element.Width / 2),
+                                                     (float)(pinballPoint.Y - dragState.Element.Height / 2));
+            PlayFieldEditor.Invalidate();
         }
 
         private void OnQueryContinueDrag(object sender, System.Windows.QueryContinueDragEventArgs e)
@@ -272,15 +269,10 @@ namespace Sketchball
             dragState.Active = true;
             dragState.Element = control.GetInstance();
 
-            dragThumb.Image = control.GetImage();
-
             EditorContainer.DoDragDrop(new object(), DragDropEffects.All);
             
-            dragThumb.Visible = false;
-
             dragState.Active = false;
             dragState.Element = null;
-           
         }
 
 
