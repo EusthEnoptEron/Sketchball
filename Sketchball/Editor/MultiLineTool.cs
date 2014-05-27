@@ -40,12 +40,12 @@ namespace Sketchball.Editor
 
         protected override void OnSelect()
         {
-            Control.MouseDoubleClick += OnMouseDoubleClick;
+            Control.PreviewMouseDoubleClick += OnMouseDoubleClick;
         }
 
         protected override void OnUnselect()
         {
-            Control.MouseDoubleClick -= OnMouseDoubleClick;
+            Control.PreviewMouseDoubleClick -= OnMouseDoubleClick;
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
@@ -69,6 +69,9 @@ namespace Sketchball.Editor
         {
             OnMouseUp(sender, e);
             this.drawing = false;
+
+            // Set as handled, otherwise MouseDown will be triggered.
+            e.Handled = true;
         }
 
         protected override void OnMouseMove(object sender, MouseEventArgs e)
