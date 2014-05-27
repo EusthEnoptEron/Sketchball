@@ -11,7 +11,7 @@ namespace Sketchball.Elements
 {
     public class Bumper : PinballElement
     {
-        private static ImageSource imageS = Booster.OptimizeWpfImage("Bumper.png");
+        private static ImageSource imageS = Booster.OptimizeWpfImage("BumperSpiral.png");
 
         private static readonly Size size = new Size(30, 30);
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SBumper);

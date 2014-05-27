@@ -11,7 +11,6 @@ namespace Sketchball.Editor
 {
     class SelectionTool : Tool
     {   
-        private Point startPoint;
         private Vector startVector;
         private bool mouseIsDown = false;
         private Vector delta;

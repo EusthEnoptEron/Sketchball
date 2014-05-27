@@ -191,7 +191,7 @@
     <Content Include="Assets\BallWithAlpha.png" />
     <Resource Include="Resources\SlingshotRight.png" />
     <None Include="Resources\descending_craft-Sonidor-991848481.wav" />
-    <None Include="Resources\BumperSpiral.png" />
+    <Resource Include="Resources\BumperSpiral.png" />
     <Resource Include="Resources\TableSlim.png" />
     <None Include="Resources\NewRamp.png" />
     <None Include="Resources\Table1_resized.png" />
