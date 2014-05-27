@@ -21,14 +21,13 @@ namespace Sketchball.Elements
         private bool Charging = false;
         private Glide Tweener = new Glide();
 
-        private static readonly Size size = new Size(276, 1934);
-        //private static readonly Size size = new Size((int)(276 /5f), (int)(1934/5f));
+        private static readonly Size size = new Size(210, 1128);
 
         protected override Size BaseSize { get { return size; } }
         private readonly int PencilPullback = 50;
         private readonly int PencilOffsetY = -100;
 
-        private static System.Drawing.Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 200);
+        private static System.Drawing.Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 86);
         private static ImageSource RampImageS = Booster.OptimizeWpfImage("Rampe.png");
         private static ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
 
@@ -41,21 +40,21 @@ namespace Sketchball.Elements
         protected override void Init()
         {
 
-            Vector p1 = new Vector(7,1874);
-            Vector p2 = new Vector(7, 403);
-            Vector p3 = new Vector(44, 270);
-            Vector p4 = new Vector(85, 403);
-            Vector p5 = new Vector(85, 1874);
+            Vector2 p1 = new Vector2(21,1128);
+            Vector2 p2 = new Vector2(16, 233);
+            Vector2 p3 = new Vector2(35, 158);
+            Vector2 p4 = new Vector2(58, 230);
+            Vector2 p5 = new Vector2(68, 1128);
 
-            Vector p21 = new Vector(222, 1843);
-            Vector p22 = new Vector(224, 405);
-            Vector p23 = new Vector(176, 45);
-            Vector p24 = new Vector(215, 16);
-            Vector p25 = new Vector(267, 397);
-            Vector p26 = new Vector(264, 1888);
+            Vector2 p21 = new Vector2(149, 1128);
+            Vector2 p22 = new Vector2(131, 231);
+            Vector2 p23 = new Vector2(102, 26);
+            Vector2 p24 = new Vector2(121, 12);
+            Vector2 p25 = new Vector2(154, 230);
+            Vector2 p26 = new Vector2(175, 1128);
 
-            Vector pPs = new Vector(84, 1800 + PencilOffsetY);
-            Vector pPe = new Vector(223, 1800 + PencilOffsetY);
+            Vector2 pPs = new Vector2(65, this.BaseSize.Height + PencilOffsetY);
+            Vector2 pPe = new Vector2(152, this.BaseSize.Height + PencilOffsetY);
 
 
             BoundingLine bL1 = new BoundingLine(p1, p2);
@@ -93,7 +92,7 @@ namespace Sketchball.Elements
             this.boundingContainer.AddBoundingBox(bLP);
 
 
-            Scale = 1 / 5f;
+            Scale = 1 / 2f;
         }
 
         protected override void EnterMachine(PinballGameMachine machine)
@@ -128,11 +127,14 @@ namespace Sketchball.Elements
             base.Update(delta);
             Tweener.Update(delta / 1000f);
 
-            if (!Charging && Power > 0 && Active)
+            if (!Charging && Power > 0 )
             {
-                // SHOOT!
-                Ball.Velocity += Power * MaxVelocity;
-                Power = 0;
+                if (Active)
+                {
+                    // SHOOT!
+                    Ball.Velocity += Power * MaxVelocity;
+                    Power = 0;
+                }
             }
         }
 

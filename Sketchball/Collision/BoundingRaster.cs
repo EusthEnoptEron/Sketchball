@@ -43,12 +43,12 @@ namespace Sketchball.Collision
         /// <summary>
         /// Gets the width of one field
         /// </summary>
-        public int FieldWidth { get; private set; }
+        public double FieldWidth { get; private set; }
 
         /// <summary>
         /// Gets the height of one field
         /// </summary>
-        public int FieldHeight { get; private set; }
+        public double FieldHeight { get; private set; }
 
         public Vector hitPointDebug = new Vector(0, 0);
 
@@ -115,8 +115,8 @@ namespace Sketchball.Collision
                     BoundingCircle bCir = (BoundingCircle)b;
 
                     //position of the circle self (which field)
-                    x = ((int)(bCir.Position.X + worldTrans.X) / FieldWidth);        //TODO check if this is rounded down
-                    y = ((int)(bCir.Position.Y + worldTrans.Y) / FieldHeight);
+                    x = ((int)((bCir.Position.X + worldTrans.X) / FieldWidth));        //TODO check if this is rounded down
+                    y = ((int)((bCir.Position.Y + worldTrans.Y) / FieldHeight));
 
 
                     //amount of fields x and y (rounded up) 
@@ -172,8 +172,8 @@ namespace Sketchball.Collision
                     double posY = bL.Position.Y + worldTrans.Y;
 
                     //position of the line base (which field)
-                    x = ((int)posX / FieldWidth);
-                    y = ((int)posY / FieldHeight);
+                    x = (int)(posX / FieldWidth);
+                    y = (int)(posY / FieldHeight);
 
                     //add the start
                     if (IsWithinBounds(x, y))
@@ -197,7 +197,7 @@ namespace Sketchball.Collision
                     //that are all fields that are above the last x cross (like directly under the target)
 
 
-                    int endField = ((int)(bL.target.Y + worldTrans.Y) / FieldHeight);
+                    int endField = (int)((bL.target.Y + worldTrans.Y) / FieldHeight);
 
                     if (unitV.Y > 0)        //heading down
                     {
@@ -269,7 +269,7 @@ namespace Sketchball.Collision
                 double nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
-                int newFieldYIdx = ((int)(nextXCrossY) / FieldHeight);
+                int newFieldYIdx = (int)(nextXCrossY / FieldHeight);
 
                 if (unitV.Y > 0)        //heading down
                 {
@@ -340,7 +340,7 @@ namespace Sketchball.Collision
                 double nextXCrossY = posY + factorToNextXCross * unitV.Y;      //because factorToNextXCross time unitvector in x direction = new point
 
                 //float newFieldXIdx = ((int)nextXCross / fieldWidth);
-                int newFieldYIdx = ((int)(nextXCrossY-1) / FieldHeight);
+                int newFieldYIdx = (int)((nextXCrossY-1) / FieldHeight);
 
                 if (unitV.Y > 0)        //heading down
                 {

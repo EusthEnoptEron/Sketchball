@@ -12,9 +12,9 @@ namespace Sketchball.Elements
     {
         private static readonly Size size = new Size(50, 50);
         private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("hole.png");
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SHole);
 
-        public Hole()
-            : base(100, 100)
+        public Hole()  : base(100, 100)
         {
         }
 
@@ -23,6 +23,7 @@ namespace Sketchball.Elements
             BoundingCircle bC = new BoundingCircle(25, new Vector(0, 0));
             this.boundingContainer.AddBoundingBox(bC);
             bC.AssignToContainer(this.boundingContainer);
+            this.pureIntersection = true;
         }
 
         protected override Size BaseSize
@@ -33,6 +34,12 @@ namespace Sketchball.Elements
         protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
             g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+        }
+
+        public override void notifyIntersection(Ball b)
+        {
+            b.Location = new Vector2(0, 2000);
+            player.Play();
         }
     }
 }
