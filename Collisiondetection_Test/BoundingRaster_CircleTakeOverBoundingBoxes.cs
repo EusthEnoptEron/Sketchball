@@ -32,8 +32,8 @@ namespace Collisiondetection_Test
             int realWidth = br.Width;
             int realHeight = br.height;
 
-            int realFieldHeight = br.FieldHeight;
-            int realFieldWidth = br.FieldWidth;
+            double realFieldHeight = br.FieldHeight;
+            double realFieldWidth = br.FieldWidth;
 
             //assertion
             Assert.IsNotNull(br);
@@ -41,8 +41,8 @@ namespace Collisiondetection_Test
             Assert.AreEqual(rows, realRows);
             Assert.AreEqual(width, realWidth);
             Assert.AreEqual(height, realHeight);
-            Assert.AreEqual(expectedFieldHeight, realFieldHeight);
-            Assert.AreEqual(expectedFieldWidth, realFieldWidth);
+            Assert.AreEqual(expectedFieldHeight, realFieldHeight, 0.1);
+            Assert.AreEqual(expectedFieldWidth, realFieldWidth, 0.1);
            
         }
 
