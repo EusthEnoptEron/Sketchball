@@ -88,12 +88,15 @@ namespace Sketchball
             return new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, size, color);
         }
 
-        public static System.Drawing.Bitmap DrawingToBitmap(Drawing drawing, int width, int height)
+        public static System.Drawing.Bitmap DrawingToBitmap(Drawing drawing, int width, int height, Stretch stretch = Stretch.None)
         {
             var encoder = new PngBitmapEncoder();
             var drawingImage = new DrawingImage(drawing);
 
             var image = new Image() { Source = drawingImage };
+            image.Stretch = stretch;
+            image.HorizontalAlignment = HorizontalAlignment.Left;
+            image.VerticalAlignment = VerticalAlignment.Top;
             image.Arrange(new Rect(0, 0, width, height));
 
             var bitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);

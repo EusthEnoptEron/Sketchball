@@ -136,6 +136,7 @@ namespace Sketchball.Elements
                 }
             }
         }
+
         [DataMember]
         private double _scale = 1.0f;
 
@@ -233,9 +234,15 @@ namespace Sketchball.Elements
         }
 
         [OnDeserializing]
-        private void OnDeserialized(StreamingContext context)
+        private void OnDeserializing(StreamingContext context)
         {
             init();
+        }
+        
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            RebuildMatrix();
         }
 
         public virtual void Draw(DrawingContext g)
@@ -324,12 +331,11 @@ namespace Sketchball.Elements
             // 1. DRAW STUFF
             // Prepare the drawing that we will use to check
             var drawing = new DrawingGroup();
-            var fillColor = System.Drawing.Color.Blue;
-
+           
             using (DrawingContext g = drawing.Open())
             {
-                // Fill background to prevent cropping
-                g.DrawRectangle(Brushes.Blue, null, new Rect(0, 0, World.Width, World.Height));
+                // Make a dot in order to clamp the whole thing to upper left corner.
+                g.DrawRectangle(Brushes.Black, null, new Rect(0, 0, 1, 1));
 
                 // Draw element
                 g.PushTransform(new TranslateTransform(X, Y));
@@ -354,7 +360,7 @@ namespace Sketchball.Elements
                         
                         var pixel = bmp.GetPixel(x, y);
                       
-                        if (pixel.ToArgb() != fillColor.ToArgb()) return true;
+                        if (pixel.A > 0) return true;
                     }
                 }
 

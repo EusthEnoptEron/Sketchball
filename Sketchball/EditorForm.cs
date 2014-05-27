@@ -318,6 +318,7 @@ namespace Sketchball
                 }
 
                 PlayFieldEditor.PinballMachine.Save(FileName);
+                PlayFieldEditor.History.ClearStatus();
             }
             else
             {
@@ -339,8 +340,8 @@ namespace Sketchball
         {
             if (PlayFieldEditor.History.HasChanged())
             {
-                var result = MessageBox.Show("There are unsaved changes, do you want to continue?", "Unsaved changes!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                return result == DialogResult.OK;
+                var result = MessageBox.Show("There are unsaved changes, do you want to continue?", "Unsaved changes!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                return result == DialogResult.Yes;
             }
             else
             {

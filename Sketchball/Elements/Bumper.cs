@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,12 +11,13 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    [DataContract]
     public class Bumper : PinballElement
     {
         private static ImageSource imageS = Booster.OptimizeWpfImage("BumperSpiral.png");
 
         private static readonly Size size = new Size(30, 30);
-        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SBumper);
+        private SoundPlayer player = new SoundPlayer(Properties.Resources.SBumper);
 
         public Bumper()
         {

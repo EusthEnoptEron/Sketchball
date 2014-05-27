@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Sketchball.Collision;
 using System.Runtime.Serialization;
 using System.Windows;
+using System.Media;
 
 namespace Sketchball.Elements
 {
@@ -22,7 +23,7 @@ namespace Sketchball.Elements
 
         public double RotationRange = (Math.PI / 180 * 60);
         private bool Animating = false;
-        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWormholeExit);
+        private SoundPlayer player = new SoundPlayer(Properties.Resources.SWormholeExit);
 
 
         public Flipper()  : base()

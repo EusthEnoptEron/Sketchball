@@ -8,9 +8,12 @@ using System.Windows.Forms;
 using GlideTween;
 using System.Windows;
 using System.Windows.Media;
+using System.Runtime.Serialization;
 
 namespace Sketchball.Elements
 {
+
+    [DataContract]
     public class StartingRamp : PinballElement
     {
         private float Power = 0;

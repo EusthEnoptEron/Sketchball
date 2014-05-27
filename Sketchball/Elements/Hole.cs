@@ -2,17 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    [DataContract]
     public class Hole : PinballElement
     {
         private static readonly Size size = new Size(50, 50);
-        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("hole.png");
-        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SHole);
+        private static ImageSource imageS = Booster.OptimizeWpfImage("hole.png");
+        private SoundPlayer player = new SoundPlayer(Properties.Resources.SHole);
 
         public Hole()  : base(100, 100)
         {

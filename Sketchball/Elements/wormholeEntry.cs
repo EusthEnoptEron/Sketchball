@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,10 +11,11 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    [DataContract]
     public class WormholeEntry : PinballElement
     {
         public WormholeExit WormholeExit { get; set; }
-        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWomholeEntry);
+        private SoundPlayer player = new SoundPlayer(Properties.Resources.SWomholeEntry);
 
 
         private static readonly Size size = new Size(30, 30);

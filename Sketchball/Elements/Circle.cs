@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,8 +10,10 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    [DataContract]
     class Circle: PinballElement
     {
+        [DataMember]
         private int radius;
         private static readonly Size size = new Size(100, 100);
 
