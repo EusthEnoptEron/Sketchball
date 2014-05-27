@@ -314,17 +314,30 @@ namespace Sketchball.Elements
             return origin;
         }
 
+        /// <summary>
+        /// Checks whether or not a point lies within an element. This method conducts a *real* pixel check.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         public virtual bool Contains(Point point)
         {
+            // 1. DRAW STUFF
+            // Prepare the drawing that we will use to check
             var drawing = new DrawingGroup();
-            var g = drawing.Open();
+            var fillColor = System.Drawing.Color.Blue;
 
-            g.DrawRectangle(Brushes.Blue, null, new Rect(0, 0, World.Width, World.Height));
-            g.PushTransform(new TranslateTransform(X, Y));
-            Draw(g);
-            g.Pop();
-            g.Close();
+            using (DrawingContext g = drawing.Open())
+            {
+                // Fill background to prevent cropping
+                g.DrawRectangle(Brushes.Blue, null, new Rect(0, 0, World.Width, World.Height));
 
+                // Draw element
+                g.PushTransform(new TranslateTransform(X, Y));
+                Draw(g);
+                g.Pop();
+            }
+
+            // 2. CHECK BITMAP
             using(var bmp = Booster.DrawingToBitmap(drawing, (int)World.Width, (int)World.Height)) {
                 for (int dx = -SELECTION_PADDING; dx <= SELECTION_PADDING; dx++)
                 {
@@ -332,13 +345,16 @@ namespace Sketchball.Elements
                     int y = 0;
 
                     if (x < 0 || x >= bmp.Width) continue;
+                    
+                   
                     for (int dy = -SELECTION_PADDING; dy <= SELECTION_PADDING; dy++)
                     {
                         y = (int)point.Y + dy;
                         if (y < 0 || y >= bmp.Height) continue;
-
+                        
                         var pixel = bmp.GetPixel(x, y);
-                        if (pixel.R != 0 || pixel.G != 0 || pixel.B != 255) return true;
+                      
+                        if (pixel.ToArgb() != fillColor.ToArgb()) return true;
                     }
                 }
 
