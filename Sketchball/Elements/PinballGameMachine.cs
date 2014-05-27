@@ -19,6 +19,8 @@ namespace Sketchball.Elements
 
         private BoundingRaster boundingRaster;
 
+        internal readonly InputManager Input = InputManager.Instance();
+
         /// <summary>
         /// No more elements can be added after this function call 
         /// </summary>
@@ -34,7 +36,6 @@ namespace Sketchball.Elements
             this.boundingRaster.takeOverBoundingBoxes(DynamicElements);
         }
 
-        internal readonly InputManager Input = InputManager.Instance();
 
         public PinballGameMachine(PinballMachine machine) : base(machine.Layout)
         {

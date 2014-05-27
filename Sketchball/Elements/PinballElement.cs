@@ -228,6 +228,8 @@ namespace Sketchball.Elements
             boundingContainer = new BoundingContainer(this);
 
             Init();
+
+            RebuildMatrix();
         }
 
         [OnDeserializing]
@@ -265,8 +267,8 @@ namespace Sketchball.Elements
 
             Transform = Matrix.Identity;
 
-            Transform.RotateAt(BaseRotation, origin.X, origin.Y);
             Transform.Scale(Scale, Scale);
+            Transform.RotateAt(BaseRotation, origin.X, origin.Y);
             
             Sync();
         }
