@@ -106,7 +106,6 @@ namespace Sketchball
             //EditorContainer.AllowDrop = true;
             PlayFieldEditor.AllowDrop = true;
             EditorContainer.Location = new System.Drawing.Point(3, 3);
-            EditorContainer.Size = new System.Drawing.Size(540, 545);
             EditorContainer.TabIndex = 2;
             PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
 
