@@ -136,9 +136,6 @@
   <data name="BackgroundScharf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BackgroundScharf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Bumper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bumper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="circle_outline_512" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\circle-outline-512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -243,5 +240,11 @@
   </data>
   <data name="Rampe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NewRamp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Bumper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BumperSpiral.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SHole" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\descending_craft-Sonidor-991848481.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
