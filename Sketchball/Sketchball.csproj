@@ -192,7 +192,7 @@
     <Resource Include="Resources\SlingshotRight.png" />
     <None Include="Resources\descending_craft-Sonidor-991848481.wav" />
     <None Include="Resources\BumperSpiral.png" />
-    <None Include="Resources\TableSlim.png" />
+    <Resource Include="Resources\TableSlim.png" />
     <None Include="Resources\NewRamp.png" />
     <None Include="Resources\Table1_resized.png" />
     <None Include="Resources\Ramp_resized.png" />

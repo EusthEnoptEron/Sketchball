@@ -40,21 +40,21 @@ namespace Sketchball.Elements
         protected override void Init()
         {
 
-            Vector2 p1 = new Vector2(21,1128);
-            Vector2 p2 = new Vector2(16, 233);
-            Vector2 p3 = new Vector2(35, 158);
-            Vector2 p4 = new Vector2(58, 230);
-            Vector2 p5 = new Vector2(68, 1128);
+            Vector p1 = new Vector(21,1128);
+            Vector p2 = new Vector(16, 233);
+            Vector p3 = new Vector(35, 158);
+            Vector p4 = new Vector(58, 230);
+            Vector p5 = new Vector(68, 1128);
 
-            Vector2 p21 = new Vector2(149, 1128);
-            Vector2 p22 = new Vector2(131, 231);
-            Vector2 p23 = new Vector2(102, 26);
-            Vector2 p24 = new Vector2(121, 12);
-            Vector2 p25 = new Vector2(154, 230);
-            Vector2 p26 = new Vector2(175, 1128);
+            Vector p21 = new Vector(149, 1128);
+            Vector p22 = new Vector(131, 231);
+            Vector p23 = new Vector(102, 26);
+            Vector p24 = new Vector(121, 12);
+            Vector p25 = new Vector(154, 230);
+            Vector p26 = new Vector(175, 1128);
 
-            Vector2 pPs = new Vector2(65, this.BaseSize.Height + PencilOffsetY);
-            Vector2 pPe = new Vector2(152, this.BaseSize.Height + PencilOffsetY);
+            Vector pPs = new Vector(65, this.BaseSize.Height + PencilOffsetY);
+            Vector pPe = new Vector(152, this.BaseSize.Height + PencilOffsetY);
 
 
             BoundingLine bL1 = new BoundingLine(p1, p2);
