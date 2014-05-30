@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Collisiondetection_Test
 {
@@ -15,14 +16,14 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
 
 
             //Creation
             Bumper parent = new Bumper();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
-            bCont.addBoundingBox(bC1);
+            bCont.AddBoundingBox(bC1);
 
             BoundingField bf = new BoundingField(0, 0);
 
@@ -51,14 +52,14 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
 
 
             //Creation
             Bumper parent = new Bumper();
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
-            bCont.addBoundingBox(bC1);
+            bCont.AddBoundingBox(bC1);
 
             BoundingField bf = new BoundingField(0, 0);
 
@@ -88,7 +89,7 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
 
 
             //Creation
@@ -96,8 +97,8 @@ namespace Collisiondetection_Test
             BoundingContainer bCont = new BoundingContainer(parent);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius1, center1);
-            bCont.addBoundingBox(bC1);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont.AddBoundingBox(bC2);
 
             BoundingField bf = new BoundingField(0, 0);
 

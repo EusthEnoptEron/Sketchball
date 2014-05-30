@@ -1,10 +1,11 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -17,7 +18,8 @@ namespace Sketchball.Elements
         {
         }
 
-        public Circle(float x0, float y0, float radius) : base()
+        public Circle(double x0, double y0, double radius)
+            : base()
         {
             Width = (int)(2 * radius);
             Height = (int)(2 * radius);
@@ -30,22 +32,20 @@ namespace Sketchball.Elements
         protected override void Init()
         {
             //set up of bounding box
-            BoundingCircle bc = new BoundingCircle(this.radius, new Vector2(0, 0));
-            this.boundingContainer.addBoundingBox(bc);
+            BoundingCircle bc = new BoundingCircle(this.radius, new Vector(0, 0));
+            this.boundingContainer.AddBoundingBox(bc);
         }
 
-        protected override void OnDraw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
-            g.TranslateTransform(-X, -Y);
-
-            g.DrawEllipse(Pens.Red, (int)this.Location.X, (int)this.Location.Y, (int)(this.radius * 2), ((int)this.radius * 2));
-
-            g.TranslateTransform(X, Y);
+            g.DrawEllipse(null, new Pen(Brushes.Red, 1), new Point(radius, radius), radius, radius);
         }
+
 
         protected override Size BaseSize
         {
             get { return size; }
         }
+
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Sketchball.Elements
 {
@@ -13,42 +14,53 @@ namespace Sketchball.Elements
     public abstract class AnimatedObject : PinballElement, IAnimatedObject
     {
         [Browsable(false)]
-        public float Rotation { get; set; }
+        public double Rotation { get; set; }
+        
         [Browsable(false)]
-        public float angualrVelocityPerFrame { get; private set; }
-        [Browsable(false)]
-        public float angularVelocity { get; private set; }
+        public double AngularVelocityPerFrame { get; private set; }
 
         [Browsable(false)]
-        public Vector2 currentRotationCenter { get; private set; }
+        public double AngularVelocity { get; private set; }
+
+        [Browsable(false)]
+        public Vector CurrentRotationCenter { get; private set; }
+
         protected Glide Tweener = new Glide();
 
         public AnimatedObject()
         {
         }
 
-        public GlideTween.Glide rotate(float rad, Vector2 center, float time)
+        public GlideTween.Glide Rotate(double rad, Vector center, float time)
         {
-            return rotate(rad, center, time, null);
+            return Rotate(rad, center, time, null);
         }
 
-        public GlideTween.Glide rotate(float rad, Vector2 center, float time, Action endRotation)
+        public GlideTween.Glide Rotate(double rad, Vector center, float time, Action endRotation)
         {
-            float degAbs = rad + this.Rotation;
-            this.currentRotationCenter = center;
-            this.angularVelocity = rad / time;
+            double degAbs = rad + this.Rotation;
+            this.CurrentRotationCenter = center;
+            this.AngularVelocity = rad / time;
             
             Tweener.Cancel();
             return Tweener.Tween(this, new { Rotation = degAbs }, time).OnComplete(endRotation);
         }
 
-        protected override void OnDraw(System.Drawing.Graphics g)
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
             if (Rotation != 0)
             {
-                g.TranslateTransform(0 + (this.currentRotationCenter.X ), this.currentRotationCenter.Y );
-                g.RotateTransform((float)-(Rotation/(Math.PI)*180f));
-                g.TranslateTransform(0 - (this.currentRotationCenter.X ), -( this.currentRotationCenter.Y ));
+                g.PushTransform(new System.Windows.Media.RotateTransform(-(Rotation / (Math.PI) * 180f), CurrentRotationCenter.X, CurrentRotationCenter.Y));
+            }
+        }
+
+        public override void Draw(System.Windows.Media.DrawingContext g)
+        {
+            base.Draw(g);
+
+            if (Rotation != 0)
+            {
+                g.Pop();
             }
         }
 
@@ -56,16 +68,16 @@ namespace Sketchball.Elements
         {
             if (delta != 0)
             {
-                this.angualrVelocityPerFrame = this.angularVelocity * (delta / 1000f);
+                this.AngularVelocityPerFrame = this.AngularVelocity * (delta / 1000f);
             }
             else
             {
-                this.angualrVelocityPerFrame = 0;
+                this.AngularVelocityPerFrame = 0;
             }
             base.Update(delta);
             Tweener.Update(delta / 1000f);
            
-            this.boundingContainer.rotate(-this.Rotation, this.currentRotationCenter);
+            this.boundingContainer.Rotate(-this.Rotation, this.CurrentRotationCenter);
         }
 
     }

@@ -3,6 +3,7 @@ using Sketchball.Collision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
+using System.Windows;
 
 namespace Collisiondetection_Test
 {
@@ -14,7 +15,7 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius = 20;
-            Vector2 center = new Vector2(0f,0f);
+            Vector center = new Vector(0f,0f);
 
             //Creation
             BoundingCircle bC = new BoundingCircle(radius, center);
@@ -23,7 +24,7 @@ namespace Collisiondetection_Test
 
             //Assertion
             Assert.IsNotNull(bC);
-            Assert.AreEqual(bC.position, center + new Vector2(radius, radius));
+            Assert.AreEqual(bC.Position, center + new Vector(radius, radius));
             Assert.AreEqual(bC.radius, radius);
         }
 
@@ -33,13 +34,13 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(42f, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(42f, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
                       
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -50,12 +51,12 @@ namespace Collisiondetection_Test
 
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.Intersect(bC2, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);
@@ -66,12 +67,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(42f, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(42f, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -82,15 +83,15 @@ namespace Collisiondetection_Test
 
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.Intersect(bC2, out hitPoint);
 
             //Assertion
-            Assert.AreEqual(hitPoint, new Vector2(0,0));
+            Assert.AreEqual(hitPoint, new Vector(0,0));
         }
 
         [TestMethod]
@@ -98,12 +99,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(41f, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(41f, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -113,12 +114,12 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.Intersect(bC2, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);
@@ -129,13 +130,13 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(40f, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(40f, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
            
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -145,12 +146,12 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.Intersect(bC2, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);
@@ -162,12 +163,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(39f, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(39f, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -177,19 +178,19 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 2 * radius1;
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.Intersect(bC2, out hitPoint);
 
             //Assertion
             Assert.IsTrue(isIntersec);
-            Assert.AreEqual(new Vector2(40, 20), hitPoint);
+            Assert.AreEqual(new Vector(40, 20), hitPoint);
         }
 
 
@@ -198,12 +199,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(0f, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(0f, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -213,19 +214,19 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 2 * radius1;
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint, ballSpeed);
+            isIntersec = bC1.Intersect(bC2, out hitPoint, ballSpeed);
 
             //Assertion
             Assert.IsTrue(isIntersec);
-            Assert.AreEqual(new Vector2(40, 20), hitPoint);
+            Assert.AreEqual(new Vector(40, 20), hitPoint);
         }
 
 
@@ -234,12 +235,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(30f, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(30f, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -249,19 +250,19 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 2 * radius1;
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.Intersect(bC2, out hitPoint);
 
             //Assertion
             Assert.IsTrue(isIntersec);
-            Assert.AreEqual(new Vector2(40, 20), hitPoint);
+            Assert.AreEqual(new Vector(40, 20), hitPoint);
         }
 
         [TestMethod]
@@ -269,12 +270,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-10f, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(-10f, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -284,19 +285,19 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 2 * radius1;
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint, ballSpeed);
+            isIntersec = bC1.Intersect(bC2, out hitPoint, ballSpeed);
 
             //Assertion
             Assert.IsTrue(isIntersec);
-            Assert.AreEqual(new Vector2(40, 20), hitPoint);
+            Assert.AreEqual(new Vector(40, 20), hitPoint);
         }
 
         [TestMethod]
@@ -304,12 +305,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-19, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(-19, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -319,19 +320,19 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 2 * radius1;
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint, ballSpeed);
+            isIntersec = bC1.Intersect(bC2, out hitPoint, ballSpeed);
 
             //Assertion
             Assert.IsTrue(isIntersec);
-            Assert.AreEqual(new Vector2(40, 20), hitPoint);
+            Assert.AreEqual(new Vector(40, 20), hitPoint);
         }
 
         [TestMethod]
@@ -339,12 +340,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-19, 0f);
-            Vector2 ballSpeed = new Vector2(0, 0);
+            Vector center2 = new Vector(-19, 0f);
+            Vector ballSpeed = new Vector(0, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -354,15 +355,15 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 2 * radius1;
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint, ballSpeed);
+            isIntersec = bC1.Intersect(bC2, out hitPoint, ballSpeed);
 
             //Assertion
             Assert.IsTrue(isIntersec);
@@ -373,12 +374,12 @@ namespace Collisiondetection_Test
         {
             //Preconfig
             int radius1 = 20;
-            Vector2 center1 = new Vector2(0f, 0f);
+            Vector center1 = new Vector(0f, 0f);
             int radius2 = 20;
-            Vector2 center2 = new Vector2(-40, 0f);
-            Vector2 ballSpeed = new Vector2(-5, 0);
+            Vector center2 = new Vector(-40, 0f);
+            Vector ballSpeed = new Vector(-5, 0);
 
-            Vector2 hitPoint;
+            Vector hitPoint;
             bool isIntersec = false;
 
             //Creation
@@ -388,15 +389,15 @@ namespace Collisiondetection_Test
             BoundingContainer bCont2 = new BoundingContainer(ball);
             BoundingCircle bC1 = new BoundingCircle(radius1, center1);
             BoundingCircle bC2 = new BoundingCircle(radius2, center2);
-            bCont.addBoundingBox(bC1);
-            bCont2.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC1);
+            bCont2.AddBoundingBox(bC2);
             ball.Velocity = ballSpeed;
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
             parent.Width = 2 * radius1;
             parent.Height = 2 * radius1;
 
             //Operation
-            isIntersec = bC1.intersec(bC2, out hitPoint);
+            isIntersec = bC1.Intersect(bC2, out hitPoint);
 
             //Assertion
             Assert.IsFalse(isIntersec);

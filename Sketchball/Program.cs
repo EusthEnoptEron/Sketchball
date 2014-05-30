@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 
 namespace Sketchball
 {
@@ -20,14 +21,19 @@ namespace Sketchball
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Form f = new Form();
-            //PinballControl2 pinball = new PinballControl2();
+            Form f = new Form();
 
-            //f.Controls.Add(pinball);
-            //pinball.Dock = DockStyle.Fill;
-            //f.Width = 500;
-            //f.Height = 500;
+            
+           /* Experiment exp = new Experiment();
+            var ctrlHost = new WPFContainer(exp);
+            //exp.InitializeComponent();
 
+            f.Controls.Add(ctrlHost);
+            ctrlHost.Dock = DockStyle.Fill;
+
+            //f.FormClosing += (s, e) => { exp.Exit(); };
+            */
+            //Application.Run(f);
 
             Application.Run(new SelectionForm());
             //Application.Run(new PlayForm(new PinballMachine()) { Width = 800, Height = 700 });

@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sketchball
+namespace Sketchball.GameComponents
 {
     /// <summary>
     /// Phases the control can assume
@@ -139,8 +139,13 @@ namespace Sketchball
         /// </summary>
         public void Start()
         {
-             lock (this)
+            lock (this)
             {
+                if (Machine != null)
+                {
+                    Machine.Dispose();
+                }
+
                 Machine = new PinballGameMachine(OriginalMachine);
                 Machine.prepareForLaunch();
 
@@ -273,7 +278,7 @@ namespace Sketchball
                     while (Status != GameStatus.Playing)
                     {
                         Monitor.Wait(this);
-                        if (Disposed) break;
+                        if (Disposed) return;
                     }
 
                     this.Update(timePerPass);
@@ -293,6 +298,7 @@ namespace Sketchball
             {
                 Monitor.PulseAll(this);
             }
+            Machine.Dispose();
         }
     }
 }

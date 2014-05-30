@@ -3,14 +3,16 @@ using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Sketchball.Elements
 {
@@ -47,7 +49,7 @@ namespace Sketchball.Elements
         /// Gets or sets the current location of the element in internal coordinates.
         /// </summary>
         [DataMember]
-        public Vector2 Location = new Vector2();
+        public Vector Location = new Vector();
 
         /// <summary>
         /// Gets the original size of the element.
@@ -59,38 +61,38 @@ namespace Sketchball.Elements
         /// Gets the original width of the element.
         /// </summary>
         [Browsable(false)]
-        protected int BaseWidth { get { return BaseSize.Width; } }
+        protected double BaseWidth { get { return BaseSize.Width; } }
 
 
         /// <summary>
         /// Gets the original height of the element.
         /// </summary>
         [Browsable(false)]
-        protected int BaseHeight { get { return BaseSize.Height; } }
+        protected double BaseHeight { get { return BaseSize.Height; } }
 
         /// <summary>
         /// Gets or sets the effective width of the element.
         /// </summary>
         [Category("Position"), Browsable(false)]
-        public int Width { get { return (int)(BaseWidth * Scale); } set { Scale = Scale / Width * value; } }
+        public double Width { get { return BaseWidth * Scale; } set { Scale = Scale / Width * value; } }
 
         /// <summary>
         /// Gets or sets the effective height of the element.
         /// </summary>
         [Category("Position"), Browsable(false)]
-        public int Height { get { return (int)(BaseHeight * Scale); } set { Scale = Scale / Height * value; } }
+        public double Height { get { return (int)(BaseHeight * Scale); } set { Scale = Scale / Height * value; } }
 
         /// <summary>
         /// Gets or sets the X position of the element.
         /// </summary>
         [Category("Position")]
-        public float X { get { return Location.X; } set { Location.X = value; } }
+        public double X { get { return Location.X; } set { Location.X = value; } }
        
         /// <summary>
         /// Gets or sets the Y position of the element.
         /// </summary>
         [Category("Position")]
-        public float Y { get { return Location.Y; } set { Location.Y = value; } }
+        public double Y { get { return Location.Y; } set { Location.Y = value; } }
 
         
         /// <summary>
@@ -122,7 +124,7 @@ namespace Sketchball.Elements
         /// Sets or gets the scale of this element.
         /// </summary>
         [Category("Position"), DefaultValue(1.0f)]
-        public float Scale
+        public double Scale
         {
             get { return _scale; }
             set
@@ -135,7 +137,7 @@ namespace Sketchball.Elements
             }
         }
         [DataMember]
-        private float _scale = 1.0f;
+        private double _scale = 1.0f;
 
         /// <summary>
         /// Gets whether or not this element reflects the ball.
@@ -181,7 +183,7 @@ namespace Sketchball.Elements
             }
             set
             {
-                if (value < 1) value = 1;
+                if (value < 0.1f) value = 0.1f;
                 if (value > 5) value = 5;
                 _bounceFactor = value;
             }
@@ -197,6 +199,10 @@ namespace Sketchball.Elements
 
         [DataMember]
         public int Value { get; set; }
+
+        [Browsable(false)]
+        public Matrix Transform = new Matrix();
+
 
         #endregion
 
@@ -216,7 +222,8 @@ namespace Sketchball.Elements
 
         private void init()
         {
-            Transform = new Matrix();
+            Transform = Matrix.Identity;
+            
             pureIntersection = false;
             boundingContainer = new BoundingContainer(this);
 
@@ -229,39 +236,38 @@ namespace Sketchball.Elements
             init();
         }
 
-
-        public void Draw(Graphics g)
+        public virtual void Draw(DrawingContext g)
         {
-            var state = g.Save();
 
-            g.MultiplyTransform(Transform, MatrixOrder.Prepend);
+            g.PushTransform(new MatrixTransform(Transform));
 
             OnDraw(g);
 
-            g.Restore(state);
+            g.Pop();
 
-            g.TranslateTransform(-X, -Y);
-            // Debug draw
-            if (Properties.Settings.Default.Debug)
-            {
-                foreach (var box in boundingContainer.boundingBoxes)
+            if (Properties.Settings.Default.Debug) {
+                g.PushTransform(new TranslateTransform(-X, -Y));
+
+                var pen = new Pen(Brushes.Red, 1);
+                foreach (var box in boundingContainer.BoundingBoxes)
                 {
-                    box.drawDEBUG(g, Pens.Red);
+                    box.DrawDebug(g, pen);
                 }
+
+                g.Pop();
             }
-            g.TranslateTransform(X, Y);
+
         }
 
-        public Matrix Transform { get; private set; }
         private void RebuildMatrix()
         {
-            var vOrigin = GetRotationOrigin();
-            var origin = new PointF(vOrigin.X, vOrigin.Y);
+            var origin = GetRotationOrigin();
 
-            Transform = new Matrix();
-            Transform.RotateAt(BaseRotation, origin);
+            Transform = Matrix.Identity;
+
+            Transform.RotateAt(BaseRotation, origin.X, origin.Y);
             Transform.Scale(Scale, Scale);
-
+            
             Sync();
         }
 
@@ -269,7 +275,7 @@ namespace Sketchball.Elements
         /// Returns the exact coordinates of the origin where the element is to be rotated.
         /// </summary>
         /// <returns></returns>
-        public Vector2 GetRotationOrigin()
+        public Vector GetRotationOrigin()
         {
             var top = (RotationOrigin.TopLeft | RotationOrigin.TopCenter | RotationOrigin.TopRight);
             var middle = (RotationOrigin.MiddleLeft | RotationOrigin.MiddleCenter | RotationOrigin.MiddleRight);
@@ -280,7 +286,7 @@ namespace Sketchball.Elements
             //var right = (RotationOrigin.TopRight | RotationOrigin.MiddleRight | RotationOrigin.BottomRight);
 
 
-            Vector2 origin = new Vector2();
+            Vector origin = new Vector();
             if ( (Origin & top) != 0)
             {
                 origin.Y = 0;
@@ -308,30 +314,34 @@ namespace Sketchball.Elements
 
         public virtual bool Contains(Point point)
         {
-            using (Bitmap bm = new Bitmap(World.Width, World.Height))
-            {
-                using (Graphics g = Graphics.FromImage(bm))
-                {
-                    g.TranslateTransform(X, Y);
-                    Draw(g);
-                }
+            var drawing = new DrawingGroup();
+            var g = drawing.Open();
 
+            g.DrawRectangle(Brushes.Blue, null, new Rect(0, 0, World.Width, World.Height));
+            g.PushTransform(new TranslateTransform(X, Y));
+            Draw(g);
+            g.Pop();
+            g.Close();
+
+            using(var bmp = Booster.DrawingToBitmap(drawing, (int)World.Width, (int)World.Height)) {
                 for (int dx = -SELECTION_PADDING; dx <= SELECTION_PADDING; dx++)
                 {
-                    int x = point.X + dx;
+                    int x = (int)point.X + dx;
                     int y = 0;
 
-                    if (x < 0 || x >= bm.Width) continue;
+                    if (x < 0 || x >= bmp.Width) continue;
                     for (int dy = -SELECTION_PADDING; dy <= SELECTION_PADDING; dy++)
                     {
-                        y = point.Y + dy;
-                        if (y < 0 || y >= bm.Height) continue;
+                        y = (int)point.Y + dy;
+                        if (y < 0 || y >= bmp.Height) continue;
 
-                        Color pixel = bm.GetPixel(x, y);
-                        if (pixel.A > 0) return true;
+                        var pixel = bmp.GetPixel(x, y);
+                        if (pixel.R != 0 || pixel.G != 0 || pixel.B != 255) return true;
                     }
                 }
+
             }
+
             return false;
         }
 
@@ -356,28 +366,17 @@ namespace Sketchball.Elements
             return this.boundingContainer;
         }
 
-        public Vector2 getLocation()
-        {
-            return this.Location;
-        }
 
-        public void setLocation(Vector2 newLoc)
+        public Rect GetBounds()
         {
-            this.Location.X = newLoc.X;
-            this.Location.Y = newLoc.Y;
-        }
-
-
-        public Rectangle GetBounds()
-        {
-            return new Rectangle((int)X, (int)Y, Width, Height);
+            return new Rect(X, Y, Width, Height);
         }
 
 
 #region Implementables
 
         protected abstract void Init();
-        protected abstract void OnDraw(Graphics g);
+        protected abstract void OnDraw(System.Windows.Media.DrawingContext g);
 
         public virtual void Update(long delta) { }
 
@@ -413,7 +412,7 @@ namespace Sketchball.Elements
 
 #endregion
 
-        
-        
+
+
     }
 }

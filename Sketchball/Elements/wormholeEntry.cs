@@ -1,10 +1,11 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -13,8 +14,9 @@ namespace Sketchball.Elements
         public WormholeExit WormholeExit { get; set; }
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWomholeEntry);
 
+
         private static readonly Size size = new Size(30, 30);
-        private static Image image = Booster.OptimizeImage(Properties.Resources.WormholeEntry, size.Width);
+        private static ImageSource imageS = Booster.OptimizeWpfImage("WormholeEntry.png");
 
         protected override Size BaseSize
         {
@@ -27,28 +29,22 @@ namespace Sketchball.Elements
             this.pureIntersection = true;
         }
 
-        protected override void OnDraw(Graphics g)
-        {
-            /* g.TranslateTransform(-X, -Y);
-            boundingContainer.boundingBoxes.ForEach((b) =>
-            {
-                b.drawDEBUG(g, Pens.Red);
-            });
-            g.TranslateTransform(X, Y);*/
-            g.DrawImage(image, 0, 0, Width, Height);
-        }
-
         protected override void Init()
         {
-            BoundingCircle bC = new BoundingCircle(15, new Vector2(0, 0));
-            this.boundingContainer.addBoundingBox(bC);
-            bC.assigneToContainer(this.boundingContainer);
+            BoundingCircle bC = new BoundingCircle(15, new Vector(0, 0));
+            this.boundingContainer.AddBoundingBox(bC);
+            bC.AssignToContainer(this.boundingContainer);
         }
 
         public override void notifyIntersection(Ball b)
         {
-            b.Location = this.WormholeExit.Location + new Vector2(this.WormholeExit.Width / 2, this.WormholeExit.Height / 2);
+            b.Location = this.WormholeExit.Location + new Vector(this.WormholeExit.Width / 2, this.WormholeExit.Height / 2);
             player.Play();
+        }
+
+        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
     }
 }

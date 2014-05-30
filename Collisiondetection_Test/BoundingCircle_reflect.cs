@@ -3,6 +3,7 @@ using Sketchball.Collision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
+using System.Windows;
 
 namespace Collisiondetection_Test
 {
@@ -13,27 +14,27 @@ namespace Collisiondetection_Test
         public void TestReflection315DirectionCenter()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(0f, 0f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(0f, 0f);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(100, 100);
+            Vector ballSpeed = new Vector(100, 100);
 
-            Vector2 hitPoint = new Vector2(120f - 14.142f, 120f - 14.142f);
-            Vector2 expectedReflection = -ballSpeed;
+            Vector hitPoint = new Vector(120f - 14.142f, 120f - 14.142f);
+            Vector expectedReflection = -ballSpeed;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -45,27 +46,27 @@ namespace Collisiondetection_Test
         public void TestReflection0Direction()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(120f, -100f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(120f, -100f);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(0, 100);
+            Vector ballSpeed = new Vector(0, 100);
 
-            Vector2 hitPoint = new Vector2(120,100);
-            Vector2 expectedReflection = -ballSpeed;
+            Vector hitPoint = new Vector(120,100);
+            Vector expectedReflection = -ballSpeed;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -77,27 +78,27 @@ namespace Collisiondetection_Test
         public void TestReflection45Direction()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(140f, 100f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(140f, 100f);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(-100, 100);
+            Vector ballSpeed = new Vector(-100, 100);
 
-            Vector2 hitPoint = new Vector2(120f+14.1421f, 120-14.1421f);
-            Vector2 expectedReflection = -ballSpeed;
+            Vector hitPoint = new Vector(120f+14.1421f, 120-14.1421f);
+            Vector expectedReflection = -ballSpeed;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -109,27 +110,27 @@ namespace Collisiondetection_Test
         public void TestReflection90Direction()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(150f, 120f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(150f, 120f);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(-100, 0);
+            Vector ballSpeed = new Vector(-100, 0);
 
-            Vector2 hitPoint = new Vector2(140, 120);
-            Vector2 expectedReflection = -ballSpeed;
+            Vector hitPoint = new Vector(140, 120);
+            Vector expectedReflection = -ballSpeed;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -141,27 +142,27 @@ namespace Collisiondetection_Test
         public void TestReflection135Direction()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(140f, 120f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(140f, 120f);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(-100, -100);
+            Vector ballSpeed = new Vector(-100, -100);
 
-            Vector2 hitPoint = new Vector2(120 + 14.1421f, 120 + 14.1421f);
-            Vector2 expectedReflection = -ballSpeed;
+            Vector hitPoint = new Vector(120 + 14.1421f, 120 + 14.1421f);
+            Vector expectedReflection = -ballSpeed;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -173,27 +174,27 @@ namespace Collisiondetection_Test
         public void TestReflection180Direction()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(120f, 150f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(120f, 150f);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(0, -100);
+            Vector ballSpeed = new Vector(0, -100);
 
-            Vector2 hitPoint = new Vector2(120, 140);
-            Vector2 expectedReflection = -ballSpeed;
+            Vector hitPoint = new Vector(120, 140);
+            Vector expectedReflection = -ballSpeed;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -205,27 +206,27 @@ namespace Collisiondetection_Test
         public void TestReflection225Direction()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(100f, 140f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(100f, 140f);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(100, -100);
+            Vector ballSpeed = new Vector(100, -100);
 
-            Vector2 hitPoint = new Vector2(120 - 14.1421f, 120 + 14.1421f);
-            Vector2 expectedReflection = -ballSpeed;
+            Vector hitPoint = new Vector(120 - 14.1421f, 120 + 14.1421f);
+            Vector expectedReflection = -ballSpeed;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -237,27 +238,27 @@ namespace Collisiondetection_Test
         public void TestReflection270Direction()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(90f, 120f);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(90f, 120f);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(100, 0);
+            Vector ballSpeed = new Vector(100, 0);
 
-            Vector2 hitPoint = new Vector2(100, 120 );
-            Vector2 expectedReflection = -ballSpeed;
+            Vector hitPoint = new Vector(100, 120 );
+            Vector expectedReflection = -ballSpeed;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -269,27 +270,27 @@ namespace Collisiondetection_Test
         public void TestReflectionHorizontalTopTouchDirection()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(0, 100);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(0, 100);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(100, 0);
+            Vector ballSpeed = new Vector(100, 0);
 
-            Vector2 hitPoint = new Vector2(120, 100);
-            Vector2 expectedReflection = ballSpeed;     //since entryangle =0
+            Vector hitPoint = new Vector(120, 100);
+            Vector expectedReflection = ballSpeed;     //since entryangle =0
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -301,27 +302,27 @@ namespace Collisiondetection_Test
         public void TestReflectionVerticalLeftTouchDirection()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(100, 50);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(100, 50);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(0, 100);
+            Vector ballSpeed = new Vector(0, 100);
 
-            Vector2 hitPoint = new Vector2(100, 120);
-            Vector2 expectedReflection = ballSpeed;     //since entryangle =0
+            Vector hitPoint = new Vector(100, 120);
+            Vector expectedReflection = ballSpeed;     //since entryangle =0
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion
@@ -334,28 +335,28 @@ namespace Collisiondetection_Test
         public void TestReflectionHorizontalTopRandomSimulatedDirection()
         {
             //Preconfig
-            Vector2 position = new Vector2(100f, 100f);
-            Vector2 ballPos = new Vector2(0, 50);
+            Vector position = new Vector(100f, 100f);
+            Vector ballPos = new Vector(0, 50);
             int radius = 20;
 
-            Vector2 ballSpeed = new Vector2(120,100)-ballPos;
+            Vector ballSpeed = new Vector(120,100)-ballPos;
 
-            Vector2 hitPoint = new Vector2(120, 100);
-            Vector2 expectedReflection = ballSpeed;
+            Vector hitPoint = new Vector(120, 100);
+            Vector expectedReflection = ballSpeed;
             expectedReflection.Y = -expectedReflection.Y;
             expectedReflection.Normalize();
-            Vector2 reflection;
+            Vector reflection;
 
             //Creation
             Bumper parent = new Bumper();
             BoundingCircle bC2 = new BoundingCircle(radius, position);
             BoundingContainer bCont = new BoundingContainer(parent);
-            bCont.addBoundingBox(bC2);
+            bCont.AddBoundingBox(bC2);
 
             //Operation
-            parent.setLocation(new Vector2(0, 0));
+            parent.Location = (new Vector(0, 0));
 
-            reflection = bC2.reflect(ballSpeed, hitPoint, ballPos);
+            reflection = bC2.Reflect(ballSpeed, hitPoint, ballPos);
             reflection.Normalize();
 
             //Assertion

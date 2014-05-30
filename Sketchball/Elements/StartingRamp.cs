@@ -1,12 +1,13 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GlideTween;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -14,7 +15,7 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private Vector2 MaxVelocity = new Vector2(5, -1000f);
+        private Vector MaxVelocity = new Vector(5, -1000f);
 
         private Ball Ball = null;
         private bool Charging = false;
@@ -26,10 +27,9 @@ namespace Sketchball.Elements
         private readonly int PencilPullback = 50;
         private readonly int PencilOffsetY = -100;
 
-
-        private static Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 86);
-        private static Image RampImage = Booster.OptimizeImage(Properties.Resources.Rampe, 500);
-
+        private static System.Drawing.Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 86);
+        private static ImageSource RampImageS = Booster.OptimizeWpfImage("Rampe.png");
+        private static ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
 
 
 
@@ -40,21 +40,21 @@ namespace Sketchball.Elements
         protected override void Init()
         {
 
-            Vector2 p1 = new Vector2(21,1128);
-            Vector2 p2 = new Vector2(16, 233);
-            Vector2 p3 = new Vector2(35, 158);
-            Vector2 p4 = new Vector2(58, 230);
-            Vector2 p5 = new Vector2(68, 1128);
+            Vector p1 = new Vector(21,1128);
+            Vector p2 = new Vector(16, 233);
+            Vector p3 = new Vector(35, 158);
+            Vector p4 = new Vector(58, 230);
+            Vector p5 = new Vector(68, 1128);
 
-            Vector2 p21 = new Vector2(149, 1128);
-            Vector2 p22 = new Vector2(131, 231);
-            Vector2 p23 = new Vector2(102, 26);
-            Vector2 p24 = new Vector2(121, 12);
-            Vector2 p25 = new Vector2(154, 230);
-            Vector2 p26 = new Vector2(175, 1128);
+            Vector p21 = new Vector(149, 1128);
+            Vector p22 = new Vector(131, 231);
+            Vector p23 = new Vector(102, 26);
+            Vector p24 = new Vector(121, 12);
+            Vector p25 = new Vector(154, 230);
+            Vector p26 = new Vector(175, 1128);
 
-            Vector2 pPs = new Vector2(65, this.BaseSize.Height + PencilOffsetY);
-            Vector2 pPe = new Vector2(152, this.BaseSize.Height + PencilOffsetY);
+            Vector pPs = new Vector(65, this.BaseSize.Height + PencilOffsetY);
+            Vector pPe = new Vector(152, this.BaseSize.Height + PencilOffsetY);
 
 
             BoundingLine bL1 = new BoundingLine(p1, p2);
@@ -72,24 +72,24 @@ namespace Sketchball.Elements
 
             BoundingLine bLP = new BoundingLine(pPs, pPe);
 
-            bL4.bounceFactor = 0.5f;
-            bL1.bounceFactor = 0.5f;
-            bLP.bounceFactor = 0.2f;
+            bL4.BounceFactor = 0.5f;
+            bL1.BounceFactor = 0.5f;
+            bLP.BounceFactor = 0.2f;
 
-            this.boundingContainer.addBoundingBox(bL1);
-            this.boundingContainer.addBoundingBox(bL2);
-            this.boundingContainer.addBoundingBox(bL3);
-            this.boundingContainer.addBoundingBox(bL4);
-            this.boundingContainer.addBoundingBox(bL5);
+            this.boundingContainer.AddBoundingBox(bL1);
+            this.boundingContainer.AddBoundingBox(bL2);
+            this.boundingContainer.AddBoundingBox(bL3);
+            this.boundingContainer.AddBoundingBox(bL4);
+            this.boundingContainer.AddBoundingBox(bL5);
 
-            this.boundingContainer.addBoundingBox(bL21);
-            this.boundingContainer.addBoundingBox(bL22);
-            this.boundingContainer.addBoundingBox(bL23);
-            this.boundingContainer.addBoundingBox(bL24);
-            this.boundingContainer.addBoundingBox(bL25);
-            this.boundingContainer.addBoundingBox(bL26);
+            this.boundingContainer.AddBoundingBox(bL21);
+            this.boundingContainer.AddBoundingBox(bL22);
+            this.boundingContainer.AddBoundingBox(bL23);
+            this.boundingContainer.AddBoundingBox(bL24);
+            this.boundingContainer.AddBoundingBox(bL25);
+            this.boundingContainer.AddBoundingBox(bL26);
 
-            this.boundingContainer.addBoundingBox(bLP);
+            this.boundingContainer.AddBoundingBox(bLP);
 
 
             Scale = 1 / 2f;
@@ -109,16 +109,11 @@ namespace Sketchball.Elements
             machine.Input.KeyUp -= Discharge;
         }
 
-        protected override void OnDraw(System.Drawing.Graphics g)
+        protected override void OnDraw(DrawingContext g)
         {
-
-            boundingContainer.boundingBoxes.ForEach((b) =>
-            {
-                b.drawDEBUG(g, Pens.Red);
-            });
-            g.DrawImage(RampImage, 0, 0, BaseWidth, BaseHeight);
-            g.DrawImage(PencilImage, 64, (1128 + PencilOffsetY -15)  + Power * PencilPullback);
-        } 
+            g.DrawImage(RampImageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+            g.DrawImage(PencilImageS, new System.Windows.Rect(86f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback, PencilImage.Width, PencilImage.Height));
+        }
 
         public void IntroduceBall(Ball ball) {
             Ball = ball;
@@ -169,5 +164,6 @@ namespace Sketchball.Elements
                 Tweener.Cancel();
             }
         }
+
     }
 }

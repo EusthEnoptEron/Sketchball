@@ -2,17 +2,20 @@
 using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
 
 namespace Sketchball.Controls
 {
     public class PinballEditControl : PinballControl
     {
+        private const int PADDING = 15;
+
         public readonly History History = new History();
         private Pen SelectionPen;
 
@@ -31,6 +34,7 @@ namespace Sketchball.Controls
 
                     if (SelectedElement != null)
                     {
+                        // Re-Add the element to bring it to front
                         PinballMachine.Remove(SelectedElement);
                         PinballMachine.Add(SelectedElement);
                     }
@@ -39,10 +43,18 @@ namespace Sketchball.Controls
             }
         }
 
+        public void Invalidate()
+        {
+            InvalidateVisual();
+        }
+
         public delegate void SelectionChangedHandler(PinballElement prevElement, PinballElement newElement);
         public event SelectionChangedHandler SelectionChanged;
 
         private float _scaleFactor = 1.0f;
+
+        public event EventHandler<DrawingContext> Paint;
+
         public float ScaleFactor
         {
             get
@@ -58,11 +70,10 @@ namespace Sketchball.Controls
 
         private void UpdateSize()
         {
-            SuspendLayout();
-            Width = (int)(PinballMachine.Width * ScaleFactor);
-            Height = (int)(PinballMachine.Height * ScaleFactor);
-            ResumeLayout();
-            Invalidate();
+            Width = (int)(PinballMachine.Width * ScaleFactor) + PADDING;
+            Height = (int)(PinballMachine.Height * ScaleFactor) + PADDING;
+
+          //  Invalidate();
         }
 
         public PinballMachine PinballMachine { get; private set; }
@@ -72,14 +83,13 @@ namespace Sketchball.Controls
         {
             PinballMachine = new PinballMachine();
 
-            // Optimize control for performance
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-           // SetStyle(ControlStyles.UserPaint, true);
+            SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
+            //Effect = new DropShadowEffect();
 
-            SelectionPen = new Pen(Color.Black, 1);
-            SelectionPen.DashStyle = DashStyle.Dash;
-            
+            SelectionPen = new Pen(Brushes.Black, 1);
+            SelectionPen.DashStyle = DashStyles.Dash;
+            //SelectionPen.DashStyle = DashStyle.Dash;
+           
             UpdateSize();
 
             History.Change += () => { Invalidate(); };
@@ -110,22 +120,15 @@ namespace Sketchball.Controls
             History.Add(change);
         }
 
-        protected override void ConfigureGDI(Graphics g)
+        protected override void Draw(DrawingContext g)
         {
-            base.ConfigureGDI(g);
-        }
+            // Clear rectangle (needed, because otherwise it will not react to click events)
+           // g.DrawRectangle(Brushes.White, null, new Rect(0, 0, Width, Height));
 
-        protected override void Draw(Graphics g)
-        {
-            //Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Gray, Color.LightGray);
-            /*Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Gray, Color.DarkGray);
-            g.FillRectangle(brush, 0, 0, base.Width, base.Height);
-            */
 
-            var state = g.Save();
-            g.Transform = Transform;
+            g.PushTransform(new MatrixTransform(Transform));
             PinballMachine.Draw(g);
-            g.Restore(state);
+            g.Pop();
 
             // Draw selection
             // Border should always look the same, therefore we need to restore the gstate first and then use editor coordinates
@@ -134,20 +137,24 @@ namespace Sketchball.Controls
                 var bounds = SelectedElement.GetBounds();
                 var origin = SelectedElement.GetRotationOrigin();
 
-
-                bounds.Location = PointToEditor(bounds.Location);
-                bounds.Width = (int)LengthToEditor(bounds.Width);
-                bounds.Height = (int)LengthToEditor(bounds.Height);
+                var point = new Point(bounds.Location.X, bounds.Location.Y);
+                var pRes = PointToEditor(point);
+                bounds.Location = new Point(pRes.X, pRes.Y);
+                bounds.Width =  LengthToEditor(bounds.Width);
+                bounds.Height =  LengthToEditor(bounds.Height);
                 origin.X = LengthToEditor(origin.X);
                 origin.Y = LengthToEditor(origin.Y);
 
 
-                g.TranslateTransform(bounds.X + origin.X, bounds.Y + origin.Y);
-                g.RotateTransform(SelectedElement.BaseRotation);
-                g.TranslateTransform(-bounds.X - origin.X, -bounds.Y - origin.Y);
+                g.PushTransform(new RotateTransform(SelectedElement.BaseRotation, bounds.X + origin.X, bounds.Y + origin.Y)); 
 
-                g.DrawRectangle(SelectionPen, bounds);
+                g.DrawRectangle(null, SelectionPen, new Rect(bounds.X, bounds.Y, bounds.Width, bounds.Height));
+
+                g.Pop();
             }
+
+            if (Paint != null)
+                Paint(this, g);
 
         }
 
@@ -156,7 +163,7 @@ namespace Sketchball.Controls
             get
             {
                 Matrix m  = new Matrix();
-                m.Translate(15, 15);
+                m.Translate(PADDING, PADDING);
                 m.Scale(ScaleFactor, ScaleFactor);
                 //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
 
@@ -176,15 +183,15 @@ namespace Sketchball.Controls
             Matrix m = Transform;
             m.Invert();
  
-            m.TransformPoints(pArray);
+            m.Transform(pArray);
             
             return pArray[0];
         }
 
-        public Vector2 PointToPinball(Vector2 p)
+        public Vector PointToPinball(Vector p)
         {
             var point = PointToPinball(new Point((int)p.X, (int)p.Y));
-            return new Vector2(point.X, point.Y);
+            return new Vector(point.X, point.Y);
         }
 
         /// <summary>
@@ -196,15 +203,15 @@ namespace Sketchball.Controls
         {
             Point[] pArray = new Point[] { p };
             Matrix m = Transform;
-            m.TransformPoints(pArray);
+            m.Transform(pArray);
 
             return pArray[0];
         }
 
-        public Vector2 PointToEditor(Vector2 p)
+        public Vector PointToEditor(Vector p)
         {
-            var point = PointToEditor(new Point((int)p.X, (int)p.Y));
-            return new Vector2(point.X, point.Y);
+            var point = PointToEditor(new Point(p.X, p.Y));
+            return new Vector(point.X, point.Y);
         }
 
         /// <summary>
@@ -212,9 +219,14 @@ namespace Sketchball.Controls
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public float LengthToEditor(float val)
+        public double LengthToEditor(double val)
         {
             return val * ScaleFactor;
+        }
+        
+        public float LengthToEditor(float val)
+        {
+            return (float)LengthToEditor((double)val);
         }
 
         /// <summary>
@@ -222,8 +234,14 @@ namespace Sketchball.Controls
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
-        public float LengthToPinball(float val) {
+        public double LengthToPinball(double val)
+        {
             return val / ScaleFactor;
+        }
+
+        public float LengthToPinball(float val)
+        {
+            return (float)LengthToPinball((double)val);
         }
 
         public void LoadMachine(PinballMachine machine) {
@@ -240,6 +258,12 @@ namespace Sketchball.Controls
             {
                 listeners(prev, SelectedElement);
             }
+        }
+
+        public System.Drawing.Point PointToPinball(System.Drawing.Point point)
+        {
+            var p = PointToPinball(new Point(point.X, point.Y));
+            return new System.Drawing.Point((int)p.X, (int)p.Y);
         }
     }
 }

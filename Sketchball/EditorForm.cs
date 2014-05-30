@@ -13,11 +13,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Vector = System.Windows.Vector;
+
 namespace Sketchball
 {
 
     public partial class EditorForm : Form
     {
+        private PinballEditControl PlayFieldEditor;
+        private WPFContainer EditorContainer;
+
         private SelectionForm selectionForm;
         private ToolTip tt = new ToolTip();
 
@@ -70,6 +75,10 @@ namespace Sketchball
         {
             InitializeComponent();
 
+            PlayFieldEditor = new PinballEditControl();
+            EditorContainer = new WPFContainer(PlayFieldEditor);
+            fieldAndPropertySplitter.Panel1.Controls.Add(EditorContainer);
+
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
 
             // Set up menu
@@ -82,7 +91,7 @@ namespace Sketchball
 
             // Set up playfield and element inspector
             PlayFieldEditor.History.Change += () => { elementInspector.Refresh(); };
-            elementInspector.PropertyValueChanged += (sender, e) => { PlayFieldEditor.Refresh(); };
+            elementInspector.PropertyValueChanged += (sender, e) => { PlayFieldEditor.Invalidate(); };
             fieldAndPropertySplitter.Panel2Collapsed = true;
 
             // Set up zoom bar
@@ -92,6 +101,22 @@ namespace Sketchball
             zoomBar.Trackbar.ValueChanged += (sender, e) => { PlayFieldEditor.ScaleFactor = zoomBar.Trackbar.Value / 10f; };
             
             FileName = null;
+
+            // PlayFieldEditor
+            //EditorContainer.AllowDrop = true;
+            PlayFieldEditor.AllowDrop = true;
+            EditorContainer.Location = new System.Drawing.Point(3, 3);
+            EditorContainer.Size = new System.Drawing.Size(540, 545);
+            EditorContainer.TabIndex = 2;
+            PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
+
+            PlayFieldEditor.Drop += this.OnDragDrop;
+            PlayFieldEditor.DragEnter += this.OnDragEnter;
+            PlayFieldEditor.DragOver += this.OnDragOver;
+            PlayFieldEditor.DragLeave += this.OnDragLeave;
+            PlayFieldEditor.GiveFeedback += this.OnGiveFeedback;
+            PlayFieldEditor.QueryContinueDrag += this.OnQueryContinueDrag;
+            //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
         }
 
  
@@ -117,15 +142,6 @@ namespace Sketchball
 
         private void playgroundToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form f = new Form();
-            PinballControl2 pinball = new PinballControl2();
-               
-            f.Controls.Add(pinball);
-            pinball.Dock = DockStyle.Fill;
-            f.Width = 500;
-            f.Height = 500;
-            f.WindowState = FormWindowState.Maximized;
-            f.ShowDialog();
         }
 
         private void populateToolPanel()
@@ -176,7 +192,6 @@ namespace Sketchball
                 c.MouseDown += StartDragAndDrop;
             }
 
-            PlayFieldEditor.Controls.Add(dragThumb);
         }
 
         private void EditorForm_Load(object sender, EventArgs e)
@@ -198,8 +213,9 @@ namespace Sketchball
         }
 
 
-        private void OnDragDrop(object sender, DragEventArgs e)
+        private void OnDragDrop(object sender, System.Windows.DragEventArgs e)
         {
+            PlayFieldEditor.PinballMachine.Remove(dragState.Element);
             PlayFieldEditor.AddElement(dragState.Element);
             if( dragState.Element.GetType() == typeof(WormholeEntry))
             {
@@ -216,36 +232,37 @@ namespace Sketchball
             }
         }
 
-        private void OnDragEnter(object sender, DragEventArgs e)
+        private void OnDragEnter(object sender, System.Windows.DragEventArgs e)
         {
-            e.Effect = DragDropEffects.Move;
-            dragThumb.Visible = true;
+            e.Effects = System.Windows.DragDropEffects.Move;
+
+            PlayFieldEditor.PinballMachine.Add(dragState.Element);
         }
 
         private void OnDragLeave(object sender, EventArgs e)
         {
-            dragThumb.Visible = false;
+            PlayFieldEditor.PinballMachine.Remove(dragState.Element);
         }
 
-        private void OnDragOver(object sender, DragEventArgs e)
+        private void OnDragOver(object sender, System.Windows.DragEventArgs e)
         {
-            dragThumb.Location = PlayFieldEditor.PointToClient(new Point(e.X + 1, e.Y + 1));
-
-            var pinballPoint = PlayFieldEditor.PointToPinball(dragThumb.Location);
-            dragState.Element.Location = new Vector2(pinballPoint.X, pinballPoint.Y);
-            dragThumb.Visible = true;
+            var pos = e.GetPosition(PlayFieldEditor);
+            var pinballPoint = PlayFieldEditor.PointToPinball(pos);
+            dragState.Element.Location = new Vector((pinballPoint.X - dragState.Element.Width / 2),
+                                                     (pinballPoint.Y - dragState.Element.Height / 2));
+            PlayFieldEditor.Invalidate();
         }
 
-        private void OnQueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        private void OnQueryContinueDrag(object sender, System.Windows.QueryContinueDragEventArgs e)
         {
             if (!dragState.Active)
             {
                 // Don't allow drag'n'drop from outside
-                e.Action = DragAction.Cancel;
+                e.Action = System.Windows.DragAction.Cancel;
             }
         }
 
-        private void OnGiveFeedback(object sender, GiveFeedbackEventArgs e)
+        private void OnGiveFeedback(object sender, System.Windows.GiveFeedbackEventArgs e)
         {
         }
 
@@ -254,15 +271,10 @@ namespace Sketchball
             dragState.Active = true;
             dragState.Element = control.GetInstance();
 
-            dragThumb.Image = control.GetImage();
-
-            PlayFieldEditor.DoDragDrop(new object(), DragDropEffects.All);
+            EditorContainer.DoDragDrop(new object(), DragDropEffects.All);
             
-            dragThumb.Visible = false;
-
             dragState.Active = false;
             dragState.Element = null;
-           
         }
 
 

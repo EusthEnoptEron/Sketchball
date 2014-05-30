@@ -1,14 +1,17 @@
 ﻿using Sketchball.Elements;
+using Sketchball.GameComponents;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Sketchball.Controls
 {
@@ -17,28 +20,17 @@ namespace Sketchball.Controls
     /// </summary>
     class GameView : PinballControl
     {
-        private readonly float zoomfactor = 0.05f;
-        private bool lockOnBall = false;
 
         /// <summary>
-        /// The absolute minimum of FPS at any point in time.
+        /// The absolute maximum of FPS at any point in time.
         /// </summary>
-        private const int MIN_FPS = 10;
+        private const int MAX_FPS = 80;
 
         public Camera Camera{get; private set;}
         private GameHUD HUD;
 
-        protected override void ConfigureGDI(Graphics g)
-        {
-            base.ConfigureGDI(g);
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            BackColor = Color.Transparent;
-
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-        }
-
-
         public Game Game;
+        private System.Windows.Forms.Timer timer;
 
         /// <summary>
         /// Creates a new PinballGameControl based on a machine template.
@@ -49,52 +41,49 @@ namespace Sketchball.Controls
         {
             Game = game;
             Camera = new GameFieldCamera(Game);
-            this.MinimumSize = new Size(((GameFieldCamera)(Camera)).getMinSize().Width,((GameFieldCamera)(Camera)).getMinSize().Height);
-
             HUD = new GameHUD(Game);
 
+            Focusable = true;
+            Loaded += (s, e) => { Focus(); };
+
             // Init camera
-            Camera.Size = Size;
+            Camera.Size = new Size(Width, Height);
 
             // Optimize control for performance
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            SetStyle(ControlStyles.UserPaint, true);
+           // this.Effect = new System.Windows.Media.Effects.BlurEffect();
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 1000 / MAX_FPS;
+            timer.Tick += OnDraw;
+            timer.Start();
+
+            PreviewKeyDown += HandleKeyDown;
             
-            HandleCreated += PinballGameControl_HandleCreated;
-            KeyDown += HandleKeyDown;
-            Resize += ResizeCamera;
+            SizeChanged += ResizeCamera;
+
+            SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        private void ResizeCamera(object sender, System.Windows.SizeChangedEventArgs e)
         {
-            Camera.Size = Size;
-            Invalidate();
-            base.OnSizeChanged(e);
-        }
-
-        private void ResizeCamera(object sender, EventArgs e)
-        {
-            Camera.Size = Size;
-            Invalidate();
+            Camera.Size = new Size((int)Width, (int)Height);
         }
 
 
         /// <summary>
         /// Handles key presses (used to initiate a new game)
         /// </summary>
-        private void HandleKeyDown(object sender, KeyEventArgs e)
+        private void HandleKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            switch (e.Key)
             {
-                case Keys.Space:
+                case Key.Space:
                     if ((!Game.IsRunning) || Game.Status == GameStatus.GameOver)
                     {
                         Game.Start();
                     }
                     break;
                 
-                case Keys.Enter:
+                case Key.Enter:
                     if (Game.Status == GameStatus.Playing)
                     {
                         Game.Pause();
@@ -105,131 +94,64 @@ namespace Sketchball.Controls
                     }
                     break;
 
-                case Keys.Add:
-                    this.Camera.zoom(1+this.zoomfactor);
+                case Key.Add:
+                   // this.Camera.zoom(1+this.zoomfactor);
                     break;
 
-                case Keys.OemMinus:
-                case Keys.Subtract:
-                    this.Camera.zoom(1-this.zoomfactor);
+                case Key.OemMinus:
+                case Key.Subtract:
+                   // this.Camera.zoom(1-this.zoomfactor);
                     break;
 
             }         
 
         }
 
-
-        /// <summary>
-        /// Initializes the game loop.
-        /// </summary>
-        private void PinballGameControl_HandleCreated(object sender, EventArgs e)
+        private void OnDraw(object sender, EventArgs e)
         {
-            BackgroundWorker worker = new BackgroundWorker();
-            
-            worker.DoWork += DrawCycle;
-            worker.RunWorkerAsync();
+            if (isCancelled) 
+                timer.Dispose();
+            else
+                InvalidateVisual();
         }
 
-
-        /// <summary>
-        /// Method that repeatedly draws and updates the scene.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DrawCycle(object sender, DoWorkEventArgs e)
-        {
-            DateTime prev = DateTime.Now;
-            DateTime now;
-
-            int counter = 1;
- 
-
-            while (true)
-            {
-                if (!IsHandleCreated) return;
-                now = DateTime.Now;
-
-                if (Game.Status == GameStatus.Playing || counter-- > 0)
-                {
-                    // Make sure that we draw the scene once more after status change
-                    if (Game.Status == GameStatus.Playing) counter = 1;
-
-                    if (Game.Machine.HasBall())
-                    {
-                        this.UpdateCam(this.Game.Machine.Balls[0].Location);
-                    }
-
-                    // Redraw scene
-                    IAsyncResult result = BeginInvoke(new Action(
-                        () =>
-                        {
-                            Invalidate();
-                            base.Update();
-                        }
-                    ));
-
-                    EndInvoke(result);
-
-                    // Give some time for input processing
-                    Thread.Sleep(1);
-                }
-                else
-                {
-                    Thread.Sleep(10);
-                }
-
-                prev = now;
-            }
-        
-        }
-
- 
-        protected override void Draw(Graphics g)
+        protected override void Draw(DrawingContext g)
         {
             // Draw pinball machine
             Camera.Draw(g);
 
-            g.TranslateTransform(Width - HUD.Width, 0);
+            g.PushTransform(new TranslateTransform(Width - HUD.Width, 0));
             HUD.Draw(g);
-            g.TranslateTransform(-(Width - HUD.Width), 0);
+            g.Pop();
 
             if (Game.Status == GameStatus.GameOver)
             {
-                DrawOverlay(g, Color.DarkRed, "YOU LOSE", "Press [SPACE] to try again.");
+                DrawOverlay(g, Colors.DarkRed, "YOU LOSE", "Press [SPACE] to try again.");
             }
             else if (Game.Status == GameStatus.Pause)
             {
-                DrawOverlay(g, Color.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
+                DrawOverlay(g, Colors.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
             }
             
         }
 
-        private void DrawOverlay(Graphics g, Color color, string title, string msg)
+        private void DrawOverlay(DrawingContext g, Color color, string title, string msg)
         {
-            using (Brush brush = new SolidBrush(Color.FromArgb(150, color)))
-            {
-                using (Brush solidBrush = new SolidBrush(color))
-                {
-                    g.FillRectangle(brush, 0, 0, Width, Height);
-                    SizeF size = g.MeasureString(title, new Font("Impact", 40, FontStyle.Regular));
+            var col = Color.FromArgb(150, color.R, color.G, color.B);
 
-                    g.DrawString(title, new Font("Impact", 40, FontStyle.Regular), solidBrush, new PointF(Width / 2 - size.Width / 2, Height / 2 - size.Height / 2));
-                    g.DrawString(msg, new Font("Arial", 13, FontStyle.Regular), solidBrush, new PointF(Width / 2 - size.Width / 2, Height / 2 + size.Height / 2));
-                }
-            }
+            Brush brush = new SolidColorBrush(col);
+            Brush solidBrush = new SolidColorBrush(color);
+
+            var caption = Booster.GetText(title, new FontFamily("Impact"), 40, solidBrush);
+            var text = Booster.GetText(msg, new FontFamily("Arial"), 13, solidBrush);
+            double x = (Width - caption.Width) / 2;
+
+
+            g.DrawRectangle(brush, null, new Rect(0, 0, Width, Height));
+            g.DrawText(caption, new Point( x, (Height - caption.Height) / 2 ));
+            g.DrawText(text, new Point(x, (Height + caption.Height) / 2));
         }
 
-        public void UpdateCam(Vector2 ballPos)
-        {
-            if (this.lockOnBall)
-            {
-                this.Camera.moveAbs(-ballPos);
-            }
-        }
 
-        public void lockonBall()
-        {
-            this.lockOnBall = true;
-        }
     }
 }

@@ -3,17 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.Threading.Tasks;
 using Sketchball.Collision;
 using Sketchball.Elements;
+using System.Windows.Media;
+using System.Windows.Input;
+using System.Windows;
 
 namespace Sketchball.Editor
 {
     public class LineTool : Tool
     {
-        private Vector2 startPos;
-        private Vector2 actualPos;
+        private Vector startPos;
+        private Vector actualPos;
         private bool drawing = false;
         
 
@@ -27,15 +29,18 @@ namespace Sketchball.Editor
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            this.startPos = new Vector2(e.X, e.Y);
-            this.actualPos = new Vector2(e.X, e.Y);
+
+            var pos = e.GetPosition(Control);
+            this.startPos = new Vector(pos.X, pos.Y);
+            this.actualPos = new Vector(pos.X, pos.Y);
             this.drawing = true;
-            this.Control.Refresh();
+            this.Control.Invalidate();
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
-            this.actualPos = new Vector2(e.X, e.Y);
+            var pos = e.GetPosition(Control);
+            this.actualPos = new Vector(pos.X, pos.Y);
 
             //Create Line
             var start = Control.PointToPinball(startPos);
@@ -44,25 +49,26 @@ namespace Sketchball.Editor
             this.Control.AddElement(l);
 
             this.drawing = false;
-            this.Control.Refresh();
+            this.Control.Invalidate();
         }
 
         protected override void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (this.drawing)
             {
-                this.actualPos.X = e.X;
-                this.actualPos.Y = e.Y;
+                var pos = e.GetPosition(Control);
+                this.actualPos.X = pos.X;
+                this.actualPos.Y = pos.Y;
 
-                this.Control.Refresh();
+                this.Control.Invalidate();
             }
         }
 
-        protected override void Draw(object sender, PaintEventArgs e)
+        protected override void Draw(object sender, DrawingContext g)
         {
             if (this.drawing)
             {
-                e.Graphics.DrawLine(System.Drawing.Pens.Black, startPos.X, startPos.Y, actualPos.X, actualPos.Y);
+                g.DrawLine(new Pen(Brushes.Black, 1), new Point(startPos.X, startPos.Y), new Point(actualPos.X, actualPos.Y));
             }
         }
     }

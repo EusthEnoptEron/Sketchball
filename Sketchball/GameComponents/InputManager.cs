@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sketchball
+namespace Sketchball.GameComponents
 {
     class InputManager
     {
@@ -30,7 +30,6 @@ namespace Sketchball
             }
             set
             {
-                Console.WriteLine("ENABLED");
                 keyboardListener.Enabled = value;
             }
         }

@@ -1,4 +1,5 @@
 ﻿using Sketchball.Collision;
+using Sketchball.GameComponents;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,7 +28,7 @@ namespace Sketchball.Elements
             this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width * 1f / Ball.Size.Width), (int)Math.Ceiling(Height * 1f / Ball.Size.Width), Width, Height);
             foreach (IBoundingBox b in anis)
             {
-                this.boundingRaster.addAnimatedObject(b);
+                this.boundingRaster.AddAnimatedObject(b);
             }
             this.boundingRaster.takeOverBoundingBoxes(StaticElements);
             this.boundingRaster.takeOverBoundingBoxes(DynamicElements);
@@ -62,7 +63,7 @@ namespace Sketchball.Elements
             {
                 if (Properties.Settings.Default.Debug && (Balls[i].Y + Balls[i].Height) > Height)
                 {
-                    Balls[i].Y = Height - Balls[i].Height;
+                    Balls[i].Y = (Height - Balls[i].Height);
                     ((Ball)Balls[i]).Velocity *= -0.5f;
                 }
                 if (Balls[i].Y > Height)
@@ -82,40 +83,35 @@ namespace Sketchball.Elements
             }
         }
 
-        public void handleCollision()
+        private void handleCollision()
         {
             List<CollisionResult> hits = new List<CollisionResult>(20);
             foreach (Ball b in this.Balls)
             {
-                hits.Add(boundingRaster.handleCollision(b));
+                hits.Add(boundingRaster.HandleCollision(b));
             }
 
             foreach (CollisionResult result in hits)
             {
-                AnalyzeCollisions(result);
+                analyzeCollisions(result);
             }
         }
 
-        private void AnalyzeCollisions(CollisionResult result)
+        private void analyzeCollisions(CollisionResult result)
         {
             foreach (PinballElement element in result)
             {
-                RaiseCollision(element);
+                raiseCollision(element);
             }
         }
 
-        public void debugDraw(Graphics g)
-        {
-            g.DrawEllipse(Pens.Orange, this.boundingRaster.hitPointDebug.X, this.boundingRaster.hitPointDebug.Y, 2, 2);
-        }
-
-        internal bool HasBall()
+        public bool HasBall()
         {
             //throw new NotImplementedException();
             return Balls.Count > 0;
         }
 
-        internal void IntroduceBall()
+        public void IntroduceBall()
         {
             Ball ball = new Ball();
 
@@ -124,7 +120,7 @@ namespace Sketchball.Elements
             this.Balls.Add(ball);
         }
 
-        private void RaiseCollision(PinballElement element)
+        private void raiseCollision(PinballElement element)
         {
             var handlers = Collision;
             if (handlers != null)
@@ -132,5 +128,6 @@ namespace Sketchball.Elements
                 handlers(element);
             }
         }
+
     }
 }

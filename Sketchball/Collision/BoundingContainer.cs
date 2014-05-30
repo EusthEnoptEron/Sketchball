@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using Sketchball.Elements;
 using System.Drawing;
+using System.Windows;
 
 namespace Sketchball.Collision
 {
@@ -17,17 +18,17 @@ namespace Sketchball.Collision
         /// <summary>
         /// Amount that this bounding container is rotated
         /// </summary>
-        public float Rotation { get; set; }
+        public double Rotation { get; set; }
 
         /// <summary>
         /// All bounding boxes of this container
         /// </summary>
-        public List<IBoundingBox> boundingBoxes { get; private set; }
+        public List<IBoundingBox> BoundingBoxes { get; private set; }
 
         /// <summary>
         /// Reference to the Pinball element which belongs to this bounding container
         /// </summary>
-        public PinballElement parentElement { get; private set; }
+        public PinballElement ParentElement { get; private set; }
 
         /// <summary>
         /// Construtor to create new bounding container
@@ -35,18 +36,9 @@ namespace Sketchball.Collision
         /// <param name="parent">Parent of this container</param>
         public BoundingContainer(PinballElement parent)
         {
-            this.boundingBoxes = new List<IBoundingBox>();
-            this.parentElement = parent;
+            this.BoundingBoxes = new List<IBoundingBox>();
+            this.ParentElement = parent;
             this.Rotation = 0;
-        }
-
-        /// <summary>
-        /// Returns a list of all bounding boxes
-        /// </summary>
-        /// <returns>The list of all bounding boxes of this container</returns>
-        public List<IBoundingBox> getBoundingBoxes()
-        {
-            return this.boundingBoxes;
         }
 
         //center must be object space orientated!
@@ -55,33 +47,26 @@ namespace Sketchball.Collision
         /// </summary>
         /// <param name="rad">Determines how much that is rotated in rad</param>
         /// <param name="center">Center of rotation</param>
-        public void rotate(float rad, Vector2 center)
+        public void Rotate(double rad, Vector center)
         {
-            foreach (IBoundingBox b in this.boundingBoxes)
+            foreach (IBoundingBox b in this.BoundingBoxes)
             {
-                b.rotate(rad - Rotation, center);
+                b.Rotate(rad - Rotation, center);
             }
             this.Rotation = rad;
-        }
-
-        public void clearRotation()
-        {
-            foreach (IBoundingBox b in this.boundingBoxes)
-            {
-                b.clearRotation();
-            }
         }
 
         /// <summary>
         /// Moves all bounding boxes
         /// </summary>
         /// <param name="moveVec">Direction and distance to be moved</param>
-        public void move(Vector2 moveVec)
+        public void move(Vector moveVec)
         {
-            foreach (IBoundingBox b in this.boundingBoxes)
+            throw new NotImplementedException("Move is not supported anymore. Use a matrix if needed");
+           /* foreach (IBoundingBox b in this.boundingBoxes)
             {
                 b.move(moveVec);
-            }
+            }*/
         }
 
         /// <summary>
@@ -89,9 +74,9 @@ namespace Sketchball.Collision
         /// </summary>
         public void Sync()
         {
-            foreach (IBoundingBox b in this.boundingBoxes)
+            foreach (IBoundingBox b in this.BoundingBoxes)
             {
-                b.Sync(parentElement.Transform);
+                b.Sync(ParentElement.Transform);
             }
         }
 
@@ -99,10 +84,10 @@ namespace Sketchball.Collision
         /// Adds a bounding box to this container
         /// </summary>
         /// <param name="bL">The bounding box to add</param>
-        public void addBoundingBox(IBoundingBox bL)
+        public void AddBoundingBox(IBoundingBox bL)
         {
-            this.boundingBoxes.Add(bL);
-            bL.assigneToContainer(this);
+            this.BoundingBoxes.Add(bL);
+            bL.AssignToContainer(this);
         }
 
         /// <summary>
@@ -111,18 +96,18 @@ namespace Sketchball.Collision
         /// <param name="coords">points that define the polygon</param>
         public void AddPolygon(params float[] coords)
         {
-            Vector2 prev = new Vector2();
+            Vector prev = new Vector();
 
             for (int i = 0; i+1 < coords.Length; i += 2)
             {
                 var x = coords[i];
                 var y = coords[i + 1];
 
-                var v = new Vector2(x, y);
+                var v = new Vector(x, y);
 
                 if (i > 0)
                 {
-                    addBoundingBox(new BoundingLine(
+                    AddBoundingBox(new BoundingLine(
                         prev,
                         v
                     ));
@@ -132,25 +117,6 @@ namespace Sketchball.Collision
             }
         }
 
-        public Rectangle GetBounds()
-        {
-            Vector2 origin  = parentElement.Location;
-            Vector2 topLeft = new Vector2(0xFFFF, 0xFFFF);
-            Vector2 bottomRight = Vector2.Zero;
-
-            foreach (IBoundingBox box in boundingBoxes)
-            {
-                Rectangle bounds = box.GetBounds();
-                topLeft.X = Math.Min(topLeft.X, bounds.X);
-                topLeft.Y = Math.Min(topLeft.Y, bounds.Y);
-
-                bottomRight.X = Math.Max(bottomRight.X, bounds.Width);
-                bottomRight.Y = Math.Max(bottomRight.Y, bounds.Height);
-            }
-
-
-            return new Rectangle((int)(topLeft.X), (int)(topLeft.Y), (int)(bottomRight.X), (int)(bottomRight.Y));
-        }
 
     }
 }

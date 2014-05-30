@@ -1,20 +1,19 @@
 ﻿using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Sketchball.Editor
 {
     class SelectionTool : Tool
     {   
-        private Point startPoint;
-        private Vector2 startVector;
+        private Vector startVector;
         private bool mouseIsDown = false;
-        private Vector2 delta;
+        private Vector delta;
        
         private TranslationChange posChange = null;
         private PinballElement SelectedElement
@@ -29,7 +28,6 @@ namespace Sketchball.Editor
             }
         }
 
-        private PropertyGrid propertyGrid;
 
         private PinballMachine Machine {
             get
@@ -46,29 +44,20 @@ namespace Sketchball.Editor
         }
 
 
-        protected override void OnSelect()
+        protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            Control.Controls.Add(propertyGrid);
-        }
-
-        protected override void OnUnselect()
-        {
-            Control.Controls.Remove(propertyGrid);
-        }
-
-        protected override void OnMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 mouseIsDown = true;
-                Point loc = Control.PointToPinball(e.Location);
+                var pos = e.GetPosition(Control);
+                Point loc = Control.PointToPinball(pos);
 
                 PinballElement element = FindElement(loc);
                 if (element != null)
                 {
                     // Select
                     SelectedElement = element;
-                    this.delta = new Vector2(e.X, e.Y) - Control.PointToEditor(SelectedElement.Location);
+                    this.delta = new Vector(pos.X, pos.Y) - Control.PointToEditor(SelectedElement.Location);
                     startVector = SelectedElement.Location;
                 }
                 else
@@ -99,7 +88,8 @@ namespace Sketchball.Editor
             
             if (mouseIsDown && SelectedElement != null)
             {
-                var newPos = Control.PointToPinball(new Vector2(e.X, e.Y) - delta);
+                var pos = e.GetPosition(Control);
+                var newPos = Control.PointToPinball(new Vector(pos.X, pos.Y) - delta);
 
                 SelectedElement.Location = newPos;
 
@@ -118,9 +108,8 @@ namespace Sketchball.Editor
             }
 
             mouseIsDown = false;
-            delta = Vector2.Zero;
-
-
+            delta = new Vector();
+           
         }
 
     }

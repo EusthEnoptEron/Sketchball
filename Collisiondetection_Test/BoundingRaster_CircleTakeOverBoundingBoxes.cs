@@ -3,6 +3,7 @@ using Sketchball.Collision;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball;
 using Sketchball.Elements;
+using System.Windows;
 
 
 namespace Collisiondetection_Test
@@ -26,13 +27,13 @@ namespace Collisiondetection_Test
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
 
             //operation
-            int realCols = br.cols;
-            int realRows = br.rows;
-            int realWidth = br.width;
+            int realCols = br.Cols;
+            int realRows = br.Rows;
+            int realWidth = br.Width;
             int realHeight = br.height;
 
-            float realFieldHeight = br.getFieldHeight();
-            float realFieldWidth = br.getFieldWidth();
+            double realFieldHeight = br.FieldHeight;
+            double realFieldWidth = br.FieldWidth;
 
             //assertion
             Assert.IsNotNull(br);
@@ -40,8 +41,8 @@ namespace Collisiondetection_Test
             Assert.AreEqual(rows, realRows);
             Assert.AreEqual(width, realWidth);
             Assert.AreEqual(height, realHeight);
-            Assert.AreEqual(expectedFieldHeight, realFieldHeight);
-            Assert.AreEqual(expectedFieldWidth, realFieldWidth);
+            Assert.AreEqual(expectedFieldHeight, realFieldHeight, 0.1);
+            Assert.AreEqual(expectedFieldWidth, realFieldWidth, 0.1);
            
         }
 
@@ -58,7 +59,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 4;
-            Vector2 position1 = new Vector2(0, 0);
+            Vector position1 = new Vector(0, 0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -66,8 +67,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0,0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0,0));
            
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -80,7 +81,7 @@ namespace Collisiondetection_Test
                     if (x <= 1 && y <= 1)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -92,7 +93,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -118,7 +119,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 5;
-            Vector2 position1 = new Vector2(50, 50);
+            Vector position1 = new Vector(50, 50);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -126,8 +127,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -140,7 +141,7 @@ namespace Collisiondetection_Test
                     if (x <= 6 && x >= 4 && y <= 6 && y >= 4)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -152,7 +153,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -178,7 +179,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 5;
-            Vector2 position1 = new Vector2(0, 0);
+            Vector position1 = new Vector(0, 0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -186,8 +187,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -200,7 +201,7 @@ namespace Collisiondetection_Test
                     if (x <= 1 && x >= 0 && y <= 1 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -212,7 +213,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -239,7 +240,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 5;
-            Vector2 position1 = new Vector2(100, 100);
+            Vector position1 = new Vector(100, 100);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -247,8 +248,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -261,7 +262,7 @@ namespace Collisiondetection_Test
                     if (x <= 9 && x >= 9 && y <= 9 && y >= 9)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -273,7 +274,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -299,7 +300,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 50;
-            Vector2 position1 = new Vector2(0, 0);
+            Vector position1 = new Vector(0, 0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -307,8 +308,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -321,7 +322,7 @@ namespace Collisiondetection_Test
                     if (x <= 9 && x >= 0 && y <= 9 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -333,7 +334,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -358,7 +359,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 50;
-            Vector2 position1 = new Vector2(50, 50);
+            Vector position1 = new Vector(50, 50);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -366,8 +367,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -380,7 +381,7 @@ namespace Collisiondetection_Test
                     if (x <= 9 && x >= 5 && y <= 9 && y >= 5)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -392,7 +393,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -417,7 +418,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 50;
-            Vector2 position1 = new Vector2(-50, 0);
+            Vector position1 = new Vector(-50, 0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -425,8 +426,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -439,7 +440,7 @@ namespace Collisiondetection_Test
                     if (x <= 5 && x >= 0 && y <= 9 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -451,7 +452,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -476,7 +477,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 50;
-            Vector2 position1 = new Vector2(-75, 0);
+            Vector position1 = new Vector(-75, 0);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -484,8 +485,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -498,7 +499,7 @@ namespace Collisiondetection_Test
                     if (x <= 3 && x >= 0 && y <= 9 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -510,7 +511,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -535,7 +536,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 50;
-            Vector2 position1 = new Vector2(0, -75);
+            Vector position1 = new Vector(0, -75);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -543,8 +544,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -557,7 +558,7 @@ namespace Collisiondetection_Test
                     if (x <= 9 && x >= 0 && y <= 3 && y >= 0)
                     {
                         bool found = false;
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             Assert.AreEqual(bC1, b);
                             found = true;
@@ -569,7 +570,7 @@ namespace Collisiondetection_Test
                     }
                     else
                     {
-                        foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                        foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                         {
                             if (bC1.Equals(b))
                             {
@@ -594,7 +595,7 @@ namespace Collisiondetection_Test
             int expectedFieldWidth = width / cols;
 
             int radius1 = 5;
-            Vector2 position1 = new Vector2(-20, -20);
+            Vector position1 = new Vector(-20, -20);
 
             //creation
             BoundingRaster br = new BoundingRaster(cols, rows, width, height);
@@ -602,8 +603,8 @@ namespace Collisiondetection_Test
             Bumper parent1 = new Bumper();
             BoundingCircle bC1 = new BoundingCircle(radius1, position1);
             BoundingContainer bCont1 = new BoundingContainer(parent1);
-            bCont1.addBoundingBox(bC1);
-            parent1.setLocation(new Vector2(0, 0));
+            bCont1.AddBoundingBox(bC1);
+            parent1.Location = (new Vector(0, 0));
 
             //operation
             br.TakeOverBoundingContainer(bCont1);
@@ -614,7 +615,7 @@ namespace Collisiondetection_Test
                 for (int y = 0; y < rows; y++)
                 {
 
-                    foreach (IBoundingBox b in br.getBoundingField(x, y).getReferences())
+                    foreach (IBoundingBox b in br.GetBoundingField(x, y).getReferences())
                     {
                         if (bC1.Equals(b))
                         {

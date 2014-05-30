@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 using Sketchball.Collision;
 using System.Runtime.Serialization;
+using System.Windows;
 
 namespace Sketchball.Elements
 {
@@ -21,7 +20,7 @@ namespace Sketchball.Elements
         public Keys Trigger { get; set; }
         protected Keys DebugTrigger;
 
-        public float RotationRange = (float)(Math.PI / 180 * 60);
+        public double RotationRange = (Math.PI / 180 * 60);
         private bool Animating = false;
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SWormholeExit);
 
@@ -49,11 +48,11 @@ namespace Sketchball.Elements
             machine.Input.KeyUp -= OnKeyUp;
         }
 
-        protected virtual Vector2 Origin
+        protected virtual Vector Origin
         {
             get
             {
-                return new Vector2(0, this.Height);
+                return new Vector(0, this.Height);
             }
         }
 
@@ -68,10 +67,10 @@ namespace Sketchball.Elements
                 Animating = true;
 
                 Action endRot = () => {
-                    this.rotate(-Rotation, Origin, 0.05f, () => { Animating = false; }); 
+                    this.Rotate(-Rotation, Origin, 0.05f, () => { Animating = false; }); 
                 };
 
-                this.rotate(RotationRange, Origin, speed, null);
+                this.Rotate(RotationRange, Origin, speed, null);
             }
         }
 
@@ -91,7 +90,7 @@ namespace Sketchball.Elements
             {
                 var speed = e.KeyCode == Trigger ? 0.1f : 4f;
 
-                this.rotate(-Rotation, Origin, 0.1f, () => { Animating = false; });
+                this.Rotate(-Rotation, Origin, 0.1f, () => { Animating = false; });
             }
         }
 

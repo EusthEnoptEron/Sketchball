@@ -1,14 +1,9 @@
-﻿using Sketchball.Collision;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -62,7 +57,7 @@ namespace Sketchball.Elements
         /// Tilt of the pinball machine in radians.
         /// </summary>
         [DataMember]
-        public float Angle = (float)(Math.PI / 180 * 10);
+        public double Angle = (Math.PI / 180 * 10);
 
        
         public PinballMachine() : this(new DefaultLayout()) {}
@@ -86,63 +81,42 @@ namespace Sketchball.Elements
         /// <summary>
         /// Gets the calculated acceleration based on the gravity and the angle.
         /// </summary>
-        public Vector2 Acceleration
+        public Vector Acceleration
         {
             get
             {
-                return new Vector2(0, (float)Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
+                return new Vector(0, Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
             }
         }
 
-        /// <summary>
-        /// Draws the pinball elements and all its components.
-        /// </summary>
-        /// <param name="g"></param>
-        public virtual void Draw(Graphics g)
+        public virtual void Draw(DrawingContext g)
         {
-            GraphicsState gsave = g.Save();
-            try
+            g.PushClip(new RectangleGeometry(new Rect(0, 0, Width, Height)));
+            g.DrawRectangle(Brushes.White, null, new Rect(0, 0, Width, Height));
+
+            // Draw contours
+            //TODO take away red border
+            Pen pen = new Pen(Brushes.LightGray, 1);
+            for (int y = 0; y <= Height; y += 10)
             {
-                g.IntersectClip(new Rectangle(0, 0, Width, Height));
-                
-                //TODO take away red border
-                for (int y = 0; y <= Height; y += 10)
-                {
-                    g.DrawLine(Pens.LightGray, 0, y, Width, y);
-                }
-
-                for (int x = 0; x <= Width; x += 10)
-                {
-                    g.DrawLine(Pens.LightGray, x, 0, x, Height);
-                }
-
-                for (int x = 0; x <= Width; x += (int)(this.Width * 1f / Ball.Size.Width))
-                {
-                    g.DrawLine(Pens.Blue, x, 0, x, Height);
-                }
-
-                for (int y = 0; y <= Height; y += (int)(this.Height * 1f / Ball.Size.Width))
-                {
-                    g.DrawLine(Pens.Blue, 0, y, Width,y );
-                }
-                // Draw contours
-
-                foreach (PinballElement element in Elements)
-                {
-                    GraphicsState gstate = g.Save();
-
-                    g.TranslateTransform(element.X, element.Y);
-                    element.Draw(g);
-
-                    g.Restore(gstate);
-                }
-
-
+                g.DrawLine(pen, new Point(0, y), new Point(Width, y));
             }
-            finally
+
+            for (int x = 0; x <= Width; x += 10)
             {
-                g.Restore(gsave);
+                g.DrawLine(pen, new Point(x, 0), new  Point(x, Height));
             }
+
+
+
+            foreach (PinballElement element in Elements)
+            {
+                g.PushTransform(new TranslateTransform(element.X, element.Y));
+                element.Draw(g);
+                g.Pop();
+            }
+
+            g.Pop();
         }
 
 
@@ -181,21 +155,20 @@ namespace Sketchball.Elements
             return machine;
         }
 
-        public void addBall(Ball b)
-        {
-            this.Balls.Add(b);
-        }
-
 
         /// <summary>
         /// Disposes the pinball machine and frees all resources used by it.
         /// </summary>
         public void Dispose()
         {
+            StaticElements.Clear();
             DynamicElements.Clear();
             Balls.Clear();
         }
-        
+
+
+#region Serialization
+
         public void Save(string path)
         {
             using (var stream = File.OpenWrite(path))
@@ -262,6 +235,9 @@ namespace Sketchball.Elements
             }
             return true;
         }
+
+#endregion
+
     }
 
 }

@@ -16,7 +16,7 @@ namespace Sketchball.Collision
         {
             foreach (IBoundingBox box in boundingBoxes)
             {
-                elements.Add(box.BoundingContainer.parentElement);
+                elements.Add(box.BoundingContainer.ParentElement);
             }
         }
 
