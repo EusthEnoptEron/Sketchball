@@ -31,8 +31,8 @@ namespace Collisiondetection_Test
             int realWidth = br.width;
             int realHeight = br.height;
 
-            int realFieldHeight = br.getFieldHeight();
-            int realFieldWidth = br.getFieldWidth();
+            float realFieldHeight = br.getFieldHeight();
+            float realFieldWidth = br.getFieldWidth();
 
             //assertion
             Assert.IsNotNull(br);
