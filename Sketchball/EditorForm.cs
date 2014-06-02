@@ -107,6 +107,8 @@ namespace Sketchball
             PlayFieldEditor.AllowDrop = true;
             EditorContainer.Location = new System.Drawing.Point(3, 3);
             EditorContainer.TabIndex = 2;
+         
+
             PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
 
             PlayFieldEditor.Drop += this.OnDragDrop;
@@ -115,9 +117,11 @@ namespace Sketchball
             PlayFieldEditor.DragLeave += this.OnDragLeave;
             PlayFieldEditor.GiveFeedback += this.OnGiveFeedback;
             PlayFieldEditor.QueryContinueDrag += this.OnQueryContinueDrag;
-            
+
+            PlayFieldEditor.KeyDown += onDeleteElement;
             //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
         }
+
 
  
 
@@ -382,6 +386,18 @@ namespace Sketchball
             {
                 elementInspector.SelectedObject = null;
                 //fieldAndPropertySplitter.Panel2Collapsed = true;
+            }
+        }
+
+
+        private void onDeleteElement(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Delete)
+            {
+                if (PlayFieldEditor.SelectedElement != null)
+                {
+                    PlayFieldEditor.RemoveElement(PlayFieldEditor.SelectedElement);
+                }
             }
         }
       

@@ -44,6 +44,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolBar = new System.Windows.Forms.ToolStrip();
             this.fieldAndPropertySplitter = new System.Windows.Forms.SplitContainer();
+            this.label2 = new System.Windows.Forms.Label();
+            this.machineInspector = new Sketchball.Controls.ElementInspector();
+            this.label1 = new System.Windows.Forms.Label();
             this.elementInspector = new Sketchball.Controls.ElementInspector();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -51,9 +54,6 @@
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.zoomBar = new Sketchball.Controls.ToolStripTrackBarItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.machineInspector = new Sketchball.Controls.ElementInspector();
-            this.label2 = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
@@ -243,6 +243,35 @@
             this.fieldAndPropertySplitter.SplitterDistance = 579;
             this.fieldAndPropertySplitter.TabIndex = 3;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.Location = new System.Drawing.Point(3, 270);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Element Config";
+            // 
+            // machineInspector
+            // 
+            this.machineInspector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.machineInspector.Location = new System.Drawing.Point(6, 47);
+            this.machineInspector.Name = "machineInspector";
+            this.machineInspector.Size = new System.Drawing.Size(161, 197);
+            this.machineInspector.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(3, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(137, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Pinball Machine Config";
+            // 
             // elementInspector
             // 
             this.elementInspector.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -312,35 +341,6 @@
             this.zoomBar.Name = "zoomBar";
             this.zoomBar.Size = new System.Drawing.Size(104, 45);
             this.zoomBar.Text = "toolStripTrackBarItem1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(3, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Pinball Machine Config";
-            // 
-            // machineInspector
-            // 
-            this.machineInspector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.machineInspector.Location = new System.Drawing.Point(6, 47);
-            this.machineInspector.Name = "machineInspector";
-            this.machineInspector.Size = new System.Drawing.Size(161, 197);
-            this.machineInspector.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(3, 270);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Element Config";
             // 
             // EditorForm
             // 
