@@ -2,18 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    [DataContract]
     public class SlingshotRight : PinballElement
     {
-        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("SlingshotRight.png");
+        private static ImageSource imageS = Booster.OptimizeWpfImage("SlingshotRight.png");
 
         private static readonly Size size = new Size(110, 110);
-        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.SSlingshot);
+        private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SSlingshot);
 
         protected override Size BaseSize
         {

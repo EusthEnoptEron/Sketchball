@@ -106,7 +106,6 @@ namespace Sketchball
             //EditorContainer.AllowDrop = true;
             PlayFieldEditor.AllowDrop = true;
             EditorContainer.Location = new System.Drawing.Point(3, 3);
-            EditorContainer.Size = new System.Drawing.Size(540, 545);
             EditorContainer.TabIndex = 2;
             PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
 
@@ -284,9 +283,9 @@ namespace Sketchball
             internal PinballElement Element = null;
         }
 
-        private void openPBMButton_Click(object sender, EventArgs e)
+        private void onOpenMachine(object sender, EventArgs e)
         {
-            if (MayOmitChanges())
+            if (mayOmitChanges())
             {
                 var result = openFileDialog.ShowDialog();
                 if (result == DialogResult.OK)
@@ -306,7 +305,7 @@ namespace Sketchball
             }
         }
 
-        private void savePBMButton_Click(object sender, EventArgs e)
+        private void onSaveMachine(object sender, EventArgs e)
         {
             if (PlayFieldEditor.PinballMachine.IsValid())
             {
@@ -319,6 +318,7 @@ namespace Sketchball
                 }
 
                 PlayFieldEditor.PinballMachine.Save(FileName);
+                PlayFieldEditor.History.ClearStatus();
             }
             else
             {
@@ -326,9 +326,9 @@ namespace Sketchball
             }
         }
 
-        private void newPBMButton_Click(object sender, EventArgs e)
+        private void onNewMachine(object sender, EventArgs e)
         {
-            if (MayOmitChanges())
+            if (mayOmitChanges())
             {
                 PlayFieldEditor.LoadMachine(new PinballMachine());
                 FileName = null;
@@ -336,12 +336,12 @@ namespace Sketchball
 
         }
 
-        private bool MayOmitChanges()
+        private bool mayOmitChanges()
         {
             if (PlayFieldEditor.History.HasChanged())
             {
-                var result = MessageBox.Show("There are unsaved changes, do you want to continue?", "Unsaved changes!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                return result == DialogResult.OK;
+                var result = MessageBox.Show("There are unsaved changes, do you want to continue?", "Unsaved changes!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                return result == DialogResult.Yes;
             }
             else
             {

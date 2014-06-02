@@ -119,7 +119,7 @@
             this.newPBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newPBMButton.Size = new System.Drawing.Size(166, 22);
             this.newPBMButton.Text = "New";
-            this.newPBMButton.Click += new System.EventHandler(this.newPBMButton_Click);
+            this.newPBMButton.Click += new System.EventHandler(this.onNewMachine);
             // 
             // openPBMButton
             // 
@@ -128,7 +128,7 @@
             this.openPBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openPBMButton.Size = new System.Drawing.Size(166, 22);
             this.openPBMButton.Text = "Open...";
-            this.openPBMButton.Click += new System.EventHandler(this.openPBMButton_Click);
+            this.openPBMButton.Click += new System.EventHandler(this.onOpenMachine);
             // 
             // savePBMButton
             // 
@@ -137,7 +137,7 @@
             this.savePBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.savePBMButton.Size = new System.Drawing.Size(166, 22);
             this.savePBMButton.Text = "Save";
-            this.savePBMButton.Click += new System.EventHandler(this.savePBMButton_Click);
+            this.savePBMButton.Click += new System.EventHandler(this.onSaveMachine);
             // 
             // toolStripSeparator1
             // 

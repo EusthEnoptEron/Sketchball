@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Editor\HistoryTests.cs" />
     <Compile Include="Elements\PinballMachineTests.cs" />
+    <Compile Include="Elements\PinballElementTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

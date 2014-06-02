@@ -78,6 +78,7 @@ namespace Sketchball.Controls
 
         public PinballMachine PinballMachine { get; private set; }
 
+
         public PinballEditControl()
             : base()
         {
