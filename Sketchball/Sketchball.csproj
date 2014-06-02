@@ -189,11 +189,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <Resource Include="Resources\Rampe.png" />
     <Resource Include="Resources\SlingshotRight.png" />
     <None Include="Resources\descending_craft-Sonidor-991848481.wav" />
     <Resource Include="Resources\BumperSpiral.png" />
     <Resource Include="Resources\TableSlim.png" />
-    <None Include="Resources\NewRamp.png" />
     <None Include="Resources\Table1_resized.png" />
     <None Include="Resources\Ramp_resized.png" />
     <None Include="Resources\Balloon Popping-SoundBible.com-1247261379.wav" />
@@ -204,7 +204,6 @@
     <Resource Include="Resources\WormholeExit.png" />
     <Resource Include="Resources\WormholeEntry.png" />
     <Resource Include="Resources\SlingshotLeft.png" />
-    <Resource Include="Resources\Rampe.png" />
     <Resource Include="Resources\flipperRight.png" />
     <Resource Include="Resources\flipperLeft.png" />
     <Resource Include="Resources\Bumper.png" />

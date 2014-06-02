@@ -36,6 +36,7 @@ namespace Sketchball.Elements
         {
             BoundingCircle bC = new BoundingCircle(15, new Vector(0, 0));
             this.boundingContainer.AddBoundingBox(bC);
+            this.pureIntersection = true;
             bC.AssignToContainer(this.boundingContainer);
         }
 

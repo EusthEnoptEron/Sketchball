@@ -49,11 +49,17 @@ namespace Sketchball
             this.selectionForm = selectionForm;
 
             debugModeButton.Checked = Properties.Settings.Default.Debug;
+
+            
         }
 
         private void OnMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             //throw new NotImplementedException();
+         
+                game.Machine.IntroduceBall();
+                game.Machine.Balls.Last().Location = new Vector(e.GetPosition((System.Windows.IInputElement)sender).X, e.GetPosition((System.Windows.IInputElement)sender).Y);
+            
         }
 
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)

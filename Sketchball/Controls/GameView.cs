@@ -96,6 +96,7 @@ namespace Sketchball.Controls
 
                 case Key.Add:
                    // this.Camera.zoom(1+this.zoomfactor);
+               
                     break;
 
                 case Key.OemMinus:

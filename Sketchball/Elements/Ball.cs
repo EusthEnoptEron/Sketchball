@@ -13,7 +13,8 @@ namespace Sketchball.Elements
     {
         public static readonly Size Size = new Size(20, 20);
         private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("BallWithAlpha.png");
-       
+        private readonly float friction = 0.9999f;
+
         protected override Size BaseSize
         {
             get { return Size; }
@@ -46,6 +47,8 @@ namespace Sketchball.Elements
         {
             base.Update(delta);
             Velocity += World.Acceleration * (delta / 1000f);
+            Velocity = new Vector(Velocity.X * (this.friction - 0.00000001f * Velocity.X * Velocity.X), Velocity.Y * (this.friction - 0.00000001f * Velocity.Y * Velocity.Y));
+
             double prev = Location.Y;
             Location += Velocity * (delta / 1000f);
         }

@@ -18,7 +18,7 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private Vector MaxVelocity = new Vector(5, -1000f);
+        private Vector MaxVelocity = new Vector(5, -1200f);
 
         private Ball Ball = null;
         private bool Charging = false;
@@ -28,9 +28,9 @@ namespace Sketchball.Elements
 
         protected override Size BaseSize { get { return size; } }
         private readonly int PencilPullback = 50;
-        private readonly int PencilOffsetY = -100;
+        private readonly int PencilOffsetY = -90;
 
-        private static System.Drawing.Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 86);
+        private static System.Drawing.Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 70);
         private static ImageSource RampImageS = Booster.OptimizeWpfImage("Rampe.png");
         private static ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
 
@@ -56,8 +56,8 @@ namespace Sketchball.Elements
             Vector p25 = new Vector(154, 230);
             Vector p26 = new Vector(175, 1128);
 
-            Vector pPs = new Vector(65, this.BaseSize.Height + PencilOffsetY);
-            Vector pPe = new Vector(152, this.BaseSize.Height + PencilOffsetY);
+            Vector pPs = new Vector(65, this.BaseSize.Height + PencilOffsetY-20);
+            Vector pPe = new Vector(152, this.BaseSize.Height + PencilOffsetY-20);
 
 
             BoundingLine bL1 = new BoundingLine(p1, p2);
@@ -115,7 +115,7 @@ namespace Sketchball.Elements
         protected override void OnDraw(DrawingContext g)
         {
             g.DrawImage(RampImageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
-            g.DrawImage(PencilImageS, new System.Windows.Rect(86f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback, PencilImage.Width, PencilImage.Height));
+            g.DrawImage(PencilImageS, new System.Windows.Rect(96f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback, PencilImage.Width, PencilImage.Height));
         }
 
         public void IntroduceBall(Ball ball) {

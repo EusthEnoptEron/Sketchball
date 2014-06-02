@@ -82,8 +82,8 @@ namespace Sketchball.Collision
             this.Width = width;
             this.height = height;
 
-            this.FieldWidth = this.Width / this.Cols;
-            this.FieldHeight = this.height / this.Rows;
+            this.FieldWidth = this.Width * 1f / this.Cols;
+            this.FieldHeight = this.height * 1f / this.Rows;
 
             for (int x = 0; x < this.Cols; x++)
             {
@@ -399,6 +399,7 @@ namespace Sketchball.Collision
         public CollisionResult HandleCollision(Ball ball)
         {
             //Collide first with animated object then with object around ball self
+            List<Vector> reflectionDirections = new List<Vector>(2);
             LinkedList<IBoundingBox> history = new LinkedList<IBoundingBox>();
             //Collision logic
             foreach (IBoundingBox b in this.animatedObjects)
@@ -440,6 +441,7 @@ namespace Sketchball.Collision
                         ball.Location = (hitPoint - new Vector(ball.Width / 2, ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                         ball.Velocity = b.ReflectManipulation(newDirection);
+                        reflectionDirections.Add(b.ReflectManipulation(newDirection));
                         this.hitPointDebug = hitPoint;
                     }
                 }
@@ -481,7 +483,8 @@ namespace Sketchball.Collision
 
                                         ball.Location = (hitPoint - new Vector(ball.Width / 2, ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
-                                        ball.Velocity = b.ReflectManipulation(newDirection);
+                                       // ball.Velocity = b.ReflectManipulation(newDirection);
+                                        reflectionDirections.Add(b.ReflectManipulation(newDirection));
                                         this.hitPointDebug = hitPoint;
                                     }
                                 }
@@ -491,9 +494,33 @@ namespace Sketchball.Collision
                 }
 
             }
+
+            if (reflectionDirections.Count != 0)
+            {
+            
+                if (reflectionDirections.Count == 1)
+                {
+                    ball.Velocity = reflectionDirections[0];
+                }
+                else if (reflectionDirections.Count > 1)
+                {
+                    ball.Velocity = getAverage(reflectionDirections);
+                }
+            }
+            
             return new CollisionResult(history);
         }
 
+        private Vector getAverage(List<Vector> reflections)
+        {
+            Vector avg = new Vector(0, 0);
+            foreach(Vector refl in reflections)
+            {
+                avg += refl;
+            }
+            avg /= reflections.Count;
+            return avg;
+        }
 
         /// <summary>
         /// Adds an animated object to the raster (no need to call take over bounding boxes on this.
