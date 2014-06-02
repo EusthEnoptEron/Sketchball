@@ -18,7 +18,7 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private Vector MaxVelocity = new Vector(5, -1200f);
+        private Vector MaxVelocity = new Vector(5, -2200f);
 
         private Ball Ball = null;
         private bool Charging = false;
@@ -166,6 +166,12 @@ namespace Sketchball.Elements
                 Charging = false;
                 Tweener.Cancel();
             }
+        }
+
+
+        public bool Contains(Ball ball)
+        {
+            return GetBounds().Contains(ball.GetBounds());
         }
 
     }

@@ -56,9 +56,11 @@ namespace Sketchball
         private void OnMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             //throw new NotImplementedException();
-         
+            if (Properties.Settings.Default.Debug)
+            {
                 game.Machine.IntroduceBall();
                 game.Machine.Balls.Last().Location = new Vector(e.GetPosition((System.Windows.IInputElement)sender).X, e.GetPosition((System.Windows.IInputElement)sender).Y);
+            }
             
         }
 
