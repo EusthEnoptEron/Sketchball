@@ -96,6 +96,48 @@ namespace Sketchball.Tests.Elements
             Assert.IsTrue(pbm.Elements.Contains(flipper));
         }
 
+        [TestMethod]
+        public void ShouldMaintainCorrectRelationship()
+        {
+            var machine = new PinballMachine();
+            var flipper = new LeftFlipper();
 
+
+            Assert.IsNull(flipper.World);
+
+            machine.Add(flipper);
+
+            Assert.AreEqual(machine, flipper.World);
+
+            machine.Remove(flipper);
+
+            Assert.IsNull(flipper.World);
+        }
+
+        [TestMethod]
+        public void ShouldBeInvalidForCrossingLines()
+        {
+            var machine = new PinballMachine();
+            var line1 = new Line(100, 100, 100, 200);
+            var line2 = new Line(50, 150, 150, 150);
+
+            machine.Add(line1);
+            machine.Add(line2);
+
+            Assert.IsFalse(machine.IsValid());
+        }
+
+        [TestMethod]
+        public void ShouldBeValidForParallelLines()
+        {
+            var machine = new PinballMachine();
+            var line1 = new Line(100, 100, 100, 200);
+            var line2 = new Line(105, 100, 105, 200);
+
+            machine.Add(line1);
+            machine.Add(line2);
+
+            Assert.IsTrue(machine.IsValid());
+        }
     }
 }
