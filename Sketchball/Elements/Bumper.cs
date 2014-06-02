@@ -17,7 +17,7 @@ namespace Sketchball.Elements
         private static ImageSource imageS = Booster.OptimizeWpfImage("BumperSpiral.png");
 
         private static readonly Size size = new Size(30, 30);
-        private SoundPlayer player = new SoundPlayer(Properties.Resources.SBumper);
+        private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SBumper);
 
         public Bumper()
         {

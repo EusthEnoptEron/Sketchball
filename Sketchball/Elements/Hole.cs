@@ -16,7 +16,7 @@ namespace Sketchball.Elements
     {
         private static readonly Size size = new Size(50, 50);
         private static ImageSource imageS = Booster.OptimizeWpfImage("hole.png");
-        private SoundPlayer player = new SoundPlayer(Properties.Resources.SHole);
+        private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SHole);
 
         public Hole()  : base(100, 100)
         {

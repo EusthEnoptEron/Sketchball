@@ -17,7 +17,7 @@ namespace Sketchball.Elements
         private static ImageSource imageS = Booster.OptimizeWpfImage("SlingshotRight.png");
 
         private static readonly Size size = new Size(110, 110);
-        private SoundPlayer player = new SoundPlayer(Properties.Resources.SSlingshot);
+        private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SSlingshot);
 
         protected override Size BaseSize
         {

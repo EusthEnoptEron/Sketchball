@@ -24,7 +24,6 @@ namespace Sketchball
         public SelectionForm()
         {
             InitializeComponent();
-
         }
 
         void picBGame_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -34,8 +33,6 @@ namespace Sketchball
 
         private void picBGame_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            
-           
         }
 
 
@@ -47,7 +44,6 @@ namespace Sketchball
         private void picBEditor_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
            // this.picBEditor.Image = global::Sketchball.Properties.Resources.btnup;
-            
         }
 
         private void picBGame_Click(object sender, EventArgs e)
@@ -58,15 +54,21 @@ namespace Sketchball
             fDialog.CheckFileExists = true;
             fDialog.CheckPathExists = true;
 
-            //DialogResult result = fDialog.ShowDialog();
+            DialogResult result = fDialog.ShowDialog();
 
-            //if (result == DialogResult.OK) // Test result.
-            //{
-            //    //TODO
-            //    MessageBox.Show("machine load not implemented\n I want a cookie!");
+            if (result == DialogResult.OK) // Test result.
+            {
+                PinballMachine pbm = PinballMachine.FromFile(fDialog.FileName);
 
-                OpenGame(new PinballMachine());
-            //}
+                if (pbm.IsValid())
+                {
+                    OpenGame(pbm);
+                }
+                else
+                {
+                    MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
             
         }
 

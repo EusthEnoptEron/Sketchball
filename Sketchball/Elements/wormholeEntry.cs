@@ -15,7 +15,7 @@ namespace Sketchball.Elements
     public class WormholeEntry : PinballElement
     {
         public WormholeExit WormholeExit { get; set; }
-        private SoundPlayer player = new SoundPlayer(Properties.Resources.SWomholeEntry);
+        private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SWomholeEntry);
 
 
         private static readonly Size size = new Size(30, 30);

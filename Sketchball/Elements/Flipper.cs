@@ -23,7 +23,7 @@ namespace Sketchball.Elements
 
         public double RotationRange = (Math.PI / 180 * 60);
         private bool Animating = false;
-        private SoundPlayer player = new SoundPlayer(Properties.Resources.SWormholeExit);
+        private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SWormholeExit);
 
 
         public Flipper()  : base()

@@ -283,9 +283,9 @@ namespace Sketchball
             internal PinballElement Element = null;
         }
 
-        private void openPBMButton_Click(object sender, EventArgs e)
+        private void onOpenMachine(object sender, EventArgs e)
         {
-            if (MayOmitChanges())
+            if (mayOmitChanges())
             {
                 var result = openFileDialog.ShowDialog();
                 if (result == DialogResult.OK)
@@ -305,7 +305,7 @@ namespace Sketchball
             }
         }
 
-        private void savePBMButton_Click(object sender, EventArgs e)
+        private void onSaveMachine(object sender, EventArgs e)
         {
             if (PlayFieldEditor.PinballMachine.IsValid())
             {
@@ -326,9 +326,9 @@ namespace Sketchball
             }
         }
 
-        private void newPBMButton_Click(object sender, EventArgs e)
+        private void onNewMachine(object sender, EventArgs e)
         {
-            if (MayOmitChanges())
+            if (mayOmitChanges())
             {
                 PlayFieldEditor.LoadMachine(new PinballMachine());
                 FileName = null;
@@ -336,7 +336,7 @@ namespace Sketchball
 
         }
 
-        private bool MayOmitChanges()
+        private bool mayOmitChanges()
         {
             if (PlayFieldEditor.History.HasChanged())
             {
