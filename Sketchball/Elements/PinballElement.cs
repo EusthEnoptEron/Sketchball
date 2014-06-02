@@ -195,7 +195,7 @@ namespace Sketchball.Elements
         /// Gets the bounding container of this element.
         /// </summary>
         [Browsable(false)]
-        public BoundingContainer boundingContainer { get; private set; }
+        public BoundingContainer BoundingContainer { get; private set; }
 
 
         [DataMember]
@@ -226,7 +226,7 @@ namespace Sketchball.Elements
             Transform = Matrix.Identity;
             
             pureIntersection = false;
-            boundingContainer = new BoundingContainer(this);
+            BoundingContainer = new BoundingContainer(this);
 
             Init();
 
@@ -258,7 +258,7 @@ namespace Sketchball.Elements
                 g.PushTransform(new TranslateTransform(-X, -Y));
 
                 var pen = new Pen(Brushes.Red, 1);
-                foreach (var box in boundingContainer.BoundingBoxes)
+                foreach (var box in BoundingContainer.BoundingBoxes)
                 {
                     box.DrawDebug(g, pen);
                 }
@@ -381,13 +381,13 @@ namespace Sketchball.Elements
 
         private void Sync()
         {
-            boundingContainer.Sync();
+            BoundingContainer.Sync();
         }
 
 
         public BoundingContainer getBoundingContainer()
         {
-            return this.boundingContainer;
+            return this.BoundingContainer;
         }
 
 
@@ -438,5 +438,14 @@ namespace Sketchball.Elements
 
 
 
+        /// <summary>
+        /// Regenerates all bounding boxes of this element. Calls Init() and thus might
+        /// also do other things.
+        /// </summary>
+        public void RegenerateBounds()
+        {
+            BoundingContainer.BoundingBoxes.Clear();
+            Init();
+        }
     }
 }

@@ -25,6 +25,13 @@ namespace Sketchball.Controls
         {
             Width = 50;
             Height = 50;
+
+            // Make sure that the control receives keyboard events!
+            // @see http://social.msdn.microsoft.com/Forums/vstudio/en-US/110ac6b2-949a-470d-8f47-acc804976994/wpf-canvas-usercontrol-embedded-inside-windows-form-doesnt-receive-keyboard-events?forum=wpf
+            Focusable = true;
+            MouseDown += delegate {
+                this.Focus(); 
+            };
         }
 
         protected PinballControl(PinballMachine machine)
