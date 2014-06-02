@@ -125,7 +125,7 @@ namespace Sketchball.Collision
         //TODO: UNTESTED
         public override bool LineIntersect(BoundingLine bL, out Vector hitPoint)
         {
-            throw new MissingMethodException();
+            //throw new MissingMethodException();
             Vector thisWorldTras = this.BoundingContainer.ParentElement.Location;
             Vector bLWorldTrans = bL.BoundingContainer.ParentElement.Location;
 
