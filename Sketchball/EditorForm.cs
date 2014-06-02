@@ -92,9 +92,7 @@ namespace Sketchball
             // Set up playfield and element inspector
             PlayFieldEditor.History.Change += () => { elementInspector.Refresh(); };
             elementInspector.PropertyValueChanged += (sender, e) => { PlayFieldEditor.Invalidate(); };
-            fieldAndPropertySplitter.Panel2Collapsed = false;
-
-            elementInspector.SelectedObject = PlayFieldEditor.PinballMachine;
+            machineInspector.SelectedObject = PlayFieldEditor.PinballMachine;
 
             // Set up zoom bar
             zoomBar.Trackbar.Minimum = 5;
@@ -311,7 +309,7 @@ namespace Sketchball
         private void loadMachine(PinballMachine pbm)
         {
             PlayFieldEditor.LoadMachine(pbm);
-            elementInspector.SelectedObject = pbm;
+            machineInspector.SelectedObject = pbm;
         }
 
         private void onSaveMachine(object sender, EventArgs e)
@@ -382,7 +380,7 @@ namespace Sketchball
             }
             else
             {
-                elementInspector.SelectedObject = PlayFieldEditor.PinballMachine;
+                elementInspector.SelectedObject = null;
                 //fieldAndPropertySplitter.Panel2Collapsed = true;
             }
         }

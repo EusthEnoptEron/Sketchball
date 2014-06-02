@@ -94,14 +94,22 @@ namespace Sketchball.Elements
         /// Tilt of the pinball machine in radians.
         /// </summary>
         [DataMember]
-        [Description("The tilt angle of the machine in _radians_.")]
+        [Browsable(false)]
         public double Angle { get; set; }
 
-
+        
         /// <summary>
-        /// Gets the size of the balls.
+        /// Don't use outside the editor!
         /// </summary>
-        public int BallSize { get; set; }
+        [Browsable(true), DisplayName("Angle"), Description("The tilt angle of the machine in degrees.")]
+        public int AngleProperty { 
+            get {
+                return (int)Math.Round(Angle / Math.PI * 180);
+            } 
+            set {
+                Angle = value / 180.0 * Math.PI;    
+            }
+        }
 
         /// <summary>
         /// Gets the calculated acceleration based on the gravity and the angle.
@@ -114,7 +122,6 @@ namespace Sketchball.Elements
                 return new Vector(0, Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
             }
         }
-
        
         public PinballMachine() : this(new DefaultLayout()) {}
 
