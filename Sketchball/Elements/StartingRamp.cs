@@ -79,20 +79,20 @@ namespace Sketchball.Elements
             bL1.BounceFactor = 0.5f;
             bLP.BounceFactor = 0.2f;
 
-            this.boundingContainer.AddBoundingBox(bL1);
-            this.boundingContainer.AddBoundingBox(bL2);
-            this.boundingContainer.AddBoundingBox(bL3);
-            this.boundingContainer.AddBoundingBox(bL4);
-            this.boundingContainer.AddBoundingBox(bL5);
+            this.BoundingContainer.AddBoundingBox(bL1);
+            this.BoundingContainer.AddBoundingBox(bL2);
+            this.BoundingContainer.AddBoundingBox(bL3);
+            this.BoundingContainer.AddBoundingBox(bL4);
+            this.BoundingContainer.AddBoundingBox(bL5);
 
-            this.boundingContainer.AddBoundingBox(bL21);
-            this.boundingContainer.AddBoundingBox(bL22);
-            this.boundingContainer.AddBoundingBox(bL23);
-            this.boundingContainer.AddBoundingBox(bL24);
-            this.boundingContainer.AddBoundingBox(bL25);
-            this.boundingContainer.AddBoundingBox(bL26);
+            this.BoundingContainer.AddBoundingBox(bL21);
+            this.BoundingContainer.AddBoundingBox(bL22);
+            this.BoundingContainer.AddBoundingBox(bL23);
+            this.BoundingContainer.AddBoundingBox(bL24);
+            this.BoundingContainer.AddBoundingBox(bL25);
+            this.BoundingContainer.AddBoundingBox(bL26);
 
-            this.boundingContainer.AddBoundingBox(bLP);
+            this.BoundingContainer.AddBoundingBox(bLP);
 
 
             Scale = 1 / 2f;
