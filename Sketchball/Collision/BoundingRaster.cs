@@ -232,7 +232,7 @@ namespace Sketchball.Collision
                 if (pE is AnimatedObject)
                 {
                     // Special treatment
-                    foreach (BoundingBox bb in pE.boundingContainer.BoundingBoxes)
+                    foreach (BoundingBox bb in pE.BoundingContainer.BoundingBoxes)
                     {
                         this.AddAnimatedObject(bb);
                     }

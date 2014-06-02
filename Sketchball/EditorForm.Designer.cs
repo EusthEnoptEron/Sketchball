@@ -54,6 +54,7 @@
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.zoomBar = new Sketchball.Controls.ToolStripTrackBarItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
@@ -108,6 +109,7 @@
             this.newPBMButton,
             this.openPBMButton,
             this.savePBMButton,
+            this.saveAsToolStripMenuItem,
             this.toolStripSeparator1,
             this.playButton,
             this.playgroundToolStripMenuItem});
@@ -120,7 +122,7 @@
             this.newPBMButton.Name = "newPBMButton";
             this.newPBMButton.ShortcutKeyDisplayString = "";
             this.newPBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newPBMButton.Size = new System.Drawing.Size(155, 22);
+            this.newPBMButton.Size = new System.Drawing.Size(193, 22);
             this.newPBMButton.Text = "New";
             this.newPBMButton.Click += new System.EventHandler(this.onNewMachine);
             // 
@@ -129,7 +131,7 @@
             this.openPBMButton.Name = "openPBMButton";
             this.openPBMButton.ShortcutKeyDisplayString = "";
             this.openPBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openPBMButton.Size = new System.Drawing.Size(155, 22);
+            this.openPBMButton.Size = new System.Drawing.Size(193, 22);
             this.openPBMButton.Text = "Open...";
             this.openPBMButton.Click += new System.EventHandler(this.onOpenMachine);
             // 
@@ -138,26 +140,27 @@
             this.savePBMButton.Name = "savePBMButton";
             this.savePBMButton.ShortcutKeyDisplayString = "";
             this.savePBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.savePBMButton.Size = new System.Drawing.Size(155, 22);
+            this.savePBMButton.Size = new System.Drawing.Size(193, 22);
             this.savePBMButton.Text = "Save";
             this.savePBMButton.Click += new System.EventHandler(this.onSaveMachine);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
             // 
             // playButton
             // 
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(155, 22);
-            this.playButton.Text = "Play...";
+            this.playButton.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.playButton.Size = new System.Drawing.Size(193, 22);
+            this.playButton.Text = "Play";
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // playgroundToolStripMenuItem
             // 
             this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
-            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.playgroundToolStripMenuItem.Text = "Playground";
             this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
@@ -300,6 +303,7 @@
             // 
             this.saveFileDialog.DefaultExt = "pmf";
             this.saveFileDialog.Filter = "Pinball machine files|*.pmf";
+            this.saveFileDialog.FileName = "Untitled.pmf";
             // 
             // toolStripContainer1
             // 
@@ -341,6 +345,15 @@
             this.zoomBar.Name = "zoomBar";
             this.zoomBar.Size = new System.Drawing.Size(104, 45);
             this.zoomBar.Text = "toolStripTrackBarItem1";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.saveAsToolStripMenuItem.Text = "Save as...";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.onSaveAsMachine);
             // 
             // EditorForm
             // 
@@ -406,6 +419,7 @@
         private System.Windows.Forms.Label label2;
         private Controls.ElementInspector machineInspector;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
 
     }
 }

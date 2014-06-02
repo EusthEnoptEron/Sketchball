@@ -328,14 +328,42 @@ namespace Sketchball
                     else FileName = saveFileDialog.FileName;
                 }
 
-                PlayFieldEditor.PinballMachine.Save(FileName);
-                PlayFieldEditor.History.ClearStatus();
+                saveMachine(FileName);
             }
             else
             {
                 MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);    
             }
         }
+
+        private void onSaveAsMachine(object sender, EventArgs e)
+        {
+            if (PlayFieldEditor.PinballMachine.IsValid())
+            {
+                if (FileName != null)
+                {
+                    FileInfo info = new FileInfo(FileName);
+                    saveFileDialog.InitialDirectory = info.DirectoryName;
+                    saveFileDialog.FileName = info.Name;
+                }
+                if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                    saveMachine(saveFileDialog.FileName);
+                }
+            }
+            else
+            {
+                MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void saveMachine(string filename)
+        {
+            FileName = filename;
+            PlayFieldEditor.PinballMachine.Save(FileName);
+            PlayFieldEditor.History.ClearStatus();
+        }
+
 
         private void onNewMachine(object sender, EventArgs e)
         {
@@ -400,6 +428,7 @@ namespace Sketchball
                 }
             }
         }
+
       
     }
 

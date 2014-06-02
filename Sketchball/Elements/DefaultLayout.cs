@@ -66,20 +66,20 @@ namespace Sketchball.Elements
 
                 BoundingLine bL14 = new BoundingLine(p15, p16);
 
-                this.boundingContainer.AddBoundingBox(bL1);
-                this.boundingContainer.AddBoundingBox(bL2);
-                this.boundingContainer.AddBoundingBox(bL3);
-                this.boundingContainer.AddBoundingBox(bL4);
-                this.boundingContainer.AddBoundingBox(bL5);
-                this.boundingContainer.AddBoundingBox(bL6);
-                this.boundingContainer.AddBoundingBox(bL7);
-                this.boundingContainer.AddBoundingBox(bL8);
-                this.boundingContainer.AddBoundingBox(bL9);
-                this.boundingContainer.AddBoundingBox(bL10);
-                this.boundingContainer.AddBoundingBox(bL11);
-                this.boundingContainer.AddBoundingBox(bL12);
-                this.boundingContainer.AddBoundingBox(bL13);
-                this.boundingContainer.AddBoundingBox(bL14);
+                this.BoundingContainer.AddBoundingBox(bL1);
+                this.BoundingContainer.AddBoundingBox(bL2);
+                this.BoundingContainer.AddBoundingBox(bL3);
+                this.BoundingContainer.AddBoundingBox(bL4);
+                this.BoundingContainer.AddBoundingBox(bL5);
+                this.BoundingContainer.AddBoundingBox(bL6);
+                this.BoundingContainer.AddBoundingBox(bL7);
+                this.BoundingContainer.AddBoundingBox(bL8);
+                this.BoundingContainer.AddBoundingBox(bL9);
+                this.BoundingContainer.AddBoundingBox(bL10);
+                this.BoundingContainer.AddBoundingBox(bL11);
+                this.BoundingContainer.AddBoundingBox(bL12);
+                this.BoundingContainer.AddBoundingBox(bL13);
+                this.BoundingContainer.AddBoundingBox(bL14);
 
                 Scale = 1 / 2f;
             }

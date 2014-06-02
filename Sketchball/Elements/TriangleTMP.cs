@@ -31,13 +31,13 @@ namespace Sketchball.Elements
             BoundingLine bL2 = new BoundingLine(new Vector(100, 0), new Vector(200, 200));
             BoundingLine bL3 = new BoundingLine(new Vector(200, 200), new Vector(0, 200));
 
-            this.boundingContainer.AddBoundingBox(bL1);
-            this.boundingContainer.AddBoundingBox(bL2);
-            this.boundingContainer.AddBoundingBox(bL3);
+            this.BoundingContainer.AddBoundingBox(bL1);
+            this.BoundingContainer.AddBoundingBox(bL2);
+            this.BoundingContainer.AddBoundingBox(bL3);
 
-            bL1.AssignToContainer(this.boundingContainer);
-            bL2.AssignToContainer(this.boundingContainer);
-            bL3.AssignToContainer(this.boundingContainer);
+            bL1.AssignToContainer(this.BoundingContainer);
+            bL2.AssignToContainer(this.BoundingContainer);
+            bL3.AssignToContainer(this.BoundingContainer);
             turnaround();
 
             

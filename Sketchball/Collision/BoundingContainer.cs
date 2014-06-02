@@ -118,5 +118,23 @@ namespace Sketchball.Collision
         }
 
 
+
+        /// <summary>
+        /// Checks if two bounding container intersect each other.
+        /// </summary>
+        /// <param name="bC"></param>
+        /// <returns></returns>
+        public bool Intersects(BoundingContainer bC)
+        {
+            Vector dummy = new Vector();
+            foreach (var b1 in BoundingBoxes)
+            {
+                foreach (var b2 in bC.BoundingBoxes)
+                {
+                    if (b2.Intersect(b1, out dummy)) return true;
+                }
+            }
+            return false;
+        }
     }
 }
