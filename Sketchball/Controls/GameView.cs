@@ -126,7 +126,7 @@ namespace Sketchball.Controls
 
             if (Game.Status == GameStatus.GameOver)
             {
-                DrawOverlay(g, Colors.DarkRed, "YOU LOSE", "Press [SPACE] to try again.");
+                DrawOverlay(g, Colors.DarkRed, "GAME OVER", "Press [SPACE] to try again.");
             }
             else if (Game.Status == GameStatus.Pause)
             {
