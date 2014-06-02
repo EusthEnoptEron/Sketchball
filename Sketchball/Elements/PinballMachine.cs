@@ -259,8 +259,29 @@ namespace Sketchball.Elements
         }
 
 
-        internal bool IsValid()
-        {
+        public bool IsValid() {
+            foreach (var p in DynamicElements)
+            {
+                // Make sure bounding containers are up-to-date.
+                p.RegenerateBounds();
+            }
+
+            // Validity check. Uncomment once 
+            foreach (var p1 in DynamicElements)
+            {
+                foreach (var p2 in Elements)
+                {
+                    if (p2 != p1)
+                    {
+                        if (p2.BoundingContainer.Intersects(p1.BoundingContainer))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            // Check for wormhole validity (will probably be changed in the future to work with IDs)
             foreach(PinballElement p in this.Elements)
             {
                 if (p.GetType() == typeof(WormholeEntry))

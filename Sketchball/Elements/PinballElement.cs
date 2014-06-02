@@ -438,5 +438,14 @@ namespace Sketchball.Elements
 
 
 
+        /// <summary>
+        /// Regenerates all bounding boxes of this element. Calls Init() and thus might
+        /// also do other things.
+        /// </summary>
+        public void RegenerateBounds()
+        {
+            BoundingContainer.BoundingBoxes.Clear();
+            Init();
+        }
     }
 }
