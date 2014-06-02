@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Windows;
@@ -15,11 +16,30 @@ namespace Sketchball.Elements
         // 500px = 1m
         public const float PIXELS_TO_METERS_RATIO = 500f / 1;
         
+        /// <summary>
+        /// Gets the elements that were added by the user.
+        /// </summary>
         [DataMember]
+        [Browsable(false)]
         public ElementCollection DynamicElements { get; private set; }
+
+        /// <summary>
+        /// Gets the elements that are static and can't be changed.
+        /// (Usually added through the layout)
+        /// </summary>
+        [Browsable(false)]
         public ElementCollection StaticElements { get; private set; }
+
+        /// <summary>
+        /// Gets the balls currently added.
+        /// </summary>
+        [Browsable(false)]
         public ElementCollection Balls { get; private set; }
 
+        /// <summary>
+        /// Gets _all_ elements added to this pinball machine.
+        /// </summary>
+        [Browsable(false)]
         public IEnumerable<PinballElement> Elements
         {
             get
@@ -40,31 +60,76 @@ namespace Sketchball.Elements
             }
         }
 
+        /// <summary>
+        /// Gets the layout used to define this pinball machine.
+        /// </summary>
         [DataMember]
+        [Browsable(false)]
         public IMachineLayout Layout { get; private set; }
 
         // -------  DERIVED PROPERTIES            
         protected StartingRamp Ramp { get { return Layout.Ramp; } }
+        /// <summary>
+        /// Gets the width of this machine.
+        /// </summary>
+        [Browsable(false)]
         public int Width { get { return Layout.Width; } }
+
+        /// <summary>
+        /// Gets the height of this machine.
+        /// </summary>
+        [Browsable(false)]
         public int Height { get { return Layout.Height; } }
 
 
+        private const float DEFAULT_GRAVITY = 9.81f;
         [DataMember]
-        public float Gravity = 9.81f;
+        [Browsable(true), Description("The gravity used in this pinball machine.")]
+        public float Gravity { get; set; }
 
-           
+
+        private const double DEFAULT_ANGLE = (3.41 / 180 * 10);
+
         /// <summary>
         /// Tilt of the pinball machine in radians.
         /// </summary>
         [DataMember]
-        public double Angle = (Math.PI / 180 * 10);
+        [Browsable(false)]
+        public double Angle { get; set; }
 
+        
+        /// <summary>
+        /// Don't use outside the editor!
+        /// </summary>
+        [Browsable(true), DisplayName("Angle"), Description("The tilt angle of the machine in degrees.")]
+        public int AngleProperty { 
+            get {
+                return (int)Math.Round(Angle / Math.PI * 180);
+            } 
+            set {
+                Angle = value / 180.0 * Math.PI;    
+            }
+        }
+
+        /// <summary>
+        /// Gets the calculated acceleration based on the gravity and the angle.
+        /// </summary>
+        [Browsable(false)]
+        public Vector Acceleration
+        {
+            get
+            {
+                return new Vector(0, Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
+            }
+        }
        
         public PinballMachine() : this(new DefaultLayout()) {}
 
         public PinballMachine(IMachineLayout layout)
         {
             Layout = layout;
+            Gravity = DEFAULT_GRAVITY;
+            Angle = DEFAULT_ANGLE;
             Init();
         }
 
@@ -75,18 +140,6 @@ namespace Sketchball.Elements
             if (DynamicElements == null) DynamicElements = new ElementCollection(this);
 
             Layout.Apply(this);
-        }
-
-
-        /// <summary>
-        /// Gets the calculated acceleration based on the gravity and the angle.
-        /// </summary>
-        public Vector Acceleration
-        {
-            get
-            {
-                return new Vector(0, Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
-            }
         }
 
         public virtual void Draw(DrawingContext g)

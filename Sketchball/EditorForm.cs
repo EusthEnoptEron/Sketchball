@@ -92,7 +92,7 @@ namespace Sketchball
             // Set up playfield and element inspector
             PlayFieldEditor.History.Change += () => { elementInspector.Refresh(); };
             elementInspector.PropertyValueChanged += (sender, e) => { PlayFieldEditor.Invalidate(); };
-            fieldAndPropertySplitter.Panel2Collapsed = true;
+            machineInspector.SelectedObject = PlayFieldEditor.PinballMachine;
 
             // Set up zoom bar
             zoomBar.Trackbar.Minimum = 5;
@@ -107,6 +107,8 @@ namespace Sketchball
             PlayFieldEditor.AllowDrop = true;
             EditorContainer.Location = new System.Drawing.Point(3, 3);
             EditorContainer.TabIndex = 2;
+         
+
             PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
 
             PlayFieldEditor.Drop += this.OnDragDrop;
@@ -115,8 +117,11 @@ namespace Sketchball
             PlayFieldEditor.DragLeave += this.OnDragLeave;
             PlayFieldEditor.GiveFeedback += this.OnGiveFeedback;
             PlayFieldEditor.QueryContinueDrag += this.OnQueryContinueDrag;
+
+            PlayFieldEditor.KeyDown += onDeleteElement;
             //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
         }
+
 
  
 
@@ -130,7 +135,7 @@ namespace Sketchball
 
             // TODO: Complete member initialization
             this.selectionForm = selectionForm;
-            PlayFieldEditor.LoadMachine(pbm);
+            loadMachine(pbm);
         }
 
         void element_MouseDown(object sender, MouseEventArgs e)
@@ -294,7 +299,7 @@ namespace Sketchball
 
                     if (pbm.IsValid())
                     {
-                        PlayFieldEditor.LoadMachine(pbm);
+                        loadMachine(pbm);
                         FileName = openFileDialog.FileName;
                     }
                     else
@@ -303,6 +308,12 @@ namespace Sketchball
                     }
                 }
             }
+        }
+
+        private void loadMachine(PinballMachine pbm)
+        {
+            PlayFieldEditor.LoadMachine(pbm);
+            machineInspector.SelectedObject = pbm;
         }
 
         private void onSaveMachine(object sender, EventArgs e)
@@ -330,7 +341,7 @@ namespace Sketchball
         {
             if (mayOmitChanges())
             {
-                PlayFieldEditor.LoadMachine(new PinballMachine());
+                loadMachine(new PinballMachine());
                 FileName = null;
             }
 
@@ -369,12 +380,24 @@ namespace Sketchball
             if (newElement != null)
             {
                 elementInspector.SelectedObject = newElement;
-                fieldAndPropertySplitter.Panel2Collapsed = false;
+                //fieldAndPropertySplitter.Panel2Collapsed = false;
             }
             else
             {
                 elementInspector.SelectedObject = null;
-                fieldAndPropertySplitter.Panel2Collapsed = true;
+                //fieldAndPropertySplitter.Panel2Collapsed = true;
+            }
+        }
+
+
+        private void onDeleteElement(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Delete)
+            {
+                if (PlayFieldEditor.SelectedElement != null)
+                {
+                    PlayFieldEditor.RemoveElement(PlayFieldEditor.SelectedElement);
+                }
             }
         }
       

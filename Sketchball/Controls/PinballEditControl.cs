@@ -118,6 +118,11 @@ namespace Sketchball.Controls
             IChange change = new DeletionChange(PinballMachine.DynamicElements, element);
             change.Do();
 
+            if (element == SelectedElement)
+            {
+                SelectedElement = null;
+            }
+
             History.Add(change);
         }
 
@@ -248,6 +253,7 @@ namespace Sketchball.Controls
         public void LoadMachine(PinballMachine machine) {
             PinballMachine = machine;
             History.Clear();
+            SelectedElement = null;
 
             Invalidate();
         }
