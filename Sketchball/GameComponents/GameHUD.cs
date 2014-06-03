@@ -15,6 +15,9 @@ namespace Sketchball.GameComponents
         public int Width { get; set; }
         public int Height { get; set; }
 
+        private int imgWidth;
+        private int imgHeight;
+
         private ImageSource BG = Booster.OptimizeWpfImage("ScoreBG.png");
 
         public GameHUD(Game game)

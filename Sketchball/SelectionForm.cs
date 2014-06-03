@@ -59,10 +59,10 @@ namespace Sketchball
             if (result == DialogResult.OK) // Test result.
             {
                 PinballMachine pbm = PinballMachine.FromFile(fDialog.FileName);
-
+                
                 if (pbm.IsValid())
                 {
-                    OpenGame(pbm);
+                    OpenGame(pbm, fDialog.FileName);
                 }
                 else
                 {
@@ -107,13 +107,15 @@ namespace Sketchball
             childForm.FormClosed += onChildClose;
         }
 
-        public void OpenGame(PinballMachine pbm)
+        public void OpenGame(PinballMachine pbm, string fileName)
         {
             CloseManagedForm();
 
             this.Hide();
 
             childForm = new PlayForm(pbm, this);
+            ((PlayForm)childForm).ActivateScoreTracking(fileName);
+
             childForm.Show();
             childForm.FormClosed += onChildClose;
         }

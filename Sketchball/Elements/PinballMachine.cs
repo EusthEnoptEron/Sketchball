@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sketchball.GameComponents;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -122,6 +123,10 @@ namespace Sketchball.Elements
                 return new Vector(0, Math.Sin(Angle) * Gravity * PIXELS_TO_METERS_RATIO);
             }
         }
+
+
+        [DataMember]
+        public HighscoreList Highscores { get; private set; }
        
         public PinballMachine() : this(new DefaultLayout()) {}
 
@@ -130,6 +135,8 @@ namespace Sketchball.Elements
             Layout = layout;
             Gravity = DEFAULT_GRAVITY;
             Angle = DEFAULT_ANGLE;
+            Highscores = new HighscoreList();
+
             Init();
         }
 
@@ -137,6 +144,7 @@ namespace Sketchball.Elements
         {
             StaticElements = new ElementCollection(this);
             Balls = new ElementCollection(this);
+
             if (DynamicElements == null) DynamicElements = new ElementCollection(this);
 
             Layout.Apply(this);
