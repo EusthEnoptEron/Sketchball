@@ -22,12 +22,13 @@ namespace Sketchball.Elements
         protected Keys DebugTrigger;
 
         public double RotationRange = (Math.PI / 180 * 60);
-        private bool Animating = false;
+        public bool Animating { get; private set; }
         private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SWormholeExit);
 
 
         public Flipper()  : base()
         {
+            Animating = false;
         }
 
  
@@ -83,6 +84,7 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
+            this.Animating = false;
         }
 
         void OnKeyUp(object sender, KeyEventArgs e)
