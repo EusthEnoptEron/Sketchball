@@ -23,6 +23,9 @@ namespace Sketchball.Elements
         public double AngularVelocity { get; private set; }
 
         [Browsable(false)]
+        public bool Animating { get; private set; }
+
+        [Browsable(false)]
         public Vector CurrentRotationCenter { get; private set; }
 
         protected Glide Tweener = new Glide();
@@ -43,7 +46,13 @@ namespace Sketchball.Elements
             this.AngularVelocity = rad / time;
             
             Tweener.Cancel();
-            return Tweener.Tween(this, new { Rotation = degAbs }, time).OnComplete(endRotation);
+
+            return Tweener.Tween(this, new { Rotation = degAbs }, time).OnComplete(endRotation + resetVelocity);
+        }
+
+        private void resetVelocity()
+        {
+            this.AngularVelocity = 0;
         }
 
         protected override void OnDraw(System.Windows.Media.DrawingContext g)
