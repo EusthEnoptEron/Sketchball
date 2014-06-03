@@ -125,7 +125,8 @@ namespace Sketchball.Collision
         //TODO: UNTESTED
         public override bool LineIntersect(BoundingLine bL, out Vector hitPoint)
         {
-            //throw new MissingMethodException();
+            hitPoint = new Vector(0, 0);
+
             Vector thisWorldTras = this.BoundingContainer.ParentElement.Location;
             Vector bLWorldTrans = bL.BoundingContainer.ParentElement.Location;
 
@@ -134,39 +135,39 @@ namespace Sketchball.Collision
             Vector thisWorldTar = this.target + thisWorldTras;
             Vector thisWorldPos = this.Position + thisWorldTras;
 
+            double Ax = thisWorldPos.X;
+            double Ay = thisWorldPos.Y;
 
-            double A1 = thisWorldTar.Y - thisWorldPos.Y;
-            double B1 = thisWorldTar.X - thisWorldPos.X;
-            double C1 = A1 * thisWorldPos.X + B1 * thisWorldPos.Y;
+            double Bx = thisWorldTar.X;
+            double By = thisWorldTar.Y;
 
-            double A2 = bLWorldTar.Y - bLWorldPos.Y;
-            double B2 = bLWorldTar.X - bLWorldPos.X;
-            double C2 = A2 * bLWorldPos.X + B2 * bLWorldPos.Y;
 
-            double det = A1 * B1 - A2 * B2;      //determines same delta?
+            double Cx = bLWorldPos.X;
+            double Cy = bLWorldPos.Y;
 
-            if (det == 0)       //parallel
+            double Dx = bLWorldTar.X;
+            double Dy = bLWorldTar.Y;
+
+            if (((Cx - Dx) * By + (Cy - Dy) * Ax - (Cx - Dx) * Ay - (Cy - Dy) * Bx) == 0)
             {
-                hitPoint = new Vector(0,0);
+                int i = 0;
+            }
+
+            double d = (-(By * (Ax - Cx) - Cy * Ax - Ay * (Bx - Cx) + Cy * Bx) / ((Cx - Dx) * By + (Cy - Dy) * Ax - (Cx - Dx) * Ay - (Cy - Dy) * Bx));
+
+            if (d <= 0 || d >= 1)
+            {
                 return false;
             }
-            else
-            {
-                //set equation equal
-                double x = (B2*C1 - B1*C2) / det;
-                double y = (A1 * C2 - A2 * C1) / det;
 
-                if (Math.Min(thisWorldPos.X, thisWorldTar.X) < x && x < Math.Max(thisWorldPos.X, thisWorldTar.X))
-                {
-                    if (Math.Min(thisWorldPos.Y, thisWorldTar.Y) < y && y < Math.Max(thisWorldPos.Y, thisWorldTar.Y))
-                    {
-                        hitPoint = new Vector(x, y);
-                        return true;
-                    }
-                }
-                hitPoint = new Vector(0, 0);
+            double t = (Cx + d * (Dx - Cx) - Ax) / (Bx - Ax);
+            if (t <= 0 || t>= 1)
+            {
                 return false;
             }
+
+            hitPoint = thisWorldPos + t * (bLWorldTar - thisWorldPos);
+            return true;
         }
 
         private float min(float t1, float t2)
