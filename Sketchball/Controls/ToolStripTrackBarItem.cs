@@ -16,8 +16,7 @@ namespace Sketchball.Controls
     ToolStripItemDesignerAvailability
         (ToolStripItemDesignerAvailability.ToolStrip | ToolStripItemDesignerAvailability.StatusStrip)
     ]
-
-    public class ToolStripTrackBarItem : ToolStripControlHost
+    public class ToolStripTrackBarItem : MyToolStripControlHost
     {
         public TrackBar Trackbar { get; private set; }
 
@@ -27,4 +26,5 @@ namespace Sketchball.Controls
             Trackbar = (TrackBar)Control;
         }
     }
+
 }

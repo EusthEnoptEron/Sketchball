@@ -54,6 +54,7 @@
             this.zoomBar = new Sketchball.Controls.ToolStripTrackBarItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.playFieldPanel = new Sketchball.Editor.NoScrollOnFocusPanel();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
@@ -61,6 +62,7 @@
             this.MainSplitToMenueAndField.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fieldAndPropertySplitter)).BeginInit();
+            this.fieldAndPropertySplitter.Panel1.SuspendLayout();
             this.fieldAndPropertySplitter.Panel2.SuspendLayout();
             this.fieldAndPropertySplitter.SuspendLayout();
             this.mainView.BottomToolStripPanel.SuspendLayout();
@@ -197,7 +199,7 @@
             this.MainSplitToMenueAndField.Panel2.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.MainSplitToMenueAndField.Panel2.Controls.Add(this.fieldAndPropertySplitter);
             this.MainSplitToMenueAndField.Size = new System.Drawing.Size(1119, 642);
-            this.MainSplitToMenueAndField.SplitterDistance = 353;
+            this.MainSplitToMenueAndField.SplitterDistance = 288;
             this.MainSplitToMenueAndField.TabIndex = 1;
             // 
             // elementPanel
@@ -208,7 +210,7 @@
             this.elementPanel.AutoScroll = true;
             this.elementPanel.Location = new System.Drawing.Point(7, 138);
             this.elementPanel.Name = "elementPanel";
-            this.elementPanel.Size = new System.Drawing.Size(341, 515);
+            this.elementPanel.Size = new System.Drawing.Size(276, 515);
             this.elementPanel.TabIndex = 2;
             // 
             // panel2
@@ -219,7 +221,7 @@
             this.panel2.Controls.Add(this.toolBar);
             this.panel2.Location = new System.Drawing.Point(0, 99);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(351, 33);
+            this.panel2.Size = new System.Drawing.Size(286, 33);
             this.panel2.TabIndex = 1;
             // 
             // toolBar
@@ -228,7 +230,7 @@
             this.toolBar.Location = new System.Drawing.Point(0, 0);
             this.toolBar.Name = "toolBar";
             this.toolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolBar.Size = new System.Drawing.Size(351, 25);
+            this.toolBar.Size = new System.Drawing.Size(286, 25);
             this.toolBar.Stretch = true;
             this.toolBar.TabIndex = 0;
             this.toolBar.Text = "toolStrip1";
@@ -242,8 +244,8 @@
             // 
             // fieldAndPropertySplitter.Panel1
             // 
-            this.fieldAndPropertySplitter.Panel1.AutoScroll = true;
             this.fieldAndPropertySplitter.Panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.fieldAndPropertySplitter.Panel1.Controls.Add(this.playFieldPanel);
             // 
             // fieldAndPropertySplitter.Panel2
             // 
@@ -251,15 +253,15 @@
             this.fieldAndPropertySplitter.Panel2.Controls.Add(this.machineInspector);
             this.fieldAndPropertySplitter.Panel2.Controls.Add(this.label1);
             this.fieldAndPropertySplitter.Panel2.Controls.Add(this.elementInspector);
-            this.fieldAndPropertySplitter.Size = new System.Drawing.Size(762, 642);
-            this.fieldAndPropertySplitter.SplitterDistance = 579;
+            this.fieldAndPropertySplitter.Size = new System.Drawing.Size(827, 642);
+            this.fieldAndPropertySplitter.SplitterDistance = 628;
             this.fieldAndPropertySplitter.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(3, 270);
+            this.label2.Location = new System.Drawing.Point(3, 253);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 3;
@@ -269,16 +271,16 @@
             // 
             this.machineInspector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.machineInspector.Location = new System.Drawing.Point(6, 47);
+            this.machineInspector.Location = new System.Drawing.Point(6, 32);
             this.machineInspector.Name = "machineInspector";
-            this.machineInspector.Size = new System.Drawing.Size(161, 197);
+            this.machineInspector.Size = new System.Drawing.Size(177, 197);
             this.machineInspector.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(3, 31);
+            this.label1.Location = new System.Drawing.Point(3, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(137, 13);
             this.label1.TabIndex = 1;
@@ -289,9 +291,9 @@
             this.elementInspector.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.elementInspector.Location = new System.Drawing.Point(6, 286);
+            this.elementInspector.Location = new System.Drawing.Point(6, 269);
             this.elementInspector.Name = "elementInspector";
-            this.elementInspector.Size = new System.Drawing.Size(161, 353);
+            this.elementInspector.Size = new System.Drawing.Size(177, 370);
             this.elementInspector.TabIndex = 0;
             // 
             // mainView
@@ -325,7 +327,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.MaximumSize = new System.Drawing.Size(0, 30);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1119, 30);
+            this.toolStrip1.Size = new System.Drawing.Size(0, 30);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 0;
             // 
@@ -333,7 +335,7 @@
             // 
             this.zoomBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.zoomBar.Name = "zoomBar";
-            this.zoomBar.Size = new System.Drawing.Size(104, 27);
+            this.zoomBar.Size = new System.Drawing.Size(104, 45);
             this.zoomBar.Text = "toolStripTrackBarItem1";
             // 
             // openFileDialog
@@ -346,6 +348,15 @@
             this.saveFileDialog.DefaultExt = "pmf";
             this.saveFileDialog.FileName = "Untitled.pmf";
             this.saveFileDialog.Filter = "Pinball machine files|*.pmf";
+            // 
+            // playFieldPanel
+            // 
+            this.playFieldPanel.AutoScroll = true;
+            this.playFieldPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playFieldPanel.Location = new System.Drawing.Point(0, 0);
+            this.playFieldPanel.Name = "playFieldPanel";
+            this.playFieldPanel.Size = new System.Drawing.Size(628, 642);
+            this.playFieldPanel.TabIndex = 0;
             // 
             // EditorForm
             // 
@@ -366,6 +377,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).EndInit();
             this.MainSplitToMenueAndField.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.fieldAndPropertySplitter.Panel1.ResumeLayout(false);
             this.fieldAndPropertySplitter.Panel2.ResumeLayout(false);
             this.fieldAndPropertySplitter.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fieldAndPropertySplitter)).EndInit();
@@ -410,6 +422,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer mainView;
+        private Editor.NoScrollOnFocusPanel playFieldPanel;
 
     }
 }

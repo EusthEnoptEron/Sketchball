@@ -77,7 +77,7 @@ namespace Sketchball
 
             PlayFieldEditor = new PinballEditControl();
             EditorContainer = new WPFContainer(PlayFieldEditor);
-            fieldAndPropertySplitter.Panel1.Controls.Add(EditorContainer);
+            playFieldPanel.Controls.Add(EditorContainer);
 
             TitleLabel.Font = new Font(FontManager.Courgette, 40);
 
@@ -119,6 +119,7 @@ namespace Sketchball
             PlayFieldEditor.QueryContinueDrag += this.OnQueryContinueDrag;
 
             PlayFieldEditor.KeyDown += onDeleteElement;
+
             //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
         }
 
@@ -430,6 +431,11 @@ namespace Sketchball
         }
 
         private void menuPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void fieldAndPropertySplitter_Panel1_Scroll(object sender, ScrollEventArgs e)
         {
 
         }

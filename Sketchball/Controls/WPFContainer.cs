@@ -19,7 +19,7 @@ namespace Sketchball.Controls
 
         public WPFContainer(ManagedWPFControl control)
         {
-            // Bugfix: When setting child <- control, the control will lose its dimensions.
+            // Polyfill #1: When setting child <- control, the control will lose its dimensions.
             double width = control.Width;
             double height = control.Height;
 
@@ -27,37 +27,24 @@ namespace Sketchball.Controls
 
             control.Width = width;
             control.Height = height;
+            // --------------------------
 
-            Control.SizeChanged += OnChildSizeChanged;
+            // Polyfill #2: In order to get key events, we _explicitly_ need to focus the child control.
+            control.Focusable = true;
+            control.PreviewMouseDown += delegate
+            {
+                if (!control.IsFocused)
+                {
+                    control.Focus();
+                }
+            };
+
+            AutoSize = true;
+            SetAutoSizeMode(AutoSizeMode.GrowAndShrink);
 
             Disposed += (s,e) => {
                 Control.Exit();
             };
         }
-
-        private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (Dock != DockStyle.Fill)
-            {
-                updating = true;
-                this.Width = (int)Control.Width;
-                this.Height = (int)Control.Height;
-                updating = false;
-            }
-        }
-
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            base.OnSizeChanged(e);
-
-            if (!updating)
-            {
-                Control.Width = Width;
-                Control.Height = Height;
-            }
-
-        }
-        
-
     }
 }
