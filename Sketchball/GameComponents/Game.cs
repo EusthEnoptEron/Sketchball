@@ -40,7 +40,10 @@ namespace Sketchball.GameComponents
         /// </summary>
         public event LivesChangedHandler LivesChanged;
 
-        //public event GameoverHandler Gameover;
+        /// <summary>
+        /// Occurs when the current game is over.
+        /// </summary>
+        public event EventHandler<int> GameOver;
 
         /// <summary>
         /// Total number of lives (<=> balls)
@@ -119,12 +122,13 @@ namespace Sketchball.GameComponents
         private Thread UpdateLoop = null;
         private volatile bool Disposed;
         private const int FPS = 120;
+        private string userName;
 
-
-        public Game(PinballMachine machine) {
+        public Game(PinballMachine machine, string userName) {
             Status = GameStatus.Setup;
-
+           
             OriginalMachine = machine;
+            this.userName = userName;
 
             UpdateLoop = new Thread(new ThreadStart(BeginUpdate));
             UpdateLoop.Name = "Updater";
@@ -175,6 +179,16 @@ namespace Sketchball.GameComponents
             {
                 // GameOver... :(
                 Status = GameStatus.GameOver;
+                OriginalMachine.Highscores.Add(new HighscoreEntry(
+                    userName, Score, DateTime.UtcNow    
+                ));
+
+
+                var handlers = GameOver;
+                if (handlers != null)
+                {
+                    handlers(this, Score);
+                }
             }
             else
             {

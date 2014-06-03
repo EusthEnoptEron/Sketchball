@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +26,11 @@ namespace Sketchball
         private WPFContainer gameContainer;
         private SelectionForm selectionForm = null;
         private PinballMachine originalMachine = null;
+        private PinballMachine pbm;
+
+        private string fileName = null;
+
+
         public PlayForm(PinballMachine pbm) : this(pbm, null)
         {
         }
@@ -34,10 +41,11 @@ namespace Sketchball
 
             // Initialize game
             originalMachine = pbm;
-            game = new Game(pbm);
+            game = new Game(pbm, Environment.UserName);
             gameView = new GameView(game);
             gameContainer = new WPFContainer(gameView);
 
+            game.GameOver += onGameOver;
           //  this.MinimumSize = gameView.MinimumSize;
             gameView.MouseUp += OnMouseUp;
 
@@ -49,8 +57,45 @@ namespace Sketchball
             this.selectionForm = selectionForm;
 
             debugModeButton.Checked = Properties.Settings.Default.Debug;
+        }
 
-            
+        /// <summary>
+        /// If activated, the game will track the high score and keep the file updated.
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void ActivateScoreTracking(string fileName)
+        {
+            var info = new FileInfo(fileName);
+            if (!info.IsReadOnly && info.Directory.Exists)
+            {
+                this.fileName = info.FullName;
+            }
+            else
+            {
+                throw new AccessViolationException("File not writable.");
+            }
+
+        }
+
+        public void DeactivateScoreTracking()
+        {
+            fileName = null;
+        }
+
+        private void onGameOver(object sender, int score)
+        {
+            if (fileName != null)
+            {
+                // Let's track the changes!
+                try
+                {
+                    originalMachine.Save(fileName);
+                }
+                catch (SerializationException e)
+                {
+                    MessageBox.Show("Could not save your score", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void OnMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
