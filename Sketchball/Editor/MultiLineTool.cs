@@ -58,8 +58,11 @@ namespace Sketchball.Editor
             var start = Control.PointToPinball(startPos);
 
             //Create Line
-            Line l = new Line(start.X, start.Y, end.X, end.Y);
-            this.Control.AddElement(l);
+            if (start.X != end.X && start.Y != end.Y)
+            {
+                Line l = new Line(start.X, start.Y, end.X, end.Y);
+                this.Control.AddElement(l);
+            }
 
             this.startPos = actualPos;
             this.Control.Invalidate();
@@ -67,7 +70,7 @@ namespace Sketchball.Editor
 
         protected void OnMouseDoubleClick(object sender, MouseEventArgs e)
         {
-            OnMouseUp(sender, e);
+           // OnMouseUp(sender, e);
             this.drawing = false;
 
             // Set as handled, otherwise MouseDown will be triggered.
