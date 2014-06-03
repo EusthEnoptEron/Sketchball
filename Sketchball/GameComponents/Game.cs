@@ -28,8 +28,6 @@ namespace Sketchball.GameComponents
         public delegate void ScoreChangedHandler(Game sender, int score);
         public delegate void LivesChangedHandler(Game sender, int lives);
 
-        private int MaxTime = 0;
-        
         /// <summary>
         /// Occurs when the score has changed.
         /// </summary>

@@ -99,7 +99,9 @@ namespace Sketchball
             zoomBar.Trackbar.Maximum = 20;
             zoomBar.Trackbar.Value = 10;
             zoomBar.Trackbar.ValueChanged += (sender, e) => { PlayFieldEditor.ScaleFactor = zoomBar.Trackbar.Value / 10f; };
-            
+
+            PlayFieldEditor.MouseWheel += onMouseWheel;
+
             FileName = null;
 
             // PlayFieldEditor
@@ -121,6 +123,34 @@ namespace Sketchball
             PlayFieldEditor.KeyDown += onDeleteElement;
 
             //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
+        }
+
+        void onMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            e.Handled = true;
+            //((HandledMouseEventArgs)e).Handled = true;
+
+            // 15 = font size
+            int numberOfPixelsToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120 * 15;
+
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                int newValue = zoomBar.Trackbar.Value + (e.Delta > 0 ? 1 : -1);
+                newValue = Math.Max(zoomBar.Trackbar.Minimum, Math.Min(zoomBar.Trackbar.Maximum, newValue));
+                zoomBar.Trackbar.Value = newValue;
+            }
+            else if (Control.ModifierKeys == Keys.Shift)
+            {
+                int newScroll = playFieldPanel.HorizontalScroll.Value - numberOfPixelsToMove;
+                //newScroll = Math.Max(playFieldPanel.HorizontalScroll.Minimum, Math.Min(playFieldPanel.HorizontalScroll.Maximum, newScroll));
+                playFieldPanel.AutoScrollPosition = new Point(newScroll, playFieldPanel.VerticalScroll.Value);
+            }
+            else
+            {
+                int newScroll = playFieldPanel.VerticalScroll.Value - numberOfPixelsToMove;
+                //newScroll = Math.Max(playFieldPanel.VerticalScroll.Minimum, Math.Min(playFieldPanel.VerticalScroll.Maximum, newScroll));
+                playFieldPanel.AutoScrollPosition = new Point(playFieldPanel.HorizontalScroll.Value, newScroll);
+            }
         }
 
 
