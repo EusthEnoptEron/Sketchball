@@ -135,7 +135,14 @@ namespace Sketchball.GameComponents
             Start();
         }
 
-         
+        public HighscoreList Highscores
+        {
+            get
+            {
+                return OriginalMachine.Highscores;
+            }
+        }
+
         /// <summary>
         /// Starts the game.
         /// </summary>

@@ -12,13 +12,11 @@ namespace Sketchball.GameComponents
 {
     public class GameFieldCamera : Camera
     {
-        internal Game Game { get; set; }
-
-        public BackgroundManager backgroundManager { get; private set; }
+        private GameWorld World = null;
+        private GameHUD HUD = null;
 
         public Vector Translocation { get; set; }
         public Vector Scale { get; set; }
-
 
         public Size Size
         {
@@ -29,13 +27,12 @@ namespace Sketchball.GameComponents
         public double Width { get { return Size.Width; } }
         public double Height { get { return Size.Height; } }
 
-        public GameFieldCamera(Game game)
+        public GameFieldCamera(GameWorld world, GameHUD hud)
         {
-            Game = game;
+            World = world;
+            HUD = hud;
             this.Translocation = new Vector(0, 0);
             this.Scale = new Vector(0, 0);
-            //this.maximumSize = new Size(Screen.PrimaryScreen.Bounds.Width - this.offsetRight, (Screen.PrimaryScreen.Bounds.Height - offsetTopYAbs) / 100 * (100 - this.offsetY));
-            this.backgroundManager = new BackgroundManager(game);
         }
 
         private void UpdateBackground()
@@ -46,8 +43,6 @@ namespace Sketchball.GameComponents
 
         public void Draw(DrawingContext g)
         {
-            int paddingRight = 50;
-
             int pushes = 0;
 
             if (Scale.X > 0 && Scale.Y > 0)
@@ -61,52 +56,27 @@ namespace Sketchball.GameComponents
                 g.PushTransform(new TranslateTransform(Translocation.X, Translocation.Y));
             }
 
-            double scale = Height / backgroundManager.Height;
-            double dx    = (Width - backgroundManager.Width) / 2f - paddingRight; // Center
+            double scale = Height / World.Height;
+            double dx = (Width - World.Width - HUD.Width) / 2f; // Center
 
             pushes += 2;
             g.PushTransform(new TranslateTransform(dx, 0));
-            g.PushTransform(new ScaleTransform(scale, scale, backgroundManager.Width / 2f, 0));
+            g.PushTransform(new ScaleTransform(scale, scale, World.Width / 2f, 0));
+            {
 
-            backgroundManager.Draw(g);
-        
+                World.Draw(g);
+            }
             for (int i = 0; i < pushes; i++)
             {
                 g.Pop();
             }
+
+            // Move HUD next to the game field
+            g.PushTransform(new TranslateTransform(dx + World.Width / 2 + (World.Width * scale) / 2, World.Offset.Y));
+            {
+                HUD.Draw(g);
+            }
+            g.Pop();
         }
-
-        private float CalculateRatio(float width, float height) 
-        {
-            float widthRatio = (width) / Game.Machine.Width;
-            float heightRatio = (height) / Game.Machine.Height;
-
-            return Math.Min(widthRatio, heightRatio);
-        }
-
-
-        public void zoom(float factor)
-        {
-            //if (factor > 0)
-            //{
-            //    this.Scale *= factor;
-            //    if (Scale.X < 1||Scale.Y < 1)
-            //    {
-            //        Scale = new Vector(1, 1);
-            //    }
-            //    this.backgroundManager.scaleMainBackground(this.Scale);
-            //}
-        }
-
-        public void moveRel(Vector relativ)
-        {
-            //this.Translocation += relativ;
-        }
-
-        public void moveAbs(Vector absPos)
-        {
-            //this.Translocation = absPos;
-        }
-
     }
 }

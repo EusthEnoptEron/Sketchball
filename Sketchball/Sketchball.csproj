@@ -62,7 +62,7 @@
     <Compile Include="Editor\NoScrollOnFocusPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GameComponents\BackgroundManager.cs" />
+    <Compile Include="GameComponents\GameWorld.cs" />
     <Compile Include="Booster.cs" />
     <Compile Include="GameComponents\Camera.cs" />
     <Compile Include="Collision\CollisionResult.cs" />
@@ -197,6 +197,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <Resource Include="Resources\bg_coffee.png" />
+    <Resource Include="Resources\bg_pen2.png" />
+    <Resource Include="Resources\bg_material.png" />
+    <Resource Include="Resources\bg_pen.png" />
+    <Resource Include="Resources\Notebook_top.png" />
+    <Resource Include="Resources\bg_desk.jpg" />
     <Resource Include="Resources\Rampe.png" />
     <Resource Include="Resources\SlingshotRight.png" />
     <None Include="Resources\descending_craft-Sonidor-991848481.wav" />
@@ -244,6 +250,7 @@
     <Resource Include="Resources\BackgroundextraScharf.png" />
     <Resource Include="Resources\WoodPattern.png" />
     <Resource Include="Resources\ScoreBG.png" />
+    <Resource Include="Resources\bg_paper.jpg" />
     <Content Include="Resources\Courgette-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

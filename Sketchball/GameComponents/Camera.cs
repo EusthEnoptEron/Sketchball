@@ -12,12 +12,7 @@ namespace Sketchball.GameComponents
     {
         Size Size { get; set; }
         void Draw(DrawingContext g);
-        void zoom(float factor);
-        void moveRel(Vector relMove);
-        void moveAbs(Vector relAbs);
-
         Vector Scale { get; }
         Vector Translocation { get; }
-        BackgroundManager backgroundManager { get; }
     }
 }

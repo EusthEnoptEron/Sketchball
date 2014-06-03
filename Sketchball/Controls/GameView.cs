@@ -28,6 +28,7 @@ namespace Sketchball.Controls
 
         public Camera Camera{get; private set;}
         private GameHUD HUD;
+        private GameWorld gameWorld;
 
         public Game Game;
         private System.Windows.Forms.Timer timer;
@@ -40,8 +41,10 @@ namespace Sketchball.Controls
             : base()
         {
             Game = game;
-            Camera = new GameFieldCamera(Game);
+            gameWorld = new GameWorld(Game);
             HUD = new GameHUD(Game);
+
+            Camera = new GameFieldCamera(gameWorld, HUD);
 
             Focusable = true;
             Loaded += (s, e) => { Focus(); };
@@ -120,10 +123,6 @@ namespace Sketchball.Controls
         {
             // Draw pinball machine
             Camera.Draw(g);
-
-            g.PushTransform(new TranslateTransform(Width - HUD.Width, 0));
-            HUD.Draw(g);
-            g.Pop();
 
             if (Game.Status == GameStatus.GameOver)
             {
