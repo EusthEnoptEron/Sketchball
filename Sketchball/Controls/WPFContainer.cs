@@ -42,9 +42,19 @@ namespace Sketchball.Controls
             AutoSize = true;
             SetAutoSizeMode(AutoSizeMode.GrowAndShrink);
 
+
             Disposed += (s,e) => {
                 Control.Exit();
             };
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            if (this.Dock == DockStyle.Fill)
+            {
+                Control.Width = Width;
+                Control.Height = Height;
+            }
         }
     }
 }
