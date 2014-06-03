@@ -14,6 +14,7 @@ namespace Sketchball.GameComponents
     [DataContract]
     public class HighscoreList : ICollection<HighscoreEntry>
     {
+        [DataContract]
         private class DescendedComparer : IComparer<HighscoreEntry>
         {
             public int Compare(HighscoreEntry x, HighscoreEntry y)
