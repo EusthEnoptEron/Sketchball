@@ -429,6 +429,11 @@ namespace Sketchball
             }
         }
 
+        private void menuPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
       
     }
 
