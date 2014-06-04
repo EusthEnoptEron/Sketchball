@@ -156,7 +156,6 @@ namespace Sketchball.Elements
             g.DrawRectangle(Brushes.White, null, new Rect(0, 0, Width, Height));
 
             // Draw contours
-            //TODO take away red border
             Pen pen = new Pen(Brushes.LightGray, 1);
             for (int y = 0; y <= Height; y += 10)
             {
@@ -167,8 +166,6 @@ namespace Sketchball.Elements
             {
                 g.DrawLine(pen, new Point(x, 0), new  Point(x, Height));
             }
-
-
 
             foreach (PinballElement element in Elements)
             {

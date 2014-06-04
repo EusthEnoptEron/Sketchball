@@ -34,11 +34,11 @@ namespace Sketchball.Controls
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            var text = new FormattedText("fps" + this.fps_debug.ToString(),
-              CultureInfo.GetCultureInfo("en-us"),
-              System.Windows.FlowDirection.LeftToRight,
-              new Typeface("Arial"),
-              36, System.Windows.Media.Brushes.BlueViolet);
+            //var text = new FormattedText("fps" + this.fps_debug.ToString(),
+            //  CultureInfo.GetCultureInfo("en-us"),
+            //  System.Windows.FlowDirection.LeftToRight,
+            //  new Typeface("Arial"),
+            //  36, System.Windows.Media.Brushes.BlueViolet);
 
             base.OnRender(drawingContext);
             DateTime now = DateTime.Now;
@@ -48,7 +48,7 @@ namespace Sketchball.Controls
             prev = now;
 
             Draw(drawingContext);
-            drawingContext.DrawText(text, new System.Windows.Point(400, 400));
+            //drawingContext.DrawText(text, new System.Windows.Point(400, 400));
 
 
             this.fps_debug = (int)(1 / delta.TotalSeconds);
