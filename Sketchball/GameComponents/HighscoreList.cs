@@ -36,11 +36,15 @@ namespace Sketchball.GameComponents
 
         public void Add(HighscoreEntry item)
         {
-            innerList.Add(item);
-
-            while (Count > MAX_ENTRIES)
+            // Don't insert losers.
+            if (item.Score > 0)
             {
-                innerList.Remove(innerList.Last());
+                innerList.Add(item);
+
+                while (Count > MAX_ENTRIES)
+                {
+                    innerList.Remove(innerList.Last());
+                }
             }
         }
 
