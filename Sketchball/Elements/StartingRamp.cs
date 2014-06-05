@@ -18,7 +18,7 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private Vector MaxVelocity = new Vector(5, -2200f);
+        private int MaxPower = 50;
 
         private Ball Ball = null;
         private bool Charging = false;
@@ -34,6 +34,10 @@ namespace Sketchball.Elements
         private static ImageSource RampImageS = Booster.OptimizeWpfImage("Rampe.png");
         private static ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
 
+        private BoundingLine powerLine;
+        private const int POWER_DECAY_TIME = 60;
+        private const float DEFAULT_POWER = 0.1f;
+        private long powerDecay = 0;
 
 
         public StartingRamp()
@@ -73,11 +77,11 @@ namespace Sketchball.Elements
             BoundingLine bL25 = new BoundingLine(p25, p26);
             BoundingLine bL26 = new BoundingLine(p26, p21);
 
-            BoundingLine bLP = new BoundingLine(pPs, pPe);
+            powerLine = new BoundingLine(pPs, pPe);
 
             bL4.BounceFactor = 0.5f;
             bL1.BounceFactor = 0.5f;
-            bLP.BounceFactor = 0.2f;
+            powerLine.BounceFactor = DEFAULT_POWER;
 
             this.BoundingContainer.AddBoundingBox(bL1);
             this.BoundingContainer.AddBoundingBox(bL2);
@@ -92,7 +96,7 @@ namespace Sketchball.Elements
             this.BoundingContainer.AddBoundingBox(bL25);
             this.BoundingContainer.AddBoundingBox(bL26);
 
-            this.BoundingContainer.AddBoundingBox(bLP);
+            this.BoundingContainer.AddBoundingBox(powerLine);
 
 
             Scale = 1 / 2f;
@@ -121,38 +125,35 @@ namespace Sketchball.Elements
         public void IntroduceBall(Ball ball) {
             Ball = ball;
 
-            Ball.X = X + Ball.Width / 2;
-            Ball.Y = Y;
+            Ball.X = X + Ball.Width * 0.8;
+            Ball.Y = 1.5 * Y;
         }
 
         public override void Update(long delta)
         {
+            powerDecay += delta;
+
             base.Update(delta);
             Tweener.Update(delta / 1000f);
 
-            if (!Charging && Power > 0 )
+            if (!Charging && Power > 0)
             {
-                if (Active)
-                {
-                    // SHOOT!
-                    Ball.Velocity += Power * MaxVelocity;
-                    Power = 0;
-                }
+                // SHOOT!
+                powerLine.BounceFactor = Power * MaxPower;
+                //Ball.Velocity += Power * MaxVelocity;
+                Power = 0;
+                powerDecay = 0;
+                
             }
-        }
-
-        public bool Active
-        {
-            get
+            else if(powerDecay > POWER_DECAY_TIME)
             {
-                // TODO: make better check!
-                return Ball != null;
+                powerLine.BounceFactor = DEFAULT_POWER;
             }
         }
 
         private void Charge(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Trigger && Active)
+            if (e.KeyCode == Trigger)
             {
                 Charging = true;
                 Tweener.Tween(this, new { Power = 1 }, 1f);
@@ -161,7 +162,7 @@ namespace Sketchball.Elements
 
         private void Discharge(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Trigger && Active)
+            if (e.KeyCode == Trigger)
             {
                 Charging = false;
                 Tweener.Cancel();
