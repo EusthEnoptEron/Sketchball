@@ -16,7 +16,7 @@ namespace Sketchball.Editor
         enum SelectionState { Idle, Dragging, Resizing, Rotating }
 
         private Vector startVector;
-
+        private const int MIN_LENGTH = 20;
 
         private Point origin;
         private Point startPoint;
@@ -62,40 +62,51 @@ namespace Sketchball.Editor
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            // Only act if we're idle
+            if (State == SelectionState.Idle)
             {
-                if (SelectedElement != null && Control.ModifierKeys == System.Windows.Forms.Keys.Control)
+                if (e.LeftButton == MouseButtonState.Pressed)
                 {
-                    State = SelectionState.Resizing;
-
-                    startPoint = e.GetPosition(Editor);
-                    currentPoint = new Point(startPoint.X, startPoint.Y);
-                    var pos = Editor.PointToEditor(SelectedElement.Location + SelectedElement.GetRotationOrigin());
-
-                    origin = new Point(pos.X, pos.Y);
-
-                    initialPoint = SelectedElement.Location;
-                    initialScale = SelectedElement.Scale;
-                    initialRotation = SelectedElement.BaseRotation;
-                }
-                else
-                {
-                    State = SelectionState.Dragging;
-
-                    var pos = e.GetPosition(Editor);
-                    Point loc = Editor.PointToPinball(pos);
-
-                    PinballElement element = FindElement(loc);
-                    if (element != null)
+                    if (SelectedElement != null && Control.ModifierKeys == System.Windows.Forms.Keys.Control)
                     {
-                        // Select
-                        SelectedElement = element;
-                        this.delta = new Vector(pos.X, pos.Y) - Editor.PointToEditor(SelectedElement.Location);
-                        startVector = SelectedElement.Location;
+                        State = SelectionState.Resizing;
+
+                        var pos = Editor.PointToEditor(SelectedElement.Location + SelectedElement.GetRotationOrigin());
+                        origin = new Point(pos.X, pos.Y);
+
+
+                        startPoint = e.GetPosition(Editor);
+                        double factor = (startPoint - origin).Length / MIN_LENGTH;
+                        if (factor < 1)
+                        {
+                            startPoint += (startPoint - origin) * (1 / factor);
+                        }
+
+                        currentPoint = new Point(startPoint.X, startPoint.Y);
+
+                        initialPoint = SelectedElement.Location;
+                        initialScale = SelectedElement.Scale;
+                        initialRotation = SelectedElement.BaseRotation;
                     }
                     else
                     {
-                        SelectedElement = null;
+                        State = SelectionState.Dragging;
+
+                        var pos = e.GetPosition(Editor);
+                        Point loc = Editor.PointToPinball(pos);
+
+                        PinballElement element = FindElement(loc);
+                        if (element != null)
+                        {
+                            // Select
+                            SelectedElement = element;
+                            this.delta = new Vector(pos.X, pos.Y) - Editor.PointToEditor(SelectedElement.Location);
+                            startVector = SelectedElement.Location;
+                        }
+                        else
+                        {
+                            SelectedElement = null;
+                        }
                     }
                 }
             }
