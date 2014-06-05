@@ -115,9 +115,22 @@ namespace Sketchball.Elements
         /// <summary>
         /// Gets or sets the origin for rotation.
         /// </summary>
+        [Category("Position"), Browsable(false)]
+        public RotationOrigin Origin
+        {
+            get
+            {
+                return _origin;
+            }
+            set
+            {
+                _origin = value;
+                RebuildMatrix();
+            }
+        }
+
         [DataMember]
-        [Category("Position")]
-        public RotationOrigin Origin { get; set; }
+        private RotationOrigin _origin;
 
 
         /// <summary>
@@ -216,7 +229,7 @@ namespace Sketchball.Elements
             this.X = X;
             this.Y = Y;
 
-            Origin = RotationOrigin.MiddleCenter;
+            _origin = RotationOrigin.MiddleCenter;
 
             init();
         }

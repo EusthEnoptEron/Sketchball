@@ -148,14 +148,10 @@ namespace Sketchball.Editor
                 var pos = e.GetPosition(Editor);
                 currentPoint = new Point(pos.X, pos.Y);
 
-                double scale = ((currentPoint - origin).Length / (startPoint - origin).Length) * initialScale;
+                SelectedElement.Scale = ((currentPoint - origin).Length / (startPoint - origin).Length) * initialScale;
 
-                SelectedElement.Scale = scale;
-
-                var loc = (Editor.PointToPinball(origin) - new Vector(SelectedElement.Width / 2, SelectedElement.Height / 2));
-                SelectedElement.Location = new Vector(loc.X, loc.Y);
-
-
+                var newLoc = Editor.PointToPinball(origin) - SelectedElement.GetRotationOrigin();
+                SelectedElement.Location = new Vector(newLoc.X, newLoc.Y);
                 SelectedElement.BaseRotation = initialRotation + Vector.AngleBetween(startPoint - origin, currentPoint - origin);
 
                 Editor.Invalidate();
