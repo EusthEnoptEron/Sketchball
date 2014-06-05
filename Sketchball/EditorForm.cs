@@ -120,6 +120,7 @@ namespace Sketchball
             PlayFieldEditor.GiveFeedback += this.OnGiveFeedback;
             PlayFieldEditor.QueryContinueDrag += this.OnQueryContinueDrag;
 
+            
             //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
         }
 

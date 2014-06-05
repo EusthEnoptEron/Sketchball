@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Editor
 {
-    public class PropertyChange : IChange
+    public class PropertyChange<T> : IChange
     {
-        private PinballElement element;
+        private T element;
         private object oldValue;
         private object newValue;
         private PropertyInfo property;
  
-        public PropertyChange(PinballElement element, string propertyName, object newValue, object oldValue)
+        public PropertyChange(T element, string propertyName, object newValue, object oldValue)
         {
-            property = typeof(PinballElement).GetProperty(propertyName);
+            property = typeof(T).GetProperty(propertyName);
             this.element = element;
             this.newValue = newValue;
             this.oldValue = oldValue;
