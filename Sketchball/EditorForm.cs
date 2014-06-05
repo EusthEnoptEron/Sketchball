@@ -90,8 +90,9 @@ namespace Sketchball
             populateToolPanel();
 
             // Set up playfield and element inspector
-            PlayFieldEditor.History.Change += () => { elementInspector.Refresh(); };
-            elementInspector.PropertyValueChanged += (sender, e) => { PlayFieldEditor.Invalidate(); };
+            PlayFieldEditor.History.Change += () => { elementInspector.Refresh(); machineInspector.Refresh(); };
+            elementInspector.PropertyValueChanged += onElementPropertyChanged;
+            machineInspector.PropertyValueChanged += onMachinePropertyChanged;
             machineInspector.SelectedObject = PlayFieldEditor.PinballMachine;
 
             // Set up zoom bar
@@ -122,6 +123,21 @@ namespace Sketchball
 
             
             //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
+        }
+
+        private void onMachinePropertyChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            IChange change = new PropertyChange<PinballMachine>(PlayFieldEditor.PinballMachine, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
+            PlayFieldEditor.History.Add(change);
+        }
+
+        private void onElementPropertyChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            PlayFieldEditor.Invalidate();
+
+            IChange change = new PropertyChange<PinballElement>((PinballElement)elementInspector.SelectedObject, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
+            PlayFieldEditor.History.Add(change);
+
         }
 
         void onMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
