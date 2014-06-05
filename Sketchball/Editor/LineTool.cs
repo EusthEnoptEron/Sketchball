@@ -30,37 +30,37 @@ namespace Sketchball.Editor
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
 
-            var pos = e.GetPosition(Control);
+            var pos = e.GetPosition(Editor);
             this.startPos = new Vector(pos.X, pos.Y);
             this.actualPos = new Vector(pos.X, pos.Y);
             this.drawing = true;
-            this.Control.Invalidate();
+            this.Editor.Invalidate();
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
-            var pos = e.GetPosition(Control);
+            var pos = e.GetPosition(Editor);
             this.actualPos = new Vector(pos.X, pos.Y);
 
             //Create Line
-            var start = Control.PointToPinball(startPos);
-            var end = Control.PointToPinball(actualPos);
+            var start = Editor.PointToPinball(startPos);
+            var end = Editor.PointToPinball(actualPos);
             Line l = new Line(start.X, start.Y, end.X, end.Y);
-            this.Control.AddElement(l);
+            this.Editor.AddElement(l);
 
             this.drawing = false;
-            this.Control.Invalidate();
+            this.Editor.Invalidate();
         }
 
         protected override void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (this.drawing)
             {
-                var pos = e.GetPosition(Control);
+                var pos = e.GetPosition(Editor);
                 this.actualPos.X = pos.X;
                 this.actualPos.Y = pos.Y;
 
-                this.Control.Invalidate();
+                this.Editor.Invalidate();
             }
         }
 

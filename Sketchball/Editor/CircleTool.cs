@@ -27,37 +27,37 @@ namespace Sketchball.Editor
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
-            var pos = e.GetPosition(Control);
+            var pos = e.GetPosition(Editor);
             this.center = new Vector(pos.X, pos.Y);
             this.radius = 0;
 
             this.drawing = true;
-            this.Control.Invalidate();
+            this.Editor.Invalidate();
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
-            var position = e.GetPosition(Control);
+            var position = e.GetPosition(Editor);
 
-            this.radius = Control.LengthToPinball((new Vector(position.X, position.Y) - this.center).Length);
-            var center = Control.PointToPinball(this.center);
+            this.radius = Editor.LengthToPinball((new Vector(position.X, position.Y) - this.center).Length);
+            var center = Editor.PointToPinball(this.center);
             
 
             //Create Circle
             Circle c = new Circle(center.X - this.radius,  center.Y - this.radius, this.radius);
-            this.Control.AddElement(c);
+            this.Editor.AddElement(c);
 
             this.drawing = false;
-            this.Control.Invalidate();
+            this.Editor.Invalidate();
         }
 
         protected override void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (this.drawing)
             {
-                var position = e.GetPosition(Control);
+                var position = e.GetPosition(Editor);
                 this.radius = (new Vector(position.X, position.Y) - this.center).Length;
-                this.Control.Invalidate();
+                this.Editor.Invalidate();
             }
         }
 

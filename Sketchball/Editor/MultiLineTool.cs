@@ -30,42 +30,42 @@ namespace Sketchball.Editor
         {
             if (drawing == false)
             {
-                var pos = e.GetPosition(Control);
+                var pos = e.GetPosition(Editor);
                 this.startPos = new Vector(pos.X, pos.Y);
                 this.actualPos = new Vector(pos.X, pos.Y);
                 this.drawing = true;
-                this.Control.Invalidate();
+                this.Editor.Invalidate();
             }
         }
 
         protected override void OnSelect()
         {
-            Control.PreviewMouseDoubleClick += OnMouseDoubleClick;
+            Editor.PreviewMouseDoubleClick += OnMouseDoubleClick;
         }
 
         protected override void OnUnselect()
         {
-            Control.PreviewMouseDoubleClick -= OnMouseDoubleClick;
+            Editor.PreviewMouseDoubleClick -= OnMouseDoubleClick;
         }
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
 
-            var pos = e.GetPosition(Control);
+            var pos = e.GetPosition(Editor);
             this.actualPos = new Vector(pos.X, pos.Y);
 
-            var end = Control.PointToPinball(actualPos);
-            var start = Control.PointToPinball(startPos);
+            var end = Editor.PointToPinball(actualPos);
+            var start = Editor.PointToPinball(startPos);
 
             //Create Line
             if (start.X != end.X && start.Y != end.Y)
             {
                 Line l = new Line(start.X, start.Y, end.X, end.Y);
-                this.Control.AddElement(l);
+                this.Editor.AddElement(l);
             }
 
             this.startPos = actualPos;
-            this.Control.Invalidate();
+            this.Editor.Invalidate();
         }
 
         protected void OnMouseDoubleClick(object sender, MouseEventArgs e)
@@ -81,11 +81,11 @@ namespace Sketchball.Editor
         {
             if (this.drawing)
             {
-                var pos = e.GetPosition(Control);
+                var pos = e.GetPosition(Editor);
                 this.actualPos.X = pos.X;
                 this.actualPos.Y = pos.Y;
 
-                this.Control.Invalidate();
+                this.Editor.Invalidate();
             }
         }
 

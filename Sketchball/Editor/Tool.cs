@@ -15,12 +15,12 @@ namespace Sketchball.Editor
     {
 
         
-        protected PinballEditControl Control;
+        protected PinballEditControl Editor;
         public string Label { get; protected set; }
         public Image Icon { get; protected set; }
 
 	    protected Tool(PinballEditControl control) {
-		    Control = control;
+		    Editor = control;
 
             Label = "Unnamed Tool";
             Icon  = new Bitmap(1, 1);
@@ -29,10 +29,10 @@ namespace Sketchball.Editor
         public void Enter()
         {
             // Bind handlers
-            Control.MouseDown += OnMouseDown;
-            Control.MouseUp += OnMouseUp;
-            Control.MouseMove += OnMouseMove;
-            Control.Paint += Draw;
+            Editor.MouseDown += OnMouseDown;
+            Editor.MouseUp += OnMouseUp;
+            Editor.MouseMove += OnMouseMove;
+            Editor.Paint += Draw;
 
             OnSelect();
         }
@@ -42,10 +42,10 @@ namespace Sketchball.Editor
         public void Leave()
         {
             // Unbind handlers
-            Control.MouseDown -= OnMouseDown;
-            Control.MouseUp -= OnMouseUp;
-            Control.MouseMove -= OnMouseMove;
-            Control.Paint -= Draw;
+            Editor.MouseDown -= OnMouseDown;
+            Editor.MouseUp -= OnMouseUp;
+            Editor.MouseMove -= OnMouseMove;
+            Editor.Paint -= Draw;
 
             OnUnselect();
         }

@@ -100,7 +100,7 @@ namespace Sketchball.Elements
         /// </summary>
         [DataMember]
         [Category("Position"), DisplayName("Rotation"), Description("The rotation of this element in degrees.")]
-        public float BaseRotation
+        public double BaseRotation
         {
             get { return _baseRotation; }
             set
@@ -109,7 +109,7 @@ namespace Sketchball.Elements
                 RebuildMatrix();
             }
         }
-        private float _baseRotation = 0;
+        private double _baseRotation = 0;
 
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Sketchball.Elements
             get { return _scale; }
             set
             {
-                if (_scale != 0)
+                if (value != 0 && Math.Abs(value) < 10 )
                 {
                     _scale = value;
                     RebuildMatrix();

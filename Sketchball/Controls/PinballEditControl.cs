@@ -138,7 +138,7 @@ namespace Sketchball.Controls
 
             // Draw selection
             // Border should always look the same, therefore we need to restore the gstate first and then use editor coordinates
-            if (SelectedElement != null)
+            if (SelectedElement != null && SelectedElement.World != null)
             {
                 var bounds = SelectedElement.GetBounds();
                 var origin = SelectedElement.GetRotationOrigin();

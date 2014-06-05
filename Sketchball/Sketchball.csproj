@@ -59,9 +59,11 @@
     <Compile Include="Controls\MyToolStripControlHost.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Editor\CompoundChange.cs" />
     <Compile Include="Editor\NoScrollOnFocusPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Editor\PropertyChange.cs" />
     <Compile Include="GameComponents\GameWorld.cs" />
     <Compile Include="Booster.cs" />
     <Compile Include="GameComponents\Camera.cs" />
