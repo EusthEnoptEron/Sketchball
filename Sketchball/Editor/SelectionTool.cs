@@ -52,13 +52,23 @@ namespace Sketchball.Editor
             }
         }
 
+        protected override void OnSelect()
+        {
+            Editor.KeyDown += OnDelete;
+        }
+
+
+        protected override void OnUnselect()
+        {
+            Editor.KeyDown -= OnDelete;
+        }
+
         public SelectionTool(Sketchball.Controls.PinballEditControl Control)
             : base(Control)
         {
             this.Icon = Properties.Resources.Very_Basic_Cursor_icon;
             this.Label = "Select";
         }
-
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
@@ -188,5 +198,17 @@ namespace Sketchball.Editor
                 g.DrawLine(new Pen(Brushes.Gray, 1), origin, currentPoint);
             }
         }
+
+        private void OnDelete(object sender, KeyEventArgs e)
+        {
+            if (State == SelectionState.Idle && e.Key == System.Windows.Input.Key.Delete)
+            {
+                if (SelectedElement != null)
+                {
+                    Editor.RemoveElement(SelectedElement);
+                }
+            }
+        }
+             
     }
 }

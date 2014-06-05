@@ -120,8 +120,6 @@ namespace Sketchball
             PlayFieldEditor.GiveFeedback += this.OnGiveFeedback;
             PlayFieldEditor.QueryContinueDrag += this.OnQueryContinueDrag;
 
-            PlayFieldEditor.KeyDown += onDeleteElement;
-
             //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
         }
 
@@ -445,18 +443,6 @@ namespace Sketchball
             {
                 elementInspector.SelectedObject = null;
                 //fieldAndPropertySplitter.Panel2Collapsed = true;
-            }
-        }
-
-
-        private void onDeleteElement(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Delete)
-            {
-                if (PlayFieldEditor.SelectedElement != null)
-                {
-                    PlayFieldEditor.RemoveElement(PlayFieldEditor.SelectedElement);
-                }
             }
         }
 
