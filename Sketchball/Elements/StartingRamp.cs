@@ -18,7 +18,7 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private int MaxPower = 50;
+        private Vector MaxVelocity = new Vector(0, -2000);
 
         private Ball Ball = null;
         private bool Charging = false;
@@ -35,9 +35,6 @@ namespace Sketchball.Elements
         private static ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
 
         private BoundingLine powerLine;
-        private const int POWER_DECAY_TIME = 60;
-        private const float DEFAULT_POWER = 0.1f;
-        private long powerDecay = 0;
 
 
         public StartingRamp()
@@ -81,7 +78,7 @@ namespace Sketchball.Elements
 
             bL4.BounceFactor = 0.5f;
             bL1.BounceFactor = 0.5f;
-            powerLine.BounceFactor = DEFAULT_POWER;
+            powerLine.BounceFactor = 0.2f;
 
             this.BoundingContainer.AddBoundingBox(bL1);
             this.BoundingContainer.AddBoundingBox(bL2);
@@ -125,29 +122,35 @@ namespace Sketchball.Elements
         public void IntroduceBall(Ball ball) {
             Ball = ball;
 
-            Ball.X = X + Ball.Width * 0.8;
-            Ball.Y = 1.5 * Y;
+            Ball.X = X + Ball.Width * 0.85;
+            Ball.Y = 1.6 * Y;
         }
 
         public override void Update(long delta)
         {
-            powerDecay += delta;
-
             base.Update(delta);
             Tweener.Update(delta / 1000f);
 
             if (!Charging && Power > 0)
             {
                 // SHOOT!
-                powerLine.BounceFactor = Power * MaxPower;
-                //Ball.Velocity += Power * MaxVelocity;
-                Power = 0;
-                powerDecay = 0;
-                
-            }
-            else if(powerDecay > POWER_DECAY_TIME)
-            {
-                powerLine.BounceFactor = DEFAULT_POWER;
+                powerLine.move(new Vector(0, -20));
+                var dummy = new Vector();
+                foreach (var el in World.Balls)
+                {
+                    Ball ball = (Ball)el;
+                    foreach (var boundingBox in ball.BoundingContainer.BoundingBoxes)
+                    {
+                        if (powerLine.Intersect(boundingBox, out dummy))
+                        {
+                            ball.Velocity += Power * MaxVelocity;
+                            break;
+                        }
+                    }
+                }
+                powerLine.move(new Vector(0, 20));
+
+                Power = 0;                
             }
         }
 
