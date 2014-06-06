@@ -438,10 +438,11 @@ namespace Sketchball
         {
             if (PlayFieldEditor.PinballMachine.IsValid())
             {
-                var form = new PlayForm(PlayFieldEditor.PinballMachine);
-                form.WindowState = FormWindowState.Maximized;
-      
-                form.ShowDialog();
+                using (var form = new PlayForm(PlayFieldEditor.PinballMachine))
+                {
+                    form.WindowState = FormWindowState.Maximized;
+                    form.ShowDialog();
+                }
             }
             else
             {

@@ -13,8 +13,6 @@ namespace Sketchball.Elements
     [DataContract]
     public class WormholeExit : PinballElement
     {
-        private static ImageSource imageS = Booster.OptimizeWpfImage("WormholeExit.png");
-
         private static readonly Size size = new Size(30, 30);
 
         protected override Size BaseSize
@@ -37,11 +35,9 @@ namespace Sketchball.Elements
             this.pureIntersection = true;
         }
 
-
-
-        protected override void OnDraw(DrawingContext g)
+        protected override void InitResources()
         {
-            g.DrawImage(imageS, new Rect(0, 0, BaseWidth, BaseHeight));
+            Image = Booster.OptimizeWpfImage("WormholeExit.png");
         }
     }
 }

@@ -14,7 +14,6 @@ namespace Sketchball.Elements
     [DataContract]
     public class SlingshotRight : PinballElement
     {
-        private static ImageSource imageS = Booster.OptimizeWpfImage("SlingshotRight.png");
 
         private static readonly Size size = new Size(110, 110);
         private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SSlingshot);
@@ -59,9 +58,14 @@ namespace Sketchball.Elements
             player.Play();
         }
 
+        protected override void InitResources()
+        {
+            Image = Booster.OptimizeWpfImage("SlingshotRight.png");
+        }
+
         protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
-            g.DrawImage(imageS, new Rect(0, 0, BaseWidth, BaseHeight));
+            g.DrawImage(Image, new Rect(0, 0, BaseWidth, BaseHeight));
         }
     }
 }

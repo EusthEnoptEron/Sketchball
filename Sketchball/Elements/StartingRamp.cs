@@ -20,7 +20,6 @@ namespace Sketchball.Elements
         private Keys Trigger = Keys.Space;
         private Vector MaxVelocity = new Vector(0, -2000);
 
-        private Ball Ball = null;
         private bool Charging = false;
         private Glide Tweener = new Glide();
 
@@ -30,12 +29,16 @@ namespace Sketchball.Elements
         private readonly int PencilPullback = 50;
         private readonly int PencilOffsetY = -90;
 
-        private static System.Drawing.Image PencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 70);
-        private static ImageSource RampImageS = Booster.OptimizeWpfImage("Rampe.png");
-        private static ImageSource PencilImageS = Booster.OptimizeWpfImage("Rampe_pencil.png");
+        private static System.Drawing.Image pencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 70);
+        private ImageSource pencilImageWpf;
 
         private BoundingLine powerLine;
 
+        protected override void InitResources()
+        {
+            Image = Booster.OptimizeWpfImage("Rampe.png");
+            pencilImageWpf = Booster.OptimizeWpfImage("Rampe_pencil.png");
+        }
 
         public StartingRamp()
         {
@@ -115,15 +118,13 @@ namespace Sketchball.Elements
 
         protected override void OnDraw(DrawingContext g)
         {
-            g.DrawImage(RampImageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
-            g.DrawImage(PencilImageS, new System.Windows.Rect(96f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback, PencilImage.Width, PencilImage.Height));
+            g.DrawImage(Image, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+            g.DrawImage(pencilImageWpf, new System.Windows.Rect(96f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback, pencilImage.Width, pencilImage.Height));
         }
 
         public void IntroduceBall(Ball ball) {
-            Ball = ball;
-
-            Ball.X = X + Ball.Width * 0.85;
-            Ball.Y = 1.6 * Y;
+            ball.X = X + ball.Width * 0.85;
+            ball.Y = 1.6 * Y;
         }
 
         public override void Update(long delta)

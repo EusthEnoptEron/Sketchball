@@ -118,9 +118,15 @@ namespace Sketchball.Controls
             else
                 InvalidateVisual();
         }
+        protected override void OnDispose()
+        {
+            timer.Dispose();
+        }
 
         protected override void Draw(DrawingContext g)
         {
+            var tier = RenderCapability.Tier >> 16;
+
             // Draw pinball machine
             Camera.Draw(g);
 

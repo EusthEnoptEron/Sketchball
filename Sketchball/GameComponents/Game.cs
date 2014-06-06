@@ -300,7 +300,7 @@ namespace Sketchball.GameComponents
                         if (Disposed) return;
                     }
 
-                    this.Update(timePerPass);
+                    this.Update((int)(timePerPass * 1.0));
                 }
                 stopWatch.Stop();
                 int sleepTime = Math.Max(0, timePerPass - (int)stopWatch.ElapsedMilliseconds);

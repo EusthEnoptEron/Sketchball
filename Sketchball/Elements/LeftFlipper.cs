@@ -15,10 +15,6 @@ namespace Sketchball.Elements
     public class LeftFlipper : Flipper
     {
         private float factor = 800 / 70;
-        private static Image image = Booster.OptimizeImage(Properties.Resources.FlipperLeft, 100);
-
-        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("FlipperLeft.png");
-
         public LeftFlipper()
         {
             Trigger = Keys.A;
@@ -67,10 +63,15 @@ namespace Sketchball.Elements
 
         }
 
+        protected override void InitResources()
+        {
+            Image = Booster.OptimizeWpfImage("FlipperLeft.png");
+        }
+
         protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
             base.OnDraw(g);
-            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+            g.DrawImage(Image, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
 
         protected override Vector Origin

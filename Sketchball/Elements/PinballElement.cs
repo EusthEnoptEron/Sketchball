@@ -43,6 +43,7 @@ namespace Sketchball.Elements
     {
         // Determines how many pixels around the click position will be taken into account on click.
         private const int SELECTION_PADDING = 2;
+        private bool initialized = false;
 
         #region Properties
         /// <summary>
@@ -94,7 +95,11 @@ namespace Sketchball.Elements
         [Category("Position")]
         public double Y { get { return Location.Y; } set { Location.Y = value; } }
 
-        
+        /// <summary>
+        /// Gets or sets the image linked to this element.
+        /// </summary>
+        protected ImageSource Image { get; set; }
+
         /// <summary>
         /// Gets or sets how much the element is rotated (in degrees)
         /// </summary>
@@ -260,10 +265,17 @@ namespace Sketchball.Elements
 
         public virtual void Draw(DrawingContext g)
         {
+            if (!initialized)
+            {
+                // Load resources
+                InitResources();
+                initialized = true;
+            }
 
             g.PushTransform(new MatrixTransform(Transform));
 
             OnDraw(g);
+            OnDrawn(g);
 
             g.Pop();
 
@@ -279,6 +291,12 @@ namespace Sketchball.Elements
                 g.Pop();
             }
 
+        }
+        
+        /// <summary>
+        /// Loads all required resources into the memory. ALways gets called from the STA thread.
+        /// </summary>
+        protected virtual void InitResources() {
         }
 
         private void RebuildMatrix()
@@ -413,7 +431,17 @@ namespace Sketchball.Elements
 #region Implementables
 
         protected abstract void Init();
-        protected abstract void OnDraw(System.Windows.Media.DrawingContext g);
+
+        
+        protected virtual void OnDraw(System.Windows.Media.DrawingContext g)
+        {
+            // Default implementation
+            if(Image != null) {
+                g.DrawImage(Image, new Rect(0, 0, BaseWidth, BaseHeight));
+            }
+        }
+        protected virtual void OnDrawn(System.Windows.Media.DrawingContext g)
+        { }
 
         public virtual void Update(long delta) { }
 

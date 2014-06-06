@@ -19,7 +19,6 @@ namespace Sketchball.Elements
 
 
         private static readonly Size size = new Size(30, 30);
-        private static ImageSource imageS = Booster.OptimizeWpfImage("WormholeEntry.png");
 
         protected override Size BaseSize
         {
@@ -46,9 +45,9 @@ namespace Sketchball.Elements
             player.Play();
         }
 
-        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        protected override void InitResources()
         {
-            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
+            Image = Booster.OptimizeWpfImage("WormholeEntry.png");
         }
     }
 }

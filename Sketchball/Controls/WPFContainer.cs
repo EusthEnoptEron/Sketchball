@@ -31,21 +31,29 @@ namespace Sketchball.Controls
 
             // Polyfill #2: In order to get key events, we _explicitly_ need to focus the child control.
             control.Focusable = true;
-            control.PreviewMouseDown += delegate
-            {
-                if (!control.IsFocused)
-                {
-                    control.Focus();
-                }
-            };
-
+            control.PreviewMouseDown += onMouseDown;
+          
             AutoSize = true;
             SetAutoSizeMode(AutoSizeMode.GrowAndShrink);
+        }
 
-
-            Disposed += (s,e) => {
+        protected override void Dispose(bool disposing)
+        {
+            if (!IsDisposed)
+            {
                 Control.Exit();
-            };
+                Control.PreviewMouseDown -= onMouseDown;
+            }
+            base.Dispose(disposing);
+
+        }
+
+        private void onMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!Control.IsFocused)
+            {
+                Control.Focus();
+            }
         }
 
         protected override void OnResize(EventArgs e)

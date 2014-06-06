@@ -15,7 +15,6 @@ namespace Sketchball.Elements
     public class Hole : PinballElement
     {
         private static readonly Size size = new Size(50, 50);
-        private static ImageSource imageS = Booster.OptimizeWpfImage("hole.png");
         private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SHole);
 
         public Hole()  : base(100, 100)
@@ -30,14 +29,14 @@ namespace Sketchball.Elements
             this.pureIntersection = true;
         }
 
+        protected override void InitResources()
+        {
+            Image = Booster.OptimizeWpfImage("hole.png");
+        }
+
         protected override Size BaseSize
         {
             get { return size; }
-        }
-
-        protected override void OnDraw(System.Windows.Media.DrawingContext g)
-        {
-            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
 
         public override void notifyIntersection(Ball b)

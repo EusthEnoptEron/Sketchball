@@ -21,7 +21,6 @@ namespace Sketchball.Elements
         private class Frame : PinballElement
         {
             private static readonly Size size = new Size(997, 1385);
-            private static ImageSource image = Booster.OptimizeWpfImage("TableSlim.png");
 
             internal Frame() : base(0, 0) {}
 
@@ -89,9 +88,9 @@ namespace Sketchball.Elements
                 get { return size; }
             }
 
-            protected override void OnDraw(System.Windows.Media.DrawingContext g)
+            protected override void InitResources()
             {
-                g.DrawImage(image, new Rect(0, 0, BaseWidth, BaseHeight));
+                Image = Booster.OptimizeWpfImage("TableSlim.png");
             }
         }
 

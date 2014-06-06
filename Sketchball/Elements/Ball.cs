@@ -12,7 +12,6 @@ namespace Sketchball.Elements
     public class Ball : PinballElement
     {
         public static readonly Size Size = new Size(20, 20);
-        private static System.Windows.Media.ImageSource imageS = Booster.OptimizeWpfImage("BallWithAlpha.png");
         private readonly float friction = 0.9999f;
 
         long timeElapsed = 0;
@@ -43,9 +42,9 @@ namespace Sketchball.Elements
             this.BoundingContainer.AddBoundingBox(bC);
         }
 
-        protected override void OnDraw(DrawingContext g)
+        protected override void InitResources()
         {
-            g.DrawImage(imageS, new Rect(0, 0, BaseWidth, BaseHeight));
+            Image = Booster.OptimizeWpfImage("BallWithAlpha.png");
         }
 
         public override void Update(long delta)

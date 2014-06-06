@@ -33,6 +33,10 @@ namespace Sketchball.Controls
             isCancelled = true;
             this.Width = 0;
             this.Height = 0;
+
+            
         }
+
+        protected virtual void OnDispose() { }
     }
 }

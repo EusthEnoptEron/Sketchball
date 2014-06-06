@@ -14,8 +14,6 @@ namespace Sketchball.Elements
     [DataContract]
     public class Bumper : PinballElement
     {
-        private static ImageSource imageS = Booster.OptimizeWpfImage("BumperSpiral.png");
-
         private static readonly Size size = new Size(30, 30);
         private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SBumper);
 
@@ -30,6 +28,11 @@ namespace Sketchball.Elements
             bC.AssignToContainer(this.BoundingContainer);
         }
 
+        protected override void InitResources()
+        {
+            Image = Booster.OptimizeWpfImage("BumperSpiral.png");
+        }
+
         protected override Size BaseSize
         {
             get { return size; }
@@ -38,11 +41,6 @@ namespace Sketchball.Elements
         public override void notifyIntersection(Ball b)
         {
             player.Play();
-        }
-
-        protected override void OnDraw(System.Windows.Media.DrawingContext g)
-        {
-            g.DrawImage(imageS, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
     }
 }

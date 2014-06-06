@@ -16,6 +16,7 @@ using Vector = System.Windows.Vector;
 
 namespace Sketchball
 {
+    
     /// <summary>
     /// Form that houses the actual game of pinball.
     /// </summary>
@@ -44,9 +45,8 @@ namespace Sketchball
             game = new Game(pbm, Environment.UserName);
             gameView = new GameView(game);
             gameContainer = new WPFContainer(gameView);
-
             game.GameOver += onGameOver;
-          //  this.MinimumSize = gameView.MinimumSize;
+            //this.MinimumSize = gameView.MinimumSize;
             gameView.MouseUp += OnMouseUp;
 
             // Fill entire space
@@ -206,8 +206,23 @@ namespace Sketchball
 
         private void PlayForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+
+        }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
             game.Dispose();
-            gameContainer.Dispose();
+
+            base.Dispose(disposing);
         }
 
         private void PlayForm_ResizeEnd(object sender, EventArgs e)

@@ -63,10 +63,8 @@ namespace Sketchball.Elements
             }
         }
 
-        public override void Draw(System.Windows.Media.DrawingContext g)
+        protected override void OnDrawn(System.Windows.Media.DrawingContext g)
         {
-            base.Draw(g);
-
             if (Rotation != 0)
             {
                 g.Pop();

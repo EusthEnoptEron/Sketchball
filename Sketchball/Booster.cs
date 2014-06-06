@@ -53,9 +53,13 @@ namespace Sketchball
 
         private static Image GetWpfImage(string path)
         {
-            var img = new Image();
-            img.Source = new BitmapImage(new Uri(@"pack://application:,,,/Sketchball;component/Resources/" + path));
-            return img;
+            //var im = Application.Current.Dispatcher.Invoke(delegate
+            //{
+                var img = new Image();
+                img.Source = new BitmapImage(new Uri(@"pack://application:,,,/Sketchball;component/Resources/" + path));
+                return img;
+            //});
+            //return im;
         }
 
         public static ImageSource OptimizeWpfImage(string path)
