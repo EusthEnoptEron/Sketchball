@@ -15,7 +15,7 @@ namespace Sketchball.GameComponents
         /// <summary>
         /// The minimum interval between to equivalent sounds.
         /// </summary>
-        private const int MIN_INTERVAL = 400;
+        private const int MIN_INTERVAL = 200;
 
         public void Play(SoundPlayer player)
         {
@@ -27,7 +27,9 @@ namespace Sketchball.GameComponents
                     currentPlayer.Stop();
                 currentPlayer = player;
                 currentPlayer.Play();
+                lastPlay = now;
             }
+
         }
 
     }
