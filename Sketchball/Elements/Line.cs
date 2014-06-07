@@ -15,7 +15,10 @@ namespace Sketchball.Elements
     public class Line : PinballElement
     {
         [DataMember]
-        Point p1, p2;
+        Point p1;
+        
+        [DataMember]
+        Point p2;
 
 
         public Line()
@@ -37,6 +40,8 @@ namespace Sketchball.Elements
 
             p1 = new Point(x0 - X, y0 - Y);
             p2 = new Point(x1 - X, y1 - Y);
+
+            RegenerateBounds();
         }
 
         protected override void Init()
