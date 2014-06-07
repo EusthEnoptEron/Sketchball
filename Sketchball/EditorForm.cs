@@ -28,8 +28,7 @@ namespace Sketchball
 
         private Tool _currentTool = null;
         private string _fileName;
-       
-        private WormholeEntry lastWormholeEntry = null;
+
         /// <summary>
         /// Gets or sets the current filename of the pinball machine file.
         /// </summary>
@@ -269,16 +268,47 @@ namespace Sketchball
             PlayFieldEditor.AddElement(dragState.Element);
             if( dragState.Element.GetType() == typeof(WormholeEntry))
             {
-                lastWormholeEntry = (WormholeEntry)dragState.Element;
+                if (Wormhole.WormholeExitPending == null)
+                {
+                    if (Wormhole.WormholeEntryPending == null)
+                    {
+                        Wormhole.WormholeEntryPending = ((WormholeEntry)(dragState.Element));
+                    }
+                    else
+                    {
+                            //error put exit first
+                        MessageBox.Show("Please put a wormhole exit first");
+                        this.PlayFieldEditor.History.Undo();
+                    }
+                }
+                else
+                {
+                    ((WormholeEntry)(dragState.Element)).WormholeExit = Wormhole.WormholeExitPending;
+                    Wormhole.WormholeExitPending.WormholeEntry = ((WormholeEntry)(dragState.Element));
+                    Wormhole.WormholeExitPending = null;                }
             }
 
             if (dragState.Element.GetType() == typeof(WormholeExit))
             {
-                if (lastWormholeEntry != null)
+                if (Wormhole.WormholeEntryPending == null)
                 {
-                    lastWormholeEntry.WormholeExit = (WormholeExit)dragState.Element;
+                    if (Wormhole.WormholeExitPending == null)
+                    {
+                        Wormhole.WormholeExitPending = ((WormholeExit)(dragState.Element));
+                    }
+                    else
+                    {
+                        //Error put entry first
+                        MessageBox.Show("Please put a wormhole entry first");
+                        this.PlayFieldEditor.History.Undo();
+                    }
                 }
-                lastWormholeEntry = null;
+                else
+                {
+                    Wormhole.WormholeEntryPending.WormholeExit = ((WormholeExit)(dragState.Element));
+                    ((WormholeExit)(dragState.Element)).WormholeEntry = Wormhole.WormholeEntryPending;
+                    Wormhole.WormholeEntryPending = null;
+                }
             }
         }
 

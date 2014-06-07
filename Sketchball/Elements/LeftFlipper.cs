@@ -33,6 +33,7 @@ namespace Sketchball.Elements
             Vector p5 = new Vector(692, 561);
             Vector p6 = new Vector(645, 566);
             Vector p7 = new Vector(116, 355);
+            Vector peak = new Vector(707,553);
            
 
             r1 = (int)(r1/factor);
@@ -45,8 +46,26 @@ namespace Sketchball.Elements
             p5 /= factor;
             p6 /= factor;
             p7 /= factor;
+            peak /= factor;
 
             BoundingCircle bC1 = new BoundingCircle(r1, mitteKreis- new Vector(r1,r1));
+            BoundingLine bL1 = new BoundingLine(obenKreisLinie, peak);
+            BoundingLine bL2 = new BoundingLine(p3, p4);
+            BoundingCircle bC2 = new BoundingCircle(r2, circle2 - new Vector(r2, r2));
+            BoundingLine bL3 = new BoundingLine(p5, p6);
+            BoundingLine bL4 = new BoundingLine(peak, p7);
+
+            //bL1.bounceFactor = 2;
+            this.BoundingContainer.AddBoundingBox(bC1);
+            this.BoundingContainer.AddBoundingBox(bL1);
+            //this.BoundingContainer.AddBoundingBox(bL2);
+            //this.BoundingContainer.AddBoundingBox(bC2);
+            //this.BoundingContainer.AddBoundingBox(bL3);
+            this.BoundingContainer.AddBoundingBox(bL4);
+
+
+            /* Version with exact BB
+             *  BoundingCircle bC1 = new BoundingCircle(r1, mitteKreis- new Vector(r1,r1));
             BoundingLine bL1 = new BoundingLine(obenKreisLinie, p3);
             BoundingLine bL2 = new BoundingLine(p3, p4);
             BoundingCircle bC2 = new BoundingCircle(r2, circle2 - new Vector(r2, r2));
@@ -60,7 +79,7 @@ namespace Sketchball.Elements
             this.BoundingContainer.AddBoundingBox(bC2);
             this.BoundingContainer.AddBoundingBox(bL3);
             this.BoundingContainer.AddBoundingBox(bL4);
-
+             * */
         }
 
         protected override void InitResources()

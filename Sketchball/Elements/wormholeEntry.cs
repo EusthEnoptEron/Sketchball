@@ -1,4 +1,5 @@
 ﻿using Sketchball.Collision;
+using Sketchball.GameComponents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 namespace Sketchball.Elements
 {
     [DataContract]
-    public class WormholeEntry : PinballElement
+    public class WormholeEntry : Wormhole
     {
         public WormholeExit WormholeExit { get; set; }
         private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SWomholeEntry);

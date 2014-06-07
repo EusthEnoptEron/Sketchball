@@ -11,9 +11,10 @@ using System.Windows.Media;
 namespace Sketchball.Elements
 {
     [DataContract]
-    public class WormholeExit : PinballElement
+    public class WormholeExit : Wormhole
     {
         private static readonly Size size = new Size(30, 30);
+        public WormholeEntry WormholeEntry { get; set; }
 
         protected override Size BaseSize
         {

@@ -64,6 +64,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editor\PropertyChange.cs" />
+    <Compile Include="Elements\Wormhole.cs" />
     <Compile Include="GameComponents\GameWorld.cs" />
     <Compile Include="Booster.cs" />
     <Compile Include="GameComponents\Camera.cs" />
@@ -133,7 +134,6 @@
     <Compile Include="Elements\SlingshotLeft.cs" />
     <Compile Include="Elements\SlingshotRight.cs" />
     <Compile Include="Elements\StartingRamp.cs" />
-    <Compile Include="Elements\TriangleTMP.cs" />
     <Compile Include="Elements\WormholeEntry.cs" />
     <Compile Include="Elements\WormholeExit.cs" />
     <Compile Include="FontManager.cs" />
