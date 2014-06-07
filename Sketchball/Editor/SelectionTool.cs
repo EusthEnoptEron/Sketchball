@@ -61,6 +61,8 @@ namespace Sketchball.Editor
         protected override void OnUnselect()
         {
             Editor.KeyDown -= OnDelete;
+
+            SelectedElement = null;
         }
 
         public SelectionTool(Sketchball.Controls.PinballEditControl Control)
