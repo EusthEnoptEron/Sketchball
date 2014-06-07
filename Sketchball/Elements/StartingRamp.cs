@@ -102,14 +102,14 @@ namespace Sketchball.Elements
             Scale = 1 / 2f;
         }
 
-        protected override void EnterMachine(PinballGameMachine machine)
+        protected override void EnterGame(PinballGameMachine machine)
         {
             // Bind event
             machine.Input.KeyDown += Charge;
             machine.Input.KeyUp += Discharge;
         }
 
-        protected override void LeaveMachine(PinballGameMachine machine)
+        protected override void LeaveGame(PinballGameMachine machine)
         {
             // Unbind event
             machine.Input.KeyDown -= Charge;

@@ -116,49 +116,28 @@ namespace Sketchball.Controls
         public void RemoveElement(PinballElement element)
         {
             IChange change = new DeletionChange(PinballMachine.DynamicElements, element);
-            change.Do();
 
-            if (element == SelectedElement)
+            if (element is WormholeExit)
             {
-                if (SelectedElement.GetType() == typeof(WormholeEntry))
-                    {
-                        WormholeEntry we = ((WormholeEntry)(SelectedElement));
-                        if(we.WormholeExit!=null)
-                        {
-                            this.RemoveElement(we.WormholeExit);
-                            if (Wormhole.WormholeExitPending == we.WormholeExit)
-                            {
-                                Wormhole.WormholeExitPending = null;
-                            }
-                        }
+                List<IChange> changes = new List<IChange>();
+                changes.Add(change);
 
-                        if (Wormhole.WormholeEntryPending == we)
-                        {
-                            Wormhole.WormholeEntryPending = null;
-                        }
-                    }
+                var exit = element as WormholeExit;
+                foreach (var entry in exit.Entries)
+                {
+                    changes.Add(new DeletionChange(PinballMachine.DynamicElements, entry));
+                }
 
-                    if (SelectedElement.GetType() == typeof(WormholeExit))
-                    {
-                        WormholeExit we = ((WormholeExit)(SelectedElement));
-                        if (we.WormholeEntry != null)
-                        {
-                            this.RemoveElement(we.WormholeEntry);
-                            if (Wormhole.WormholeEntryPending == we.WormholeEntry)
-                            {
-                                Wormhole.WormholeEntryPending = null;
-                            }
-                        }
-
-                        if (Wormhole.WormholeExitPending == we)
-                        {
-                            Wormhole.WormholeExitPending = null;
-                        }
-                    }
-                SelectedElement = null;
+                IChange mainChange = new CompoundChange(changes);
+                mainChange.Do();
+                History.Add(mainChange);
             }
+            else
+            {
+                change.Do();
 
-            History.Add(change);
+                History.Add(change);
+            }
         }
 
         protected override void Draw(DrawingContext g)

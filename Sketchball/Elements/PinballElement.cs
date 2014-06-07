@@ -175,15 +175,26 @@ namespace Sketchball.Elements
             }
  			internal set
             {
-                if (_machine != null && _machine is PinballGameMachine)
-                {
-                    LeaveMachine((PinballGameMachine)_machine);
+                if (_machine != null) {
+                    if(_machine is PinballGameMachine) { 
+                        LeaveGame((PinballGameMachine)_machine);
+                    } else {
+                        LeaveEditor(_machine);
+                    }
                 }
+
                 _machine = value;
 
-                if (_machine != null && _machine is PinballGameMachine)
+                if (_machine != null)
                 {
-                    EnterMachine((PinballGameMachine)_machine);
+                    if (_machine is PinballGameMachine)
+                    {
+                        EnterGame((PinballGameMachine)_machine);
+                    }
+                    else
+                    {
+                        EnterEditor(_machine);
+                    }
                 }
             }
         }
@@ -470,7 +481,7 @@ namespace Sketchball.Elements
         /// Sets up event listeners when a new machine is entered.
         /// </summary>
         /// <param name="machine"></param>
-        protected virtual void EnterMachine(PinballGameMachine machine)
+        protected virtual void EnterGame(PinballGameMachine machine)
         {
         }
 
@@ -478,9 +489,13 @@ namespace Sketchball.Elements
         /// Removes event listeners when a machine is left
         /// </summary>
         /// <param name="machine"></param>
-        protected virtual void LeaveMachine(PinballGameMachine machine)
+        protected virtual void LeaveGame(PinballGameMachine machine)
         {
         }
+
+        protected virtual void EnterEditor(PinballMachine machine) { }
+        protected virtual void LeaveEditor(PinballMachine machine) { }
+
 
         public virtual void notifyIntersection(Ball b)
         {

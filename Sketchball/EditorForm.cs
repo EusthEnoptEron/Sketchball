@@ -266,50 +266,6 @@ namespace Sketchball
         {
             PlayFieldEditor.PinballMachine.Remove(dragState.Element);
             PlayFieldEditor.AddElement(dragState.Element);
-            if( dragState.Element.GetType() == typeof(WormholeEntry))
-            {
-                if (Wormhole.WormholeExitPending == null)
-                {
-                    if (Wormhole.WormholeEntryPending == null)
-                    {
-                        Wormhole.WormholeEntryPending = ((WormholeEntry)(dragState.Element));
-                    }
-                    else
-                    {
-                            //error put exit first
-                        MessageBox.Show("Please put a wormhole exit first");
-                        this.PlayFieldEditor.History.Undo();
-                    }
-                }
-                else
-                {
-                    ((WormholeEntry)(dragState.Element)).WormholeExit = Wormhole.WormholeExitPending;
-                    Wormhole.WormholeExitPending.WormholeEntry = ((WormholeEntry)(dragState.Element));
-                    Wormhole.WormholeExitPending = null;                }
-            }
-
-            if (dragState.Element.GetType() == typeof(WormholeExit))
-            {
-                if (Wormhole.WormholeEntryPending == null)
-                {
-                    if (Wormhole.WormholeExitPending == null)
-                    {
-                        Wormhole.WormholeExitPending = ((WormholeExit)(dragState.Element));
-                    }
-                    else
-                    {
-                        //Error put entry first
-                        MessageBox.Show("Please put a wormhole entry first");
-                        this.PlayFieldEditor.History.Undo();
-                    }
-                }
-                else
-                {
-                    Wormhole.WormholeEntryPending.WormholeExit = ((WormholeExit)(dragState.Element));
-                    ((WormholeExit)(dragState.Element)).WormholeEntry = Wormhole.WormholeEntryPending;
-                    Wormhole.WormholeEntryPending = null;
-                }
-            }
         }
 
         private void OnDragEnter(object sender, System.Windows.DragEventArgs e)

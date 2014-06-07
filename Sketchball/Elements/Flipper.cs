@@ -33,14 +33,14 @@ namespace Sketchball.Elements
         }
 
 
-        protected override void EnterMachine(PinballGameMachine machine)
+        protected override void EnterGame(PinballGameMachine machine)
         {
             machine.Input.KeyDown += OnKeyDown;
             machine.Input.KeyUp += OnKeyUp;
         }
 
 
-        protected override void LeaveMachine(PinballGameMachine machine)
+        protected override void LeaveGame(PinballGameMachine machine)
         {
             machine.Input.KeyDown -= OnKeyDown;
             machine.Input.KeyUp -= OnKeyUp;

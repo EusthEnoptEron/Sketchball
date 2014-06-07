@@ -1,6 +1,7 @@
 ﻿using Sketchball.Collision;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -14,9 +15,17 @@ namespace Sketchball.Elements
     public class WormholeExit : Wormhole
     {
         private static readonly Size size = new Size(30, 30);
-        [DataMember]
-        public WormholeEntry WormholeEntry { get; set; }
 
+        [Browsable(false)]
+        public IEnumerable<WormholeEntry> Entries { 
+            get {
+                if (World == null) return new WormholeEntry[0];
+                else
+                {
+                    return World.DynamicElements.OfType<WormholeEntry>().Where((el) => { return el.WormholeExit == this; });
+                }
+            }
+        }
         protected override Size BaseSize
         {
             get { return size; }
@@ -40,6 +49,25 @@ namespace Sketchball.Elements
         protected override void InitResources()
         {
             Image = Booster.OptimizeWpfImage("WormholeExit.png");
+        }
+
+        protected override void EnterEditor(PinballMachine machine)
+        {
+            if (machine.DynamicElements == null) return; // if we're deserializing
+            foreach (WormholeEntry entry in machine.DynamicElements.OfType<WormholeEntry>())
+            {
+                if (entry.WormholeExit == null) {
+                    entry.WormholeExit = this;
+                }
+            }
+        }
+
+        protected override void LeaveEditor(PinballMachine machine)
+        {
+            foreach (WormholeEntry entry in Entries)
+            {
+                entry.WormholeExit = null;    
+            }
         }
     }
 }

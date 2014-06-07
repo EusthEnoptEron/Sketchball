@@ -6,6 +6,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Media;
+using System.Linq;
 
 namespace Sketchball.Elements
 {
@@ -271,7 +272,7 @@ namespace Sketchball.Elements
                 p.RegenerateBounds();
             }
 
-            // Validity check. Uncomment once 
+            // Validity check. 
             foreach (var p1 in DynamicElements)
             {
                 foreach (var p2 in Elements)
@@ -287,29 +288,11 @@ namespace Sketchball.Elements
             }
 
             // Check for wormhole validity (will probably be changed in the future to work with IDs)
-            foreach(PinballElement p in this.Elements)
+            foreach(var entry in this.Elements.OfType<WormholeEntry>())
             {
-                if (p.GetType() == typeof(WormholeEntry))
+                if (entry.WormholeExit == null)
                 {
-                    if (((WormholeEntry)p).WormholeExit == null)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        bool isthere = false;
-                        foreach (PinballElement p2 in this.Elements)
-                        {
-                            if (p2.Equals(((WormholeEntry)p).WormholeExit))
-                            {
-                                isthere = true;
-                            }
-                        }
-                        if (!isthere)
-                        {
-                            return false;
-                        }
-                    }
+                    return false;
                 }
             }
             return true;

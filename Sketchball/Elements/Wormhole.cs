@@ -10,8 +10,5 @@ namespace Sketchball.Elements
     [DataContract]
     public abstract class Wormhole : PinballElement
     {
-        public static WormholeEntry WormholeEntryPending { get; set; }
-        public static WormholeExit WormholeExitPending { get; set; }
-
     }
 }

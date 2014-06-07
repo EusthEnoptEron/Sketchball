@@ -2,6 +2,7 @@
 using Sketchball.GameComponents;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Media;
 using System.Runtime.Serialization;
@@ -16,10 +17,9 @@ namespace Sketchball.Elements
     public class WormholeEntry : Wormhole
     {
         [DataMember]
+        [Browsable(false)]
         public WormholeExit WormholeExit { get; set; }
         private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SWomholeEntry);
-
-
         private static readonly Size size = new Size(30, 30);
 
         protected override Size BaseSize
@@ -30,7 +30,6 @@ namespace Sketchball.Elements
 
         public WormholeEntry()
         {
-            this.pureIntersection = true;
         }
 
         protected override void Init()
@@ -50,6 +49,30 @@ namespace Sketchball.Elements
         protected override void InitResources()
         {
             Image = Booster.OptimizeWpfImage("WormholeEntry.png");
+        }
+
+        protected override void EnterEditor(PinballMachine machine)
+        {
+            if (machine.DynamicElements == null) return; // if we're deserializing
+            if (WormholeExit == null)
+            {
+                // Let's search for one
+                var exits = machine.DynamicElements.OfType<WormholeExit>();
+                var occupiedExits = machine.DynamicElements.OfType<WormholeEntry>()
+                                                           .Where((el) => { return el.WormholeExit != null; })
+                                                           .Select((el) => { return el.WormholeExit; });
+
+                var freeExits = occupiedExits.Except(occupiedExits).ToList();
+
+                if (freeExits.Count > 0)
+                {
+                    WormholeExit = freeExits.Last();
+                }
+            }
+        }
+
+        protected override void LeaveGame(PinballGameMachine machine)
+        {
         }
     }
 }
