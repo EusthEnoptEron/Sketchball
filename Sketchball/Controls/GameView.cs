@@ -31,7 +31,7 @@ namespace Sketchball.Controls
         private GameWorld gameWorld;
 
         public Game Game;
-        private System.Windows.Forms.Timer timer;
+        private BackgroundWorker updateWorker;
 
         /// <summary>
         /// Creates a new PinballGameControl based on a machine template.
@@ -54,16 +54,16 @@ namespace Sketchball.Controls
 
             // Optimize control for performance
            // this.Effect = new System.Windows.Media.Effects.BlurEffect();
-            timer = new System.Windows.Forms.Timer();
-            timer.Interval = 1000 / MAX_FPS;
-            timer.Tick += OnDraw;
-            timer.Start();
+            updateWorker = new BackgroundWorker();
+            updateWorker.DoWork += DrawCycle;
 
             PreviewKeyDown += HandleKeyDown;
             
             SizeChanged += ResizeCamera;
 
             SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
+
+            updateWorker.RunWorkerAsync();
         }
 
         private void ResizeCamera(object sender, System.Windows.SizeChangedEventArgs e)
@@ -111,16 +111,37 @@ namespace Sketchball.Controls
 
         }
 
-        private void OnDraw(object sender, EventArgs e)
+        /// <summary>
+        /// Method that repeatedly draws and updates the scene.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DrawCycle(object sender, DoWorkEventArgs e)
         {
-            if (isCancelled) 
-                timer.Dispose();
-            else
-                InvalidateVisual();
+            int msPerFrame = 1000 / MAX_FPS;
+            Stopwatch watch = new Stopwatch();
+
+            try
+            {
+                while (!isCancelled)
+                {
+                    watch.Restart();
+
+                    Dispatcher.Invoke(() =>
+                    {
+                        InvalidateVisual();
+                    }, System.Windows.Threading.DispatcherPriority.Render);
+
+                    Thread.Sleep(Math.Max(10, msPerFrame - (int)watch.ElapsedMilliseconds));
+                }
+            }
+            catch (TaskCanceledException) { }
+
+
         }
         protected override void OnDispose()
         {
-            timer.Dispose();
+            updateWorker.Dispose();
             Game = null;
             gameWorld = null;
             HUD = null;
