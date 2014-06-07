@@ -243,7 +243,7 @@ namespace Sketchball.GameComponents
         /// <summary>
         /// Updates positions and checks for collisions, etc.
         /// </summary>
-        private void Update(long elapsed)
+        private void Update(double elapsed)
         {            
             // Update elements
             Machine.Update(elapsed);
@@ -282,29 +282,35 @@ namespace Sketchball.GameComponents
            
             System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
 
-            int timePerPass = 1000 / FPS;
-            
-            long i = 0;
-            long sleepTimes = 0;
-            double averageSleepTime = 0;
+            //int timePerPass = 1000 / FPS;            
+            TimeSpan lastSample = new TimeSpan(0);
+            stopWatch.Start();
 
             while (!Disposed)
             {
 
-                stopWatch.Restart();
-
                 lock(this) {
                     while (Status != GameStatus.Playing)
                     {
+                        stopWatch.Stop();
                         Monitor.Wait(this);
                         if (Disposed) return;
+                        stopWatch.Restart();
+                        lastSample = new TimeSpan(0);
                     }
-
-                    this.Update((int)(timePerPass * 1));
+                    //long nowSample = stopWatch.ElapsedMilliseconds;
+                    //double ms = (stopWatch.Elapsed - lastSample).TotalMilliseconds;
+                    //if (ms > 1)
+                    //{
+                    TimeSpan elapsed = stopWatch.Elapsed - lastSample;
+                    if (elapsed.TotalMilliseconds > 1)
+                    {
+                        lastSample = stopWatch.Elapsed;
+                        this.Update(elapsed.TotalSeconds);
+                    }
+                    //}
                 }
-                stopWatch.Stop();
-                int sleepTime = Math.Max(0, timePerPass - (int)stopWatch.ElapsedMilliseconds);
-                Thread.Sleep(sleepTime);
+                //Thread.Sleep(1);
             }
         }
 

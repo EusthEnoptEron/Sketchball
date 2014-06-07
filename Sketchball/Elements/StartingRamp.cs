@@ -18,7 +18,7 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private Vector MaxVelocity = new Vector(0, -2000);
+        private Vector MaxVelocity = new Vector(0, -1300);
 
         private bool Charging = false;
         private Glide Tweener = new Glide();
@@ -123,14 +123,14 @@ namespace Sketchball.Elements
         }
 
         public void IntroduceBall(Ball ball) {
-            ball.X = X + ball.Width * 0.85;
-            ball.Y = 1.6 * Y;
+            ball.X = X + ball.Width * 1.5;
+            ball.Y = 2 * Y;
         }
 
-        public override void Update(long delta)
+        public override void Update(double delta)
         {
             base.Update(delta);
-            Tweener.Update(delta / 1000f);
+            Tweener.Update((float)delta);
            
             if (!Charging && Power > 0)
             {

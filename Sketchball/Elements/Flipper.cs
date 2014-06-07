@@ -32,11 +32,6 @@ namespace Sketchball.Elements
             Animating = false;
         }
 
- 
-        public override void Update(long delta)
-        {
-            base.Update(delta);
-        }
 
         protected override void EnterMachine(PinballGameMachine machine)
         {

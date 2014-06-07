@@ -47,22 +47,22 @@ namespace Sketchball.Elements
             Image = Booster.OptimizeWpfImage("BallWithAlpha.png");
         }
 
-        public override void Update(long delta)
+        public override void Update(double delta)
         {
             base.Update(delta);
-            Velocity += World.Acceleration * (delta / 1000f);
-            Velocity = new Vector(Velocity.X * (this.friction - 0.00000001f * Velocity.X * Velocity.X), Velocity.Y * (this.friction - 0.00000001f * Velocity.Y * Velocity.Y));
+            Velocity += World.Acceleration * (delta);
+            //Velocity = new Vector(Velocity.X * (this.friction - 0.00000001f * Velocity.X * Velocity.X), Velocity.Y * (this.friction - 0.00000001f * Velocity.Y * Velocity.Y));
 
-            Location += Velocity * (delta / 1000f);
+            Location += Velocity * (delta);
 
             preventDrain(delta);
         }
 
-        private void preventDrain(long delta)
+        private void preventDrain(double delta)
         {
             // Update metrics
-            timeElapsed += delta;
-            distanceTraveled += (Velocity * (delta / 1000f)).Length;
+            timeElapsed += (long)(delta * 1000);
+            distanceTraveled += (Velocity * delta).Length;
 
             if (timeElapsed > SAMPLING_TIME)
             {

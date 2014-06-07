@@ -51,7 +51,7 @@ namespace Sketchball.Elements
             Gravity = machine.Gravity;
         }
        
-        public void Update(long elapsed)
+        public void Update(double elapsed)
         {
             bool hasGameOver = false;
 

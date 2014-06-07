@@ -455,7 +455,7 @@ namespace Sketchball.Elements
         protected virtual void OnDrawn(System.Windows.Media.DrawingContext g)
         { }
 
-        public virtual void Update(long delta) { }
+        public virtual void Update(double delta) { }
 
 
         /// <summary>

@@ -71,20 +71,21 @@ namespace Sketchball.Elements
             }
         }
 
-        public override void Update(long delta)
+        public override void Update(double delta)
         {
             if (delta != 0)
             {
-                this.AngularVelocityPerFrame = this.AngularVelocity * (delta / 1000f);
+                this.AngularVelocityPerFrame = this.AngularVelocity * delta;
             }
             else
             {
                 this.AngularVelocityPerFrame = 0;
             }
             base.Update(delta);
-            Tweener.Update(delta / 1000f);
+            Tweener.Update((float)delta);
            
             this.BoundingContainer.Rotate(-this.Rotation, this.CurrentRotationCenter);
+        
         }
 
     }
