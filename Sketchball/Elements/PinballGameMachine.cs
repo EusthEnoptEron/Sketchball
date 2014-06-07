@@ -20,6 +20,7 @@ namespace Sketchball.Elements
         private BoundingRaster boundingRaster;
 
         internal readonly InputManager Input = InputManager.Instance();
+        internal readonly SoundManager Sfx = new SoundManager();
 
         /// <summary>
         /// No more elements can be added after this function call 

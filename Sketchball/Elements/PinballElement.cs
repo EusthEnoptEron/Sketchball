@@ -187,6 +187,18 @@ namespace Sketchball.Elements
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the current game machine. Helper property.
+        /// </summary>
+        protected PinballGameMachine GameWorld
+        {
+            get
+            {
+                return (PinballGameMachine)World;
+            }
+        }
+        
         private PinballMachine _machine = null;
         
         /// <summary>

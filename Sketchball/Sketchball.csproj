@@ -141,6 +141,7 @@
     <Compile Include="GameComponents\GameHUD.cs" />
     <Compile Include="GameComponents\HighscoreEntry.cs" />
     <Compile Include="GameComponents\HighscoreList.cs" />
+    <Compile Include="GameComponents\SoundManager.cs" />
     <Compile Include="GlideTween\Ease.cs" />
     <Compile Include="GlideTween\Glide.cs" />
     <Compile Include="GlideTween\GlideInfo.cs" />

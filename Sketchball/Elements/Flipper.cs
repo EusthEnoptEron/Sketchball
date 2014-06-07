@@ -8,6 +8,7 @@ using Sketchball.Collision;
 using System.Runtime.Serialization;
 using System.Windows;
 using System.Media;
+using System.IO;
 
 namespace Sketchball.Elements
 {
@@ -16,6 +17,7 @@ namespace Sketchball.Elements
     public abstract class Flipper : AnimatedObject
     {
         private static readonly Size size = new Size(70, 70);
+        private static readonly SoundPlayer sound = new SoundPlayer(Properties.Resources.SWormholeExit);
 
         [DataMember]
         public Keys Trigger { get; set; }
@@ -23,7 +25,6 @@ namespace Sketchball.Elements
 
         public double RotationRange = (Math.PI / 180 * 60);
         public bool Animating { get; private set; }
-        private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SWormholeExit);
 
 
         public Flipper()  : base()
@@ -99,7 +100,7 @@ namespace Sketchball.Elements
 
         public override void notifyIntersection(Ball b)
         {
-            player.Play();
+            GameWorld.Sfx.Play(sound);
         }
 
     }

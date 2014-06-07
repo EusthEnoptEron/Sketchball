@@ -42,7 +42,7 @@ namespace Sketchball.Elements
         public override void notifyIntersection(Ball b)
         {
             b.Location = new Vector(0, 2000);
-            player.Play();
+            GameWorld.Sfx.Play(player);
         }
     }
 }

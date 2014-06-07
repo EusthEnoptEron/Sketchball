@@ -40,7 +40,7 @@ namespace Sketchball.Elements
 
         public override void notifyIntersection(Ball b)
         {
-            player.Play();
+            GameWorld.Sfx.Play(player);
         }
     }
 }
