@@ -205,44 +205,6 @@ namespace Sketchball.Editor
             {
                 if (SelectedElement != null)
                 {
-    
-                    if (SelectedElement.GetType() == typeof(WormholeEntry))
-                    {
-                        WormholeEntry we = ((WormholeEntry)(SelectedElement));
-                        if(we.WormholeExit!=null)
-                        {
-                            Editor.RemoveElement(we.WormholeExit);
-                            if (Wormhole.WormholeExitPending == we.WormholeExit)
-                            {
-                                Wormhole.WormholeExitPending = null;
-                            }
-                        }
-
-                        if (Wormhole.WormholeEntryPending == we)
-                        {
-                            Wormhole.WormholeEntryPending = null;
-                        }
-                    }
-
-                    if (SelectedElement.GetType() == typeof(WormholeExit))
-                    {
-                        WormholeExit we = ((WormholeExit)(SelectedElement));
-                        if (we.WormholeEntry != null)
-                        {
-                            Editor.RemoveElement(we.WormholeEntry);
-                            if (Wormhole.WormholeEntryPending == we.WormholeEntry)
-                            {
-                                Wormhole.WormholeEntryPending = null;
-                            }
-                        }
-
-                        if (Wormhole.WormholeExitPending == we)
-                        {
-                            Wormhole.WormholeExitPending = null;
-                        }
-                    }
-                       
-                    
                     Editor.RemoveElement(SelectedElement);
                 }
             }

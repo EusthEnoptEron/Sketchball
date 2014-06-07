@@ -29,6 +29,7 @@ namespace Sketchball.Editor
         public void Do()
         {
             collection.Remove(element);
+
         }
     }
 }
