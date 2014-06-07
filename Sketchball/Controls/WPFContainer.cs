@@ -43,6 +43,17 @@ namespace Sketchball.Controls
             {
                 Control.Exit();
                 Control.PreviewMouseDown -= onMouseDown;
+
+                var fe = Child as System.Windows.FrameworkElement;
+                if (fe != null)
+                {
+                    // Memory leak workaround: elementHost.Child.SizeChanged -= elementHost.childFrameworkElement_SizeChanged;
+                    var handler = (System.Windows.SizeChangedEventHandler)Delegate.CreateDelegate(typeof(System.Windows.SizeChangedEventHandler), this, "childFrameworkElement_SizeChanged");
+                    fe.SizeChanged -= handler;
+                }
+
+                Control = null;
+                Child = null;
             }
             base.Dispose(disposing);
 

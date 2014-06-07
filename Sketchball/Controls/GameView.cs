@@ -121,6 +121,10 @@ namespace Sketchball.Controls
         protected override void OnDispose()
         {
             timer.Dispose();
+            Game = null;
+            gameWorld = null;
+            HUD = null;
+            Camera = null;
         }
 
         protected override void Draw(DrawingContext g)

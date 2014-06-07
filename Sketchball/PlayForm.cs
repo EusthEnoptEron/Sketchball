@@ -219,8 +219,8 @@ namespace Sketchball
             {
                 components.Dispose();
             }
-
             game.Dispose();
+            gameView.MouseUp -= OnMouseUp;
 
             base.Dispose(disposing);
         }

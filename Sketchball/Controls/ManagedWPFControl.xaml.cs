@@ -34,7 +34,7 @@ namespace Sketchball.Controls
             this.Width = 0;
             this.Height = 0;
 
-            
+            OnDispose();
         }
 
         protected virtual void OnDispose() { }
