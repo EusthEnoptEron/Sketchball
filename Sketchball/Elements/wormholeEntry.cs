@@ -15,6 +15,7 @@ namespace Sketchball.Elements
     [DataContract]
     public class WormholeEntry : Wormhole
     {
+        [DataMember]
         public WormholeExit WormholeExit { get; set; }
         private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SWomholeEntry);
 

@@ -14,6 +14,7 @@ namespace Sketchball.Elements
     public class WormholeExit : Wormhole
     {
         private static readonly Size size = new Size(30, 30);
+        [DataMember]
         public WormholeEntry WormholeEntry { get; set; }
 
         protected override Size BaseSize
