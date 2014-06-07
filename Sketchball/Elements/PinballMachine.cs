@@ -300,6 +300,11 @@ namespace Sketchball.Elements
 
 #endregion
 
+
+        public void BringToFront(PinballElement element)
+        {
+            DynamicElements.MoveToTail(element);   
+        }
     }
 
 }

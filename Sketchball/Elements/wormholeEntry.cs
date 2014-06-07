@@ -62,7 +62,7 @@ namespace Sketchball.Elements
                                                            .Where((el) => { return el.WormholeExit != null; })
                                                            .Select((el) => { return el.WormholeExit; });
 
-                var freeExits = occupiedExits.Except(occupiedExits).ToList();
+                var freeExits = exits.Except(occupiedExits).ToList();
 
                 if (freeExits.Count > 0)
                 {
@@ -71,8 +71,5 @@ namespace Sketchball.Elements
             }
         }
 
-        protected override void LeaveGame(PinballGameMachine machine)
-        {
-        }
     }
 }

@@ -35,8 +35,7 @@ namespace Sketchball.Controls
                     if (SelectedElement != null)
                     {
                         // Re-Add the element to bring it to front
-                        PinballMachine.Remove(SelectedElement);
-                        PinballMachine.Add(SelectedElement);
+                        PinballMachine.BringToFront(SelectedElement);
                     }
                     Invalidate();
                 }
@@ -151,7 +150,7 @@ namespace Sketchball.Controls
             g.Pop();
 
             // Draw selection
-            // Border should always look the same, therefore we need to restore the gstate first and then use editor coordinates
+            // Border should always look the same, therefore we use editor coordinates for everything
             if (SelectedElement != null && SelectedElement.World != null)
             {
                 var bounds = SelectedElement.GetBounds();
@@ -160,17 +159,40 @@ namespace Sketchball.Controls
                 var point = new Point(bounds.Location.X, bounds.Location.Y);
                 var pRes = PointToEditor(point);
                 bounds.Location = new Point(pRes.X, pRes.Y);
-                bounds.Width =  LengthToEditor(bounds.Width);
-                bounds.Height =  LengthToEditor(bounds.Height);
+                bounds.Width = LengthToEditor(bounds.Width);
+                bounds.Height = LengthToEditor(bounds.Height);
                 origin.X = LengthToEditor(origin.X);
                 origin.Y = LengthToEditor(origin.Y);
 
 
-                g.PushTransform(new RotateTransform(SelectedElement.BaseRotation, bounds.X + origin.X, bounds.Y + origin.Y)); 
-
-                g.DrawRectangle(null, SelectionPen, new Rect(bounds.X, bounds.Y, bounds.Width, bounds.Height));
-
+                g.PushTransform(new RotateTransform(SelectedElement.BaseRotation, bounds.X + origin.X, bounds.Y + origin.Y));
+                {
+                    g.DrawRectangle(null, SelectionPen, new Rect(bounds.X, bounds.Y, bounds.Width, bounds.Height));
+                }
                 g.Pop();
+
+                if (SelectedElement is Wormhole)
+                {
+                    List<Wormhole> targets = new List<Wormhole>();
+
+                    if (SelectedElement is WormholeEntry)
+                    {
+                        var entry = SelectedElement as WormholeEntry;
+                        if (entry.WormholeExit != null) targets.Add(entry.WormholeExit);
+                    }
+                    else if (SelectedElement is WormholeExit)
+                    {
+                        var exit = SelectedElement as WormholeExit;
+                        targets.AddRange(exit.Entries);
+                    }
+
+                    foreach (var wormhole in targets)
+                    {
+                        var exitVector = PointToEditor(wormhole.Location) + new Vector(wormhole.Width, wormhole.Height) * ScaleFactor * 0.5;
+                        var exitPoint = new Point(exitVector.X, exitVector.Y);
+                        g.DrawLine(SelectionPen, exitPoint, new Point(bounds.X + bounds.Width / 2, bounds.Y + bounds.Height / 2));
+                    }
+                }
             }
 
             if (Paint != null)

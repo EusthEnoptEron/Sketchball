@@ -22,6 +22,22 @@ namespace Sketchball.Elements
             Owner = parent;
         }
 
+        public void MoveToTail(PinballElement element)
+        {
+            if (Elements.Remove(element))
+            {
+                Elements.Add(element);
+            }
+        }
+
+        public void MoveToHead(PinballElement element)
+        {
+            if (Elements.Remove(element))
+            {
+                Elements.Insert(0, element);
+            }
+        }
+
         private void ClaimElement(PinballElement element)
         {
             if (element.World != null && element.World != Owner)
