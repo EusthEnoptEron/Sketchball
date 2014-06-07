@@ -51,7 +51,7 @@ namespace Sketchball.Elements
         {
             base.Update(delta);
             Velocity += World.Acceleration * (delta);
-            //Velocity = new Vector(Velocity.X * (this.friction - 0.00000001f * Velocity.X * Velocity.X), Velocity.Y * (this.friction - 0.00000001f * Velocity.Y * Velocity.Y));
+            Velocity = new Vector(Velocity.X * (this.friction - 0.00000001f * Velocity.X * Velocity.X), Velocity.Y * (this.friction - 0.00000001f * Velocity.Y * Velocity.Y));
 
             Location += Velocity * (delta);
 

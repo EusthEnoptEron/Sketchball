@@ -18,7 +18,7 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private Vector MaxVelocity = new Vector(0, -1300);
+        private Vector MaxVelocity = new Vector(0, -2000);
 
         private bool Charging = false;
         private Glide Tweener = new Glide();

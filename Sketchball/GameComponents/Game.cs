@@ -282,7 +282,7 @@ namespace Sketchball.GameComponents
            
             System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
 
-            //int timePerPass = 1000 / FPS;            
+            int timePerPass = 1000 / FPS;            
             TimeSpan lastSample = new TimeSpan(0);
             stopWatch.Start();
 
@@ -303,10 +303,10 @@ namespace Sketchball.GameComponents
                     //if (ms > 1)
                     //{
                     TimeSpan elapsed = stopWatch.Elapsed - lastSample;
-                    if (elapsed.TotalMilliseconds > 1)
+                    if (elapsed.TotalMilliseconds > timePerPass)
                     {
                         lastSample = stopWatch.Elapsed;
-                        this.Update(elapsed.TotalSeconds);
+                        this.Update(timePerPass / 1000d);
                     }
                     //}
                 }

@@ -15,7 +15,7 @@ namespace Sketchball.Elements
     {
 
         // 400px = 1m
-        public const float PIXELS_TO_METERS_RATIO = 400f / 1;
+        public const float PIXELS_TO_METERS_RATIO = 500f / 1;
         
         /// <summary>
         /// Gets the elements that were added by the user.
@@ -89,7 +89,7 @@ namespace Sketchball.Elements
         public float Gravity { get; set; }
 
 
-        private const double DEFAULT_ANGLE = (3.14 / 180 * 10);
+        private const double DEFAULT_ANGLE = (3.14 / 180 * 15);
 
         /// <summary>
         /// Tilt of the pinball machine in radians.
