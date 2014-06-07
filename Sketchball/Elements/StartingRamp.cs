@@ -131,7 +131,7 @@ namespace Sketchball.Elements
         {
             base.Update(delta);
             Tweener.Update(delta / 1000f);
-
+           
             if (!Charging && Power > 0)
             {
                 // SHOOT!
@@ -145,13 +145,14 @@ namespace Sketchball.Elements
                         if (powerLine.Intersect(boundingBox, out dummy))
                         {
                             ball.Velocity += Power * MaxVelocity;
+                            ball.Location.Y -= Power * PencilPullback * Scale;
                             break;
                         }
                     }
                 }
                 powerLine.move(new Vector(0, 20));
-
-                Power = 0;                
+                powerLine.Sync(Transform);
+                Power = 0;
             }
         }
 
@@ -160,7 +161,13 @@ namespace Sketchball.Elements
             if (e.KeyCode == Trigger)
             {
                 Charging = true;
-                Tweener.Tween(this, new { Power = 1 }, 1f);
+                Tweener.Tween(this, new { Power = 1 }, 1f).OnUpdate(delegate {
+                    Matrix m = Matrix.Identity;
+                    m *= Transform;
+                    m.Translate(0, Power * PencilPullback * Scale);
+
+                    powerLine.Sync(m);
+                });
             }
         }
 
