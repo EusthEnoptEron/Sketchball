@@ -43,7 +43,7 @@ namespace Sketchball.GameComponents
 
         public void Draw(DrawingContext g)
         {
-            double height = Height + MARGIN * 4; // we're adding margins _again_ just to be sure.
+            double height = Height + MARGIN * 6; // we're adding margins _again_ just to be sure.
             double width  = height / BG.Height * BG.Width;
 
             g.DrawImage(BG, new Rect( (Width - width) / 2, 0, width, height));

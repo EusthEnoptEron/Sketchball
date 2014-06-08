@@ -52,7 +52,7 @@ namespace Sketchball
             // Fill entire space
             gameContainer.Dock = DockStyle.Fill;
 
-            Controls.Add(gameContainer);
+            mainContainer.ContentPanel.Controls.Add(gameContainer);
 
             this.selectionForm = selectionForm;
 
@@ -227,32 +227,15 @@ namespace Sketchball
 
         private void PlayForm_ResizeEnd(object sender, EventArgs e)
         {
-            int width = ((Control)sender).Width;
-            int height = ((Control)sender).Height;
-           /* Bitmap inUse = this.gameView.Camera.backgroundManager.Background_TableBackground;
-            Image i = Properties.Resources.TableBackground;
+           /* double maxAspect = 16 / 9d;
+            double minAspect = 4 / 3d;
+            double aspect = (double)Width / Height;
 
-            if ((height <= i.Height && width <= i.Width))
+            if (WindowState != FormWindowState.Maximized)
             {
-                return;
+                // aspect  = Width / Height => Height = 
             }
-
-            float ratW = width * 1f / inUse.Width;
-            float ratH = height * 1f / inUse.Height;
-
-            if (ratW > ratH)
-            {
-                height = (int)((this.BackgroundImage.Height * 1f / this.BackgroundImage.Width) * width);
-            }
-            else
-            {
-                width = (int)((this.BackgroundImage.Width * 1f / this.BackgroundImage.Height) * height);
-            }
-
-            Bitmap m = Booster.OptimizeImage(inUse, width, height);
-            this.BackgroundImage = m;
             */
         }
-
     }
 }
