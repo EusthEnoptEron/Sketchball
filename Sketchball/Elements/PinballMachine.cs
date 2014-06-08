@@ -127,6 +127,7 @@ namespace Sketchball.Elements
 
 
         [DataMember]
+        [Browsable(false)]
         public HighscoreList Highscores { get; private set; }
        
         public PinballMachine() : this(new DefaultLayout()) {}

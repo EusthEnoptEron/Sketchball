@@ -45,6 +45,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.toolBar = new System.Windows.Forms.ToolStrip();
             this.fieldAndPropertySplitter = new System.Windows.Forms.SplitContainer();
+            this.playFieldPanel = new Sketchball.Editor.NoScrollOnFocusPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.machineInspector = new Sketchball.Controls.ElementInspector();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.zoomBar = new Sketchball.Controls.ToolStripTrackBarItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.playFieldPanel = new Sketchball.Editor.NoScrollOnFocusPanel();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainSplitToMenueAndField)).BeginInit();
             this.MainSplitToMenueAndField.Panel1.SuspendLayout();
@@ -101,7 +101,7 @@
             this.editToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(1119, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1119, 26);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -116,7 +116,7 @@
             this.playButton,
             this.playgroundToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newPBMButton
@@ -124,7 +124,7 @@
             this.newPBMButton.Name = "newPBMButton";
             this.newPBMButton.ShortcutKeyDisplayString = "";
             this.newPBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newPBMButton.Size = new System.Drawing.Size(193, 22);
+            this.newPBMButton.Size = new System.Drawing.Size(218, 22);
             this.newPBMButton.Text = "New";
             this.newPBMButton.Click += new System.EventHandler(this.onNewMachine);
             // 
@@ -133,7 +133,7 @@
             this.openPBMButton.Name = "openPBMButton";
             this.openPBMButton.ShortcutKeyDisplayString = "";
             this.openPBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openPBMButton.Size = new System.Drawing.Size(193, 22);
+            this.openPBMButton.Size = new System.Drawing.Size(218, 22);
             this.openPBMButton.Text = "Open...";
             this.openPBMButton.Click += new System.EventHandler(this.onOpenMachine);
             // 
@@ -142,7 +142,7 @@
             this.savePBMButton.Name = "savePBMButton";
             this.savePBMButton.ShortcutKeyDisplayString = "";
             this.savePBMButton.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.savePBMButton.Size = new System.Drawing.Size(193, 22);
+            this.savePBMButton.Size = new System.Drawing.Size(218, 22);
             this.savePBMButton.Text = "Save";
             this.savePBMButton.Click += new System.EventHandler(this.onSaveMachine);
             // 
@@ -151,34 +151,34 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.onSaveAsMachine);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(215, 6);
             // 
             // playButton
             // 
             this.playButton.Name = "playButton";
             this.playButton.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.playButton.Size = new System.Drawing.Size(193, 22);
+            this.playButton.Size = new System.Drawing.Size(218, 22);
             this.playButton.Text = "Play";
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // playgroundToolStripMenuItem
             // 
             this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
-            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.playgroundToolStripMenuItem.Text = "Playground";
             this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(42, 22);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // MainSplitToMenueAndField
@@ -198,7 +198,7 @@
             this.MainSplitToMenueAndField.Panel2.AutoScroll = true;
             this.MainSplitToMenueAndField.Panel2.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.MainSplitToMenueAndField.Panel2.Controls.Add(this.fieldAndPropertySplitter);
-            this.MainSplitToMenueAndField.Size = new System.Drawing.Size(1119, 642);
+            this.MainSplitToMenueAndField.Size = new System.Drawing.Size(1119, 640);
             this.MainSplitToMenueAndField.SplitterDistance = 288;
             this.MainSplitToMenueAndField.TabIndex = 1;
             // 
@@ -210,7 +210,7 @@
             this.elementPanel.AutoScroll = true;
             this.elementPanel.Location = new System.Drawing.Point(7, 138);
             this.elementPanel.Name = "elementPanel";
-            this.elementPanel.Size = new System.Drawing.Size(276, 515);
+            this.elementPanel.Size = new System.Drawing.Size(276, 513);
             this.elementPanel.TabIndex = 2;
             // 
             // panel2
@@ -253,9 +253,18 @@
             this.fieldAndPropertySplitter.Panel2.Controls.Add(this.machineInspector);
             this.fieldAndPropertySplitter.Panel2.Controls.Add(this.label1);
             this.fieldAndPropertySplitter.Panel2.Controls.Add(this.elementInspector);
-            this.fieldAndPropertySplitter.Size = new System.Drawing.Size(827, 642);
+            this.fieldAndPropertySplitter.Size = new System.Drawing.Size(827, 640);
             this.fieldAndPropertySplitter.SplitterDistance = 628;
             this.fieldAndPropertySplitter.TabIndex = 3;
+            // 
+            // playFieldPanel
+            // 
+            this.playFieldPanel.AutoScroll = true;
+            this.playFieldPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playFieldPanel.Location = new System.Drawing.Point(0, 0);
+            this.playFieldPanel.Name = "playFieldPanel";
+            this.playFieldPanel.Size = new System.Drawing.Size(628, 640);
+            this.playFieldPanel.TabIndex = 0;
             // 
             // label2
             // 
@@ -275,6 +284,7 @@
             this.machineInspector.Name = "machineInspector";
             this.machineInspector.Size = new System.Drawing.Size(177, 197);
             this.machineInspector.TabIndex = 2;
+            this.machineInspector.ToolbarVisible = false;
             // 
             // label1
             // 
@@ -293,8 +303,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.elementInspector.Location = new System.Drawing.Point(6, 269);
             this.elementInspector.Name = "elementInspector";
-            this.elementInspector.Size = new System.Drawing.Size(177, 370);
+            this.elementInspector.Size = new System.Drawing.Size(177, 368);
             this.elementInspector.TabIndex = 0;
+            this.elementInspector.ToolbarVisible = false;
             // 
             // mainView
             // 
@@ -306,7 +317,7 @@
             // mainView.ContentPanel
             // 
             this.mainView.ContentPanel.Controls.Add(this.MainSplitToMenueAndField);
-            this.mainView.ContentPanel.Size = new System.Drawing.Size(1119, 642);
+            this.mainView.ContentPanel.Size = new System.Drawing.Size(1119, 640);
             this.mainView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainView.Location = new System.Drawing.Point(0, 0);
             this.mainView.Name = "mainView";
@@ -348,15 +359,6 @@
             this.saveFileDialog.DefaultExt = "pmf";
             this.saveFileDialog.FileName = "Untitled.pmf";
             this.saveFileDialog.Filter = "Pinball machine files|*.pmf";
-            // 
-            // playFieldPanel
-            // 
-            this.playFieldPanel.AutoScroll = true;
-            this.playFieldPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.playFieldPanel.Location = new System.Drawing.Point(0, 0);
-            this.playFieldPanel.Name = "playFieldPanel";
-            this.playFieldPanel.Size = new System.Drawing.Size(628, 642);
-            this.playFieldPanel.TabIndex = 0;
             // 
             // EditorForm
             // 
