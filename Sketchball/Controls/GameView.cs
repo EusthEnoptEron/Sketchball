@@ -24,14 +24,14 @@ namespace Sketchball.Controls
         /// <summary>
         /// The absolute maximum of FPS at any point in time.
         /// </summary>
-        private const int MAX_FPS = 80;
+        private const int MAX_FPS = 40;
 
-        public Camera Camera{get; private set;}
+        public Camera Camera { get; private set; }
         private GameHUD HUD;
         private GameWorld gameWorld;
 
         public Game Game;
-        private BackgroundWorker updateWorker;
+        private System.Windows.Forms.Timer timer;
 
         /// <summary>
         /// Creates a new PinballGameControl based on a machine template.
@@ -53,17 +53,19 @@ namespace Sketchball.Controls
             Camera.Size = new Size(Width, Height);
 
             // Optimize control for performance
-           // this.Effect = new System.Windows.Media.Effects.BlurEffect();
-            updateWorker = new BackgroundWorker();
-            updateWorker.DoWork += DrawCycle;
+            // this.Effect = new System.Windows.Media.Effects.BlurEffect();
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 1000 / MAX_FPS;
+            timer.Tick += OnDraw;
+            timer.Start();
 
             PreviewKeyDown += HandleKeyDown;
-            
+
             SizeChanged += ResizeCamera;
 
             SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
+            SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
 
-            updateWorker.RunWorkerAsync();
         }
 
         private void ResizeCamera(object sender, System.Windows.SizeChangedEventArgs e)
@@ -85,7 +87,7 @@ namespace Sketchball.Controls
                         Game.Start();
                     }
                     break;
-                
+
                 case Key.Enter:
                     if (Game.Status == GameStatus.Playing)
                     {
@@ -98,50 +100,29 @@ namespace Sketchball.Controls
                     break;
 
                 case Key.Add:
-                   // this.Camera.zoom(1+this.zoomfactor);
-               
+                    // this.Camera.zoom(1+this.zoomfactor);
+
                     break;
 
                 case Key.OemMinus:
                 case Key.Subtract:
-                   // this.Camera.zoom(1-this.zoomfactor);
+                    // this.Camera.zoom(1-this.zoomfactor);
                     break;
 
-            }         
+            }
 
         }
 
-        /// <summary>
-        /// Method that repeatedly draws and updates the scene.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DrawCycle(object sender, DoWorkEventArgs e)
+        private void OnDraw(object sender, EventArgs e)
         {
-            int msPerFrame = 1000 / MAX_FPS;
-            Stopwatch watch = new Stopwatch();
-
-            try
-            {
-                while (!isCancelled)
-                {
-                    watch.Restart();
-
-                    Dispatcher.Invoke(() =>
-                    {
-                        InvalidateVisual();
-                    }, System.Windows.Threading.DispatcherPriority.Render);
-
-                    Thread.Sleep(Math.Max(10, msPerFrame - (int)watch.ElapsedMilliseconds));
-                }
-            }
-            catch (TaskCanceledException) { }
-
-
+            if (isCancelled)
+                timer.Dispose();
+            else
+                InvalidateVisual();
         }
         protected override void OnDispose()
         {
-            updateWorker.Dispose();
+            timer.Dispose();
             Game = null;
             gameWorld = null;
             HUD = null;
@@ -163,7 +144,7 @@ namespace Sketchball.Controls
             {
                 DrawOverlay(g, Colors.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
             }
-            
+
         }
 
         private void DrawOverlay(DrawingContext g, Color color, string title, string msg)
@@ -179,7 +160,7 @@ namespace Sketchball.Controls
 
 
             g.DrawRectangle(brush, null, new Rect(0, 0, Width, Height));
-            g.DrawText(caption, new Point( x, (Height - caption.Height) / 2 ));
+            g.DrawText(caption, new Point(x, (Height - caption.Height) / 2));
             g.DrawText(text, new Point(x, (Height + caption.Height) / 2));
         }
 
