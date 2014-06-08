@@ -192,6 +192,7 @@
             this.MainSplitToMenueAndField.Panel1.Controls.Add(this.elementPanel);
             this.MainSplitToMenueAndField.Panel1.Controls.Add(this.panel2);
             this.MainSplitToMenueAndField.Panel1.Controls.Add(this.TitleLabel);
+            this.MainSplitToMenueAndField.Panel1.Resize += new System.EventHandler(this.onLeftPanelResize);
             // 
             // MainSplitToMenueAndField.Panel2
             // 

@@ -460,6 +460,54 @@ namespace Sketchball
 
         }
 
+        private void onLeftPanelResize(object sender, EventArgs e)
+        {
+            SizeF extent;
+            var space = MainSplitToMenueAndField.Panel1.Size;
+            space.Width -= TitleLabel.Padding.Left * 2;
+
+            TitleLabel.Font = AppropriateFont(8, 40, space, TitleLabel.Text, TitleLabel.Font, out extent);
+        }
+
+
+        /// <summary>
+        /// Finds an appropriate font size for a given size. Taken from:
+        /// http://tech.pro/tutorial/691/csharp-tutorial-font-scaling
+        /// </summary>
+        /// <param name="minFontSize"></param>
+        /// <param name="maxFontSize"></param>
+        /// <param name="layoutSize"></param>
+        /// <param name="s"></param>
+        /// <param name="f"></param>
+        /// <param name="extent"></param>
+        /// <returns></returns>
+        private static Font AppropriateFont(float minFontSize,
+                                    float maxFontSize, Size layoutSize, string s, Font f, out SizeF extent)
+        {
+            if (maxFontSize == minFontSize)
+                f = new Font(f.FontFamily, minFontSize, f.Style);
+
+            extent = TextRenderer.MeasureText(s, f);
+
+            if (maxFontSize <= minFontSize)
+                return f;
+
+            float hRatio = layoutSize.Height / extent.Height;
+            float wRatio = layoutSize.Width / extent.Width;
+            float ratio = (hRatio < wRatio) ? hRatio : wRatio;
+
+            float newSize = f.Size * ratio;
+
+            if (newSize < minFontSize)
+                newSize = minFontSize;
+            else if (newSize > maxFontSize)
+                newSize = maxFontSize;
+
+            f = new Font(f.FontFamily, newSize, f.Style);
+            extent = TextRenderer.MeasureText(s, f);
+
+            return f;
+        }
       
     }
 
