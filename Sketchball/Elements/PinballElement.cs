@@ -514,6 +514,7 @@ namespace Sketchball.Elements
         {
             BoundingContainer.BoundingBoxes.Clear();
             Init();
+            Sync();
         }
     }
 }
