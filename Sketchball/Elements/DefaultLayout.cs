@@ -114,10 +114,10 @@ namespace Sketchball.Elements
 
 
             // Add flippers
-            Flipper lflipper = new LeftFlipper() { X = 148, Y = Height - 85 };
+            Flipper lflipper = new LeftFlipper() { X = 148, Y = Height - 100 };
             _elements.Add(lflipper);
 
-            Flipper rflipper = new RightFlipper() { X = 227, Y = Height - 85 };
+            Flipper rflipper = new RightFlipper() { X = 227, Y = Height - 100 };
             _elements.Add(rflipper);
 
             //Add Hole
