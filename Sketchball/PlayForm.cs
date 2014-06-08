@@ -83,6 +83,9 @@ namespace Sketchball
             fileName = null;
         }
 
+
+        #region Event Handler
+
         private void onGameOver(object sender, int score)
         {
             if (fileName != null)
@@ -110,7 +113,7 @@ namespace Sketchball
             
         }
 
-        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void onPauseClicked(object sender, EventArgs e)
         {
             if(game.Status == GameStatus.Playing)
             {
@@ -118,7 +121,7 @@ namespace Sketchball
             }
         }
 
-        private void resumeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void onResumeClicked(object sender, EventArgs e)
         {
             if (game.Status == GameStatus.Pause)
             {
@@ -126,7 +129,7 @@ namespace Sketchball
             }
         }
 
-        private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        private void onFileMenuOpening(object sender, EventArgs e)
         {
             // Make sure that the edit button is only visible when the editor
             // isn't already open
@@ -157,7 +160,7 @@ namespace Sketchball
             }
         }
 
-        private void startToolStripMenuItem_Click(object sender, EventArgs e)
+        private void onResetClicked(object sender, EventArgs e)
         {
             var statusChanged = game.Status != GameStatus.Pause;
             game.Pause();
@@ -171,12 +174,12 @@ namespace Sketchball
                 game.Resume();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void onExitClicked(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        private void onEditClicked(object sender, EventArgs e)
         {
             game.Pause();
 
@@ -189,7 +192,7 @@ namespace Sketchball
             }
         }
 
-        private void debugModeButton_CheckedChanged(object sender, EventArgs e)
+        private void onDebugModeChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.Debug = debugModeButton.Checked;
             Properties.Settings.Default.Save();
@@ -209,6 +212,8 @@ namespace Sketchball
                 }
             }
         }
+
+        #endregion
 
 
         private void enterFullscreen()
