@@ -211,7 +211,7 @@
             this.elementPanel.AutoScroll = true;
             this.elementPanel.Location = new System.Drawing.Point(7, 138);
             this.elementPanel.Name = "elementPanel";
-            this.elementPanel.Size = new System.Drawing.Size(276, 513);
+            this.elementPanel.Size = new System.Drawing.Size(276, 499);
             this.elementPanel.TabIndex = 2;
             // 
             // panel2

@@ -18,15 +18,12 @@ namespace Sketchball.Elements
 
         public RightFlipper()
         {
+            Trigger = Keys.D;
+            RotationRange = -RotationRange;
         }
 
         protected override void Init()
         {
-            Trigger = Keys.D;
-            DebugTrigger = Keys.E;
-            RotationRange = -RotationRange;
-
-
             Vector offset = new Vector(-10, -10);
             int r1 = 70;
             int r2 = 16;

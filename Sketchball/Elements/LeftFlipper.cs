@@ -18,7 +18,6 @@ namespace Sketchball.Elements
         public LeftFlipper()
         {
             Trigger = Keys.A;
-            DebugTrigger = Keys.Q;
         }
 
         protected override void Init()

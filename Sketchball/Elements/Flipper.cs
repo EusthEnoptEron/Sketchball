@@ -21,7 +21,6 @@ namespace Sketchball.Elements
 
         [DataMember]
         public Keys Trigger { get; set; }
-        protected Keys DebugTrigger;
 
         public double RotationRange = (Math.PI / 180 * 60);
         public bool Animating { get; private set; }
@@ -57,7 +56,7 @@ namespace Sketchball.Elements
 
         void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if ( (e.KeyCode == Trigger ||e.KeyCode == DebugTrigger) && !Animating)
+            if ( (e.KeyCode == Trigger) && !Animating)
             {
 
                 var speed = e.KeyCode == Trigger ? 0.05f : 4f;
@@ -85,7 +84,7 @@ namespace Sketchball.Elements
 
         void OnKeyUp(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Trigger || e.KeyCode == DebugTrigger) && Animating)
+            if ((e.KeyCode == Trigger) && Animating)
             {
                 var speed = e.KeyCode == Trigger ? 0.1f : 4f;
 
