@@ -66,7 +66,7 @@ namespace Sketchball
                 }
                 else
                 {
-                    MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The pinball machine you provided is not valid: " + pbm.LastProblem.Message, "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             

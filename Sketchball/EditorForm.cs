@@ -336,7 +336,7 @@ namespace Sketchball
                     }
                     else
                     {
-                        MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The pinball machine you provided is not valid: " + pbm.LastProblem.Message, "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -362,10 +362,7 @@ namespace Sketchball
 
                 saveMachine(FileName);
             }
-            else
-            {
-                MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);    
-            }
+            else showProblem();
         }
 
         private void onSaveAsMachine(object sender, EventArgs e)
@@ -378,13 +375,21 @@ namespace Sketchball
                     saveFileDialog.InitialDirectory = info.DirectoryName;
                     saveFileDialog.FileName = info.Name;
                 }
-                if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
                     saveMachine(saveFileDialog.FileName);
                 }
             }
-            else
+            else showProblem();
+        }
+
+        private void showProblem()
+        {
+            var problem = PlayFieldEditor.PinballMachine.LastProblem;
+            if (problem != null)
             {
-                MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The pinball machine you provided is not valid. " + PlayFieldEditor.PinballMachine.LastProblem.Message,
+                                "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -430,10 +435,7 @@ namespace Sketchball
                     form.ShowDialog();
                 }
             }
-            else
-            {
-                MessageBox.Show("The pinball machine you provided is not valid.", "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            else showProblem();
         }
 
         private void PlayFieldEditor_SelectionChanged(PinballElement prevElement, PinballElement newElement)

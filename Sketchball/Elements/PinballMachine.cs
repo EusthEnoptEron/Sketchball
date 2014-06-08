@@ -265,7 +265,11 @@ namespace Sketchball.Elements
             Init();
         }
 
-
+    
+        /// <summary>
+        /// Gets whether or not this is a valid pinball machine. You can query the problem found with LastProblem.
+        /// </summary>
+        /// <returns></returns>
         public bool IsValid() {
             foreach (var p in DynamicElements)
             {
@@ -282,6 +286,7 @@ namespace Sketchball.Elements
                     {
                         if (p2.BoundingContainer.Intersects(p1.BoundingContainer))
                         {
+                            LastProblem = new ValidationProblem("Two elements are overlapping.", new PinballElement[] { p1, p2 });
                             return false;
                         }
                     }
@@ -293,11 +298,21 @@ namespace Sketchball.Elements
             {
                 if (entry.WormholeExit == null)
                 {
+                    LastProblem = new ValidationProblem("There is a worm hole pointing into nirvana. Add an exit.", entry);
                     return false;
                 }
             }
+
+            LastProblem = null;
             return true;
         }
+
+        /// <summary>
+        /// Last problem that was detected. ALWAYS use in conjunction with IsValid().
+        /// </summary>
+        [Browsable(false)]
+        public ValidationProblem LastProblem { get; private set; }
+    
 
 #endregion
 
