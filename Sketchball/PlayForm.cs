@@ -47,7 +47,8 @@ namespace Sketchball
             gameContainer = new WPFContainer(gameView);
             game.GameOver += onGameOver;
             //this.MinimumSize = gameView.MinimumSize;
-            gameView.MouseUp += OnMouseUp;
+            gameView.MouseUp += onMouseUp;
+            gameView.KeyDown += onKeyDown;
 
             // Fill entire space
             gameContainer.Dock = DockStyle.Fill;
@@ -98,7 +99,7 @@ namespace Sketchball
             }
         }
 
-        private void OnMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void onMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             //throw new NotImplementedException();
             if (Properties.Settings.Default.Debug)
@@ -194,20 +195,43 @@ namespace Sketchball
             Properties.Settings.Default.Save();
         }
 
-
-        private void OnMouseUp(object sender, MouseEventArgs e)
+        private void onKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (Properties.Settings.Default.Debug && e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Key == System.Windows.Input.Key.F11)
             {
-                game.Machine.IntroduceBall();
-                game.Machine.Balls.Last().Location = new Vector(e.X * 0.4f, e.Y * 0.4f);
+                if (FormBorderStyle == System.Windows.Forms.FormBorderStyle.None)
+                {
+                    leaveFullscreen();
+                }
+                else
+                {
+                    enterFullscreen();
+                }
             }
         }
 
-        private void PlayForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
 
+        private void enterFullscreen()
+        {
+            SuspendLayout();
+            WindowState = FormWindowState.Normal;
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+
+            mainContainer.TopToolStripPanelVisible = false;
+            ResumeLayout();
         }
+
+        private void leaveFullscreen()
+        {
+            SuspendLayout();
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            WindowState = FormWindowState.Normal;
+
+            mainContainer.TopToolStripPanelVisible = true;
+            ResumeLayout();
+        }
+
 
         /// <summary>
         /// Clean up any resources being used.
@@ -220,22 +244,9 @@ namespace Sketchball
                 components.Dispose();
             }
             game.Dispose();
-            gameView.MouseUp -= OnMouseUp;
+            gameView.MouseUp -= onMouseUp;
 
             base.Dispose(disposing);
-        }
-
-        private void PlayForm_ResizeEnd(object sender, EventArgs e)
-        {
-           /* double maxAspect = 16 / 9d;
-            double minAspect = 4 / 3d;
-            double aspect = (double)Width / Height;
-
-            if (WindowState != FormWindowState.Maximized)
-            {
-                // aspect  = Width / Height => Height = 
-            }
-            */
         }
     }
 }
