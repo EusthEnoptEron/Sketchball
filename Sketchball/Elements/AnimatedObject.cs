@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
@@ -83,9 +84,15 @@ namespace Sketchball.Elements
             }
             base.Update(delta);
             Tweener.Update((float)delta);
-           
-            this.BoundingContainer.Rotate(-this.Rotation, this.CurrentRotationCenter);
-        
+
+            if (Rotation > 0 || Rotation < 0)
+            {
+                var center = Transform.Transform(CurrentRotationCenter);
+                var m = Matrix.Identity * Transform;
+                m.RotateAtPrepend(-(Rotation / (Math.PI) * 180f), CurrentRotationCenter.X, CurrentRotationCenter.Y);
+
+                foreach (var box in BoundingContainer.BoundingBoxes) box.Sync(m);
+            }
         }
 
     }
