@@ -254,6 +254,7 @@
     <Resource Include="Resources\WoodPattern.png" />
     <Resource Include="Resources\ScoreBG.png" />
     <Resource Include="Resources\bg_paper.jpg" />
+    <None Include="Resources\control_play.png" />
     <Content Include="Resources\Courgette-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

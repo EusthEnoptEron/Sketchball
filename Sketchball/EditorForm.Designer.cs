@@ -39,6 +39,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.playButton = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSplitToMenueAndField = new System.Windows.Forms.SplitContainer();
             this.elementPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -97,7 +98,8 @@
             this.mainMenuStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.toolStripMenuItem1});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Size = new System.Drawing.Size(1119, 26);
@@ -171,6 +173,15 @@
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(42, 22);
             this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.toolStripMenuItem1.Image = global::Sketchball.Properties.Resources.control_play;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(60, 22);
+            this.toolStripMenuItem1.Text = "Play";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.playButton_Click);
             // 
             // MainSplitToMenueAndField
             // 
@@ -416,6 +427,7 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer mainView;
         private Editor.NoScrollOnFocusPanel playFieldPanel;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
 
     }
 }
