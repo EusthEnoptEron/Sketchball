@@ -12,6 +12,8 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
+using System.Windows.Media.Imaging;
 
 namespace Sketchball.Controls
 {
@@ -60,11 +62,12 @@ namespace Sketchball.Controls
             timer.Start();
 
             PreviewKeyDown += HandleKeyDown;
-
             SizeChanged += ResizeCamera;
+            Game.StatusChanged += delegate { Dispatcher.Invoke(delegate { InvalidateVisual(); }, System.Windows.Threading.DispatcherPriority.Render); };
 
             SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
             SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
+           
 
         }
 
@@ -117,7 +120,7 @@ namespace Sketchball.Controls
         {
             if (isCancelled)
                 timer.Dispose();
-            else
+            else if(Game.Status == GameStatus.Playing)
                 InvalidateVisual();
         }
         protected override void OnDispose()
@@ -131,25 +134,39 @@ namespace Sketchball.Controls
 
         protected override void Draw(DrawingContext g)
         {
-            var tier = RenderCapability.Tier >> 16;
 
-            // Draw pinball machine
-            Camera.Draw(g);
-
-            if (Game.Status == GameStatus.GameOver)
+            if (Game.Status == GameStatus.GameOver || Game.Status == GameStatus.Pause)
             {
-                DrawOverlay(g, Colors.DarkRed, "GAME OVER", "Press [SPACE] to try again.");
-            }
-            else if (Game.Status == GameStatus.Pause)
-            {
-                DrawOverlay(g, Colors.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
-            }
+                var group = new DrawingVisual();
+                group.Effect = new BlurEffect();
 
-        }
+                using (var g2 = group.RenderOpen())
+                {
+                    Camera.Draw(g2);
+                }
+
+                g.DrawImage(GetImage(group, (int)Width, (int)Height), new Rect(0, 0, Width, Height));
+
+
+                if (Game.Status == GameStatus.GameOver)
+                {
+                    DrawOverlay(g, Colors.DarkRed, "GAME OVER", "Press [SPACE] to try again.");
+                }
+                else if (Game.Status == GameStatus.Pause)
+                {
+                    DrawOverlay(g, Colors.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
+                }
+
+            }
+            else
+            {
+                Camera.Draw(g);
+            }
+       }
 
         private void DrawOverlay(DrawingContext g, Color color, string title, string msg)
         {
-            var col = Color.FromArgb(150, color.R, color.G, color.B);
+            var col = Color.FromArgb(40, color.R, color.G, color.B);
 
             Brush brush = new SolidColorBrush(col);
             Brush solidBrush = new SolidColorBrush(color);
@@ -164,6 +181,12 @@ namespace Sketchball.Controls
             g.DrawText(text, new Point(x, (Height + caption.Height) / 2));
         }
 
-
+        private ImageSource GetImage(DrawingVisual visual, int width, int height)
+        {
+            visual.Clip = new RectangleGeometry(new Rect(0, 0, width, height));
+            RenderTargetBitmap bmp = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(visual);
+            return bmp;
+        }
     }
 }

@@ -44,6 +44,11 @@ namespace Sketchball.GameComponents
         public event EventHandler<int> GameOver;
 
         /// <summary>
+        /// Occurs when the game status changed.
+        /// </summary>
+        public event EventHandler<GameStatus> StatusChanged;
+
+        /// <summary>
         /// Total number of lives (<=> balls)
         /// </summary>
         public const int TOTAL_LIVES = 3;
@@ -62,13 +67,17 @@ namespace Sketchball.GameComponents
             }
             private set
             {
+                var oldStatus = _status;
+
                 _status = value;
                 lock (this)
                 {
                     Monitor.PulseAll(this);
                 }
+                RaiseStatusChanged(oldStatus);
             }
         }
+
 
 
         /// <summary>
@@ -273,6 +282,14 @@ namespace Sketchball.GameComponents
             if (handlers != null)
                 handlers(this, Lives);
         }
+
+        private void RaiseStatusChanged(GameStatus oldStatus)
+        {
+            var handlers = StatusChanged;
+            if (handlers != null)
+                handlers(this, oldStatus);
+        }
+
 
         /// <summary>
         /// Update-Loop (has its own thread)

@@ -47,7 +47,8 @@ namespace Sketchball.Controls
                 : now - prev;
             prev = now;
 
-            Draw(drawingContext);
+             Draw(drawingContext);
+           
             //drawingContext.DrawText(text, new System.Windows.Point(400, 400));
 
 
