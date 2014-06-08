@@ -38,7 +38,6 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.playButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.playgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSplitToMenueAndField = new System.Windows.Forms.SplitContainer();
             this.elementPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -113,8 +112,7 @@
             this.savePBMButton,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator1,
-            this.playButton,
-            this.playgroundToolStripMenuItem});
+            this.playButton});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
             this.fileToolStripMenuItem.Text = "File";
@@ -167,13 +165,6 @@
             this.playButton.Size = new System.Drawing.Size(218, 22);
             this.playButton.Text = "Play";
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
-            // 
-            // playgroundToolStripMenuItem
-            // 
-            this.playgroundToolStripMenuItem.Name = "playgroundToolStripMenuItem";
-            this.playgroundToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.playgroundToolStripMenuItem.Text = "Playground";
-            this.playgroundToolStripMenuItem.Click += new System.EventHandler(this.playgroundToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -408,7 +399,6 @@
         private System.Windows.Forms.ToolStripMenuItem savePBMButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem playButton;
-        private System.Windows.Forms.ToolStripMenuItem playgroundToolStripMenuItem;
         private System.Windows.Forms.SplitContainer MainSplitToMenueAndField;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.FlowLayoutPanel elementPanel;
