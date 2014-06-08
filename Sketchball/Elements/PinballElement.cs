@@ -385,7 +385,7 @@ namespace Sketchball.Elements
             // 1. DRAW STUFF
             // Prepare the drawing that we will use to check
             var drawing = new DrawingGroup();
-           
+            drawing.ClipGeometry = new RectangleGeometry(new Rect(0, 0, World.Width, World.Height));
             using (DrawingContext g = drawing.Open())
             {
                 // Make a dot in order to clamp the whole thing to upper left corner.
@@ -399,6 +399,7 @@ namespace Sketchball.Elements
 
             // 2. CHECK BITMAP
             using(var bmp = Booster.DrawingToBitmap(drawing, (int)World.Width, (int)World.Height)) {
+                bmp.Save("E:\\again.png");
                 for (int dx = -SELECTION_PADDING; dx <= SELECTION_PADDING; dx++)
                 {
                     int x = (int)point.X + dx;
