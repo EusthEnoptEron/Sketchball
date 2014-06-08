@@ -18,7 +18,6 @@ namespace Sketchball.Elements
     {
         private float Power = 0;
         private Keys Trigger = Keys.Space;
-        private Vector MaxVelocity = new Vector(0, -2000);
 
         private bool Charging = false;
         private Glide Tweener = new Glide();
@@ -134,6 +133,9 @@ namespace Sketchball.Elements
            
             if (!Charging && Power > 0)
             {
+                Vector maxVelocity = -World.Acceleration * 2;
+                maxVelocity.X = 0;
+
                 // SHOOT!
                 powerLine.move(new Vector(0, -20));
                 var dummy = new Vector();
@@ -144,7 +146,7 @@ namespace Sketchball.Elements
                     {
                         if (powerLine.Intersect(boundingBox, out dummy))
                         {
-                            ball.Velocity += Power * MaxVelocity;
+                            ball.Velocity += Power * maxVelocity;
                             ball.Location.Y -= Power * PencilPullback * Scale;
                             break;
                         }
