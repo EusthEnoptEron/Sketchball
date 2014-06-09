@@ -49,8 +49,8 @@ namespace Sketchball.Collision
             //TODO take position of bounding box into account
            
             Vector normal = hitPoint-(this.BoundingContainer.ParentElement.Location +this.Position);
+            if (normal.X == 0 && normal.Y == 0) normal.Y = -1;
             normal.Normalize();
-
             return ReflectVector(ref vecIn, ref normal);
         }
 
