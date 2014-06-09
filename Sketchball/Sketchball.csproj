@@ -201,6 +201,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <Resource Include="Resources\smilie_happy.png" />
+    <Resource Include="Resources\smilie_lamenting.png" />
+    <Resource Include="Resources\smilie_nervous.png" />
+    <Resource Include="Resources\line.png" />
+    <Resource Include="Resources\line_strikethrough.png" />
+    <Resource Include="Resources\postit.png" />
     <Resource Include="Resources\bg_coffee.png" />
     <Resource Include="Resources\bg_pen2.png" />
     <Resource Include="Resources\bg_material.png" />
