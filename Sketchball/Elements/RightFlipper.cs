@@ -14,16 +14,18 @@ namespace Sketchball.Elements
     [DataContract]
     public class RightFlipper : Flipper
     {
-        private float factor = 800 / 70;
+        private const float factor = 800 / 70f;
 
         public RightFlipper()
         {
             Trigger = Keys.D;
-            RotationRange = -RotationRange;
         }
 
         protected override void Init()
         {
+            base.Init();
+            RotationRange = -RotationRange;
+
             Vector offset = new Vector(-10, -10);
             int r1 = 70;
             int r2 = 16;

@@ -22,15 +22,18 @@ namespace Sketchball.Elements
         [DataMember]
         public Keys Trigger { get; set; }
 
-        public double RotationRange = (Math.PI / 180 * 60);
-        public bool Animating { get; private set; }
-
+        public double RotationRange;
 
         public Flipper()  : base()
         {
-            Animating = false;
         }
 
+        protected override void Init()
+        {
+            base.Init();
+            this.Animating = false;
+            RotationRange = (Math.PI / 180 * 60);
+        }
 
         protected override void EnterGame(PinballGameMachine machine)
         {
@@ -58,16 +61,13 @@ namespace Sketchball.Elements
         {
             if ( (e.KeyCode == Trigger) && !Animating)
             {
-
-                var speed = e.KeyCode == Trigger ? 0.05f : 4f;
-
                 Animating = true;
 
                 Action endRot = () => {
                     this.Rotate(-Rotation, Origin, 0.05f, () => { Animating = false; }); 
                 };
 
-                this.Rotate(RotationRange, Origin, speed, null);
+                this.Rotate(RotationRange, Origin, 0.05f, null);
             }
         }
 
@@ -77,10 +77,7 @@ namespace Sketchball.Elements
             get { return size; }
         }
 
-        protected override void Init()
-        {
-            this.Animating = false;
-        }
+
 
         void OnKeyUp(object sender, KeyEventArgs e)
         {

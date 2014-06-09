@@ -271,7 +271,7 @@ namespace Sketchball.Elements
         /// </summary>
         /// <returns></returns>
         public bool IsValid() {
-            foreach (var p in DynamicElements)
+            foreach (var p in Elements)
             {
                 // Make sure bounding containers are up-to-date.
                 p.RegenerateBounds();

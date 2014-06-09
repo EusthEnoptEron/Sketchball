@@ -30,7 +30,6 @@ namespace Sketchball.Elements
 
         private static System.Drawing.Image pencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 70);
         private ImageSource pencilImageWpf;
-
         private BoundingLine powerLine;
 
         protected override void InitResources()

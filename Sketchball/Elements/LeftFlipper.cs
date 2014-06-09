@@ -14,7 +14,7 @@ namespace Sketchball.Elements
     [DataContract]
     public class LeftFlipper : Flipper
     {
-        private float factor = 800 / 70;
+        private const float factor = 800 / 70f;
         public LeftFlipper()
         {
             Trigger = Keys.A;
@@ -22,6 +22,8 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
+            base.Init();
+
             int r1 = 70;
             int r2 = 16;
             Vector mitteKreis = new Vector(140, 295);

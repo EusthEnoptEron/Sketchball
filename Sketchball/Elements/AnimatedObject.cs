@@ -24,15 +24,20 @@ namespace Sketchball.Elements
         public double AngularVelocity { get; private set; }
 
         [Browsable(false)]
-        public bool Animating { get; private set; }
+        public bool Animating { get; protected set; }
 
         [Browsable(false)]
         public Vector CurrentRotationCenter { get; private set; }
 
-        protected Glide Tweener = new Glide();
+        protected Glide Tweener;
 
         public AnimatedObject()
         {
+        }
+
+        protected override void Init()
+        {
+            Tweener = new Glide();
         }
 
         public GlideTween.Glide Rotate(double rad, Vector center, float time)
