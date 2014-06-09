@@ -240,6 +240,7 @@ namespace Sketchball.Elements
 
 
         [DataMember]
+        [Description("The score the user gets for hitting this element."), DisplayName("Score")]
         public int Value { get; set; }
 
         [Browsable(false)]

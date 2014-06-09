@@ -19,6 +19,7 @@ namespace Sketchball.Elements
 
         public Bumper()
         {
+            Value = 10;
         }
 
         protected override void Init()

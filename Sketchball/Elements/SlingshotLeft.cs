@@ -25,6 +25,7 @@ namespace Sketchball.Elements
 
         public SlingshotLeft()
         {
+            Value = 10;
         }
 
         protected override void Init()
