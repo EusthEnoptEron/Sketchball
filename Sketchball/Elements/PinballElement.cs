@@ -399,7 +399,6 @@ namespace Sketchball.Elements
 
             // 2. CHECK BITMAP
             using(var bmp = Booster.DrawingToBitmap(drawing, (int)World.Width, (int)World.Height)) {
-                bmp.Save("E:\\again.png");
                 for (int dx = -SELECTION_PADDING; dx <= SELECTION_PADDING; dx++)
                 {
                     int x = (int)point.X + dx;
