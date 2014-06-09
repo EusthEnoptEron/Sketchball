@@ -11,7 +11,7 @@ using System.Windows.Media;
 namespace Sketchball.Elements
 {
     [DataContract]
-    class Circle: PinballElement
+    class Circle : CustomElement
     {
         [DataMember]
         private int radius;
@@ -27,6 +27,8 @@ namespace Sketchball.Elements
             X = x0;
             Y = y0;
             this.radius = (int)radius;
+
+            Color = System.Drawing.Color.Black;
         }
 
         protected override void Init()
@@ -36,10 +38,11 @@ namespace Sketchball.Elements
             this.BoundingContainer.AddBoundingBox(bc);
         }
 
-        protected override void OnDraw(System.Windows.Media.DrawingContext g)
+        protected override Geometry Geometry
         {
-            g.DrawEllipse(null, new Pen(Brushes.Red, 1), new Point(radius, radius), radius, radius);
+            get { return new EllipseGeometry(new Point(radius, radius), radius, radius); }
         }
+
 
 
         protected override Size BaseSize

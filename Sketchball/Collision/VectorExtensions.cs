@@ -18,6 +18,7 @@ namespace Sketchball.Collision
         {
             var vector = new Vector(v.X, v.Y);
             vector.Normalize();
+
             return vector;
         }
     }

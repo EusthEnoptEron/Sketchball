@@ -508,6 +508,7 @@ namespace Sketchball.Collision
                 {
                     ball.Velocity = getAverage(reflectionDirections);
                 }
+
             }
             
             return new CollisionResult(history);
