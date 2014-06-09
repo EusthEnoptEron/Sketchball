@@ -90,7 +90,7 @@ namespace Sketchball.Elements
         public float Gravity { get; set; }
 
 
-        private const double DEFAULT_ANGLE = (3.14 / 180 * 15);
+        private const double DEFAULT_ANGLE = (3.14 / 180 * 7);
 
         /// <summary>
         /// Tilt of the pinball machine in radians.
