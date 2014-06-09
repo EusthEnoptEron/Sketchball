@@ -48,8 +48,7 @@ namespace Sketchball
             game.GameOver += onGameOver;
             //this.MinimumSize = gameView.MinimumSize;
             gameView.MouseUp += onMouseUp;
-            gameView.KeyDown += onKeyDown;
-
+            gameView.MouseMove += onMouseMove;
             // Fill entire space
             gameContainer.Dock = DockStyle.Fill;
 
@@ -58,6 +57,15 @@ namespace Sketchball
             this.selectionForm = selectionForm;
 
             debugModeButton.Checked = Properties.Settings.Default.Debug;
+        }
+
+        private void onMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (IsFullscreen())
+            {
+                var pos = e.GetPosition(gameView);
+                mainContainer.TopToolStripPanelVisible = pos.Y < 50;
+            }
         }
 
         /// <summary>
@@ -198,21 +206,6 @@ namespace Sketchball
             Properties.Settings.Default.Save();
         }
 
-        private void onKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.F11)
-            {
-                if (FormBorderStyle == System.Windows.Forms.FormBorderStyle.None)
-                {
-                    leaveFullscreen();
-                }
-                else
-                {
-                    enterFullscreen();
-                }
-            }
-        }
-
         #endregion
 
 
@@ -252,6 +245,23 @@ namespace Sketchball
             gameView.MouseUp -= onMouseUp;
 
             base.Dispose(disposing);
+        }
+
+        private void onSwitchFullscreen(object sender, EventArgs e)
+        {
+            if (IsFullscreen())
+            {
+                leaveFullscreen();
+            }
+            else
+            {
+                enterFullscreen();
+            }
+        }
+
+        private bool IsFullscreen()
+        {
+            return FormBorderStyle == System.Windows.Forms.FormBorderStyle.None;
         }
     }
 }
