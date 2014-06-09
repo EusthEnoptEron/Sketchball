@@ -58,6 +58,13 @@ namespace Sketchball.Elements
             preventDrain(delta);
         }
 
+        protected override void OnDraw(DrawingContext g)
+        {
+            g.DrawImage(Image, new Rect(0, 0, BaseWidth, BaseHeight));
+            var center = new Point(BaseWidth / 2, BaseHeight / 2);
+            g.DrawEllipse(null, new Pen(Brushes.Black, 1), center, center.X, center.Y);
+        }
+
         private void preventDrain(double delta)
         {
             // Update metrics
@@ -87,13 +94,6 @@ namespace Sketchball.Elements
             get;
             set;
         }
-
-        //not sure if I can do this?
-        public void setParent(PinballMachine pM)
-        {
-            this.World = pM;
-        }
-
 
 
     }
