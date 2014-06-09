@@ -34,7 +34,7 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
-            BoundingCircle bC = new BoundingCircle(15, new Vector(0, 0));
+            BoundingCircle bC = new BoundingCircle(10, new Vector(0, 0));
             this.BoundingContainer.AddBoundingBox(bC);
             this.pureIntersection = true;
             bC.AssignToContainer(this.BoundingContainer);
@@ -69,6 +69,11 @@ namespace Sketchball.Elements
                     WormholeExit = freeExits.Last();
                 }
             }
+        }
+
+        public override void Update(double delta)
+        {
+            BaseRotation += 360 * 2 * -delta;
         }
 
     }

@@ -69,5 +69,11 @@ namespace Sketchball.Elements
                 entry.WormholeExit = null;    
             }
         }
+
+
+        public override void Update(double delta)
+        {
+            BaseRotation += 360 * 2 * delta;
+        }
     }
 }
