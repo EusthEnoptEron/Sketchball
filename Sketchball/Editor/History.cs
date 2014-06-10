@@ -20,12 +20,19 @@ namespace Sketchball
         private Stack<IChange> PendingChanges;
         private int Capacity;
 
+        /// <summary>
+        /// *Signed* distance from the current point to the last "save point".
+        /// </summary>
         private int _dirty = 0;
 
         public History() : this(DEFAULT_CAPACITY)
         {
         }
 
+        /// <summary>
+        /// Creates a new history with a certain capacity. Warning: capacity is not implemented yet.
+        /// </summary>
+        /// <param name="capacity"></param>
         public History(int capacity)
         {
             ExecutedChanges = new Stack<IChange>(capacity);
@@ -125,6 +132,9 @@ namespace Sketchball
             return _dirty != 0;
         }
 
+        /// <summary>
+        /// Resets the "dirty" flag.
+        /// </summary>
         public void ClearStatus()
         {
             _dirty = 0;
@@ -139,6 +149,10 @@ namespace Sketchball
             }
         }
 
+        /// <summary>
+        /// Adds a change and immediately executes it.
+        /// </summary>
+        /// <param name="change"></param>
         public void AddAndDo(IChange change)
         {
             this.Add(change);

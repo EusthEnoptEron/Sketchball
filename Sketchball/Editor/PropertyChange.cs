@@ -8,16 +8,20 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Editor
 {
-    public class PropertyChange<T> : IChange
+    /// <summary>
+    /// Represents a change to a property.
+    /// </summary>
+    public class PropertyChange : IChange
     {
-        private T element;
+        private object element;
         private object oldValue;
         private object newValue;
         private PropertyInfo property;
  
-        public PropertyChange(T element, string propertyName, object newValue, object oldValue)
+
+        public PropertyChange(object element, string propertyName, object newValue, object oldValue)
         {
-            property = typeof(T).GetProperty(propertyName);
+            property = element.GetType().GetProperty(propertyName);
             this.element = element;
             this.newValue = newValue;
             this.oldValue = oldValue;

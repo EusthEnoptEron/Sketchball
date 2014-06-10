@@ -126,7 +126,7 @@ namespace Sketchball
 
         private void onMachinePropertyChanged(object s, PropertyValueChangedEventArgs e)
         {
-            IChange change = new PropertyChange<PinballMachine>(PlayFieldEditor.PinballMachine, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
+            IChange change = new PropertyChange(PlayFieldEditor.PinballMachine, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
             PlayFieldEditor.History.Add(change);
         }
 
@@ -134,7 +134,7 @@ namespace Sketchball
         {
             PlayFieldEditor.Invalidate();
 
-            IChange change = new PropertyChange<PinballElement>((PinballElement)elementInspector.SelectedObject, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
+            IChange change = new PropertyChange((PinballElement)elementInspector.SelectedObject, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
             PlayFieldEditor.History.Add(change);
 
         }

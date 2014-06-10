@@ -11,7 +11,14 @@ namespace Sketchball
     /// </summary>
     public interface IChange
     {
+        /// <summary>
+        /// Executes the change.
+        /// </summary>
         void Do();
+
+        /// <summary>
+        /// Undoes the change.
+        /// </summary>
         void Undo();
     }
 }

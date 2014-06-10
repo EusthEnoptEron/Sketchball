@@ -12,6 +12,10 @@ using System.Windows;
 
 namespace Sketchball.Editor
 {
+
+    /// <summary>
+    /// Represents a tool that can draw line segments.
+    /// </summary>
     public class LineTool : Tool
     {
         private Vector startPos;

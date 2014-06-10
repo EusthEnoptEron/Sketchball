@@ -11,13 +11,20 @@ using System.Windows.Media;
 
 namespace Sketchball.Editor
 {
+    /// <summary>
+    /// Represents a tool used to draw circles.
+    /// </summary>
     public class CircleTool : Tool
     {
+        // State-keeping vars
         private Vector center;
         private double radius;
         private bool drawing = false;
         
-
+        /// <summary>
+        /// Instantiates a new circle tool.
+        /// </summary>
+        /// <param name="control">Control where this tool operates on.</param>
         public CircleTool(PinballEditControl control)
             : base(control)
         {
@@ -27,6 +34,8 @@ namespace Sketchball.Editor
 
         protected override void OnMouseDown(object sender, MouseEventArgs e)
         {
+            // -> Start drawing
+
             var pos = e.GetPosition(Editor);
             this.center = new Vector(pos.X, pos.Y);
             this.radius = 0;
@@ -37,6 +46,8 @@ namespace Sketchball.Editor
 
         protected override void OnMouseUp(object sender, MouseEventArgs e)
         {
+            // -> Stop drawing
+
             var position = e.GetPosition(Editor);
 
             this.radius = Editor.LengthToPinball((new Vector(position.X, position.Y) - this.center).Length);
@@ -53,6 +64,7 @@ namespace Sketchball.Editor
 
         protected override void OnMouseMove(object sender, MouseEventArgs e)
         {
+            // -> Change radius if drawing
             if (this.drawing)
             {
                 var position = e.GetPosition(Editor);
@@ -63,6 +75,7 @@ namespace Sketchball.Editor
 
         protected override void Draw(object sender, DrawingContext g)
         {
+            // -> Preview circle if drawing
             if (this.drawing)
             {
                 g.DrawEllipse(null, new Pen(Brushes.Black,1), new Point(this.center.X, this.center.Y), this.radius, this.radius);

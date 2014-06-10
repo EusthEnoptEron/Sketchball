@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Editor
 {
+    /// <summary>
+    /// Represents a change that consists of other changes.
+    /// </summary>
     public class CompoundChange : IChange
     {
         IEnumerable<IChange> changes;

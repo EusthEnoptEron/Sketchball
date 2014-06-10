@@ -84,7 +84,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\WPFContainer.cs" />
-    <Compile Include="Editor\Change.cs" />
+    <Compile Include="Editor\IChange.cs" />
     <Compile Include="Collision\BoundingBox.cs" />
     <Compile Include="Collision\BoundingCircle.cs" />
     <Compile Include="Collision\BoundingContainer.cs" />

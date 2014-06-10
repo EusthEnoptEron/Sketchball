@@ -8,15 +8,16 @@ using System.Windows;
 
 namespace Sketchball
 {
+    /// <summary>
+    /// Represents a change to the position of an element.
+    /// </summary>
     public class TranslationChange : IChange
     {
         private int dx;
         private int dy;
         private PinballElement element;
 
-        public TranslationChange(PinballElement element, Vector vector) : this(element, (int)vector.X, (int)vector.Y)
-        {
-        }
+        public TranslationChange(PinballElement element, Vector vector) : this(element, (int)vector.X, (int)vector.Y) {}
 
         public TranslationChange(PinballElement element, int dx, int dy)
         {

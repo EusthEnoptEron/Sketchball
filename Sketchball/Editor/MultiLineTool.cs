@@ -12,6 +12,10 @@ using System.Windows;
 
 namespace Sketchball.Editor
 {
+
+    /// <summary>
+    /// Represents a tool that can draw multiple lines, i.e. a shammed polygon.
+    /// </summary>
     public class MultiLineTool : Tool
     {
         private Vector startPos;

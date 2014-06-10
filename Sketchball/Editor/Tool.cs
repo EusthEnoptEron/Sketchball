@@ -10,14 +10,26 @@ using System.Windows.Media;
 
 namespace Sketchball.Editor
 {
-
+    /// <summary>
+    /// Represents a tool that can be used to perform an action on a PinballEditControl.
+    /// </summary>
     public abstract class Tool
-    {
-
-        
+    {   
+        /// <summary>
+        /// The control we work on.
+        /// </summary>
         protected PinballEditControl Editor;
+
+        /// <summary>
+        /// Gets the label of this tool.
+        /// </summary>
         public string Label { get; protected set; }
+
+        /// <summary>
+        /// Gets an icon that belongs to this tool.
+        /// </summary>
         public Image Icon { get; protected set; }
+
 
 	    protected Tool(PinballEditControl control) {
 		    Editor = control;
@@ -26,6 +38,9 @@ namespace Sketchball.Editor
             Icon  = new Bitmap(1, 1);
 	    }
 
+        /// <summary>
+        /// Activates this tool. (-> Setup)
+        /// </summary>
         public void Enter()
         {
             // Bind handlers
@@ -38,7 +53,9 @@ namespace Sketchball.Editor
         }
 
 
-
+        /// <summary>
+        /// Deactivates this tool. (-> Teardown)
+        /// </summary>
         public void Leave()
         {
             // Unbind handlers

@@ -182,8 +182,8 @@ namespace Sketchball.Editor
             if (State == SelectionState.Resizing && currentPoint != startPoint)
             {
                 var translation = new TranslationChange(SelectedElement, SelectedElement.Location - initialPoint);
-                var scale = new PropertyChange<PinballElement>(SelectedElement, "Scale", SelectedElement.Scale, initialScale);
-                var rotation = new PropertyChange<PinballElement>(SelectedElement, "BaseRotation", SelectedElement.BaseRotation, initialRotation);
+                var scale = new PropertyChange(SelectedElement, "Scale", SelectedElement.Scale, initialScale);
+                var rotation = new PropertyChange(SelectedElement, "BaseRotation", SelectedElement.BaseRotation, initialRotation);
                 Editor.History.Add(new CompoundChange(new IChange[] { translation, scale, rotation }));
             }
 
