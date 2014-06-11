@@ -14,11 +14,17 @@ namespace Sketchball.Elements
         public delegate void CollisionEventHandler(PinballElement sender);
         public delegate void GameOverEventHandler();
 
+        /// <summary>
+        /// Occurs then the machine detects a collision.
+        /// </summary>
         public event CollisionEventHandler Collision;
+        /// <summary>
+        /// Occurs when the ball gets thrown out of the field.
+        /// </summary>
         public event GameOverEventHandler GameOver;
 
         private BoundingRaster boundingRaster;
-
+        private List<Ball> killedBalls = new List<Ball>();
         internal readonly InputManager Input = InputManager.Instance();
         internal readonly SoundManager Sfx = new SoundManager();
 
@@ -61,28 +67,37 @@ namespace Sketchball.Elements
             }
 
 
-            for (int i = Balls.Count - 1; i >= 0; i--)
+            foreach (var el in Balls)
             {
-                if (Properties.Settings.Default.Debug && (Balls[i].Y + Balls[i].Height) > Height)
+                Ball ball = el as Ball;
+                if (Properties.Settings.Default.Debug && (ball.Y + ball.Height) > Height)
                 {
-                    Balls[i].Y = (Height - Balls[i].Height);
-                    ((Ball)Balls[i]).Velocity *= -0.5f;
+                    ball.Y = (Height - ball.Height);
+                    ball.Velocity *= -0.5f;
                 }
-                if (Balls[i].Y > Height)
+                if (ball.Y > Height)
                 {
-                    Balls.RemoveAt(i);
-                    hasGameOver = true;
+                    KillBall(ball);
                 }
             }
 
             handleCollision();
 
-            if (hasGameOver)
+            // Handle balls that should be removed
+            foreach (var ball in killedBalls)
             {
+                Balls.Remove(ball);
+
                 var handlers = GameOver;
-                if(handlers != null)
+                if (handlers != null)
                     GameOver();
             }
+            killedBalls.Clear();
+        }
+
+        public void KillBall(Ball ball)
+        {
+            killedBalls.Add(ball);
         }
 
         private void handleCollision()

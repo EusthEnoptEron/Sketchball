@@ -121,8 +121,8 @@ namespace Sketchball.Elements
             _elements.Add(rflipper);
 
             //Add Hole
-            Hole h = new Hole() { X = 148-40, Y = Height - 25 };
-            h.Scale = 4.5f;
+            Hole h = new WideHole() { X = 148-40, Y = Height - 15 };
+            h.Scale = .4f;
             _elements.Add(h);
         }
 

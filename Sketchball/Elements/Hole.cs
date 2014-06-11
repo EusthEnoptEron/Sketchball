@@ -23,7 +23,8 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
-            BoundingCircle bC = new BoundingCircle(25, new Vector(0, 0));
+            int r = 16;
+            BoundingCircle bC = new BoundingCircle(r, new Vector( (BaseWidth / 2) - r, (BaseHeight / 2) - r ));
             this.BoundingContainer.AddBoundingBox(bC);
             bC.AssignToContainer(this.BoundingContainer);
             this.pureIntersection = true;
@@ -41,7 +42,7 @@ namespace Sketchball.Elements
 
         public override void notifyIntersection(Ball b)
         {
-            b.Location = new Vector(0, 2000);
+            GameWorld.KillBall(b);
             GameWorld.Sfx.Play(player);
         }
     }

@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Editor\PropertyChange.cs" />
     <Compile Include="Elements\ValidationProblem.cs" />
+    <Compile Include="Elements\WideHole.cs" />
     <Compile Include="Elements\Wormhole.cs" />
     <Compile Include="GameComponents\GameWorld.cs" />
     <Compile Include="Booster.cs" />
@@ -202,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BallWithAlpha.png" />
+    <Resource Include="Resources\wide_hole.png" />
     <Resource Include="Resources\smilie_happy.png" />
     <Resource Include="Resources\smilie_lamenting.png" />
     <Resource Include="Resources\smilie_nervous.png" />

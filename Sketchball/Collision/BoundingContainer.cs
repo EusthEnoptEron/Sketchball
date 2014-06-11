@@ -94,7 +94,7 @@ namespace Sketchball.Collision
         /// Creates bounding lines for given coordinates that define a polygon
         /// </summary>
         /// <param name="coords">points that define the polygon</param>
-        public void AddPolygon(params float[] coords)
+        public void AddPolyline(params float[] coords)
         {
             Vector prev = new Vector();
 
@@ -117,7 +117,25 @@ namespace Sketchball.Collision
             }
         }
 
+        public void AddPolyline(Vector[] coords)
+        {
+            Vector prev = new Vector();
 
+            for (int i = 0; i + 1 < coords.Length; i += 2)
+            {
+                var v = coords[i];
+
+                if (i > 0)
+                {
+                    AddBoundingBox(new BoundingLine(
+                        prev,
+                        v
+                    ));
+                }
+
+                prev = v;
+            }
+        }
 
         /// <summary>
         /// Checks if two bounding container intersect each other.
@@ -136,5 +154,7 @@ namespace Sketchball.Collision
             }
             return false;
         }
+
+
     }
 }
