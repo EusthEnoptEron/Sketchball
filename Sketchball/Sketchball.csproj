@@ -56,6 +56,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collision\BoundingCircleZentripush.cs" />
     <Compile Include="Controls\MyToolStripControlHost.cs">
       <SubType>Component</SubType>
     </Compile>

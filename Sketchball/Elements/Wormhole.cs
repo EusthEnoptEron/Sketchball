@@ -10,5 +10,6 @@ namespace Sketchball.Elements
     [DataContract]
     public abstract class Wormhole : PinballElement
     {
+    
     }
 }

@@ -107,7 +107,7 @@ namespace Sketchball.Collision
         /// <param name="velocity">Speed of the object intersecting</param>
         /// <returns></returns>
         public abstract bool CircleIntersect(BoundingCircle bC, out Vector hitPoint, Vector velocity);
-        public Vector ReflectManipulation(Vector newDirection, int energy = 0)
+        public virtual Vector ReflectManipulation(Vector newDirection,Vector hitpoint, int energy = 0)
         {
             return newDirection * BounceFactor * BoundingContainer.ParentElement.BounceFactor;
         }

@@ -17,13 +17,13 @@ namespace Sketchball.Elements
         private static readonly Size size = new Size(50, 50);
         private static readonly SoundPlayer player = new SoundPlayer(Properties.Resources.SHole);
 
-        public Hole()  : base(100, 100)
+        public Hole()  : base(0, 0)
         {
         }
 
         protected override void Init()
         {
-            BoundingCircle bC = new BoundingCircle(20, new Vector(0, 0));
+            BoundingCircle bC = new BoundingCircle(25, new Vector(0, 0));
             this.BoundingContainer.AddBoundingBox(bC);
             bC.AssignToContainer(this.BoundingContainer);
             this.pureIntersection = true;

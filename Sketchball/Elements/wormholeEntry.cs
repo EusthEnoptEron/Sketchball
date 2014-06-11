@@ -30,11 +30,12 @@ namespace Sketchball.Elements
 
         public WormholeEntry()
         {
+           
         }
 
         protected override void Init()
         {
-            BoundingCircle bC = new BoundingCircle(10, new Vector(0, 0));
+            BoundingCircle bC = new BoundingCircle(10, new Vector(5, 5));
             this.BoundingContainer.AddBoundingBox(bC);
             this.pureIntersection = true;
             bC.AssignToContainer(this.BoundingContainer);

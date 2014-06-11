@@ -109,7 +109,7 @@ namespace Sketchball.Collision
             foreach (IBoundingBox b in bC.BoundingBoxes)
             {
 
-                if (b.GetType() == typeof(BoundingCircle))
+                if (b.GetType() == typeof(BoundingCircle) || b.GetType() == typeof(BoundingCircleZentripush))
                 {
                     //Strategy: Make a box around the circle
                     BoundingCircle bCir = (BoundingCircle)b;
@@ -442,8 +442,8 @@ namespace Sketchball.Collision
                         }
                         ball.Location = (hitPoint - new Vector(ball.Width / 2, ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
-                        ball.Velocity = b.ReflectManipulation(newDirection);
-                        reflectionDirections.Add(b.ReflectManipulation(newDirection));
+                        ball.Velocity = b.ReflectManipulation(newDirection, hitPoint);
+                        reflectionDirections.Add(b.ReflectManipulation(newDirection, hitPoint));
                         this.hitPointDebug = hitPoint;
                     }
                 }
@@ -486,7 +486,7 @@ namespace Sketchball.Collision
                                         ball.Location = (hitPoint - new Vector(ball.Width / 2, ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                                        // ball.Velocity = b.ReflectManipulation(newDirection);
-                                        reflectionDirections.Add(b.ReflectManipulation(newDirection));
+                                        reflectionDirections.Add(b.ReflectManipulation(newDirection,hitPoint));
                                         this.hitPointDebug = hitPoint;
                                     }
                                 }

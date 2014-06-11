@@ -16,7 +16,7 @@ namespace Sketchball.Collision
         //target is object space: based on pinball element position
         public Vector target{get; private set;}
         private readonly float pushBackByPointsCoefficient = 1.7f;
-        private readonly float pushBackByLineCoefficient = 1.8f;
+        private readonly float pushBackByLineCoefficient = 1.5f;
 
         private Vector _originalPosition;
         private Vector _originalTarget;
