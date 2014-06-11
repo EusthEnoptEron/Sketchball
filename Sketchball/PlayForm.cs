@@ -55,8 +55,8 @@ namespace Sketchball
             mainContainer.ContentPanel.Controls.Add(gameContainer);
 
             this.selectionForm = selectionForm;
-
-            debugModeButton.Checked = true;//Properties.Settings.Default.Debug;
+        
+            debugModeButton.Checked =  Properties.Settings.Default.Debug;
         }
 
         private void onMouseMove(object sender, System.Windows.Input.MouseEventArgs e)

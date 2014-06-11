@@ -9,15 +9,19 @@ namespace Sketchball.Collision
 {
     public class BoundingCircleZentripush : BoundingCircle
     {
-        private int p;
-        private Vector vector;
+  
 
         public BoundingCircleZentripush(int radius, Vector position):base(radius,position)
         {
             
         }
 
-
+        public override IBoundingBox Clone()
+        {
+            //do not forget to assinge BoundingContainer after clone
+            BoundingCircleZentripush bL = new BoundingCircleZentripush(this.radius, new Vector(this.Position.X - this.radius, this.Position.Y - this.radius));
+            return bL;
+        }
 
         public override Vector ReflectManipulation(Vector newDirection,Vector hitpoint, int energy = 0)
         {

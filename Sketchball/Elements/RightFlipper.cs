@@ -73,7 +73,6 @@ namespace Sketchball.Elements
             get
             {
                 Vector pictureRotPos = new Vector(-(157 - 400) + 400, 304);
-
                 return pictureRotPos / factor;
             }
         }

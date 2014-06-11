@@ -426,11 +426,11 @@ namespace Sketchball.Collision
                         Vector h = -hitPoint + (ball.Location + new Vector(ball.Width / 2, ball.Height / 2));
 
                         Vector turnspeed = aniO.AngularVelocity * aniNorm;
-                        if (h.X * aniNorm.X < 0 || h.Y * aniNorm.Y < 0)
+                        if (h.X * aniNorm.X < 0 || h.Y * aniNorm.Y   < 0)
                         {
                             aniNorm = -aniNorm;
                         }
-
+                        
                         ball.Velocity += -turnspeed;
 
                         Vector newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
@@ -438,8 +438,9 @@ namespace Sketchball.Collision
 
                         if (aniO.Animating)
                         {
-                            outOfAreaPush += (aniO.AngularVelocityPerFrame) * aniNorm;        //push with the amout of the turn of animation until next update
+                            outOfAreaPush += Math.Abs(aniO.AngularVelocityPerFrame) * aniNorm;        //push with the amout of the turn of animation until next update
                         }
+              
                         ball.Location = (hitPoint - new Vector(ball.Width / 2, ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))
 
                         ball.Velocity = b.ReflectManipulation(newDirection, hitPoint);
