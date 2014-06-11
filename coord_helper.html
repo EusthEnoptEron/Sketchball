@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Coord helper</title>
+		<style>
+		body {
+			font-family: Helvetica, sans-serif;
+			font-size: 14px;
+		}
+
+		canvas {
+			border: 2px solid #666;
+			margin: 30px auto;
+			background: #333;
+			border-radius: 5px/10px;
+
+			clear: both;
+		}
+		canvas.hover {
+			border-color: lightgreen;
+		}
+
+		table {
+			margin: 0 auto;
+			border-width: 0 0 1px 1px;
+			border-spacing: 0;
+			border-collapse: collapse;
+			border-style: solid;
+			background: white;
+		}
+
+		table td {
+			margin: 0;
+			padding: 4px;
+			border-width: 1px 1px 0 0;
+			border-style: solid;
+		}
+		
+		#masks {
+			float: left;
+			margin: 20px 50px;
+		}
+
+		.filter-mask {
+			float: left;
+			margin: 20px;
+		}
+
+		.add-button {
+			width: 60px;
+			line-height: 60px;
+			font-size: 30px;
+			text-align: center;
+		}
+
+		input {
+			line-height: 40px;
+			width: 40px;
+			font-size: 20px;
+			text-align: center;
+		}
+
+		body {
+			background: #555;
+		}
+		pre {
+			text-align: left;
+			padding: 40px;
+			background: #222;
+			color: #EEE;
+			border: 1px solid #111;
+		}
+
+		#container {
+			width: 700px;
+			margin: 50px auto;
+			background: rgba(255,255,255,0.5);
+			text-align: center;
+		}
+		</style>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="http://cdn.jsdelivr.net/underscorejs/1.4.3/underscore-min.js"></script>
+		<script type="text/javascript" src="http://cdn.jsdelivr.net/backbonejs/1.1.2/backbone-min.js"></script>
+
+		<script>
+$(function() {
+	var MAX_WIDTH  = 600,
+		MAX_HEIGHT = 400
+
+	var source = document.getElementById('source')
+	  , image  = null
+	  , button = document.getElementById('add-button')
+	  , ratio = 1
+	  , pxlRatio = 1
+
+ 	var points = [];
+
+	function highlight(obj) {
+		$(obj).addClass("hover");
+	}
+	function unhighlight(obj) {
+		$(obj).removeClass("hover");
+	}
+
+	function setImage(img) {
+		if(img.width <= 0 || img.height <= 0) return
+
+		points = []
+		image = img
+		ratio = Math.min(1, MAX_WIDTH / img.width)
+		pxlRatio = parseInt($("#width").val()) / Math.min(img.width, MAX_WIDTH);
+
+		source.height = image.height * ratio
+
+		drawSource()
+	}
+
+	function drawSource() {
+		if(image) {
+			var ctx = source.getContext("2d")
+			ctx.drawImage(image, 0, 0, MAX_WIDTH, source.height)
+			drawPoints()
+			listPoints()
+		}
+	}
+
+	function drawPoints() {
+		var ctx = source.getContext("2d")
+		ctx.strokeStyle = "lightgreen"
+		points.forEach(function(coords, i) {
+			var x = coords[0] / pxlRatio
+			var y = coords[1] / pxlRatio
+
+			
+			if(i > 0)
+				ctx.lineTo(x, y)
+			else
+				ctx.moveTo(x, y)
+
+			ctx.arc(x, y, 2, 0, 2 * Math.PI, false);
+		})
+		ctx.stroke();
+	}
+
+	function listPoints() {
+		var code = "BoundingContainer.AddPolyline(new Vector[] {\n";
+		var ps = []
+		points.forEach(function(coord) {
+			ps.push("	new Vector("+coord[0]+", "+coord[1]+")");
+		});
+
+		code += ps.join(",\n")+ "\n});";
+
+		$("#code").html(code);
+	}
+
+	function onClick(e) {
+		var x;
+		var y;
+		if (e.pageX || e.pageY) { 
+		  x = e.pageX;
+		  y = e.pageY;
+		}
+		else { 
+		  x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
+		  y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+		} 
+		x -= source.offsetLeft;
+		y -= source.offsetTop;
+
+		x *= pxlRatio
+		y *= pxlRatio
+
+		points.push([x,y])
+		drawPoints()
+		listPoints()
+	}
+
+	function getData() {
+		return $("input", table).map(function () {
+			return $(this).val() * 1
+		});
+	}
+
+	function init() {
+		// Hook up event listeners
+		source.addEventListener("dragenter", function(e) {
+			highlight(this)
+			e.preventDefault()
+		}, false)
+		source.addEventListener("dragover", function(e) {
+			highlight(this)
+			e.preventDefault()
+		}, false)
+		source.addEventListener("dragleave", function(e) {
+			unhighlight(this)
+			e.preventDefault()
+		}, false)
+		source.addEventListener("drop", function(e) {
+			unhighlight(this)
+			e.preventDefault()
+			
+			var file = event.dataTransfer.files[0]
+			  , reader = new FileReader()
+
+			reader.onload = function(e) {
+				var img = new Image();
+				img.onload = setImage.bind(this, img);
+				img.src = e.target.result;
+			}
+
+			reader.readAsDataURL(file)
+		}, false);
+		source.addEventListener("click", onClick, false);
+	};
+
+	init();
+});
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div>
+				<strong>Width</strong>: <input type="text" id="width" value="600">
+			</div>
+			<canvas id="source" width="600" height="400"></canvas>
+			<pre id="code"></pre>
+		</div>
+	</body>
+</html>
