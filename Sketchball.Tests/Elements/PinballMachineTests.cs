@@ -83,6 +83,31 @@ namespace Sketchball.Tests.Elements
             Assert.AreEqual(flipper.Y, pbm2.DynamicElements.Last().Y, 0.1);
         }
 
+        /// <summary>
+        /// Tests if the file is truncated on save. We encountered this error because 
+        /// we originally used FileMode.Create which only overrode the old file instead of truncating it.
+        /// e.g. the file would representatively look like this (1 = data from the first machine, 2 = data from the 2nd machine):
+        /// 22222222222222222222222222
+        /// 22222222222222222222222222
+        /// 22222222222222222222222222
+        /// 22222222222111111111111111 <-----
+        /// </summary>
+        [TestMethod]
+        public void CanSerializeTwiceIntoSameFile()
+        {
+            // Arrange
+            var mShorter = new PinballMachine();
+            var mLonger = new PinballMachine();
+            string file = Path.GetTempFileName();
+            mLonger.Add(new Bumper());
+
+            // Act
+            mLonger.Save(file);
+            mShorter.Save(file);
+
+            var newMachine = PinballMachine.FromFile(file);
+            Assert.IsTrue(newMachine.IsValid());
+        }
 
 
         [TestMethod]
