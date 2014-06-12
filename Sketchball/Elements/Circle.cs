@@ -37,6 +37,8 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
+            base.Init();
+
             //set up of bounding box
             BoundingCircle bc = new BoundingCircle(this.radius, new Vector(0, 0));
             this.BoundingContainer.AddBoundingBox(bc);

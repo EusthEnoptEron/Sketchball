@@ -14,7 +14,7 @@ namespace Sketchball.Elements
     /// Represents an arbitrary line typically drawn by the user.
     /// </summary>
     [DataContract]
-    public class Line : PinballElement
+    public class Line : CustomElement
     {
         [DataMember]
         Point p1;
@@ -55,6 +55,8 @@ namespace Sketchball.Elements
 
         protected override void Init()
         {
+            base.Init();
+
             double x0 = p1.X;
             double x1 = p2.X;
             double y0 = p1.Y;
@@ -67,11 +69,9 @@ namespace Sketchball.Elements
             this.BoundingContainer.AddBoundingBox(bL);
         }
 
-
-        protected override void OnDraw(DrawingContext g)
+        protected override Geometry Geometry
         {
-            g.DrawLine(new Pen(Brushes.Black, 1), new Point(p1.X, p1.Y), new Point(p2.X, p2.Y));
-
+            get { return new LineGeometry(p1, p2); }
         }
     }
 }
