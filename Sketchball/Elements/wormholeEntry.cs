@@ -55,7 +55,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("WormholeEntry.png");
+            Image = Booster.LoadImage("WormholeEntry.png");
         }
 
         // Try to find an exit that fits our needs.

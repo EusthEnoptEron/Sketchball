@@ -27,7 +27,6 @@ namespace Sketchball
         private WPFContainer gameContainer;
         private SelectionForm selectionForm = null;
         private PinballMachine originalMachine = null;
-        private PinballMachine pbm;
 
         private string fileName = null;
 
@@ -62,7 +61,7 @@ namespace Sketchball
 
         private void onMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (IsFullscreen())
+            if (isFullScreen())
             {
                 var pos = e.GetPosition(gameView);
                 mainContainer.TopToolStripPanelVisible = pos.Y < 50;
@@ -104,7 +103,7 @@ namespace Sketchball
                 {
                     originalMachine.Save(fileName);
                 }
-                catch (SerializationException e)
+                catch (SerializationException)
                 {
                     MessageBox.Show("Could not save your score", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -250,7 +249,7 @@ namespace Sketchball
 
         private void onSwitchFullscreen(object sender, EventArgs e)
         {
-            if (IsFullscreen())
+            if (isFullScreen())
             {
                 leaveFullscreen();
             }
@@ -260,7 +259,7 @@ namespace Sketchball
             }
         }
 
-        private bool IsFullscreen()
+        private bool isFullScreen()
         {
             return FormBorderStyle == System.Windows.Forms.FormBorderStyle.None;
         }

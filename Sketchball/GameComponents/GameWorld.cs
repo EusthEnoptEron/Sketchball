@@ -11,25 +11,25 @@ using System.Windows.Media;
 namespace Sketchball.GameComponents
 {
     /// <summary>
-    /// Represents the "world" in which the pinball machine is placed. Purely graphically relevant.
+    /// Represents the "world"/"scene" in which the pinball machine is placed. Purely of graphical relevance.
     /// </summary>
     public class GameWorld
     {
         private const int MARGIN = 60;
         private const int PADDING = 40;
 
-        private ImageSource BG_Top = Booster.OptimizeWpfImage("Notebook_top.png");
-        private ImageSource BG_Bot = Booster.OptimizeWpfImage("Notebook_bot.png");
-        private ImageSource BG_Rings = Booster.OptimizeWpfImage("Notebook_Ringe.png");
-        private ImageSource BG_End = Booster.OptimizeWpfImage("Notebook_Ende.png");
-        private ImageSource BG_LogoTop = Booster.OptimizeWpfImage("Logo_BFH.jpg");
+        private ImageSource BG_Top = Booster.LoadImage("Notebook_top.png");
+        private ImageSource BG_Bot = Booster.LoadImage("Notebook_bot.png");
+        private ImageSource BG_Rings = Booster.LoadImage("Notebook_Ringe.png");
+        private ImageSource BG_End = Booster.LoadImage("Notebook_Ende.png");
+        private ImageSource BG_LogoTop = Booster.LoadImage("Logo_BFH.jpg");
 
-        private ImageSource BG = Booster.OptimizeWpfImage("bg_desk.jpg");
-        private ImageSource BG_Material = Booster.OptimizeWpfImage("bg_material.png");
-        private ImageSource BG_Pen = Booster.OptimizeWpfImage("bg_pen.png");
-        private ImageSource BG_Pen2 = Booster.OptimizeWpfImage("bg_pen2.png");
-        private ImageSource BG_Coffee = Booster.OptimizeWpfImage("bg_coffee.png");
-        private ImageSource BG_Paper = Booster.OptimizeWpfImage("bg_paper.jpg");
+        private ImageSource BG = Booster.LoadImage("bg_desk.jpg");
+        private ImageSource BG_Material = Booster.LoadImage("bg_material.png");
+        private ImageSource BG_Pen = Booster.LoadImage("bg_pen.png");
+        private ImageSource BG_Pen2 = Booster.LoadImage("bg_pen2.png");
+        private ImageSource BG_Coffee = Booster.LoadImage("bg_coffee.png");
+        private ImageSource BG_Paper = Booster.LoadImage("bg_paper.jpg");
 
 
         private Game Game;
@@ -41,6 +41,10 @@ namespace Sketchball.GameComponents
         }
 
 
+        /// <summary>
+        /// Draws the entire world with the PinballMachine at (0,0). Refer to Width and Height to get the notebook-aware dimensions.
+        /// </summary>
+        /// <param name="g"></param>
         public void Draw(DrawingContext g)
         {
             double height = Height + MARGIN * 6; // we're adding margins _again_ just to be sure.
@@ -154,6 +158,9 @@ namespace Sketchball.GameComponents
             g.Pop();
         }
 
+        /// <summary>
+        /// Gets the notebook-aware width (width + paddings and margins)
+        /// </summary>
         public int Width
         {
             get
@@ -162,6 +169,10 @@ namespace Sketchball.GameComponents
             }
         }
 
+
+        /// <summary>
+        /// Gets the notebook-aware height (height + paddings + margins)
+        /// </summary>
         public int Height
         {
             get
@@ -171,7 +182,7 @@ namespace Sketchball.GameComponents
         }
 
         /// <summary>
-        /// Gets the offset from (0, 0) to the pinball machine, i.e. the position where it is drawn at PinballMachine.Size.
+        /// Gets the offset from (0, 0) to the pinball machine, i.e. the position where it is drawn at PinballMachine.Size without all the margins and paddings.
         /// </summary>
         public Point Offset
         {

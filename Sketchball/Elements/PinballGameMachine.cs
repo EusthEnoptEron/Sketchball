@@ -62,8 +62,6 @@ namespace Sketchball.Elements
        
         public void Update(double elapsed)
         {
-            bool hasGameOver = false;
-
             foreach (PinballElement element in Elements)
             {
                 element.Update(elapsed);

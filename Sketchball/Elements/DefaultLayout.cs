@@ -93,7 +93,7 @@ namespace Sketchball.Elements
 
             protected override void InitResources()
             {
-                Image = Booster.OptimizeWpfImage("TableSlim.png");
+                Image = Booster.LoadImage("TableSlim.png");
             }
         }
 

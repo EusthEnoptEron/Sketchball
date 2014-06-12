@@ -35,7 +35,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("hole.png");
+            Image = Booster.LoadImage("hole.png");
         }
 
         protected override Size BaseSize

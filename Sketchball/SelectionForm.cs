@@ -16,6 +16,9 @@ using Sketchball.Elements;
 namespace Sketchball
 {
    
+    /// <summary>
+    /// Entry form that gives the user some choices and acts as the parent window of all following windows.
+    /// </summary>
     public partial class SelectionForm : Form
     {
         private PrivateFontCollection fontCollection = new PrivateFontCollection();
@@ -82,6 +85,9 @@ namespace Sketchball
             Close();
         }
 
+        /// <summary>
+        /// Closes the currently managed form.
+        /// </summary>
         public void CloseManagedForm()
         {
             if (childForm != null)
@@ -93,6 +99,10 @@ namespace Sketchball
             this.Show();
         }
 
+        /// <summary>
+        /// CLoses the currently managed form  and opens an editor.
+        /// </summary>
+        /// <param name="pbm"></param>
         public void OpenEditor(PinballMachine pbm = null)
         {
             CloseManagedForm();
@@ -107,6 +117,12 @@ namespace Sketchball
             childForm.FormClosed += onChildClose;
         }
 
+
+        /// <summary>
+        /// Closes the currently managed form and opens a game.
+        /// </summary>
+        /// <param name="pbm"></param>
+        /// <param name="fileName"></param>
         public void OpenGame(PinballMachine pbm, string fileName)
         {
             CloseManagedForm();

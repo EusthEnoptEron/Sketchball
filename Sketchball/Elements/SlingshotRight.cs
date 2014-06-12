@@ -64,7 +64,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("SlingshotRight.png");
+            Image = Booster.LoadImage("SlingshotRight.png");
         }
 
         protected override void OnDraw(System.Windows.Media.DrawingContext g)

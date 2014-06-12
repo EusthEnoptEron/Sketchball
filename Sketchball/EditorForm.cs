@@ -3,14 +3,8 @@ using Sketchball.Editor;
 using Sketchball.Elements;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Text;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Vector = System.Windows.Vector;
@@ -18,8 +12,17 @@ using Vector = System.Windows.Vector;
 namespace Sketchball
 {
 
+    /// <summary>
+    /// The form that contains all editing functionality.
+    /// </summary>
     public partial class EditorForm : Form
     {
+        internal class DragState
+        {
+            internal bool Active = false;
+            internal PinballElement Element = null;
+        }
+
         private PinballEditControl PlayFieldEditor;
         private WPFContainer EditorContainer;
 
@@ -111,94 +114,40 @@ namespace Sketchball
             EditorContainer.TabIndex = 2;
          
 
-            PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.PlayFieldEditor_SelectionChanged);
+            PlayFieldEditor.SelectionChanged += new Sketchball.Controls.PinballEditControl.SelectionChangedHandler(this.onSelectionChanged);
 
-            PlayFieldEditor.Drop += this.OnDragDrop;
-            PlayFieldEditor.DragEnter += this.OnDragEnter;
-            PlayFieldEditor.DragOver += this.OnDragOver;
-            PlayFieldEditor.DragLeave += this.OnDragLeave;
-            PlayFieldEditor.GiveFeedback += this.OnGiveFeedback;
-            PlayFieldEditor.QueryContinueDrag += this.OnQueryContinueDrag;
+            PlayFieldEditor.Drop += this.onDragDrop;
+            PlayFieldEditor.DragEnter += this.onDragEnter;
+            PlayFieldEditor.DragOver += this.onDragOver;
+            PlayFieldEditor.DragLeave += this.onDragLeave;
+            PlayFieldEditor.QueryContinueDrag += this.onQueryContinueDrag;
 
             
             //PlayFieldEditor.Background = System.Windows.Media.Brushes.White;
         }
 
-        private void onMachinePropertyChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            IChange change = new PropertyChange(PlayFieldEditor.PinballMachine, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
-            PlayFieldEditor.History.Add(change);
-        }
-
-        private void onElementPropertyChanged(object s, PropertyValueChangedEventArgs e)
-        {
-            PlayFieldEditor.Invalidate();
-
-            IChange change = new PropertyChange((PinballElement)elementInspector.SelectedObject, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
-            PlayFieldEditor.History.Add(change);
-
-        }
-
-        void onMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-            e.Handled = true;
-            //((HandledMouseEventArgs)e).Handled = true;
-
-            // 15 = font size
-            int numberOfPixelsToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120 * 15;
-
-            if (Control.ModifierKeys == Keys.Control)
-            {
-                int newValue = zoomBar.Trackbar.Value + (e.Delta > 0 ? 1 : -1);
-                newValue = Math.Max(zoomBar.Trackbar.Minimum, Math.Min(zoomBar.Trackbar.Maximum, newValue));
-                zoomBar.Trackbar.Value = newValue;
-            }
-            else if (Control.ModifierKeys == Keys.Shift)
-            {
-                int newScroll = playFieldPanel.HorizontalScroll.Value - numberOfPixelsToMove;
-                //newScroll = Math.Max(playFieldPanel.HorizontalScroll.Minimum, Math.Min(playFieldPanel.HorizontalScroll.Maximum, newScroll));
-                playFieldPanel.AutoScrollPosition = new Point(newScroll, playFieldPanel.VerticalScroll.Value);
-            }
-            else
-            {
-                int newScroll = playFieldPanel.VerticalScroll.Value - numberOfPixelsToMove;
-                //newScroll = Math.Max(playFieldPanel.VerticalScroll.Minimum, Math.Min(playFieldPanel.VerticalScroll.Maximum, newScroll));
-                playFieldPanel.AutoScrollPosition = new Point(playFieldPanel.HorizontalScroll.Value, newScroll);
-            }
-        }
-
-
- 
-
-        public EditorForm(SelectionForm selectionForm) : this()
+        public EditorForm(SelectionForm selectionForm)
+            : this()
         {
             this.selectionForm = selectionForm;
         }
 
-        public EditorForm(PinballMachine pbm, SelectionForm selectionForm) : this()
+        public EditorForm(PinballMachine pbm, SelectionForm selectionForm)
+            : this()
         {
-
-            // TODO: Complete member initialization
             this.selectionForm = selectionForm;
             loadMachine(pbm);
         }
 
-        void element_MouseDown(object sender, MouseEventArgs e)
-        {
-            ElementControl element = (ElementControl)sender;
-            element.DoDragDrop("Test", DragDropEffects.Copy | DragDropEffects.Move);
-        }
-
-        private void playgroundToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
 
         private void populateToolPanel()
         {
             // List of available tools
             Tool[] tools = new Tool[] { 
                 new SelectionTool(PlayFieldEditor),
-                new LineTool(PlayFieldEditor), new MultiLineTool(PlayFieldEditor), new CircleTool(PlayFieldEditor)
+                new LineTool(PlayFieldEditor), 
+                new MultiLineTool(PlayFieldEditor), 
+                new CircleTool(PlayFieldEditor)
             };
 
 
@@ -238,49 +187,94 @@ namespace Sketchball
 
             foreach (Control c in elementPanel.Controls)
             {
-                c.MouseDown += StartDragAndDrop;
+                c.MouseDown += onStartDragAndDrop;
             }
 
         }
 
-        private void EditorForm_Load(object sender, EventArgs e)
+
+        #region Event Handlers
+
+        // Adds changes on the machine to the history.
+        private void onMachinePropertyChanged(object s, PropertyValueChangedEventArgs e)
         {
-          
+            IChange change = new PropertyChange(PlayFieldEditor.PinballMachine, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
+            PlayFieldEditor.History.Add(change);
+        }
+
+        // Adds changes on the selected element to the history.
+        private void onElementPropertyChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            PlayFieldEditor.Invalidate();
+
+            IChange change = new PropertyChange((PinballElement)elementInspector.SelectedObject, e.ChangedItem.PropertyDescriptor.Name, e.ChangedItem.Value, e.OldValue);
+            PlayFieldEditor.History.Add(change);
+
+        }
+
+        // Scrolls the playfield editor in the proper direction
+        void onMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            e.Handled = true;
+            //((HandledMouseEventArgs)e).Handled = true;
+
+            // 15 = font size
+            int numberOfPixelsToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120 * 15;
+
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                int newValue = zoomBar.Trackbar.Value + (e.Delta > 0 ? 1 : -1);
+                newValue = Math.Max(zoomBar.Trackbar.Minimum, Math.Min(zoomBar.Trackbar.Maximum, newValue));
+                zoomBar.Trackbar.Value = newValue;
+            }
+            else if (Control.ModifierKeys == Keys.Shift)
+            {
+                int newScroll = playFieldPanel.HorizontalScroll.Value - numberOfPixelsToMove;
+                //newScroll = Math.Max(playFieldPanel.HorizontalScroll.Minimum, Math.Min(playFieldPanel.HorizontalScroll.Maximum, newScroll));
+                playFieldPanel.AutoScrollPosition = new Point(newScroll, playFieldPanel.VerticalScroll.Value);
+            }
+            else
+            {
+                int newScroll = playFieldPanel.VerticalScroll.Value - numberOfPixelsToMove;
+                //newScroll = Math.Max(playFieldPanel.VerticalScroll.Minimum, Math.Min(playFieldPanel.VerticalScroll.Maximum, newScroll));
+                playFieldPanel.AutoScrollPosition = new Point(playFieldPanel.HorizontalScroll.Value, newScroll);
+            }
         }
 
 
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
+ 
+        void onCreatorElementChosen(object sender, MouseEventArgs e)
         {
-
+            ElementControl element = (ElementControl)sender;
+            element.DoDragDrop("", DragDropEffects.Copy | DragDropEffects.Move);
         }
 
 
-
-        private void StartDragAndDrop(object sender, MouseEventArgs e)
+        private void onStartDragAndDrop(object sender, MouseEventArgs e)
         {
-            InitDragDrop((ElementControl)sender);
+            initDragDrop((ElementControl)sender);
         }
 
 
-        private void OnDragDrop(object sender, System.Windows.DragEventArgs e)
+        private void onDragDrop(object sender, System.Windows.DragEventArgs e)
         {
             PlayFieldEditor.PinballMachine.Remove(dragState.Element);
             PlayFieldEditor.AddElement(dragState.Element);
         }
 
-        private void OnDragEnter(object sender, System.Windows.DragEventArgs e)
+        private void onDragEnter(object sender, System.Windows.DragEventArgs e)
         {
             e.Effects = System.Windows.DragDropEffects.Move;
 
             PlayFieldEditor.PinballMachine.Add(dragState.Element);
         }
 
-        private void OnDragLeave(object sender, EventArgs e)
+        private void onDragLeave(object sender, EventArgs e)
         {
             PlayFieldEditor.PinballMachine.Remove(dragState.Element);
         }
 
-        private void OnDragOver(object sender, System.Windows.DragEventArgs e)
+        private void onDragOver(object sender, System.Windows.DragEventArgs e)
         {
             var pos = e.GetPosition(PlayFieldEditor);
             var pinballPoint = PlayFieldEditor.PointToPinball(pos);
@@ -289,7 +283,7 @@ namespace Sketchball
             PlayFieldEditor.Invalidate();
         }
 
-        private void OnQueryContinueDrag(object sender, System.Windows.QueryContinueDragEventArgs e)
+        private void onQueryContinueDrag(object sender, System.Windows.QueryContinueDragEventArgs e)
         {
             if (!dragState.Active)
             {
@@ -298,11 +292,7 @@ namespace Sketchball
             }
         }
 
-        private void OnGiveFeedback(object sender, System.Windows.GiveFeedbackEventArgs e)
-        {
-        }
-
-        private void InitDragDrop(ElementControl control)
+        private void initDragDrop(ElementControl control)
         {
             dragState.Active = true;
             dragState.Element = control.GetInstance();
@@ -314,12 +304,7 @@ namespace Sketchball
         }
 
 
-        internal class DragState
-        {
-            internal bool Active = false;
-            internal PinballElement Element = null;
-        }
-
+        // Opens a machine if valid.
         private void onOpenMachine(object sender, EventArgs e)
         {
             if (mayOmitChanges())
@@ -342,12 +327,26 @@ namespace Sketchball
             }
         }
 
+        // Loads a machine
         private void loadMachine(PinballMachine pbm)
         {
             PlayFieldEditor.LoadMachine(pbm);
             machineInspector.SelectedObject = pbm;
         }
 
+      
+        // Shows the problem of the last IsValid() operation. Could also visualize the problem on the playfield in a 2nd step
+        private void showProblem()
+        {
+            var problem = PlayFieldEditor.PinballMachine.LastProblem;
+            if (problem != null)
+            {
+                MessageBox.Show("The pinball machine you provided is not valid. " + PlayFieldEditor.PinballMachine.LastProblem.Message,
+                                "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Saves the machine.
         private void onSaveMachine(object sender, EventArgs e)
         {
             if (PlayFieldEditor.PinballMachine.IsValid())
@@ -365,6 +364,7 @@ namespace Sketchball
             else showProblem();
         }
 
+        // Saves the machine with a new name.
         private void onSaveAsMachine(object sender, EventArgs e)
         {
             if (PlayFieldEditor.PinballMachine.IsValid())
@@ -383,17 +383,7 @@ namespace Sketchball
             else showProblem();
         }
 
-        private void showProblem()
-        {
-            var problem = PlayFieldEditor.PinballMachine.LastProblem;
-            if (problem != null)
-            {
-                MessageBox.Show("The pinball machine you provided is not valid. " + PlayFieldEditor.PinballMachine.LastProblem.Message,
-                                "Invalid machine", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
+        // Saves the machine to a file.
         private void saveMachine(string filename)
         {
             FileName = filename;
@@ -402,6 +392,7 @@ namespace Sketchball
         }
 
 
+        // Creates a new machine.
         private void onNewMachine(object sender, EventArgs e)
         {
             if (mayOmitChanges())
@@ -412,6 +403,7 @@ namespace Sketchball
 
         }
 
+        // Checks whether it's okay to omit changes if there are any.
         private bool mayOmitChanges()
         {
             if (PlayFieldEditor.History.HasChanged())
@@ -425,7 +417,8 @@ namespace Sketchball
             }
         }
 
-        private void playButton_Click(object sender, EventArgs e)
+        // Start the game if valid.
+        private void onPlayClicked(object sender, EventArgs e)
         {
             if (PlayFieldEditor.PinballMachine.IsValid())
             {
@@ -438,30 +431,20 @@ namespace Sketchball
             else showProblem();
         }
 
-        private void PlayFieldEditor_SelectionChanged(PinballElement prevElement, PinballElement newElement)
+        // Makes sure that the elementInspector always has the right element.
+        private void onSelectionChanged(PinballElement prevElement, PinballElement newElement)
         {
             if (newElement != null)
             {
                 elementInspector.SelectedObject = newElement;
-                //fieldAndPropertySplitter.Panel2Collapsed = false;
             }
             else
             {
                 elementInspector.SelectedObject = null;
-                //fieldAndPropertySplitter.Panel2Collapsed = true;
             }
         }
 
-        private void menuPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void fieldAndPropertySplitter_Panel1_Scroll(object sender, ScrollEventArgs e)
-        {
-
-        }
-
+        // Makes sure that the title font is correctly sized.
         private void onLeftPanelResize(object sender, EventArgs e)
         {
             SizeF extent;
@@ -470,6 +453,8 @@ namespace Sketchball
 
             TitleLabel.Font = AppropriateFont(8, 40, space, TitleLabel.Text, TitleLabel.Font, out extent);
         }
+
+        #endregion
 
 
         /// <summary>

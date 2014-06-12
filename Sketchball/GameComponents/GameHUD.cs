@@ -33,12 +33,12 @@ namespace Sketchball.GameComponents
         private double lineHeight;
 
         // Resources
-        private ImageSource BG = Booster.OptimizeWpfImage("postit.png");
-        private ImageSource Line = Booster.OptimizeWpfImage("line.png");
-        private ImageSource LineThrough = Booster.OptimizeWpfImage("line_strikethrough.png");
-        private ImageSource GoodSmilie = Booster.OptimizeWpfImage("smilie_happy.png");
-        private ImageSource MediumSmilie = Booster.OptimizeWpfImage("smilie_nervous.png");
-        private ImageSource BadSmilie = Booster.OptimizeWpfImage("smilie_lamenting.png");
+        private ImageSource BG = Booster.LoadImage("postit.png");
+        private ImageSource Line = Booster.LoadImage("line.png");
+        private ImageSource LineThrough = Booster.LoadImage("line_strikethrough.png");
+        private ImageSource GoodSmilie = Booster.LoadImage("smilie_happy.png");
+        private ImageSource MediumSmilie = Booster.LoadImage("smilie_nervous.png");
+        private ImageSource BadSmilie = Booster.LoadImage("smilie_lamenting.png");
 
 
 

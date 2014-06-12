@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace Sketchball.GameComponents
 {
+    /// <summary>
+    /// Listens to Windows' application-wide input messages and lets you bind event handlers to them.
+    /// </summary>
     class InputManager : IDisposable
     {
         /// <summary>
@@ -22,6 +25,9 @@ namespace Sketchball.GameComponents
             keyboardListener.Enabled = true;
         }
 
+        /// <summary>
+        /// Gets or sets the listening status.
+        /// </summary>
         public bool Enabled
         {
             get
@@ -35,6 +41,11 @@ namespace Sketchball.GameComponents
         }
 
         private static InputManager instance = null;
+
+        /// <summary>
+        /// Gets an instance of the manager.
+        /// </summary>
+        /// <returns></returns>
         public static InputManager Instance()
         {
             if (instance == null) instance = new InputManager();

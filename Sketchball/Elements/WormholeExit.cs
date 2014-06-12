@@ -54,7 +54,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("WormholeExit.png");
+            Image = Booster.LoadImage("WormholeExit.png");
         }
 
         // Tries to find entries that still need a destinatoin.

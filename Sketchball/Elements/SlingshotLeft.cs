@@ -58,7 +58,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("SlingshotLeft.png");
+            Image = Booster.LoadImage("SlingshotLeft.png");
         }
 
         public override void OnIntersection(Ball b)

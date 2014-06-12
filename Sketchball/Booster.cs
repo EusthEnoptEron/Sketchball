@@ -44,7 +44,7 @@ namespace Sketchball
 
                 return img;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -62,12 +62,17 @@ namespace Sketchball
             //return im;
         }
 
-        public static ImageSource OptimizeWpfImage(string path)
+        /// <summary>
+        /// Loads a WPF image found at [path].
+        /// </summary>
+        /// <param name="path">Resource name relative to the Resources directory.</param>
+        /// <returns></returns>
+        public static ImageSource LoadImage(string path)
         {
             return GetWpfImage(path).Source;
             
         }
-        public static ImageSource OptimizeWpfImage(string path, int width)
+        public static ImageSource LoadImage(string path, int width)
         {
             var img = GetWpfImage(path);
             var height = width / img.Width * img.Height;
@@ -77,7 +82,7 @@ namespace Sketchball
             return img.Source;
         }
 
-        public static ImageSource OptimizeWpfImage(string path, int width, int height)
+        public static ImageSource LoadImage(string path, int width, int height)
         {
             var img = GetWpfImage(path);
             img.Width = width;
@@ -86,12 +91,29 @@ namespace Sketchball
             return img.Source;
         }
 
+        /// <summary>
+        /// Gets a text object with the given parameters.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="family"></param>
+        /// <param name="size"></param>
+        /// <param name="color"></param>
+        /// <returns></returns>
         public static FormattedText GetText(string text, FontFamily family, double size, Brush color)
         {
             Typeface typeface = new Typeface(family, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal, new FontFamily("Arial"));
             return new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, size, color);
         }
 
+
+        /// <summary>
+        /// Conerts a drawing into a bitmap object compatible with System.Drawing.
+        /// </summary>
+        /// <param name="drawing"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="stretch"></param>
+        /// <returns></returns>
         public static System.Drawing.Bitmap DrawingToBitmap(Drawing drawing, int width, int height, Stretch stretch = Stretch.None)
         {
             var encoder = new PngBitmapEncoder();

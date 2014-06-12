@@ -153,7 +153,7 @@
             this.playButton.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.playButton.Size = new System.Drawing.Size(218, 22);
             this.playButton.Text = "Play";
-            this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            this.playButton.Click += new System.EventHandler(this.onPlayClicked);
             // 
             // editToolStripMenuItem
             // 
@@ -168,7 +168,7 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(60, 22);
             this.toolStripMenuItem1.Text = "Play";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.playButton_Click);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.onPlayClicked);
             // 
             // MainSplitToMenueAndField
             // 
@@ -360,7 +360,6 @@
             this.Name = "EditorForm";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.EditorForm_Load);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.MainSplitToMenueAndField.Panel1.ResumeLayout(false);

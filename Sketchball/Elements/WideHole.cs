@@ -16,7 +16,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("wide_hole.png");
+            Image = Booster.LoadImage("wide_hole.png");
         }
 
         protected override void Init()

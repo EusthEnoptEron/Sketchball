@@ -50,8 +50,8 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("Rampe.png");
-            pencilImageWpf = Booster.OptimizeWpfImage("Rampe_pencil.png");
+            Image = Booster.LoadImage("Rampe.png");
+            pencilImageWpf = Booster.LoadImage("Rampe_pencil.png");
         }
 
 

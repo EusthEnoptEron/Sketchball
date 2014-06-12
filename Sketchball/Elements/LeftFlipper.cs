@@ -89,7 +89,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("FlipperLeft.png");
+            Image = Booster.LoadImage("FlipperLeft.png");
         }
 
         protected override void OnDraw(System.Windows.Media.DrawingContext g)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Sketchball.GameComponents
 {
     /// <summary>
-    /// 
+    /// Represents a descending list of highscore entries with a max entry count of 30.
     /// </summary>
     [DataContract]
     public class HighscoreList : ICollection<HighscoreEntry>
@@ -33,7 +33,10 @@ namespace Sketchball.GameComponents
         {
         }
 
-
+        /// <summary>
+        /// Adds a highscore entry to the list. A score of 0 is ignored.
+        /// </summary>
+        /// <param name="item"></param>
         public void Add(HighscoreEntry item)
         {
             // Don't insert losers.

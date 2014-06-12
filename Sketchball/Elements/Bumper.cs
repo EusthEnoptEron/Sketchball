@@ -35,7 +35,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("BumperSpiral.png");
+            Image = Booster.LoadImage("BumperSpiral.png");
         }
 
         protected override Size BaseSize

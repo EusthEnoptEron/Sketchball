@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sketchball.GameComponents
 {
+    /// <summary>
+    /// Manager that helps to keep the sound replay sane.
+    /// </summary>
     public class SoundManager
     {
         private SoundPlayer currentPlayer;

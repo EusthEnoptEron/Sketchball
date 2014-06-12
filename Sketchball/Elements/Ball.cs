@@ -62,7 +62,7 @@ namespace Sketchball.Elements
 
         protected override void InitResources()
         {
-            Image = Booster.OptimizeWpfImage("BallWithAlpha.png");
+            Image = Booster.LoadImage("BallWithAlpha.png");
         }
 
         public override void Update(double delta)
