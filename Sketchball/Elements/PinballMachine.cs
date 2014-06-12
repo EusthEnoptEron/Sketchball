@@ -231,8 +231,10 @@ namespace Sketchball.Elements
 
         public void Save(string path)
         {
-            using (var stream = File.Open(path, FileMode.Truncate))
+            using (var stream = File.Open(path, FileMode.Create))
             {
+                // Truncate
+                stream.SetLength(0);
                 Save(stream);
             }
         }
