@@ -9,14 +9,26 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+
+    /// <summary>
+    /// Represents the game ball.
+    /// </summary>
     public class Ball : PinballElement
     {
         public static readonly Size Size = new Size(20, 20);
+
         private readonly float friction = 0.9999f;
 
-        long timeElapsed = 0;
-        double distanceTraveled = 0;
-        private const int SAMPLING_TIME = 2000;
+
+        // Keeps track of the time that has elapsed since the last position check
+        private double timeElapsed = 0;
+        // Keeps track of the distance traveled since the last position check.
+        private double distanceTraveled = 0;
+
+        // Amount of seconds between position checks
+        private const int SAMPLING_TIME = 2;
+
+        // The absolute minimum of pixels that the ball should travel in order no to be returned to the starting ramp
         private const int SAMPLING_THRESHOLD = 150;
 
         protected override Size BaseSize
@@ -24,13 +36,19 @@ namespace Sketchball.Elements
             get { return Size; }
         }
        
-
+        /// <summary>
+        /// Gets or sets the ball's velocity.
+        /// </summary>
         public Vector Velocity
         {
             get;
             set;
         }
 
+
+        /// <summary>
+        /// Creates a new ball at (0, 0)
+        /// </summary>
         public Ball() : base()
         {
             Velocity = new Vector(0,0);
@@ -68,7 +86,7 @@ namespace Sketchball.Elements
         private void preventDrain(double delta)
         {
             // Update metrics
-            timeElapsed += (long)(delta * 1000);
+            timeElapsed += delta;
             distanceTraveled += (Velocity * delta).Length;
 
             if (timeElapsed > SAMPLING_TIME)
@@ -89,6 +107,9 @@ namespace Sketchball.Elements
 
         }
 
+        /// <summary>
+        /// Gets or sets the ball's mass. Fairly irrelevant.
+        /// </summary>
         public float Mass
         {
             get;

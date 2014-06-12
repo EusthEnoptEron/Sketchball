@@ -58,7 +58,7 @@ namespace Sketchball.Elements
             Image = Booster.OptimizeWpfImage("SlingshotLeft.png");
         }
 
-        public override void notifyIntersection(Ball b)
+        public override void OnIntersection(Ball b)
         {
             GameWorld.Sfx.Play(player);
         }

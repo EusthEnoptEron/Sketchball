@@ -12,7 +12,9 @@ using System.IO;
 
 namespace Sketchball.Elements
 {
-
+    /// <summary>
+    /// Abstract flipper class that handles the rough setup code for flippers.
+    /// </summary>
     [DataContract]
     public abstract class Flipper : AnimatedObject
     {
@@ -89,7 +91,7 @@ namespace Sketchball.Elements
             }
         }
 
-        public override void notifyIntersection(Ball b)
+        public override void OnIntersection(Ball b)
         {
             GameWorld.Sfx.Play(sound);
         }

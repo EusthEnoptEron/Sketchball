@@ -11,21 +11,42 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+
+    /// <summary>
+    /// Represents an object that can be animated.
+    /// </summary>
     [DataContract]
     public abstract class AnimatedObject : PinballElement, IAnimatedObject
     {
+        /// <summary>
+        /// Gets the (additional) rotation currently applied to the element.
+        /// </summary>
         [Browsable(false)]
         public double Rotation { get; set; }
         
+        /// <summary>
+        /// Gets the angular velocity per frame.
+        /// </summary>
         [Browsable(false)]
         public double AngularVelocityPerFrame { get; private set; }
 
+        /// <summary>
+        /// Gets the current angular velocity.
+        /// </summary>
         [Browsable(false)]
         public double AngularVelocity { get; private set; }
 
+
+        /// <summary>
+        /// Gets a bool whether or not this element is currently animating.
+        /// </summary>
         [Browsable(false)]
         public bool Animating { get; protected set; }
 
+
+        /// <summary>
+        /// Gets the center for the animated rotation.
+        /// </summary>
         [Browsable(false)]
         public Vector CurrentRotationCenter { get; private set; }
 

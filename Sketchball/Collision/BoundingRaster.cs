@@ -239,9 +239,7 @@ namespace Sketchball.Collision
                 }
                 else
                 {
-                    BoundingContainer bC = pE.getBoundingContainer();
-
-                    TakeOverBoundingContainer(bC);
+                    TakeOverBoundingContainer(pE.BoundingContainer);
                 }
             
             }       //foreach (PinballElement pE in eles)
@@ -411,11 +409,11 @@ namespace Sketchball.Collision
                 }
 
                 Vector hitPoint = new Vector(0, 0);
-                if (b.Intersect(ball.getBoundingContainer().BoundingBoxes[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
+                if (b.Intersect(ball.BoundingContainer.BoundingBoxes[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                 {
                     history.AddFirst(b);
                     AnimatedObject aniO = ((AnimatedObject)b.BoundingContainer.ParentElement);
-                    aniO.notifyIntersection(ball);
+                    aniO.OnIntersection(ball);
                     if (!aniO.pureIntersection)
                     {
                        
@@ -433,7 +431,7 @@ namespace Sketchball.Collision
                         
                         ball.Velocity += -turnspeed;
 
-                        Vector newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
+                        Vector newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.BoundingContainer.BoundingBoxes[0].Position);
                         Vector outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
                         if (aniO.Animating)
@@ -474,14 +472,14 @@ namespace Sketchball.Collision
                                 }
 
                                 Vector hitPoint = new Vector(0, 0);
-                                if (b.Intersect(ball.getBoundingContainer().BoundingBoxes[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
+                                if (b.Intersect(ball.BoundingContainer.BoundingBoxes[0], out hitPoint, ball.Velocity))       //specify bounding box of ball
                                 {
                                     history.AddFirst(b);
                                     //collision
-                                    b.BoundingContainer.ParentElement.notifyIntersection(ball);
+                                    b.BoundingContainer.ParentElement.OnIntersection(ball);
                                     if (!b.BoundingContainer.ParentElement.pureIntersection)
                                     {
-                                        Vector newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.getBoundingContainer().BoundingBoxes[0].Position);
+                                        Vector newDirection = b.Reflect(ball.Velocity, hitPoint, ball.Location + ball.BoundingContainer.BoundingBoxes[0].Position);
                                         Vector outOfAreaPush = b.GetOutOfAreaPush((int)ball.Width, hitPoint, newDirection, ball.Location);
 
                                         ball.Location = (hitPoint - new Vector(ball.Width / 2, ball.Height / 2)) + outOfAreaPush;     // + (ball.Width / 1.5f) * Vector.Normalize(hitPoint - b.BoundingContainer.parentElement.Location))

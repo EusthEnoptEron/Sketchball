@@ -41,7 +41,7 @@ namespace Sketchball.Elements
             bC.AssignToContainer(this.BoundingContainer);
         }
 
-        public override void notifyIntersection(Ball b)
+        public override void OnIntersection(Ball b)
         {
             b.Location = this.WormholeExit.Location + new Vector(this.WormholeExit.Width / 2, this.WormholeExit.Height / 2);
             GameWorld.Sfx.Play(player);

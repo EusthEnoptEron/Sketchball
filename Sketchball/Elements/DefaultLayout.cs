@@ -10,6 +10,9 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Represents the default implementation of IMachineLayout.
+    /// </summary>
     [DataContract]
     public class DefaultLayout : IMachineLayout
     {

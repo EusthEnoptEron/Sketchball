@@ -318,7 +318,7 @@ namespace Sketchball.Elements
         }
         
         /// <summary>
-        /// Loads all required resources into the memory. ALways gets called from the STA thread.
+        /// Loads all required resources into the memory. Always gets called from the STA thread and BEFORE the actual draw.
         /// </summary>
         protected virtual void InitResources() {
         }
@@ -439,13 +439,6 @@ namespace Sketchball.Elements
             BoundingContainer.Sync();
         }
 
-
-        public BoundingContainer getBoundingContainer()
-        {
-            return this.BoundingContainer;
-        }
-
-
         public Rect GetBounds()
         {
             return new Rect(X, Y, Width, Height);
@@ -454,6 +447,11 @@ namespace Sketchball.Elements
 
 #region Implementables
 
+        /// <summary>
+        /// Initializes an element. It is important to understand the difference between Init() and the costructor.
+        /// - The constructor is *only* called when the element is first created. Use it to initialize fields that will be serialized.
+        /// - The Init() method is called _before_ the child constructor and after each deserialization. Use it to initialize fields that are NOT serialized. (e.g. bounding boxes)
+        /// </summary>
         protected abstract void Init();
 
         
@@ -498,7 +496,7 @@ namespace Sketchball.Elements
         protected virtual void LeaveEditor(PinballMachine machine) { }
 
 
-        public virtual void notifyIntersection(Ball b)
+        public virtual void OnIntersection(Ball b)
         {
             //placeholder
         }

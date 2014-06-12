@@ -54,7 +54,7 @@ namespace Sketchball.Elements
 
         }
 
-        public override void notifyIntersection(Ball b)
+        public override void OnIntersection(Ball b)
         {
             GameWorld.Sfx.Play(player);
         }

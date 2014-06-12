@@ -10,6 +10,10 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+
+    /// <summary>
+    /// Represents an arbitrary circle usually drawn by the user.
+    /// </summary>
     [DataContract]
     class Circle: PinballElement
     {

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Sketchball.GameComponents
 {
-    class InputManager
+    class InputManager : IDisposable
     {
         /// <summary>
         /// Initializes a new InputManager with a given control to listen to.
@@ -60,5 +60,10 @@ namespace Sketchball.GameComponents
             remove { keyboardListener.KeyPress -= value; }
         }
 
+
+        public void Dispose()
+        {
+            keyboardListener.Dispose();
+        }
     }
 }

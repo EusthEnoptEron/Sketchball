@@ -8,33 +8,52 @@ using System.Threading.Tasks;
 namespace Sketchball.Elements
 {
 
+    /// <summary>
+    /// Collection that maintains a list of elements and makes sure the bidirectional connection stays intact.
+    /// </summary>
     [DataContract(IsReference=true)]
     public class ElementCollection : ICollection<PinballElement>
     {
+        /// <summary>
+        /// Gets the owner of the element list.
+        /// </summary>
         [DataMember]
         public PinballMachine Owner { get; private set;}
 
         [DataMember]
-        private List<PinballElement> Elements = new List<PinballElement>();
+        private List<PinballElement> elements = new List<PinballElement>();
 
+        /// <summary>
+        /// Creates a new element collection that belongs to owner.
+        /// </summary>
+        /// <param name="parent"></param>
         public ElementCollection(PinballMachine parent)
         {
             Owner = parent;
         }
 
+        /// <summary>
+        /// Moves an element to the tail of the collection, i.e. causing it to be drawn last.
+        /// </summary>
+        /// <param name="element"></param>
         public void MoveToTail(PinballElement element)
         {
-            if (Elements.Remove(element))
+            if (elements.Remove(element))
             {
-                Elements.Add(element);
+                elements.Add(element);
             }
         }
 
+
+        /// <summary>
+        /// Moves an element to the head of the collection.
+        /// </summary>
+        /// <param name="element"></param>
         public void MoveToHead(PinballElement element)
         {
-            if (Elements.Remove(element))
+            if (elements.Remove(element))
             {
-                Elements.Insert(0, element);
+                elements.Insert(0, element);
             }
         }
 
@@ -57,40 +76,40 @@ namespace Sketchball.Elements
 #region LIST IMPLEMENTATION
         public int IndexOf(PinballElement item)
         {
-            return Elements.IndexOf(item);
+            return elements.IndexOf(item);
         }
 
         public void Insert(int index, PinballElement item)
         {
             ClaimElement(item);
-            Elements.Insert(index, item);
+            elements.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
-            if (Elements[index] != null)
+            if (elements[index] != null)
             {
-                ReleaseElement(Elements[index]);
+                ReleaseElement(elements[index]);
             }
-            Elements.RemoveAt(index);
+            elements.RemoveAt(index);
         }
 
         public PinballElement this[int index]
         {
             get
             {
-                return Elements[index];
+                return elements[index];
             }
             set
             {
                 lock (this)
                 {
-                    if (Elements[index] != null)
+                    if (elements[index] != null)
                     {
-                        ReleaseElement(Elements[index]);
+                        ReleaseElement(elements[index]);
                     }
                     ClaimElement(value);
-                    Elements[index] = value;
+                    elements[index] = value;
                 }
             }
         }
@@ -99,7 +118,7 @@ namespace Sketchball.Elements
         {
             lock(this) {
                 ClaimElement(item);
-                Elements.Add(item);
+                elements.Add(item);
             }
         }
 
@@ -107,28 +126,28 @@ namespace Sketchball.Elements
         {
             lock (this)
             {
-                foreach (PinballElement element in Elements)
+                foreach (PinballElement element in elements)
                 {
                     ReleaseElement(element);
                 }
 
-                Elements.Clear();
+                elements.Clear();
             }
         }
 
         public bool Contains(PinballElement item)
         {
-            return Elements.Contains(item);
+            return elements.Contains(item);
         }
 
         public void CopyTo(PinballElement[] array, int arrayIndex)
         {
-            Elements.CopyTo(array, arrayIndex);
+            elements.CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get { return Elements.Count; }
+            get { return elements.Count; }
         }
 
         public bool IsReadOnly
@@ -141,18 +160,18 @@ namespace Sketchball.Elements
             lock (this)
             {
                 ReleaseElement(item);
-                return Elements.Remove(item);
+                return elements.Remove(item);
             }
         }
 
         public IEnumerator<PinballElement> GetEnumerator()
         {
-            return Elements.GetEnumerator();
+            return elements.GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return Elements.GetEnumerator();
+            return elements.GetEnumerator();
         }
     }
 

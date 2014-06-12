@@ -10,7 +10,9 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
-
+    /// <summary>
+    /// Represents an arbitrary line typically drawn by the user.
+    /// </summary>
     [DataContract]
     public class Line : PinballElement
     {
@@ -32,6 +34,13 @@ namespace Sketchball.Elements
             get { return size; }
         }
 
+        /// <summary>
+        /// Creates a new line from (x0, y0) to (x1, y1)
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
         public Line(double x0, double y0, double x1, double y1)
             : base()
         {

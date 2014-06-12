@@ -11,6 +11,10 @@ using System.Windows.Forms;
 
 namespace Sketchball.Elements
 {
+
+    /// <summary>
+    /// Represents the left flipper element.
+    /// </summary>
     [DataContract]
     public class LeftFlipper : Flipper
     {

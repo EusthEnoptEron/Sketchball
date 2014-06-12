@@ -11,6 +11,9 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Represents a hole into which a ball can fall.
+    /// </summary>
     [DataContract]
     public class Hole : PinballElement
     {
@@ -40,7 +43,7 @@ namespace Sketchball.Elements
             get { return size; }
         }
 
-        public override void notifyIntersection(Ball b)
+        public override void OnIntersection(Ball b)
         {
             GameWorld.KillBall(b);
             GameWorld.Sfx.Play(player);

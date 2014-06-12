@@ -11,6 +11,10 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+
+    /// <summary>
+    /// Represents a bumper that bounces the ball away.
+    /// </summary>
     [DataContract]
     public class Bumper : PinballElement
     {
@@ -39,7 +43,7 @@ namespace Sketchball.Elements
             get { return size; }
         }
 
-        public override void notifyIntersection(Ball b)
+        public override void OnIntersection(Ball b)
         {
             GameWorld.Sfx.Play(player);
         }
