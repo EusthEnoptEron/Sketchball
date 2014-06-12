@@ -47,7 +47,7 @@ namespace Sketchball.Elements
         }
 
 
-        public PinballGameMachine(PinballMachine machine) : base(machine.Layout)
+        public PinballGameMachine(PinballMachine machine) : base(machine.Layout.Clone() as IMachineLayout)
         {
             this.boundingRaster = new BoundingRaster((int)Math.Ceiling(Width / 60f), (int)Math.Ceiling(Height / 60f), Width, Height);
 

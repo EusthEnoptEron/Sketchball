@@ -12,7 +12,7 @@ namespace Sketchball.Elements
     /// <summary>
     /// Layout for a pinball machine. Every instance can be used on only one machine.
     /// </summary>
-    public interface IMachineLayout
+    public interface IMachineLayout : ICloneable
     {
         /// <summary>
         /// Gets the width of the layout design.

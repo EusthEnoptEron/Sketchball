@@ -17,7 +17,7 @@ namespace Sketchball.GameComponents
         Setup,
         Playing,
         GameOver,
-        Pause
+        Paused
     }
 
     /// <summary>
@@ -153,7 +153,7 @@ namespace Sketchball.GameComponents
         }
 
         /// <summary>
-        /// Starts the game.
+        /// Starts a new game.
         /// </summary>
         public void Start()
         {
@@ -230,7 +230,7 @@ namespace Sketchball.GameComponents
             if (Status == GameStatus.Playing)
             {
                 Machine.Input.Enabled = false;
-                Status = GameStatus.Pause;
+                Status = GameStatus.Paused;
             }
         }
 
@@ -241,7 +241,7 @@ namespace Sketchball.GameComponents
         /// </summary>
         public void Resume()
         {
-            if (Status == GameStatus.Pause)
+            if (Status == GameStatus.Paused)
             {
                 Machine.Input.Enabled = true;
                 Status = GameStatus.Playing;

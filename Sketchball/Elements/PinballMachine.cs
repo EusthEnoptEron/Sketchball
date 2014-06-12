@@ -226,7 +226,13 @@ namespace Sketchball.Elements
             {
                 machine.DynamicElements.Add((PinballElement)element.Clone());
             }
-            
+
+            machine.Layout = Layout.Clone() as IMachineLayout;
+            machine.Highscores = new HighscoreList();
+            foreach (var entry in Highscores)
+            {
+                machine.Highscores.Add(new HighscoreEntry(entry.Player, entry.Score, entry.Date));
+            }
             return machine;
         }
 

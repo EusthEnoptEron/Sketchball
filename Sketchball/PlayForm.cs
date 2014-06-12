@@ -131,7 +131,7 @@ namespace Sketchball
 
         private void onResumeClicked(object sender, EventArgs e)
         {
-            if (game.Status == GameStatus.Pause)
+            if (game.Status == GameStatus.Paused)
             {
                 game.Resume();
             }
@@ -147,7 +147,7 @@ namespace Sketchball
             }
 
             // Make sure the Resume / Pause buttons are correctly configured
-            if (game.Status == GameStatus.Pause)
+            if (game.Status == GameStatus.Paused)
             {
                 resumeToolStripMenuItem.Visible = true;
                 pauseToolStripMenuItem.Visible = false;
@@ -170,7 +170,7 @@ namespace Sketchball
 
         private void onResetClicked(object sender, EventArgs e)
         {
-            var statusChanged = game.Status != GameStatus.Pause;
+            var statusChanged = game.Status != GameStatus.Paused;
             game.Pause();
 
             var result = MessageBox.Show("Are you sure that you want to reset the game?", "Reset",

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sketchball.Elements;
 using System.IO;
 using System.Linq;
+using Sketchball.GameComponents;
 
 namespace Sketchball.Tests.Elements
 {
@@ -163,6 +164,24 @@ namespace Sketchball.Tests.Elements
             machine.Add(line2);
 
             Assert.IsTrue(machine.IsValid());
+        }
+
+        [TestMethod]
+        public void ShouldDeepCloneReferences()
+        {
+            var machine = new PinballMachine();
+            var element = new Bumper();
+            var entry = new HighscoreEntry("Simon", 1, DateTime.Now);
+
+            machine.Add(element);
+            machine.Highscores.Add(entry);
+            var copy = machine.Clone() as PinballMachine;
+
+            Assert.AreNotSame(copy, machine);
+            Assert.AreNotSame(copy.Balls, machine.Balls);
+            Assert.AreNotSame(copy.Highscores, machine.Highscores);
+            Assert.AreNotSame(copy.Highscores.First(), machine.Highscores.First());
+            Assert.AreNotSame(copy.Layout, machine.Layout);
         }
     }
 }

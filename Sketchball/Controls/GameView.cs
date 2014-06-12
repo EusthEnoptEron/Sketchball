@@ -105,7 +105,7 @@ namespace Sketchball.Controls
                     {
                         Game.Pause();
                     }
-                    else if (Game.Status == GameStatus.Pause)
+                    else if (Game.Status == GameStatus.Paused)
                     {
                         Game.Resume();
                     }
@@ -138,7 +138,7 @@ namespace Sketchball.Controls
         protected override void Draw(DrawingContext g)
         {
 
-            if (Game.Status == GameStatus.GameOver || Game.Status == GameStatus.Pause)
+            if (Game.Status == GameStatus.GameOver || Game.Status == GameStatus.Paused)
             {
                 // We'll make a first render pass with a blur shader, and after that we'll draw an overlay on it
                 var firstPass = new DrawingVisual();
@@ -156,7 +156,7 @@ namespace Sketchball.Controls
                 {
                     DrawOverlay(g, Colors.DarkRed, "GAME OVER", "Press [SPACE] to try again.");
                 }
-                else if (Game.Status == GameStatus.Pause)
+                else if (Game.Status == GameStatus.Paused)
                 {
                     DrawOverlay(g, Colors.DarkBlue, "PAUSED", "Press [ENTER] to resume.");
                 }

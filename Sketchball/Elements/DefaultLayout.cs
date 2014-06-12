@@ -159,5 +159,10 @@ namespace Sketchball.Elements
         {
             Init();
         }
+
+        public object Clone()
+        {
+            return new DefaultLayout();
+        }
     }
 }
