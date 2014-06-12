@@ -86,13 +86,13 @@ namespace Sketchball.Elements
         /// <summary>
         /// Gets or sets the X position of the element.
         /// </summary>
-        [Category("Position")]
+        [Browsable(false)]
         public double X { get { return Location.X; } set { Location.X = value; } }
        
         /// <summary>
         /// Gets or sets the Y position of the element.
         /// </summary>
-        [Category("Position")]
+        [Browsable(false)]
         public double Y { get { return Location.Y; } set { Location.Y = value; } }
 
         /// <summary>
@@ -147,9 +147,10 @@ namespace Sketchball.Elements
             get { return _scale; }
             set
             {
-                if (value != 0 && Math.Abs(value) < 10 )
+                if (value != 0)
                 {
-                    _scale = value;
+                    _scale = Math.Max(0.1, Math.Min(5, value));
+
                     RebuildMatrix();
                 }
             }
@@ -240,7 +241,8 @@ namespace Sketchball.Elements
 
 
         [DataMember]
-        [Description("The score the user gets for hitting this element."), DisplayName("Score")]
+        [Description("The score the user gets for hitting this element."), 
+         DisplayName("Score"), Category("Behavior")]
         public int Value { get; set; }
 
         [Browsable(false)]
