@@ -94,7 +94,7 @@ namespace Sketchball.Elements
             g.DrawImage(Image, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
         }
 
-        protected override Vector Origin
+        protected override Vector origin
         {
             get
             {

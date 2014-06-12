@@ -12,14 +12,45 @@ using System.Windows.Media.Effects;
 
 namespace Sketchball.Controls
 {
+    /// <summary>
+    /// Is to the editor what GameView is to the game. Contains a pinball machine and
+    ///     1.) Draws it
+    ///     2.) Provides a history and an API to make modifications to the PBM.
+    /// </summary>
     public class PinballEditControl : PinballControl
     {
+        // Padding from the left and top border
         private const int PADDING = 15;
 
-        public readonly History History = new History();
-        private Pen SelectionPen;
+        // Pen used to draw selections
+        private Pen selectionPen;
 
-        private PinballElement _selectedElement = null;
+
+        #region Events
+        public delegate void SelectionChangedHandler(PinballElement prevElement, PinballElement newElement);
+
+        /// <summary>
+        /// Occurs when the selection changes.
+        /// </summary>
+        public event SelectionChangedHandler SelectionChanged;
+
+        /// <summary>
+        /// Occurs when the control is drawn.
+        /// </summary>
+        public event EventHandler<DrawingContext> Paint;
+
+        #endregion
+
+
+        #region Properties
+        /// <summary>
+        /// Gets the history of changes.
+        /// </summary>
+        public History History { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the currently selected element. null = no element selected
+        /// </summary>
         public PinballElement SelectedElement { 
             get {
                 return _selectedElement;
@@ -41,19 +72,12 @@ namespace Sketchball.Controls
                 }
             }
         }
+        private PinballElement _selectedElement = null;
 
-        public void Invalidate()
-        {
-            InvalidateVisual();
-        }
-
-        public delegate void SelectionChangedHandler(PinballElement prevElement, PinballElement newElement);
-        public event SelectionChangedHandler SelectionChanged;
-
-        private float _scaleFactor = 1.0f;
-
-        public event EventHandler<DrawingContext> Paint;
-
+       
+        /// <summary>
+        /// Gets or sets the current scale factor.
+        /// </summary>
         public float ScaleFactor
         {
             get
@@ -62,37 +86,56 @@ namespace Sketchball.Controls
             }
             set
             {
-                _scaleFactor = value;
-                UpdateSize();
+                if (value != 0)
+                {
+                    _scaleFactor = value;
+                    UpdateSize();
+                }
             }
         }
+        private float _scaleFactor = 1.0f;
 
-        private void UpdateSize()
-        {
-            Width = (int)(PinballMachine.Width * ScaleFactor) + PADDING;
-            Height = (int)(PinballMachine.Height * ScaleFactor) + PADDING;
 
-          //  Invalidate();
-        }
-
+       /// <summary>
+       /// Gets the pinball machine currently in the making. To start anew, use <see cref="LoadMachine(PinballMachine machine)"/>.
+       /// </summary>
         public PinballMachine PinballMachine { get; private set; }
 
+        #endregion
 
         public PinballEditControl()
             : base()
         {
             PinballMachine = new PinballMachine();
+            History = new Sketchball.History();
 
             SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
             //Effect = new DropShadowEffect();
 
-            SelectionPen = new Pen(Brushes.Black, 1);
-            SelectionPen.DashStyle = DashStyles.Dash;
+            selectionPen = new Pen(Brushes.Black, 1);
+            selectionPen.DashStyle = DashStyles.Dash;
             //SelectionPen.DashStyle = DashStyle.Dash;
            
             UpdateSize();
 
             History.Change += () => { Invalidate(); };
+        }
+
+
+        // Keeps the size equal to the machine.
+        private void UpdateSize()
+        {
+            Width = (int)(PinballMachine.Width * ScaleFactor) + PADDING;
+            Height = (int)(PinballMachine.Height * ScaleFactor) + PADDING;
+        }
+
+
+        /// <summary>
+        /// Shortcut for InvalidateVisual() to maintain the naming scheme of GDI+. 
+        /// </summary>
+        public void Invalidate()
+        {
+            InvalidateVisual();
         }
 
         /// <summary>
@@ -142,7 +185,8 @@ namespace Sketchball.Controls
         protected override void Draw(DrawingContext g)
         {
             // Clear rectangle (needed, because otherwise it will not react to click events)
-           // g.DrawRectangle(Brushes.White, null, new Rect(0, 0, Width, Height));
+            // This is done by the machine already, so we can comment this out now.
+            // // g.DrawRectangle(Brushes.White, null, new Rect(0, 0, Width, Height));
 
 
             g.PushTransform(new MatrixTransform(Transform));
@@ -150,7 +194,7 @@ namespace Sketchball.Controls
             g.Pop();
 
             // Draw selection
-            // Border should always look the same, therefore we use editor coordinates for everything
+            // Border should always look the same (same thickness), therefore we have to use editor coordinates for everything
             if (SelectedElement != null && SelectedElement.World != null)
             {
                 var bounds = SelectedElement.GetBounds();
@@ -167,10 +211,11 @@ namespace Sketchball.Controls
 
                 g.PushTransform(new RotateTransform(SelectedElement.BaseRotation, bounds.X + origin.X, bounds.Y + origin.Y));
                 {
-                    g.DrawRectangle(null, SelectionPen, new Rect(bounds.X, bounds.Y, bounds.Width, bounds.Height));
+                    g.DrawRectangle(null, selectionPen, new Rect(bounds.X, bounds.Y, bounds.Width, bounds.Height));
                 }
                 g.Pop();
 
+                // If we're dealing with a wormhole, let's draw the connections between the elements.
                 if (SelectedElement is Wormhole)
                 {
                     List<Wormhole> targets = new List<Wormhole>();
@@ -190,7 +235,7 @@ namespace Sketchball.Controls
                     {
                         var exitVector = PointToEditor(wormhole.Location) + new Vector(wormhole.Width, wormhole.Height) * ScaleFactor * 0.5;
                         var exitPoint = new Point(exitVector.X, exitVector.Y);
-                        g.DrawLine(SelectionPen, exitPoint, new Point(bounds.X + bounds.Width / 2, bounds.Y + bounds.Height / 2));
+                        g.DrawLine(selectionPen, exitPoint, new Point(bounds.X + bounds.Width / 2, bounds.Y + bounds.Height / 2));
                     }
                 }
             }
@@ -205,9 +250,10 @@ namespace Sketchball.Controls
             get
             {
                 Matrix m  = new Matrix();
-                m.Translate(PADDING, PADDING);
+                
+                // First scale, then translate
                 m.Scale(ScaleFactor, ScaleFactor);
-                //m.Translate((Width / ScaleFactor.X - World.Width * ScaleFactor.X ) / 2, 15);
+                m.Translate(PADDING, PADDING);
 
                 return m;
             }
@@ -230,6 +276,11 @@ namespace Sketchball.Controls
             return pArray[0];
         }
 
+        /// <summary>
+        /// Computes the location of the specified client point into pinball coordinates. 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public Vector PointToPinball(Vector p)
         {
             var point = PointToPinball(new Point((int)p.X, (int)p.Y));
@@ -250,6 +301,11 @@ namespace Sketchball.Controls
             return pArray[0];
         }
 
+        /// <summary>
+        /// Computes the location of the specified pinball point into editor coordinates. 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public Vector PointToEditor(Vector p)
         {
             var point = PointToEditor(new Point(p.X, p.Y));
@@ -257,7 +313,7 @@ namespace Sketchball.Controls
         }
 
         /// <summary>
-        /// Takes a float from the pinball coordinate system and converts it into the editor coordinate system.
+        /// Takes a double from the pinball coordinate system and converts it into the editor coordinate system.
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -265,14 +321,19 @@ namespace Sketchball.Controls
         {
             return val * ScaleFactor;
         }
-        
+
+        /// <summary>
+        /// LEGACY FUNCTION: Takes a float from the pinball coordinate system and converts it into the editor coordinate system.
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
         public float LengthToEditor(float val)
         {
             return (float)LengthToEditor((double)val);
         }
 
         /// <summary>
-        /// Takes a float from the editor coordinate system and converts it into the pinball coordinate system.
+        /// Takes a double from the editor coordinate system and converts it into the pinball coordinate system.
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
@@ -281,11 +342,20 @@ namespace Sketchball.Controls
             return val / ScaleFactor;
         }
 
+        /// <summary>
+        /// LEGACY FUNCTION: Takes a double from the editor coordinate system and converts it into the pinball coordinate system.
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
         public float LengthToPinball(float val)
         {
             return (float)LengthToPinball((double)val);
         }
 
+        /// <summary>
+        /// Loads a fresh machine into the editor.
+        /// </summary>
+        /// <param name="machine">Machine to be loaded.</param>
         public void LoadMachine(PinballMachine machine) {
             PinballMachine = machine;
             History.Clear();

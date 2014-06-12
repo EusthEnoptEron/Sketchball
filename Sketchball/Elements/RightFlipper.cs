@@ -68,7 +68,7 @@ namespace Sketchball.Elements
             this.BoundingContainer.AddBoundingBox(bL4);
         }
 
-        protected override Vector Origin
+        protected override Vector origin
         {
             get
             {

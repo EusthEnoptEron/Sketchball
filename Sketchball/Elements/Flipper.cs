@@ -48,7 +48,7 @@ namespace Sketchball.Elements
             machine.Input.KeyUp -= OnKeyUp;
         }
 
-        protected virtual Vector Origin
+        protected virtual Vector origin
         {
             get
             {
@@ -64,10 +64,10 @@ namespace Sketchball.Elements
                 Animating = true;
 
                 Action endRot = () => {
-                    this.Rotate(-Rotation, Origin, 0.05f, () => { Animating = false; }); 
+                    this.Rotate(-Rotation, origin, 0.05f, () => { Animating = false; }); 
                 };
 
-                this.Rotate(RotationRange, Origin, 0.05f, null);
+                this.Rotate(RotationRange, origin, 0.05f, null);
             }
         }
 
@@ -85,7 +85,7 @@ namespace Sketchball.Elements
             {
                 var speed = e.KeyCode == Trigger ? 0.1f : 4f;
 
-                this.Rotate(-Rotation, Origin, 0.1f, () => { Animating = false; });
+                this.Rotate(-Rotation, origin, 0.1f, () => { Animating = false; });
             }
         }
 
