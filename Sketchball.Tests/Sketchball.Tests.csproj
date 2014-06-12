@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,6 +51,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Collision\BoundingCircle_intersectWithCircle.cs" />
+    <Compile Include="Collision\BoundingCircle_intersectWithLine.cs" />
+    <Compile Include="Collision\BoundingCircle_pushBack.cs" />
+    <Compile Include="Collision\BoundingCircle_reflect.cs" />
+    <Compile Include="Collision\BoundingField_addReference.cs" />
+    <Compile Include="Collision\BoundingLine_intersectWithCircle.cs" />
+    <Compile Include="Collision\BoundingLine_pushBack.cs" />
+    <Compile Include="Collision\BoundingLine_reflect.cs" />
+    <Compile Include="Collision\BoundingRaster_CircleTakeOverBoundingBoxes.cs" />
+    <Compile Include="Collision\BoundingRaster_LineTakeOverBoundingBoxes.cs" />
     <Compile Include="Editor\HistoryTests.cs" />
     <Compile Include="Elements\PinballMachineTests.cs" />
     <Compile Include="Elements\PinballElementTests.cs" />
