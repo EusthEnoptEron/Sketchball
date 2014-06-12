@@ -95,6 +95,8 @@ namespace Sketchball.Elements
             this.BoundingContainer.AddBoundingBox(bL26);
 
             this.BoundingContainer.AddBoundingBox(powerLine);
+            // Makes sure that the ball doesn't fall through
+            BoundingContainer.AddBoundingBox(new BoundingLine(pPs + new Vector(0, PencilPullback), pPe + new Vector(0, PencilPullback)) { BounceFactor = 0.2f });
 
 
             Scale = 1 / 2f;
@@ -132,7 +134,12 @@ namespace Sketchball.Elements
            
             if (!Charging && Power > 0)
             {
-                Vector maxVelocity = -World.Acceleration * 2;
+                double t = 1;
+                // v * t = s - (a*t^2)/2
+                Vector targetDistance = -new Vector(0, Height*2);
+                Vector maxVelocity = (targetDistance - 0.5 * World.Acceleration * t * t) / t;
+
+                //Vector maxVelocity = -World.Acceleration * 2;
                 maxVelocity.X = 0;
 
                 // SHOOT!
