@@ -17,9 +17,9 @@ using System.Windows.Shapes;
 namespace Sketchball.Controls
 {
     /// <summary>
-    /// Interaction logic for ManagedWPFControl.xaml
+    /// Stub WPF control used by WPFContainer. Adds some disposal logic.
     /// </summary>
-    public partial class ManagedWPFControl : UserControl
+    public partial class ManagedWPFControl : UserControl, IDisposable
     {
         protected bool isCancelled = false;
 
@@ -28,12 +28,12 @@ namespace Sketchball.Controls
             InitializeComponent();
         }
 
-        public void Exit()
+        /// <summary>
+        /// Disposes this element.
+        /// </summary>
+        public void Dispose()
         {
             isCancelled = true;
-            this.Width = 0;
-            this.Height = 0;
-
             OnDispose();
         }
 

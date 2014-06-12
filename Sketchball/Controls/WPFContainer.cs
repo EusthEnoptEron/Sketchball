@@ -41,7 +41,7 @@ namespace Sketchball.Controls
         {
             if (!IsDisposed)
             {
-                Control.Exit();
+                Control.Dispose();
                 Control.PreviewMouseDown -= onMouseDown;
 
                 var fe = Child as System.Windows.FrameworkElement;
