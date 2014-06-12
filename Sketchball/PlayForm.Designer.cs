@@ -107,6 +107,7 @@
             this.debugModeButton.Size = new System.Drawing.Size(152, 22);
             this.debugModeButton.Text = "Debug Mode";
             this.debugModeButton.Visible = false;
+            this.debugModeButton.Checked = false;
             this.debugModeButton.CheckedChanged += new System.EventHandler(this.onDebugModeChanged);
             // 
             // fullscreenButton

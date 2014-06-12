@@ -167,6 +167,7 @@
       <DependentUpon>SelectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\TranslationChange.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>

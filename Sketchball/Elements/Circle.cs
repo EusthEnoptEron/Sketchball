@@ -38,7 +38,7 @@ namespace Sketchball.Elements
 
         protected override void OnDraw(System.Windows.Media.DrawingContext g)
         {
-            g.DrawEllipse(null, new Pen(Brushes.Red, 1), new Point(radius, radius), radius, radius);
+            g.DrawEllipse(null, new Pen(Brushes.Black, 1), new Point(radius, radius), radius, radius);
         }
 
 
