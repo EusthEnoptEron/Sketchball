@@ -93,6 +93,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editor\PropertyChange.cs" />
+    <Compile Include="Elements\CustomElement.cs" />
     <Compile Include="Elements\ValidationProblem.cs" />
     <Compile Include="Elements\WideHole.cs" />
     <Compile Include="Elements\Wormhole.cs" />
