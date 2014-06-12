@@ -12,24 +12,26 @@ using SizeChangedEventArgs = System.Windows.SizeChangedEventArgs;
 
 namespace Sketchball.Controls
 {
+    /// <summary>
+    /// Provides an interface between the GDI+ and the WPF world.s
+    /// </summary>
     public class WPFContainer : ElementHost
     {
-        private ManagedWPFControl Control;
-        private bool updating = false;
+        private ManagedWPFControl control;
 
         public WPFContainer(ManagedWPFControl control)
         {
-            // Polyfill #1: When setting child <- control, the control will lose its dimensions.
+            // Bugfix #1: When setting child <- control, the control will lose its dimensions.
             double width = control.Width;
             double height = control.Height;
 
-            Child = Control = control;
+            Child = this.control = control;
 
             control.Width = width;
             control.Height = height;
             // --------------------------
 
-            // Polyfill #2: In order to get key events, we _explicitly_ need to focus the child control.
+            // Bugfix #2: In order to get key events, we _explicitly_ need to focus the child control.
             control.Focusable = true;
             control.PreviewMouseDown += onMouseDown;
           
@@ -41,8 +43,9 @@ namespace Sketchball.Controls
         {
             if (!IsDisposed)
             {
-                Control.Dispose();
-                Control.PreviewMouseDown -= onMouseDown;
+                // Workaround to fix... or alleviate a memory leak.
+                control.Dispose();
+                control.PreviewMouseDown -= onMouseDown;
 
                 var fe = Child as System.Windows.FrameworkElement;
                 if (fe != null)
@@ -52,7 +55,7 @@ namespace Sketchball.Controls
                     fe.SizeChanged -= handler;
                 }
 
-                Control = null;
+                control = null;
                 Child = null;
             }
             base.Dispose(disposing);
@@ -61,9 +64,9 @@ namespace Sketchball.Controls
 
         private void onMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (!Control.IsFocused)
+            if (!control.IsFocused)
             {
-                Control.Focus();
+                control.Focus();
             }
         }
 
@@ -71,8 +74,8 @@ namespace Sketchball.Controls
         {
             if (this.Dock == DockStyle.Fill)
             {
-                Control.Width = Width;
-                Control.Height = Height;
+                control.Width = Width;
+                control.Height = Height;
             }
         }
     }

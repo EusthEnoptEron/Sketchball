@@ -11,18 +11,28 @@ using Control = System.Windows.Forms.Control;
 
 namespace Sketchball.Editor
 {
+
+    /// <summary>
+    /// The omnipotent tool for selecting elements.
+    /// </summary>
     class SelectionTool : Tool
     {   
-        enum SelectionState { Idle, Dragging, Resizing, Rotating }
+        enum SelectionState { Idle, Dragging, Shaping }
 
         private Vector startVector;
         private const int MIN_LENGTH = 20;
 
-        private Point origin;
-        private Point startPoint;
-        private Vector initialPoint;
-        private double initialScale;
-        private double initialRotation;
+        private struct ShapeData
+        {
+            public Point origin;
+            public Point startPoint;
+            public Vector initialPoint;
+            public double initialScale;
+            public double initialRotation;
+
+        }
+
+        private ShapeData shapeData = new ShapeData();
 
 
         private SelectionState State = SelectionState.Idle;
@@ -81,24 +91,24 @@ namespace Sketchball.Editor
                 {
                     if (SelectedElement != null && Control.ModifierKeys == System.Windows.Forms.Keys.Control)
                     {
-                        State = SelectionState.Resizing;
+                        State = SelectionState.Shaping;
 
                         var pos = Editor.PointToEditor(SelectedElement.Location + SelectedElement.GetRotationOrigin());
-                        origin = new Point(pos.X, pos.Y);
+                        shapeData.origin = new Point(pos.X, pos.Y);
 
 
-                        startPoint = e.GetPosition(Editor);
-                        double factor = (startPoint - origin).Length / MIN_LENGTH;
+                        shapeData.startPoint = e.GetPosition(Editor);
+                        double factor = (shapeData.startPoint - shapeData.origin).Length / MIN_LENGTH;
                         if (factor < 1)
                         {
-                            startPoint += (startPoint - origin) * (1 / factor);
+                            shapeData.startPoint += (shapeData.startPoint - shapeData.origin) * (1 / factor);
                         }
 
-                        currentPoint = new Point(startPoint.X, startPoint.Y);
+                        currentPoint = new Point(shapeData.startPoint.X, shapeData.startPoint.Y);
 
-                        initialPoint = SelectedElement.Location;
-                        initialScale = SelectedElement.Scale;
-                        initialRotation = SelectedElement.BaseRotation;
+                        shapeData.initialPoint = SelectedElement.Location;
+                        shapeData.initialScale = SelectedElement.Scale;
+                        shapeData.initialRotation = SelectedElement.BaseRotation;
                     }
                     else
                     {
@@ -155,16 +165,16 @@ namespace Sketchball.Editor
                 
                 Editor.Invalidate();
             }
-            else if (State == SelectionState.Resizing || State == SelectionState.Rotating)
+            else if (State == SelectionState.Shaping)
             {
                 var pos = e.GetPosition(Editor);
                 currentPoint = new Point(pos.X, pos.Y);
 
-                SelectedElement.Scale = ((currentPoint - origin).Length / (startPoint - origin).Length) * initialScale;
+                SelectedElement.Scale = ((currentPoint - shapeData.origin).Length / (shapeData.startPoint - shapeData.origin).Length) * shapeData.initialScale;
 
-                var newLoc = Editor.PointToPinball(origin) - SelectedElement.GetRotationOrigin();
+                var newLoc = Editor.PointToPinball(shapeData.origin) - SelectedElement.GetRotationOrigin();
                 SelectedElement.Location = new Vector(newLoc.X, newLoc.Y);
-                SelectedElement.BaseRotation = initialRotation + Vector.AngleBetween(startPoint - origin, currentPoint - origin);
+                SelectedElement.BaseRotation = shapeData.initialRotation + Vector.AngleBetween(shapeData.startPoint - shapeData.origin, currentPoint - shapeData.origin);
 
                 Editor.Invalidate();
             }
@@ -179,11 +189,11 @@ namespace Sketchball.Editor
                 Editor.History.Add(posChange);
                 posChange = null;
             }
-            if (State == SelectionState.Resizing && currentPoint != startPoint)
+            if (State == SelectionState.Shaping && currentPoint != shapeData.startPoint)
             {
-                var translation = new TranslationChange(SelectedElement, SelectedElement.Location - initialPoint);
-                var scale = new PropertyChange(SelectedElement, "Scale", SelectedElement.Scale, initialScale);
-                var rotation = new PropertyChange(SelectedElement, "BaseRotation", SelectedElement.BaseRotation, initialRotation);
+                var translation = new TranslationChange(SelectedElement, SelectedElement.Location - shapeData.initialPoint);
+                var scale = new PropertyChange(SelectedElement, "Scale", SelectedElement.Scale, shapeData.initialScale);
+                var rotation = new PropertyChange(SelectedElement, "BaseRotation", SelectedElement.BaseRotation, shapeData.initialRotation);
                 Editor.History.Add(new CompoundChange(new IChange[] { translation, scale, rotation }));
             }
 
@@ -195,9 +205,11 @@ namespace Sketchball.Editor
 
         protected override void Draw(object sender, System.Windows.Media.DrawingContext g)
         {
-            if (State == SelectionState.Resizing)
+            if (State == SelectionState.Shaping)
             {
-                g.DrawLine(new Pen(Brushes.Gray, 1), origin, currentPoint);
+                g.DrawLine(new Pen(Brushes.Gray, 1), shapeData.origin, currentPoint);
+                g.DrawEllipse(Brushes.CornflowerBlue, new Pen(Brushes.DarkBlue, 1), shapeData.origin, 2, 2);
+                g.DrawEllipse(Brushes.CornflowerBlue, new Pen(Brushes.DarkBlue, 1), currentPoint, 5, 5);
             }
         }
 
