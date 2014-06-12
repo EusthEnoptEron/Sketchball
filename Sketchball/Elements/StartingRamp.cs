@@ -13,24 +13,40 @@ using System.Runtime.Serialization;
 namespace Sketchball.Elements
 {
 
+    /// <summary>
+    /// Represents a starting ramp. This ramp is not usually placed by the user but by the layout.
+    /// </summary>
     [DataContract]
     public class StartingRamp : PinballElement
     {
-        private float Power = 0;
-        private Keys Trigger = Keys.Space;
-
-        private bool Charging = false;
-        private Glide Tweener = new Glide();
-
         private static readonly Size size = new Size(210, 1128);
+        
+        // Current power [0..1]
+        private float power = 0;
+
+        // Key that loads the ramp
+        private Keys trigger = Keys.Space;
+
+        // State variable
+        private bool charging = false;
+
+        // Animation helper
+        private Glide tweener = new Glide();
+
 
         protected override Size BaseSize { get { return size; } }
-        private readonly int PencilPullback = 50;
-        private readonly int PencilOffsetY = -90;
+        
+        private readonly int pencilPullback = 50;
+        private readonly int pencilOffsetY = -90;
 
+        
         private static System.Drawing.Image pencilImage = Booster.OptimizeImage(Properties.Resources.Rampe_pencil, 70);
         private ImageSource pencilImageWpf;
         private BoundingLine powerLine;
+
+        public StartingRamp()
+        {
+        }
 
         protected override void InitResources()
         {
@@ -38,9 +54,6 @@ namespace Sketchball.Elements
             pencilImageWpf = Booster.OptimizeWpfImage("Rampe_pencil.png");
         }
 
-        public StartingRamp()
-        {
-        }
 
         protected override void Init()
         {
@@ -58,8 +71,8 @@ namespace Sketchball.Elements
             Vector p25 = new Vector(154, 230);
             Vector p26 = new Vector(175, 1128);
 
-            Vector pPs = new Vector(65, this.BaseSize.Height + PencilOffsetY-20);
-            Vector pPe = new Vector(152, this.BaseSize.Height + PencilOffsetY-20);
+            Vector pPs = new Vector(65, this.BaseSize.Height + pencilOffsetY-20);
+            Vector pPe = new Vector(152, this.BaseSize.Height + pencilOffsetY-20);
 
 
             BoundingLine bL1 = new BoundingLine(p1, p2);
@@ -76,10 +89,13 @@ namespace Sketchball.Elements
             BoundingLine bL26 = new BoundingLine(p26, p21);
 
             powerLine = new BoundingLine(pPs, pPe);
+            BoundingLine subPowerLine = new BoundingLine(pPs + new Vector(0, pencilPullback), pPe + new Vector(0, pencilPullback));
+
 
             bL4.BounceFactor = 0.5f;
             bL1.BounceFactor = 0.5f;
             powerLine.BounceFactor = 0.2f;
+            subPowerLine.BounceFactor = 0.2f;
 
             this.BoundingContainer.AddBoundingBox(bL1);
             this.BoundingContainer.AddBoundingBox(bL2);
@@ -96,7 +112,7 @@ namespace Sketchball.Elements
 
             this.BoundingContainer.AddBoundingBox(powerLine);
             // Makes sure that the ball doesn't fall through
-            BoundingContainer.AddBoundingBox(new BoundingLine(pPs + new Vector(0, PencilPullback), pPe + new Vector(0, PencilPullback)) { BounceFactor = 0.2f });
+            BoundingContainer.AddBoundingBox(subPowerLine);
 
 
             Scale = 1 / 2f;
@@ -104,14 +120,14 @@ namespace Sketchball.Elements
 
         protected override void EnterGame(PinballGameMachine machine)
         {
-            // Bind event
+            // Bind key event
             machine.Input.KeyDown += Charge;
             machine.Input.KeyUp += Discharge;
         }
 
         protected override void LeaveGame(PinballGameMachine machine)
         {
-            // Unbind event
+            // Unbind key event
             machine.Input.KeyDown -= Charge;
             machine.Input.KeyUp -= Discharge;
         }
@@ -119,21 +135,29 @@ namespace Sketchball.Elements
         protected override void OnDraw(DrawingContext g)
         {
             g.DrawImage(Image, new System.Windows.Rect(0, 0, BaseWidth, BaseHeight));
-            g.DrawImage(pencilImageWpf, new System.Windows.Rect(96f / 276 * BaseWidth, (1800f + PencilOffsetY - 5) / 1934 * BaseHeight + Power * PencilPullback, pencilImage.Width, pencilImage.Height));
+            g.DrawImage(pencilImageWpf, new System.Windows.Rect(96f / 276 * BaseWidth, (1800f + pencilOffsetY - 5) / 1934 * BaseHeight + power * pencilPullback, pencilImage.Width, pencilImage.Height));
         }
 
+        /// <summary>
+        /// Positions a ball so that it will fall into the ramp.
+        /// </summary>
+        /// <param name="ball"></param>
         public void IntroduceBall(Ball ball) {
             ball.X = X + ball.Width * 1.5;
             ball.Y = 2 * Y;
         }
 
+
         public override void Update(double delta)
         {
+            // Update animations
             base.Update(delta);
-            Tweener.Update((float)delta);
+            tweener.Update((float)delta);
            
-            if (!Charging && Power > 0)
+            // We need to discharge
+            if (!charging && power > 0)
             {
+                // 1. Calculate the velocity needed to get the ball out there
                 double t = 1;
                 // v * t = s - (a*t^2)/2
                 Vector targetDistance = -new Vector(0, Height*2);
@@ -143,6 +167,8 @@ namespace Sketchball.Elements
                 maxVelocity.X = 0;
 
                 // SHOOT!
+                // We use a little trick here: the powerline is raised by a little and if it then intersects with the ball,
+                // the ball will be bounced off.
                 powerLine.move(new Vector(0, -20));
                 var dummy = new Vector();
                 foreach (var el in World.Balls)
@@ -152,43 +178,49 @@ namespace Sketchball.Elements
                     {
                         if (powerLine.Intersect(boundingBox, out dummy))
                         {
-                            ball.Velocity += Power * maxVelocity;
-                            ball.Location.Y -= Power * PencilPullback * Scale;
+                            ball.Velocity += power * maxVelocity;
+                            ball.Location.Y -= power * pencilPullback * Scale;
                             break;
                         }
                     }
                 }
                 powerLine.move(new Vector(0, 20));
                 powerLine.Sync(Transform);
-                Power = 0;
+                power = 0;
             }
         }
 
+        // OnKeyDown
         private void Charge(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Trigger)
+            if (e.KeyCode == trigger)
             {
-                Charging = true;
-                Tweener.Tween(this, new { Power = 1 }, 1f).OnUpdate(delegate {
+                charging = true;
+                tweener.Tween(this, new { power = 1 }, 1f).OnUpdate(delegate {
                     Matrix m = Matrix.Identity;
                     m *= Transform;
-                    m.Translate(0, Power * PencilPullback * Scale);
+                    m.Translate(0, power * pencilPullback * Scale);
 
                     powerLine.Sync(m);
                 });
             }
         }
 
+        // OnKeyUp
         private void Discharge(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Trigger)
+            if (e.KeyCode == trigger)
             {
-                Charging = false;
-                Tweener.Cancel();
+                charging = false;
+                tweener.Cancel();
             }
         }
 
-
+        /// <summary>
+        /// Checks if the ramp contains a ball currently.
+        /// </summary>
+        /// <param name="ball"></param>
+        /// <returns>Whether or not the ball is in this ramp.</returns>
         public bool Contains(Ball ball)
         {
             return GetBounds().Contains(ball.GetBounds());

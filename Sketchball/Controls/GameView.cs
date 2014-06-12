@@ -18,18 +18,28 @@ using System.Windows.Media.Imaging;
 namespace Sketchball.Controls
 {
     /// <summary>
-    /// Control that houses a game of pinball.
+    /// Control that houses a game of pinball and provides a view on it.
     /// </summary>
     class GameView : PinballControl
     {
 
         /// <summary>
-        /// The absolute maximum of FPS at any point in time.
+        /// Arbitrarily chosen FPS number that controls the update interval. We only have lose control over the visual update process
+        /// i.e. we don't know when the update is done. If we use an update worker, we may be too fast and thus block user input. Furthermore,
+        /// we would have to use a Dispatcher, which would make the application more prone to errors.
+        /// By using a common timer with a certain tick rate, we may lose some accuracy, but in exchange Windows can take care of it all.
         /// </summary>
         private const int MAX_FPS = 40;
 
+        /// <summary>
+        /// The camera being used to look at the scene.
+        /// </summary>
         public Camera Camera { get; private set; }
+
+        // The HUD
         private GameHUD HUD;
+
+        // The game scene.
         private GameWorld gameWorld;
 
         public Game Game;
@@ -48,27 +58,26 @@ namespace Sketchball.Controls
 
             Camera = new GameFieldCamera(gameWorld, HUD);
 
+            // Little hack needed so that we get all input events.
             Focusable = true;
             Loaded += (s, e) => { Focus(); };
 
             // Init camera
             Camera.Size = new Size(Width, Height);
 
-            // Optimize control for performance
-            // this.Effect = new System.Windows.Media.Effects.BlurEffect();
+            // Set up the update timer
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000 / MAX_FPS;
-            timer.Tick += OnDraw;
+            timer.Tick += OnTick;
             timer.Start();
 
+            // Wire up a few event listeners
             PreviewKeyDown += HandleKeyDown;
             SizeChanged += ResizeCamera;
             Game.StatusChanged += delegate { Dispatcher.Invoke(delegate { InvalidateVisual(); }, System.Windows.Threading.DispatcherPriority.Render); };
 
+            // Let's draw with high quality
             SetValue(RenderOptions.BitmapScalingModeProperty, BitmapScalingMode.HighQuality);
-            SetValue(RenderOptions.CachingHintProperty, CachingHint.Cache);
-           
-
         }
 
         private void ResizeCamera(object sender, System.Windows.SizeChangedEventArgs e)
@@ -101,30 +110,23 @@ namespace Sketchball.Controls
                         Game.Resume();
                     }
                     break;
-
-                case Key.Add:
-                    // this.Camera.zoom(1+this.zoomfactor);
-
-                    break;
-
-                case Key.OemMinus:
-                case Key.Subtract:
-                    // this.Camera.zoom(1-this.zoomfactor);
-                    break;
-
             }
 
         }
 
-        private void OnDraw(object sender, EventArgs e)
+        // Draw loop
+        private void OnTick(object sender, EventArgs e)
         {
             if (isCancelled)
                 timer.Dispose();
-            else if(Game.Status == GameStatus.Playing)
+            else if(Game.Status == GameStatus.Playing) // Only draw if it's needed
                 InvalidateVisual();
         }
+
         protected override void OnDispose()
         {
+            // ElementHost sometimes fails to properly remove all references to a WPF control,
+            // which is why we set all our own references to NULL so that at least those aren't kept alive forever.
             timer.Dispose();
             Game = null;
             gameWorld = null;
@@ -132,20 +134,22 @@ namespace Sketchball.Controls
             Camera = null;
         }
 
+        // Draw scene
         protected override void Draw(DrawingContext g)
         {
 
             if (Game.Status == GameStatus.GameOver || Game.Status == GameStatus.Pause)
             {
-                var group = new DrawingVisual();
-                group.Effect = new BlurEffect();
+                // We'll make a first render pass with a blur shader, and after that we'll draw an overlay on it
+                var firstPass = new DrawingVisual();
+                firstPass.Effect = new BlurEffect();
 
-                using (var g2 = group.RenderOpen())
+                using (var g2 = firstPass.RenderOpen())
                 {
                     Camera.Draw(g2);
                 }
 
-                g.DrawImage(GetImage(group, (int)Width, (int)Height), new Rect(0, 0, Width, Height));
+                g.DrawImage(GetImage(firstPass, (int)Width, (int)Height), new Rect(0, 0, Width, Height));
 
 
                 if (Game.Status == GameStatus.GameOver)
@@ -160,10 +164,12 @@ namespace Sketchball.Controls
             }
             else
             {
+                // We're playing, so just let the camera draw itself
                 Camera.Draw(g);
             }
        }
 
+        
         private void DrawOverlay(DrawingContext g, Color color, string title, string msg)
         {
             var col = Color.FromArgb(40, color.R, color.G, color.B);
@@ -181,6 +187,7 @@ namespace Sketchball.Controls
             g.DrawText(text, new Point(x, (Height + caption.Height) / 2));
         }
 
+        // Turns a DrawingVisual into an ImageSource. Somewhat bothersome procedure, hence outsourced into its own function.
         private ImageSource GetImage(DrawingVisual visual, int width, int height)
         {
             visual.Clip = new RectangleGeometry(new Rect(0, 0, width, height));
