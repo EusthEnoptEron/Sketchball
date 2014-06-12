@@ -8,6 +8,9 @@ using System.Windows.Media;
 
 namespace Sketchball.GameComponents
 {
+    /// <summary>
+    /// Represents a camera that cna draw part of a GameWorld.+
+    /// </summary>
     interface Camera
     {
         Size Size { get; set; }

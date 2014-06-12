@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Represents a wide hole, which, in contrast to a normal hole, is rectangular.
+    /// </summary>
     public class WideHole : Hole
     {
         private static readonly Size size = new Size(600, 195);

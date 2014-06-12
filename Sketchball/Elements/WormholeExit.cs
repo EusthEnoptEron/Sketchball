@@ -11,11 +11,17 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Represents a destination for a wormhole entry.
+    /// </summary>
     [DataContract]
     public class WormholeExit : Wormhole
     {
         private static readonly Size size = new Size(30, 30);
 
+        /// <summary>
+        /// Gets a list of entries associated with this exit.
+        /// </summary>
         [Browsable(false)]
         public IEnumerable<WormholeEntry> Entries { 
             get {
@@ -51,6 +57,7 @@ namespace Sketchball.Elements
             Image = Booster.OptimizeWpfImage("WormholeExit.png");
         }
 
+        // Tries to find entries that still need a destinatoin.
         protected override void EnterEditor(PinballMachine machine)
         {
             if (machine.DynamicElements == null) return; // if we're deserializing
@@ -62,6 +69,7 @@ namespace Sketchball.Elements
             }
         }
 
+        // Removes itself from the references of entries.
         protected override void LeaveEditor(PinballMachine machine)
         {
             foreach (WormholeEntry entry in Entries)

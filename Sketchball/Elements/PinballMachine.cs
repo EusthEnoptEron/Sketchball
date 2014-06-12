@@ -11,6 +11,9 @@ using System.Linq;
 namespace Sketchball.Elements
 {
 
+    /// <summary>
+    /// Represents a pinball machine that can be customized.
+    /// </summary>
     [DataContract(IsReference=true)]
     public class PinballMachine : ICloneable, IDisposable
     {
@@ -46,6 +49,7 @@ namespace Sketchball.Elements
         {
             get
             {
+                // Locks are needed to prevent changes on the lists while they're being enumerated.
                 lock (StaticElements)
                 {
                     foreach (PinballElement el in StaticElements)
@@ -125,13 +129,24 @@ namespace Sketchball.Elements
             }
         }
 
-
+        /// <summary>
+        /// Gets the highscore list.
+        /// </summary>
         [DataMember]
         [Browsable(false)]
         public HighscoreList Highscores { get; private set; }
        
+
+        /// <summary>
+        /// Creates a new pinball machine with the default layout.
+        /// </summary>
         public PinballMachine() : this(new DefaultLayout()) {}
 
+
+        /// <summary>
+        /// Creates a new pinball machine with a given layout.
+        /// </summary>
+        /// <param name="layout"></param>
         public PinballMachine(IMachineLayout layout)
         {
             Layout = layout;
@@ -228,7 +243,10 @@ namespace Sketchball.Elements
 
 
 #region Serialization
-
+        /// <summary>
+        /// Saves the pinball machine to a file.
+        /// </summary>
+        /// <param name="path">Path of the file.</param>
         public void Save(string path)
         {
             using (var stream = File.Open(path, FileMode.Create))
@@ -239,12 +257,22 @@ namespace Sketchball.Elements
             }
         }
 
+        /// <summary>
+        /// Saves the machine to an output stream.
+        /// </summary>
+        /// <param name="output"></param>
         public void Save(Stream output)
         {
             NetDataContractSerializer serializer = new NetDataContractSerializer();
             serializer.WriteObject(output, this);
         }
 
+
+        /// <summary>
+        /// Loads a pinball machine from a file.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static PinballMachine FromFile(string path)
         {
             PinballMachine pbm;
@@ -255,6 +283,11 @@ namespace Sketchball.Elements
             return pbm;
         }
 
+        /// <summary>
+        /// Loads a pinball machine from an input stream.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static PinballMachine FromStream(Stream input)
         {
             NetDataContractSerializer serializer = new NetDataContractSerializer();
@@ -305,6 +338,7 @@ namespace Sketchball.Elements
                 }
             }
 
+            // We're fine.
             LastProblem = null;
             return true;
         }
@@ -318,7 +352,10 @@ namespace Sketchball.Elements
 
 #endregion
 
-
+        /// <summary>
+        /// Brings an element to front for drawing.
+        /// </summary>
+        /// <param name="element"></param>
         public void BringToFront(PinballElement element)
         {
             DynamicElements.MoveToTail(element);   

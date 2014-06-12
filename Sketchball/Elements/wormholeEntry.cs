@@ -13,9 +13,15 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Represents a wormhole entry that sends the ball to the other end.
+    /// </summary>
     [DataContract]
     public class WormholeEntry : Wormhole
     {
+        /// <summary>
+        /// Gets or sets the exit associated with this entry.
+        /// </summary>
         [DataMember]
         [Browsable(false)]
         public WormholeExit WormholeExit { get; set; }
@@ -52,9 +58,10 @@ namespace Sketchball.Elements
             Image = Booster.OptimizeWpfImage("WormholeEntry.png");
         }
 
+        // Try to find an exit that fits our needs.
         protected override void EnterEditor(PinballMachine machine)
         {
-            if (machine.DynamicElements == null) return; // if we're deserializing
+            if (machine.DynamicElements == null) return; // may happen if we're deserializing
             if (WormholeExit == null)
             {
                 // Let's search for one

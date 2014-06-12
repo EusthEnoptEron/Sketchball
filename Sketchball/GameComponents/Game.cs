@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace Sketchball.GameComponents
 {
     /// <summary>
-    /// Phases the control can assume
+    /// States/Phases the game can assume
     /// </summary>
     public enum GameStatus
     {

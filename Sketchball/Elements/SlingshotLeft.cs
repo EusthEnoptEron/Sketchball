@@ -11,6 +11,9 @@ using System.Windows.Media;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Represents a left slingshot.
+    /// </summary>
     [DataContract]
     public class SlingshotLeft : PinballElement
     {

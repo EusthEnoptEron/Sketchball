@@ -9,11 +9,22 @@ using System.Windows.Media;
 
 namespace Sketchball.GameComponents
 {
+    /// <summary>
+    /// Visual element that takes care of the head-up display.
+    /// </summary>
     public class GameHUD
     {
         private Game Game;
-        public int Width { get; set; }
-        public int Height { get; set; }
+
+        /// <summary>
+        /// Gets the width of the HUD. Setting is not currently supported.
+        /// </summary>
+        public int Width { get; private set; }
+
+        /// <summary>
+        /// Gets the height of the HUD. Setting is not currently supported.
+        /// </summary>
+        public int Height { get; private set; }
 
         private double smilieWidth;
         private double smilieHeight;
@@ -21,7 +32,7 @@ namespace Sketchball.GameComponents
         private double lineWidth;
         private double lineHeight;
 
-
+        // Resources
         private ImageSource BG = Booster.OptimizeWpfImage("postit.png");
         private ImageSource Line = Booster.OptimizeWpfImage("line.png");
         private ImageSource LineThrough = Booster.OptimizeWpfImage("line_strikethrough.png");
@@ -47,8 +58,11 @@ namespace Sketchball.GameComponents
 
         public void Draw(DrawingContext g)
         {
+            // 1. Draw BG
             g.DrawImage(BG, new Rect(0, 0, Width, Height));
 
+
+            // 2. Create text objects
             var scoreTitle = GetText("Score:");
             var scoreText = GetText(Game.Score.ToString());
 
@@ -58,52 +72,44 @@ namespace Sketchball.GameComponents
             
             var livesText = GetText(Game.Lives.ToString());
 
+            // 3. Draw the stuff
             g.PushTransform(new TranslateTransform(Width / 4f, Height / 3.5f));
             {
                 g.DrawText(scoreTitle, new Point(0, 0));
                 g.DrawText(scoreText, new Point(scoreTitle.Width + 10, 0));
-                g.DrawText(livesTitle, new Point(0, scoreTitle.Height+5));
+                g.DrawText(livesTitle, new Point(0, scoreTitle.Height + 5));
 
+
+                // --- Lives ---
                 int i = 0;
                 for (; i < Game.Lives; i++)
                 {
-                    g.DrawImage(Line, new Rect(livesTitle.Width + (i+1) * lineWidth, scoreText.Height+5, lineWidth, lineHeight));
+                    g.DrawImage(Line, new Rect(livesTitle.Width + (i + 1) * lineWidth, scoreText.Height + 5, lineWidth, lineHeight));
                 }
                 for (; i < Game.TOTAL_LIVES; i++)
                 {
-                    g.DrawImage(LineThrough, new Rect(livesTitle.Width + (i+1) * lineWidth, scoreText.Height+5, lineWidth, lineHeight));
+                    g.DrawImage(LineThrough, new Rect(livesTitle.Width + (i + 1) * lineWidth, scoreText.Height + 5, lineWidth, lineHeight));
                 }
 
                 g.PushTransform(new TranslateTransform(Width / 6, livesTitle.Height * 2));
-
-                if (Game.Lives < Game.TOTAL_LIVES / 3)
                 {
-                    g.DrawImage(BadSmilie, new Rect(0, 0, smilieWidth, smilieHeight));
+                    // --- Smilie ---
+                    if (Game.Lives < Game.TOTAL_LIVES / 3)
+                    {
+                        g.DrawImage(BadSmilie, new Rect(0, 0, smilieWidth, smilieHeight));
+                    }
+                    else if (Game.Lives < Game.TOTAL_LIVES / 3 * 2)
+                    {
+                        g.DrawImage(MediumSmilie, new Rect(0, 0, smilieWidth, smilieHeight));
+                    }
+                    else
+                    {
+                        g.DrawImage(GoodSmilie, new Rect(0, 0, smilieWidth, smilieHeight));
+                    }
                 }
-                else if (Game.Lives < Game.TOTAL_LIVES / 3 * 2)
-                {
-                    g.DrawImage(MediumSmilie, new Rect(0, 0, smilieWidth, smilieHeight));
-                }
-                else
-                {
-                    g.DrawImage(GoodSmilie, new Rect(0, 0, smilieWidth, smilieHeight));
-                }
-                
                 g.Pop();
-                //g.DrawText(livesText, new Point(livesTitle.Width, scoreTitle.Height));
             }
             g.Pop();
-
-            //TODO
-            /*SizeF size = g.MeasureString(str, font);
-            g.DrawString(str, font, Brushes.Black, Width - 150, 50);
-            g.DrawString(Game.Score.ToString(), font, Brushes.Black, Width - 150 + size.Width, 50);
-
-            str = "Lives: ";
-            size = g.MeasureString(str, font);
-            g.DrawString(str, font, Brushes.Black, Width - 150, 50 + size.Height);
-            g.DrawString(Game.Lives.ToString(), font, Brushes.Black, Width - 150 + size.Width, 50 + size.Height);*/
-
         }
 
         private FormattedText GetText(string text)

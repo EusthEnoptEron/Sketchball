@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Represents a pinball machine with additional game logic, i.e. physics.
+    /// </summary>
     public class PinballGameMachine : PinballMachine
     {
         public delegate void CollisionEventHandler(PinballElement sender);
@@ -95,6 +98,10 @@ namespace Sketchball.Elements
             killedBalls.Clear();
         }
 
+        /// <summary>
+        /// Removes a ball from the field and fires a GameOver event.
+        /// </summary>
+        /// <param name="ball"></param>
         public void KillBall(Ball ball)
         {
             killedBalls.Add(ball);

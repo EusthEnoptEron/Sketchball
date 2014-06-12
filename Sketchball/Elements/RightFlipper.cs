@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace Sketchball.Elements
 {
+    /// <summary>
+    /// Represents a right flipper.
+    /// </summary>
     [DataContract]
     public class RightFlipper : Flipper
     {
