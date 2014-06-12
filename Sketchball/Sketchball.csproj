@@ -76,9 +76,6 @@
     <Compile Include="Controls\ElementInspector.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\LegacyPinballControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\ManagedWPFControl.xaml.cs">
       <DependentUpon>ManagedWPFControl.xaml</DependentUpon>
     </Compile>
