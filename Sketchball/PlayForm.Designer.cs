@@ -27,6 +27,7 @@
             this.debugModeButton = new System.Windows.Forms.ToolStripMenuItem();
             this.fullscreenButton = new System.Windows.Forms.ToolStripMenuItem();
             this.mainContainer = new System.Windows.Forms.ToolStripContainer();
+            this.closeMachineButton = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.mainContainer.TopToolStripPanel.SuspendLayout();
             this.mainContainer.SuspendLayout();
@@ -50,6 +51,7 @@
             this.pauseToolStripMenuItem,
             this.resumeToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.closeMachineButton,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem,
             this.debugModeButton,
@@ -85,7 +87,7 @@
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.editToolStripMenuItem.Text = "Edit...";
+            this.editToolStripMenuItem.Text = "Edit Machine";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.onEditClicked);
             // 
             // toolStripSeparator1
@@ -135,6 +137,13 @@
             // 
             this.mainContainer.TopToolStripPanel.Controls.Add(this.menuStrip1);
             // 
+            // closeMachineButton
+            // 
+            this.closeMachineButton.Name = "closeMachineButton";
+            this.closeMachineButton.Size = new System.Drawing.Size(169, 22);
+            this.closeMachineButton.Text = "Close Machine";
+            this.closeMachineButton.Click += new System.EventHandler(this.onCloseMachine);
+            // 
             // PlayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,5 +179,6 @@
         private System.Windows.Forms.ToolStripMenuItem debugModeButton;
         private System.Windows.Forms.ToolStripContainer mainContainer;
         private System.Windows.Forms.ToolStripMenuItem fullscreenButton;
+        private System.Windows.Forms.ToolStripMenuItem closeMachineButton;
     }
 }

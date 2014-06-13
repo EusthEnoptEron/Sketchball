@@ -144,6 +144,7 @@ namespace Sketchball
             if (selectionForm == null)
             {
                 editToolStripMenuItem.Visible = false;
+                closeMachineButton.Visible = false;
             }
 
             // Make sure the Resume / Pause buttons are correctly configured
@@ -185,6 +186,11 @@ namespace Sketchball
         private void onExitClicked(object sender, EventArgs e)
         {
             this.Close();
+        }
+        
+        private void onCloseMachine(object sender, EventArgs e)
+        {
+            selectionForm.CloseManagedForm();
         }
 
         private void onEditClicked(object sender, EventArgs e)
