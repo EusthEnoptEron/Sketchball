@@ -209,6 +209,7 @@
     <EmbeddedResource Include="SelectionForm.resx">
       <DependentUpon>SelectionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="DCD.cd" />
     <None Include="Machines\Default.pmf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,0 +1,602 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Sketchball.Booster" Collapsed="true">
+    <Position X="29" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAACAAAAAAoAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Booster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.History" Collapsed="true">
+    <Position X="32.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACICAABABABABAAIIAAAgAADAAAAAAAAAAAAAAFCAgA=</HashCode>
+      <FileName>Editor\History.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.TranslationChange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAIAAAICAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Editor\TranslationChange.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.EditorForm" Collapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BScAAgmgMKgAUBVKE2CAQIECBIQYEIIMQkFQAQBCBAQ=</HashCode>
+      <FileName>EditorForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.FontManager" Collapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAQAAAAEAAAAAAAAAAAAAAgQAAAIAAAAAA=</HashCode>
+      <FileName>FontManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.PlayForm" Collapsed="true">
+    <Position X="37.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DQKEEIEgACioAAQEFACQkAGCADQgAAAoBEBAAgAAAAA=</HashCode>
+      <FileName>PlayForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Program" Collapsed="true">
+    <Position X="39.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.SelectionForm" Collapsed="true">
+    <Position X="36" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CQQAIBAAACABAABAAACEAIgCAAAAAAAQAAARQAAgAAE=</HashCode>
+      <FileName>SelectionForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Collision.BoundingBox" Collapsed="true">
+    <Position X="6.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAACAAgShAAAEAQABEAAGAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Collision\BoundingBox.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sketchball.Collision.BoundingCircle" Collapsed="true">
+    <Position X="5.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAABCACAAgSBAAAEAAABEAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Collision\BoundingCircle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Collision.BoundingCircleZentripush" Collapsed="true">
+    <Position X="5.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Collision\BoundingCircleZentripush.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Collision.BoundingContainer" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAICAIAAAAAAAEAAAAAEAQAAAAAAAAIA=</HashCode>
+      <FileName>Collision\BoundingContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Collision.BoundingField" Collapsed="true">
+    <Position X="32.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABAABwAAAAAAA=</HashCode>
+      <FileName>Collision\BoundingField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Collision.BoundingLine" Collapsed="true">
+    <Position X="7.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAFAABAACQAgSBIAQEAAABEAAAAAAAAgAAAAAAABA=</HashCode>
+      <FileName>Collision\BoundingLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Collision.BoundingRaster" Collapsed="true">
+    <Position X="34.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACQAAgAEQAABEYAAAAAAMAAAICAAAAFACCABAAAIAA=</HashCode>
+      <FileName>Collision\BoundingRaster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Collision.CollisionResult" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAABAAAAAAAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Collision\CollisionResult.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.Collision.VectorExtensions" Collapsed="true">
+    <Position X="36" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Collision\VectorExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Controls.ElementControl" Collapsed="true">
+    <Position X="37.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CACAAAAAECAAAgAAAAqAAIASBAAgAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\ElementControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Controls.ElementInspector" Collapsed="true">
+    <Position X="39.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\ElementInspector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Controls.GameView" Collapsed="true">
+    <Position X="0.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAABAACgAAgAAAAAAAACQASgACAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Controls\GameView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Controls.ManagedWPFControl" Collapsed="true">
+    <Position X="1.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Controls\ManagedWPFControl.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sketchball.Controls.MyToolStripControlHost" Collapsed="true">
+    <Position X="10.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\MyToolStripControlHost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Controls.PinballControl" Collapsed="true">
+    <Position X="1.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAEAAAAAAAAAAAAAABAIAAAAAA=</HashCode>
+      <FileName>Controls\PinballControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Controls.PinballEditControl" Collapsed="true">
+    <Position X="2.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABACEgAABAgAAIACEAAQgQIACgAAAAAACQAAIBAI=</HashCode>
+      <FileName>Controls\PinballEditControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Controls.ToolStripTrackBarItem" Collapsed="true">
+    <Position X="10.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Controls\ToolStripTrackBarItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Controls.WPFContainer" Collapsed="true">
+    <Position X="37.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAQAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\WPFContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.CircleTool" Collapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAACAAAAgAAAAAAAAAAABAAAAAAoAAAAAACAAA=</HashCode>
+      <FileName>Editor\CircleTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.CompoundChange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="37.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAIAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Editor\CompoundChange.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.Editor.CreationChange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAEAAAAAICAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Editor\CreationChange.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.Editor.DeletionChange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAEAAAAAICAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Editor\DeletionChange.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.Editor.LineTool" Collapsed="true">
+    <Position X="0.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAABAAAAAAoAAAAAACAAI=</HashCode>
+      <FileName>Editor\LineTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.MultiLineTool" Collapsed="true">
+    <Position X="3" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAIAAAAAAAAAgAAAAAAAAAAABAAAAAAoAAAAAACIAI=</HashCode>
+      <FileName>Editor\MultiLineTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.NoScrollOnFocusPanel" Collapsed="true">
+    <Position X="36" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Editor\NoScrollOnFocusPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.PropertyChange" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAEAAAABAAAAAAAAAAICAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Editor\PropertyChange.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.Editor.SelectionTool" Collapsed="true">
+    <Position X="5.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAIhIEIAAAAAEAABAAAAAAMAAABEBCIAA=</HashCode>
+      <FileName>Editor\SelectionTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.Tool" Collapsed="true">
+    <Position X="4" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAEAAAAgAAQAAAAAAAABEEAAAAIAAAAAECIAA=</HashCode>
+      <FileName>Editor\Tool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.UndoButton" Collapsed="true">
+    <Position X="30.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Editor\UndoRedoButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.UndoItem" Collapsed="true">
+    <Position X="32.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Editor\UndoRedoButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.RedoButton" Collapsed="true">
+    <Position X="30.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Editor\UndoRedoButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Editor.RedoItem" Collapsed="true">
+    <Position X="32.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Editor\UndoRedoButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.AnimatedObject" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAEAAAAIAAAABEAAABEAEACAAAAAACQAAAgAA=</HashCode>
+      <FileName>Elements\AnimatedObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sketchball.Elements.Ball" Collapsed="true">
+    <Position X="15.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAACAAAAgAAAAABAAAAAAQAAAAoABEAGAACEAAA=</HashCode>
+      <FileName>Elements\Ball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.Bumper" Collapsed="true">
+    <Position X="17.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAIAAAAAAAAAAAAgBAEACAAAAAAA=</HashCode>
+      <FileName>Elements\Bumper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.Circle" Collapsed="true">
+    <Position X="26.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAIAAAAAAAAAAAAAAAEACAAAAgAA=</HashCode>
+      <FileName>Elements\Circle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.CustomElement" Collapsed="true">
+    <Position X="25.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAIAAAAAABAAAAgAAIAAAAAAAoCgAAAgAA=</HashCode>
+      <FileName>Elements\CustomElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.DefaultLayout" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEEABBAAAAAAAAAAAEAAAAAAAAAAAAACAAAAABg=</HashCode>
+      <FileName>Elements\DefaultLayout.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.Elements.ElementCollection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGIBAUCAAAAAABAQCIAABAQAAAAAAAAACAAAAABQKAA=</HashCode>
+      <FileName>Elements\ElementCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.Elements.Flipper" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAAAAAABAACAARAAAIAAAAAAAAIEAAgAAEACAAAAAAA=</HashCode>
+      <FileName>Elements\Flipper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.Hole" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAIAAAAAAAAAAAAgBAEACAAAAAAA=</HashCode>
+      <FileName>Elements\Hole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.LeftFlipper" Collapsed="true">
+    <Position X="8.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAQAAAAABAAAAAAAAAAAgAAAACAAAAAAA=</HashCode>
+      <FileName>Elements\LeftFlipper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.Line" Collapsed="true">
+    <Position X="24.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAEAAAAAgEACAAAAgAA=</HashCode>
+      <FileName>Elements\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.PinballElement" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SASAAAcBBRwAA0CAAAJBQUQEAAEEQBoBAEIiAAgSYDA=</HashCode>
+      <FileName>Elements\PinballElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sketchball.Elements.PinballGameMachine" Collapsed="true">
+    <Position X="10.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAiAAAEIAAAAAQAAAAAAAAMCACAQAACAAAAAAAiAA=</HashCode>
+      <FileName>Elements\PinballGameMachine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.PinballMachine" Collapsed="true">
+    <Position X="10.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIEABCAIAsAMAAgQBEEAAAAEABAMBEBGgAAAABk=</HashCode>
+      <FileName>Elements\PinballMachine.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sketchball.Elements.RightFlipper" Collapsed="true">
+    <Position X="10.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAQAAAAABAAAAAAAAAAAgAAAACAAAAAAA=</HashCode>
+      <FileName>Elements\RightFlipper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.SlingshotLeft" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAIAAAAAAAAAAAAgBAEACAAAAAAA=</HashCode>
+      <FileName>Elements\SlingshotLeft.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.SlingshotRight" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAIBAAAAAAAAAAAgBAEACAAAAAAA=</HashCode>
+      <FileName>Elements\SlingshotRight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.StartingRamp" Collapsed="true">
+    <Position X="13" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAKABFAQKAAQAAIBAAAAAAAEgAAgACEAiAAAQAAA=</HashCode>
+      <FileName>Elements\StartingRamp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.ValidationProblem" Collapsed="true">
+    <Position X="34.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Elements\ValidationProblem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.WideHole" Collapsed="true">
+    <Position X="1.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAAEACAAAAAAA=</HashCode>
+      <FileName>Elements\WideHole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.Wormhole" Collapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Elements\Wormhole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.WormholeEntry" Collapsed="true">
+    <Position X="19.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAIAAAAAAAAAAAAgBAEACAACAAAA=</HashCode>
+      <FileName>Elements\WormholeEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Elements.WormholeExit" Collapsed="true">
+    <Position X="22" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAACAAAIAAAAAEAAAAAAgBAEACAAAAAAA=</HashCode>
+      <FileName>Elements\WormholeExit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.GameComponents.Game" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQgoAEEICAAJggEAAAAQQBQAMAAAIAGAAABACkCAAA=</HashCode>
+      <FileName>GameComponents\Game.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.GameComponents.GameFieldCamera" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABBAAggAAAAIAAEAAACAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>GameComponents\GameFieldCamera.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.GameComponents.GameHUD" Collapsed="true">
+    <Position X="34.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAQCABAIAAggIAAAIAEAAAAgAIAAAAAAAAAARAAA=</HashCode>
+      <FileName>GameComponents\GameHUD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.GameComponents.GameWorld" Collapsed="true">
+    <Position X="36" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBQCBAIABAAAAgAAQACDAMQEAAgAAAABAAAAAAAAhAA=</HashCode>
+      <FileName>GameComponents\GameWorld.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.GameComponents.HighscoreEntry" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAwAAAAAAAAAAAAAAAABAAAAAQAAAAA=</HashCode>
+      <FileName>GameComponents\HighscoreEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.GameComponents.HighscoreList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCIAAAAAAAAAABAQAAAABAQAAAAAAAAAAAAAAABQIAA=</HashCode>
+      <FileName>GameComponents\HighscoreList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.GameComponents.InputManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="34.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgIAAAAgAAAAAAABAAAQAQAAEAAAAAAA=</HashCode>
+      <FileName>GameComponents\InputManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Sketchball.GameComponents.SoundManager" Collapsed="true">
+    <Position X="39.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAQAAACAgAAAAAAAAAA=</HashCode>
+      <FileName>GameComponents\SoundManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GlideTween.Ease" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIgAQQIEBQmABIgIBAAAEAUCAAQAKAgASAACFPhAAA=</HashCode>
+      <FileName>GlideTween\Ease.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GlideTween.Glide" Collapsed="true">
+    <Position X="37.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgQhACYKUxAAAIJgIwQEAAkRGAIAAAAACJICAgsEIAI=</HashCode>
+      <FileName>GlideTween\Glide.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GlideTween.GlideInfo" Collapsed="true">
+    <Position X="39.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAABAAAIgAAAAAAAAQAAAAAAAAAAAAgAQAAAAA=</HashCode>
+      <FileName>GlideTween\GlideInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Properties.Resources" Collapsed="true">
+    <Position X="34.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACACYABAIABAAAACBEBIAYUBgAYWmoAgAQAGAIIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sketchball.Properties.Settings" Collapsed="true">
+    <Position X="37.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAEAAAAIAAAAAABAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Sketchball.IChange" Collapsed="true">
+    <Position X="34.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Editor\IChange.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sketchball.Collision.IBoundingBox" Collapsed="true">
+    <Position X="32.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAgShAAAEAQABEAAEAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Collision\IBoundingBox.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sketchball.Elements.IAnimatedObject" Collapsed="true">
+    <Position X="30.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Elements\IAnimatedObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sketchball.Elements.IMachineLayout" Collapsed="true">
+    <Position X="36" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABBAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Elements\IMachineLayout.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sketchball.GameComponents.Camera" Collapsed="true">
+    <Position X="29" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAggAAAAIAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>GameComponents\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Sketchball.Elements.RotationOrigin" Collapsed="true">
+    <Position X="30.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAgAIAAAAABAAACAAAQAAAAAAAAAAAAAACAgAAEA=</HashCode>
+      <FileName>Elements\PinballElement.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Sketchball.GameComponents.GameStatus" Collapsed="true">
+    <Position X="29" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAggAAACAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameComponents\Game.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
