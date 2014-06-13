@@ -142,9 +142,6 @@
   <data name="LineTool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\LineTool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\pencil-1979px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="PlaySchrift1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\PlaySchrift1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -156,9 +153,6 @@
   </data>
   <data name="Very_Basic_Cursor_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Very-Basic-Cursor-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Windows_Cursor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images\Windows_Cursor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MultiLineTool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\MultiLineTool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
