@@ -149,7 +149,8 @@ namespace Sketchball.Elements
             {
                 if (value != 0)
                 {
-                    _scale = Math.Max(0.1, Math.Min(5, value));
+                    double minScale = Math.Min(1, 40 / BaseWidth);
+                    _scale = Math.Max(minScale, Math.Min(5, value));
 
                     RebuildMatrix();
                 }
