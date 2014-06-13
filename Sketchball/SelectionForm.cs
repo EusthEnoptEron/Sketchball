@@ -133,7 +133,9 @@ namespace Sketchball
             childForm = new PlayForm(pbm, this);
             ((PlayForm)childForm).ActivateScoreTracking(fileName);
 
+            childForm.WindowState = FormWindowState.Maximized;
             childForm.Show();
+            
             childForm.FormClosed += onChildClose;
         }
 
