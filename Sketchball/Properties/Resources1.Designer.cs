@@ -93,26 +93,6 @@ namespace Sketchball.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap btnDown {
-            get {
-                object obj = ResourceManager.GetObject("btnDown", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap btnup {
-            get {
-                object obj = ResourceManager.GetObject("btnup", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Bumper {
             get {
                 object obj = ResourceManager.GetObject("Bumper", resourceCulture);
@@ -156,16 +136,6 @@ namespace Sketchball.Properties {
         internal static System.Drawing.Bitmap EditorSchrift2 {
             get {
                 object obj = ResourceManager.GetObject("EditorSchrift2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Eraser {
-            get {
-                object obj = ResourceManager.GetObject("Eraser", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -236,16 +206,6 @@ namespace Sketchball.Properties {
         internal static System.Drawing.Bitmap MultiLineTool {
             get {
                 object obj = ResourceManager.GetObject("MultiLineTool", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Notebook_body {
-            get {
-                object obj = ResourceManager.GetObject("Notebook_body", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -331,41 +291,11 @@ namespace Sketchball.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Resize {
-            get {
-                object obj = ResourceManager.GetObject("Resize", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Rotate {
-            get {
-                object obj = ResourceManager.GetObject("Rotate", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream SBumper {
             get {
                 return ResourceManager.GetStream("SBumper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ScoreBG {
-            get {
-                object obj = ResourceManager.GetObject("ScoreBG", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -422,16 +352,6 @@ namespace Sketchball.Properties {
         internal static System.IO.UnmanagedMemoryStream SWormholeExit {
             get {
                 return ResourceManager.GetStream("SWormholeExit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap TableBackground {
-            get {
-                object obj = ResourceManager.GetObject("TableBackground", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

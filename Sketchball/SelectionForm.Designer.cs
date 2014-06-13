@@ -29,7 +29,6 @@ namespace Sketchball
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectionForm));
             this.CloseButton = new System.Windows.Forms.PictureBox();
             this.picBEditor = new System.Windows.Forms.PictureBox();
             this.picBGame = new System.Windows.Forms.PictureBox();
@@ -85,7 +84,7 @@ namespace Sketchball
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::Sketchball.Properties.Resources.BackgroundScharf;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(532, 440);
             this.ControlBox = false;

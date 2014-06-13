@@ -56,7 +56,7 @@ namespace Sketchball
             //var im = Application.Current.Dispatcher.Invoke(delegate
             //{
                 var img = new Image();
-                img.Source = new BitmapImage(new Uri(@"pack://application:,,,/Sketchball;component/Resources/" + path));
+                img.Source = new BitmapImage(new Uri(@"pack://application:,,,/Sketchball;component/Resources/Images/" + path));
                 return img;
             //});
             //return im;
@@ -65,7 +65,7 @@ namespace Sketchball
         /// <summary>
         /// Loads a WPF image found at [path].
         /// </summary>
-        /// <param name="path">Resource name relative to the Resources directory.</param>
+        /// <param name="path">Resource name relative to the Resources/Images directory.</param>
         /// <returns></returns>
         public static ImageSource LoadImage(string path)
         {
