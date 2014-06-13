@@ -22,12 +22,12 @@
             this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeMachineButton = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugModeButton = new System.Windows.Forms.ToolStripMenuItem();
             this.fullscreenButton = new System.Windows.Forms.ToolStripMenuItem();
             this.mainContainer = new System.Windows.Forms.ToolStripContainer();
-            this.closeMachineButton = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.mainContainer.TopToolStripPanel.SuspendLayout();
             this.mainContainer.SuspendLayout();
@@ -40,7 +40,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(785, 26);
+            this.menuStrip1.Size = new System.Drawing.Size(785, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip";
             // 
@@ -57,28 +57,28 @@
             this.debugModeButton,
             this.fullscreenButton});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(40, 22);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             this.fileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.onFileMenuOpening);
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.startToolStripMenuItem.Text = "Reset";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.onResetClicked);
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.onPauseClicked);
             // 
             // resumeToolStripMenuItem
             // 
             this.resumeToolStripMenuItem.Name = "resumeToolStripMenuItem";
-            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.resumeToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.resumeToolStripMenuItem.Text = "Resume";
             this.resumeToolStripMenuItem.Visible = false;
             this.resumeToolStripMenuItem.Click += new System.EventHandler(this.onResumeClicked);
@@ -86,19 +86,26 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.editToolStripMenuItem.Text = "Edit Machine";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.onEditClicked);
+            // 
+            // closeMachineButton
+            // 
+            this.closeMachineButton.Name = "closeMachineButton";
+            this.closeMachineButton.Size = new System.Drawing.Size(156, 22);
+            this.closeMachineButton.Text = "Close Machine";
+            this.closeMachineButton.Click += new System.EventHandler(this.onCloseMachine);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.onExitClicked);
             // 
@@ -106,8 +113,9 @@
             // 
             this.debugModeButton.CheckOnClick = true;
             this.debugModeButton.Name = "debugModeButton";
-            this.debugModeButton.Size = new System.Drawing.Size(169, 22);
+            this.debugModeButton.Size = new System.Drawing.Size(156, 22);
             this.debugModeButton.Text = "Debug Mode";
+            this.debugModeButton.Visible = false;
             this.debugModeButton.CheckedChanged += new System.EventHandler(this.onDebugModeChanged);
             // 
             // fullscreenButton
@@ -115,7 +123,7 @@
             this.fullscreenButton.CheckOnClick = true;
             this.fullscreenButton.Name = "fullscreenButton";
             this.fullscreenButton.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.fullscreenButton.Size = new System.Drawing.Size(169, 22);
+            this.fullscreenButton.Size = new System.Drawing.Size(156, 22);
             this.fullscreenButton.Text = "Full Screen";
             this.fullscreenButton.CheckedChanged += new System.EventHandler(this.onSwitchFullscreen);
             // 
@@ -125,7 +133,7 @@
             // mainContainer.ContentPanel
             // 
             this.mainContainer.ContentPanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.mainContainer.ContentPanel.Size = new System.Drawing.Size(785, 608);
+            this.mainContainer.ContentPanel.Size = new System.Drawing.Size(785, 610);
             this.mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainContainer.Location = new System.Drawing.Point(0, 0);
             this.mainContainer.Name = "mainContainer";
@@ -136,13 +144,6 @@
             // mainContainer.TopToolStripPanel
             // 
             this.mainContainer.TopToolStripPanel.Controls.Add(this.menuStrip1);
-            // 
-            // closeMachineButton
-            // 
-            this.closeMachineButton.Name = "closeMachineButton";
-            this.closeMachineButton.Size = new System.Drawing.Size(169, 22);
-            this.closeMachineButton.Text = "Close Machine";
-            this.closeMachineButton.Click += new System.EventHandler(this.onCloseMachine);
             // 
             // PlayForm
             // 
