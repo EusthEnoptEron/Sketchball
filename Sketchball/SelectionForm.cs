@@ -54,6 +54,7 @@ namespace Sketchball
             OpenFileDialog fDialog = new OpenFileDialog();
             fDialog.Title = "Select Pinball machine";
             fDialog.Filter = "Pinball machine files|*.pmf";
+            fDialog.InitialDirectory = new DirectoryInfo(Path.Combine(Application.ExecutablePath, "..", "Machines")).FullName;
             fDialog.CheckFileExists = true;
             fDialog.CheckPathExists = true;
 
